@@ -7,8 +7,6 @@ are stored to a backup-folder
 and converted. 
 Save the backup-folder AGAIN at a different location to have annother copy,
 in case something went wrong !!
-You'll be asked on shutdown the logbook or OpenCPN to restore the 1.1 files.
-
 
 please click the help-button in the logbook-tab and read the help to get information 
 about the new features and send me a bugreport.
