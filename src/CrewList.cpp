@@ -2733,6 +2733,8 @@ bool DnDWatch::OnDropText(wxCoord x, wxCoord y, const wxString &text)
 		ActuellWatch::member = m_pOwner->GetCellValue(3,col);
 	if(row == 3)
 		crewList->statusText(CrewList::HITCALCULATE);
+
+	m_pOwner->Refresh();
     return true;
 }
 
@@ -2794,5 +2796,6 @@ bool DnDCrew::OnDropText(wxCoord x, wxCoord y, const wxString& text)
 	while(tkz.HasMoreTokens())
 		m_pOwner->SetCellValue(row,n++,tkz.GetNextToken());
 
+	m_pOwner->Refresh();
     return true;
 }

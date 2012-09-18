@@ -42,4 +42,4 @@ start opencpn
 select in the toolbar Options/Plugins and enable the plugin.
 click the peferences-button
 in the dialog click "Install" below the label "Install Laanguages"
-in the filedialog select in the directory '<OPENCPN_SOURCE_TLD>/plugins/LogbookKonni_pi' the file 'LogbookKonni_Laanguages.zip'
+in the filedialog select in the directory '<OPENCPN_SOURCE_TLD>/plugins/LogbookKonni_pi' the file 'LogbookKonni_Languages.zip'
