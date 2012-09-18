@@ -1164,6 +1164,7 @@ void logbookkonni_pi::loadLayouts(wxWindow *parent)
 	wxString data1 = data;
 	wxString data2 = data;
 	wxString data3 = data;
+	wxString help  = data;
 
 	data.Append(_T("HTMLLayouts"));
 	data.append(sep);
@@ -1230,9 +1231,14 @@ void logbookkonni_pi::loadLayouts(wxWindow *parent)
 			else if(name.Contains(sep + _T("buyparts")))
 				path.append(_T("buyparts"));
 
-			path.append(sep);
-			if(!wxFileName::DirExists(path))
-				wxMkdir(path);
+			if(!name.Contains(_T("Help")))
+			{
+				path.append(sep);
+				if(!wxFileName::DirExists(path))
+					wxMkdir(path);
+			}
+			else
+				path = help+sep;
 
 			path.append(fn);
 			
