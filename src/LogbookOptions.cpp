@@ -69,7 +69,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer52->SetFlexibleDirection( wxBOTH );
 	fgSizer52->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
-	wxString m_choiceDate1Choices[] = { _("Month"), _("Day"), _("Year") };
+	wxString m_choiceDate1Choices[] = { _("Month "), _("Day"), _("Year") };
 	int m_choiceDate1NChoices = sizeof( m_choiceDate1Choices ) / sizeof( wxString );
 	m_choiceDate1 = new wxChoice( m_panel15, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), m_choiceDate1NChoices, m_choiceDate1Choices, 0 );
 	m_choiceDate1->SetSelection( 0 );

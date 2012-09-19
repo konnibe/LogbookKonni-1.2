@@ -56,6 +56,7 @@ CrewList::CrewList(LogbookDialog* d, wxString data, wxString layout, wxString la
 	{
 		watchListFile = new wxTextFile(watchData);				
 		watchListFile->Create();
+//		watchListFile->AddLine(_T("#1.2#"));
 	}
 	else
 		watchListFile = new wxTextFile(watchData);
@@ -827,14 +828,14 @@ void CrewList::Calculate()
 	{
 		for(int c = 0; c < gridWake->GetNumberCols(); c++)
 		{
-			s = wxString::Format(_("%i\t"),d);
+			s = wxString::Format(_T("%i\t"),d);
 			ins = false;
 
 			for(int r = 0; r < gridWake->GetNumberRows(); r++)
 			{
 				if( r == 0)
 				{
-					s += wxString::Format(_("%i\t"),gridWake->GetColumnWidth(c));
+					s += wxString::Format(_T("%i\t"),gridWake->GetColumnWidth(c));
 					s += gridWake->GetCellValue(r,c)+_T("\t");
 					dialog->myParseTime(gridWake->GetCellValue(r,c),time);
 				}

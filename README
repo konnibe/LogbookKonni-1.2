@@ -36,6 +36,12 @@ click the peferences-button
 in the dialog click "Install" below the label "Install Layouts"
 in the filedialog select in the directory '<OPENCPN_SOURCE_TLD>/plugins/LogbookKonni_pi' the file 'LogbookKonni_Layouts.zip'
 
+Install Help
+----------------------------
+click the peferences-button
+in the dialog click "Install" below the label "Install Layouts"
+in the filedialog select in the directory '<OPENCPN_SOURCE_TLD>/plugins/LogbookKonni_pi' the file 'LogbookKonni_Other.zip'
+
 Install Languages
 ----------------------------
 start opencpn

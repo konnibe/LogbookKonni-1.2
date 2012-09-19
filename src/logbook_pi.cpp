@@ -1352,8 +1352,8 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
         MessageBoxOSX(m_plogbook_window,s,_T("Information"),wxID_OK);
 #elseif __WXGTK__
 		wxMessageBox(s);
-#else
-		s = wxString::Format(_("Tried to install Languages at\n\n%s\n\nOn Windows Vista/7/8 you need administrator rights.\nIf no languages installed please restart OpenCPN as admin.\n(Rightclick on the icon and select \"Run as administrator\")\n\nRestart then as normal user."),languagePath.c_str());
+#elseif __WXMSW__
+		s = wxString::Format(_("Tried to install Languages at\n\n%s\n\nOn Windows Vista/7/8 you need administrator rights.\nIf no languages installed please restart OpenCPN as admin.\n(Rightclick on the icon and select \"Run as administrator\")\n\nAfter installation restart as normal user.\n\nThe dialog 'Logbook Preferences' is closed now."),languagePath.c_str());
 		wxMessageBox(s);
 #endif
 	}
@@ -1366,9 +1366,8 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 		LoadConfig();
 		startLogbook();
 		m_plogbook_window->Show();
-		parent->Destroy();
 	}
-	
+	parent->Destroy();
 }
 ////////////////////////////////////////////////////////
 void LogbookTimer::OnTimer(wxTimerEvent& ev)

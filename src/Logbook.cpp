@@ -44,6 +44,7 @@ Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString
 	modified = false;
 	wxString logLay;
 	lastWayPoint = _T("");
+	sLinesReminder = _("Your Logbook has %i lines\n\nYou should create a new logbook to minimize loadingtime.");
 
 	dialog = parent;
 	opt = dialog->logbookPlugIn->opt;
@@ -640,9 +641,11 @@ void Logbook::loadData()
 	dialog->m_gridGlobal->BeginBatch();
 	dialog->m_gridWeather->BeginBatch();
 	dialog->m_gridMotorSails->BeginBatch();
+	int lines = 0;
 	while( !(t = stream->ReadLine()).IsEmpty())
 	{
 		if(input.Eof()) break;
+		lines++;
 		dialog->m_gridGlobal->AppendRows();
 		dialog->m_gridWeather->AppendRows();
 		dialog->m_gridMotorSails->AppendRows();
@@ -809,6 +812,13 @@ void Logbook::loadData()
 	dialog->m_gridGlobal->EndBatch();
 	dialog->m_gridWeather->EndBatch();
 	dialog->m_gridMotorSails->EndBatch();
+
+	if(lines >= 700)
+	{
+		wxString str = wxString::Format(sLinesReminder,lines);
+		LinesReminderDlg *dlg = new LinesReminderDlg(str,dialog);
+		dlg->Show();
+	}
 }
 
 wxString Logbook::makeDateFromFile(wxString date, wxString dateformat)
@@ -1087,27 +1097,35 @@ void Logbook::appendRow(bool mode)
 	}
 
 	int lastRow = dialog->logGrids[0]->GetNumberRows();
-	if(lastRow > 800)
+	if(lastRow >= 700)
 	{
-		dialog->timer->Stop();
-#ifdef __WXOSX__
-        MessageBoxOSX(this->dialog, _("Your Logbook has 800 lines or more\n\nPlease create a new logbook to minimize the loadingtime.\n\nIf you have a running timer, it's stopped now !!!"),_("Information"),wxID_OK);
+		static int repeat=lastRow;
+		//dialog->timer->Stop();
+		if(lastRow == repeat)
+		{
+			repeat += 50;
+			wxString str = wxString::Format(sLinesReminder,lastRow);
+			LinesReminderDlg* dlg = new LinesReminderDlg(str,dialog);
+			dlg->Show();
+/*#ifdef __WXOSX__
+        MessageBoxOSX(this->dialog, wxString::Format(_("Your Logbook has %i lines\n\nYou should create a new logbook to minimize loadingtime."),lastRow),_("Information"),wxID_OK);
 #else
-		wxMessageBox(_("Your Logbook has 800 lines or more\n\n\
-Please create a new logbook to minimize the loadingtime.\n\nIf you have a running timer, it's stopped now !!!"),_("Information"));
+			wxMessageBox(wxString::Format(_("Your Logbook has %i lines\n\n\
+You should create a new logbook to minimize loadingtime."),lastRow),_("Information"));
 #endif
+*/
+		}
+	//	dialog->logbookPlugIn->opt->timer = false;
 
-		dialog->logbookPlugIn->opt->timer = false;
-
-		wxFileConfig *pConf = (wxFileConfig *)dialog->logbookPlugIn->m_pconfig;
+	/*	wxFileConfig *pConf = (wxFileConfig *)dialog->logbookPlugIn->m_pconfig;
 
 		if(pConf)
 		{
             pConf->SetPath ( _T ( "/PlugIns/Logbook" ) );
 			pConf->Write ( _T( "Timer" ), dialog->logbookPlugIn->opt->timer );
 		}		
+		*/
 	}
-
 
 	for(int i = 0; i < dialog->numPages; i++ )
 		dialog->logGrids[i]->AppendRows();
@@ -2868,4 +2886,33 @@ void LogbookSearch::OnButtonClickBack( wxCommandEvent& event )
 			break;
 		}
 	}
+}
+
+////////////////////  Reminder Dlg //////////////////////
+LinesReminderDlg::LinesReminderDlg(wxString str, wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* bSizer38;
+	bSizer38 = new wxBoxSizer( wxVERTICAL );
+	
+	m_staticTextreminder = new wxStaticText( this, wxID_ANY, str, wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+	m_staticTextreminder->Wrap( -1 );
+	bSizer38->Add( m_staticTextreminder, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	m_sdbSizer9 = new wxStdDialogButtonSizer();
+	m_sdbSizer9OK = new wxButton( this, wxID_OK );
+	m_sdbSizer9->AddButton( m_sdbSizer9OK );
+	m_sdbSizer9->Realize();
+	bSizer38->Add( m_sdbSizer9, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	this->SetSizer( bSizer38 );
+	this->Layout();
+	
+	this->Fit();
+	this->Centre( wxBOTH );
+}
+
+LinesReminderDlg::~LinesReminderDlg()
+{
 }

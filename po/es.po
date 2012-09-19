@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 16:54+0200\n"
+"POT-Creation-Date: 2012-09-19 18:48+0200\n"
 "PO-Revision-Date: 2012-06-20 11:54+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -75,10 +75,6 @@ msgstr "Agua total"
 #, fuzzy
 msgid "#2 Total"
 msgstr "Agua total"
-#
-#, c-format
-msgid "%i\t"
-msgstr ""
 #
 msgid "'"
 msgstr "'"
@@ -1065,6 +1061,14 @@ msgid "Month"
 msgstr "Mes"
 #
 #
+#
+#
+#
+#, fuzzy
+msgid "Month "
+msgstr "Mes"
+#
+#
 msgid "Motor Hours"
 msgstr "Horas máquina"
 #
@@ -1390,6 +1394,10 @@ msgstr "Leer Layouts de nuevo"
 #
 msgid "Remarks"
 msgstr "Comentarios"
+#
+#, fuzzy
+msgid "Reminder"
+msgstr "Diseñador"
 #
 #, fuzzy
 msgid "Rename Item"
@@ -1929,7 +1937,9 @@ msgid ""
 "If no languages installed please restart OpenCPN as admin.\n"
 "(Rightclick on the icon and select \"Run as administrator\")\n"
 "\n"
-"Restart then as normal user."
+"After installation restart as normal user.\n"
+"\n"
+"The dialog 'Logbook Preferences' is closed now."
 msgstr ""
 #
 #
@@ -2225,12 +2235,11 @@ msgid ""
 "In this case the OS doen't serve AM/PM-Strings.\n"
 msgstr ""
 #
+#, fuzzy, c-format
 msgid ""
-"Your Logbook has 800 lines or more\n"
+"Your Logbook has %i lines\n"
 "\n"
-"Please create a new logbook to minimize the loadingtime.\n"
-"\n"
-"If you have a running timer, it's stopped now !!!"
+"You should create a new logbook to minimize loadingtime."
 msgstr ""
 "La bitácora tiene 800 o más entradas\n"
 "\n"
@@ -2448,6 +2457,13 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "&Cut"
 #~ msgstr "País"
@@ -2562,9 +2578,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Add to Watchlist"
 #~ msgstr "Guardia"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -2874,8 +2904,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "CrewList"
 #~ msgstr "Listado de tripulación"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3029,9 +3073,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Elimiar línea"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3060,6 +3118,13 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "End 2.Watch"
 #~ msgstr "Fin 2ª guardia"
 #
@@ -3075,8 +3140,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Fin 3ª guardia"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3106,9 +3185,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "End 5.Watch"
 #~ msgstr "Fin 1ª guardia"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3186,8 +3279,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "EngineTotal"
 #~ msgstr "Máquina total"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3485,8 +3592,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "GRT"
 #~ msgstr "BRT"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3518,8 +3639,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "Interval:"
 #~ msgstr "Intervalo:"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3910,8 +4045,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "Logbook files (*.txt)|*.txt"
 #~ msgstr "Ficheros bitácora (*.txt)|*.txt"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4026,9 +4175,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "No. Watches"
 #~ msgstr "Guardia"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4207,9 +4370,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Paste"
 #~ msgstr "Fecha"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4424,12 +4601,26 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid ""
 #~ "Please enter like 1.30 or 1,30 or 1:30\n"
 #~ "for 1:30h"
 #~ msgstr ""
 #~ "Entre por favor 1.30 o 1,30 o 1:30\n"
 #~ "para 1:30h"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4834,8 +5025,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "Schedule"
 #~ msgstr "Calendário"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5114,6 +5319,13 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Select boat-layout to view"
 #~ msgstr "Seleccione Layout"
@@ -5130,8 +5342,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Siento, 0 Hrs 0 Min 0 Sec no es posible"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5252,9 +5478,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Speed STW Max."
 #~ msgstr "Mar de fondo"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5283,6 +5523,13 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Inicio 2ªguardia"
 #
@@ -5298,8 +5545,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "Start 3.Watch"
 #~ msgstr "Inicio 3ªguardia"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5329,6 +5590,13 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Start 5.Watch"
 #~ msgstr "Inicio 1ªguardia"
@@ -5345,9 +5613,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Start 6.Watch"
 #~ msgstr "Inicio 1ªguardia"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5589,9 +5871,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Swell Peak"
 #~ msgstr "Mar de fondo"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5621,8 +5917,22 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Temporizador activado/parado"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6067,6 +6377,13 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Traditional-Style"
 #~ msgstr "Nacionalidad"
@@ -6208,9 +6525,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "View "
 #~ msgstr "Ver"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6662,9 +6993,23 @@ msgstr ""
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Wave Peak"
 #~ msgstr "Oleaje"
+#
+#
+#
+#
+#
+#
+#
 #
 #
 #

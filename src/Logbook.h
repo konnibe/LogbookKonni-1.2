@@ -45,6 +45,8 @@ private:
 	wxString			sWindSpeed;
 	wxString			sDepth;
 	wxString			sLogText;
+	wxString			sLinesReminder;
+
 	Options				*opt;
 	bool				noSentence;
 	bool				bCOW;
@@ -155,9 +157,6 @@ private:
 #include <wx/button.h>
 #include <wx/dialog.h>
 
-///////////////////////////////////////////////////////////////////////////
-
-
 ///////////////////////////////////////////////////////////////////////////////
 /// Class NoAppendDialog
 ///////////////////////////////////////////////////////////////////////////////
@@ -172,10 +171,30 @@ class NoAppendDialog : public wxDialog
 	
 	public:
 		
-		NoAppendDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Information"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 255,130 ), long style = wxDEFAULT_DIALOG_STYLE );
+		NoAppendDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Information"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 255,130 ), long style = wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP );
 		~NoAppendDialog();
 	
 };
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class LinesReminderDlg
+///////////////////////////////////////////////////////////////////////////////
+class LinesReminderDlg : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticTextreminder;
+		wxStdDialogButtonSizer* m_sdbSizer9;
+		wxButton* m_sdbSizer9OK;
+	
+	public:
+		
+		LinesReminderDlg( wxString str, wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Reminder"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 263,84 ), long style = wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP ); 
+		~LinesReminderDlg();
+	
+};
+
 ////////////////////////////
 // PVBE Dialog
 ///////////////////////////
