@@ -1005,7 +1005,7 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 	wxTimeSpan journey = enddt.Subtract(startdt);
 	if(journey.GetWeeks() > 3)
 	{
-		int years=0;
+		int years = 0;
 		int month;
 		int days;
 

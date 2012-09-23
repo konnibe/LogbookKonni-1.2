@@ -693,8 +693,8 @@ wxString LogbookHTML::replacePlaceholder(wxString html,wxString htmlHeader,int g
 						case WEATHER:	html.Replace(wxT("#WEATHER#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
 										html.Replace(wxT("#LWEATHER#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
 								break;
-						case CLOUDS:	html.Replace(wxT("#CLOUDS#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
-										html.Replace(wxT("#LCLOUDS#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
+						case CLOUDS:	html.Replace(wxT("#CLOUDS#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false));
+										html.Replace(wxT("#LCLOUDS#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true));
 										{
 										wxString cl = Export::replaceNewLine(mode,g->GetCellValue(row,col),false).Lower();
 										if(cl.IsEmpty())
