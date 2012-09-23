@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 2.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-19 18:48+0200\n"
+"POT-Creation-Date: 2012-09-23 19:04+0200\n"
 "PO-Revision-Date: 2012-06-20 11:53+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: Pavel Kalian <pavel@kalian.cz>\n"
@@ -581,12 +581,12 @@ msgstr ""
 #
 msgid ""
 "Event/s running\n"
-"Click the button to suspend"
+"Click the button to suspend or a bullet to stop"
 msgstr ""
 #
 msgid ""
 "Event/s suspended\n"
-"Click the button to start"
+"Click the button to restart all events"
 msgstr ""
 #
 msgid "Events"
@@ -2418,7 +2418,7 @@ msgstr "měsíc"
 #
 msgid ""
 "no Event/s\n"
-"Click a bullet to start"
+"Click one or more bullets to start"
 msgstr ""
 #
 msgid "none"
@@ -2535,6 +2535,12 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid ""
 #~ "\n"
 #~ "Name of Waypoint: %s\n"
@@ -2545,6 +2551,12 @@ msgstr "Napiš vlastní popis"
 #~ "Jméno trasového bodut: %s\n"
 #~ "Skutečný směr k cíli: %4.1f%s\n"
 #~ "Vzdálenost k cíli: %4.2f%s"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -2598,9 +2610,21 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "&Cut"
 #~ msgstr "Stát"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -2739,8 +2763,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Add to Watchlist"
 #~ msgstr "Přidat do hlídek"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -2783,8 +2819,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Přidej záznam každých Nm"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3193,9 +3241,21 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "BuyParts"
 #~ msgstr "Koupit díly"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3377,6 +3437,12 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid ""
 #~ "Crewmember is not onboard\n"
 #~ "\n"
@@ -3387,6 +3453,12 @@ msgstr "Napiš vlastní popis"
 #~ "\n"
 #~ "Prosím nastav sloupec 'Na palubě' na Ano\n"
 #~ "(dvakrát klikni na sloupec)"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3552,9 +3624,21 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Smaž záznam"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3597,8 +3681,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "End 1.Watch"
 #~ msgstr "Konec 1. hlídky"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3641,8 +3737,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Konec 3. hlídky"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3685,8 +3793,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "End 5.Watch"
 #~ msgstr "Konec 5. hlídky"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -3775,8 +3895,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "EngineTotal"
 #~ msgstr "Motor celkem"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4129,8 +4261,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "FirstName"
 #~ msgstr "Jméno"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4556,8 +4700,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "GrossTonnage"
 #~ msgstr "Celková registrovaná prostornost"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4600,8 +4756,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Pokud je dosažen bod"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4646,8 +4814,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Interval:"
 #~ msgstr "Interval:"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -4814,8 +4994,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Logbook Konni"
 #~ msgstr "Konniho lodní deník"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5267,6 +5459,12 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "NetTonnage"
 #~ msgstr "Čistá registrovaná prostornost"
 #
@@ -5289,8 +5487,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "No. Watches"
 #~ msgstr "Poč. hlídek"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5480,9 +5690,21 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Paste"
 #~ msgstr "Datum"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5660,8 +5882,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Person:"
 #~ msgstr "Osoba:"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5704,8 +5938,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Prosím, vlož 4 číslice ve 24h formátu jako 1545 = 15:45:00"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -5800,12 +6046,24 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Prosím vlož datum ve formátu: \n"
 #~ "   12:30:00PM"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6222,8 +6480,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Schedule"
 #~ msgstr "Rozvrh"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6320,6 +6590,12 @@ msgstr "Napiš vlastní popis"
 #, fuzzy
 #~ msgid "Search.."
 #~ msgstr "Vybrat lodní deník"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6736,6 +7012,12 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Show Maintence Rows coloured"
 #~ msgstr "Zobraz řádky údržby v barvě"
 #
@@ -6758,8 +7040,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Promiň, 0h 0m 0s není možné"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6889,8 +7183,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Speed STW Max."
 #~ msgstr "Max rychlost vodou"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6933,8 +7239,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Začátek 2. hlídky"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -6977,8 +7295,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr "Začátek 4. hlídky"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -7021,8 +7351,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr "Začátek 6. hlídky"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -7277,8 +7619,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Swell Peak"
 #~ msgstr "Max příboj"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -7322,8 +7676,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Časovač zap./vyp."
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -7780,9 +8146,21 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #, fuzzy
 #~ msgid "Traditional-Style"
 #~ msgstr "Národnost"
+#
+#
+#
+#
+#
+#
 #
 #
 #
@@ -7950,6 +8328,12 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "delay to find the right course to the wind"
 #~ msgstr "prodleva k nalezení správného kurzu k větru"
 #
@@ -7962,8 +8346,20 @@ msgstr "Napiš vlastní popis"
 #
 #
 #
+#
+#
+#
+#
+#
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
+#
+#
+#
+#
+#
 #
 #
 #

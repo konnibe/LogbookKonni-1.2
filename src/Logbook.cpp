@@ -633,7 +633,7 @@ void Logbook::loadData()
 
 	wxFileInputStream input( data_locn );
 	wxTextInputStream* stream = new wxTextInputStream (input);
-
+	
 	stream->ReadLine(); // for #1.2#
 
 	wxDateTime dt;
@@ -813,7 +813,7 @@ void Logbook::loadData()
 	dialog->m_gridWeather->EndBatch();
 	dialog->m_gridMotorSails->EndBatch();
 
-	if(lines >= 700)
+	if(!oldLogbook && lines >= 500)
 	{
 		wxString str = wxString::Format(sLinesReminder,lines);
 		LinesReminderDlg *dlg = new LinesReminderDlg(str,dialog);
@@ -1097,14 +1097,14 @@ void Logbook::appendRow(bool mode)
 	}
 
 	int lastRow = dialog->logGrids[0]->GetNumberRows();
-	if(lastRow >= 700)
+	if(lastRow >= 499)
 	{
 		static int repeat=lastRow;
 		//dialog->timer->Stop();
 		if(lastRow == repeat)
 		{
 			repeat += 50;
-			wxString str = wxString::Format(sLinesReminder,lastRow);
+			wxString str = wxString::Format(sLinesReminder,lastRow+1);
 			LinesReminderDlg* dlg = new LinesReminderDlg(str,dialog);
 			dlg->Show();
 /*#ifdef __WXOSX__
@@ -2137,14 +2137,13 @@ void Logbook::deleteRows()
 		{
 			dialog->selGridRow = start;
 			dialog->logGrids[tab]->SetGridCursor(start,0);
+			recalculateLogbook(start);
 		}
 		else
 		{
-			dialog->selGridRow = -1;
+			dialog->selGridRow = 0;
 		}
-
 		modified = true;
-		recalculateLogbook(start);
 		return;
 	}
 
@@ -2171,12 +2170,14 @@ void Logbook::deleteRows()
 	{
 		for(unsigned int i = 0; i < rowsCount; i++)
 			dialog->logGrids[grid]->DeleteRows(rows[i]);
+
 		if(dialog->logGrids[grid]->GetNumberRows() > 0) 
 			dialog->logGrids[grid]->SetGridCursor(0,0);
 	}
 	dialog->selGridRow = 0;
 	modified = true;
-	recalculateLogbook(rows[rows.GetCount()-1]);
+	if(dialog->logGrids[0]->GetNumberRows() > 0)
+		recalculateLogbook(rows[rows.GetCount()-1]);
 }
 
 wxString  Logbook::decimalToHours(double res,bool b)

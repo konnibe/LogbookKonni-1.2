@@ -915,10 +915,12 @@ Click in the image on a grid-field or a button, a tab jump's to the next image
   <TR>
     <TD class=dashedCell vAlign=top><A name=navSign></A>
       Column Sign </TD>
-    <TD class=dashedCell vAlign=top><P>The Sign is used in the tab 'Overview' (internal) und in the tab 'Maintenance'. 'S' is set automaticlly when the boat moves &gt;= 0.1 NM<BR>
-      You can use all characters except 'S' which is used internal.<BR><BR>
-      'S' (like at (S)ea) is set automaticlly when the boat moves &gt;= 0.1 NM from the last postion.<BR><BR>
-      My recommondations:</P>
+    <TD class=dashedCell vAlign=top><P>If you don't use the tab maintenance, don't care about this 'strange' sign-column.</P>
+      <P>The Sign is used in the tab 'Overview' (internal) und in the tab 'Maintenance'.<br>
+        'S' (like at (S)ea) is set automaticlly when the boat moves &gt;= 0.1 NM from the last postion.<BR>
+        You can use all characters except 'S' which is used internal.<br>
+        <BR>
+        My recommondations:</P>
       <UL>
       <LI>
       A = Anchor 
@@ -926,7 +928,20 @@ Click in the image on a grid-field or a button, a tab jump's to the next image
       M = Mooring 
       <LI>
       H = Harbour      </LI>
-      </UL></TD>
+      </UL>
+      <p>Example:<br>
+      You have a gas engine and at sea you determine that it needs new spare plugs.<br>
+        Make a reminder in maintenance to change them in the next harbour. <br>
+          <br>
+        Go to the maintenace-tab/service and add a new line. In the 'IF&quot;-column select in the choicebox 'Sign'.<br>
+        Enter in 'Warnvalue' a 'H' (without quotes) for harbour or another letter in your languge.<br>
+        In 'Service TODO' enter some text. <br>
+        Go to the logbook and enter in the last line now the the corresponding letter for harbour (in this example a H).<br>
+        The border of the logbook changes to red to indicate that you should look into maintenance.<br>
+      In maintenence/service the line with the 'H'-sign is highligted in red.<br>
+      You can now delete the line or select in the rightclick-menu ' Service done'.<br>
+      In this case the line is not deleted but the 'Active' is set to 'No', the priority is set to zero and the background of the row is set to neutral. </p>
+      </TD>
     </TR>
   <TR>
     <TD class=dashedCell vAlign=top><A name=navWatch></A>
@@ -2043,9 +2058,9 @@ Rightclick-Menu
       <LI>
       Chosse the entry 'Service done'<BR>
       The framecolor changes to neutral, the row-color changes to green, priority is set to 5 und the startvalue from the last logbook-row is entered <BR>
-      Here you start a new interval 
-      </LI>
-      </OL></TD>
+      Here you start a new interval      </LI>
+      </OL>
+      <p>Another example for  'Sign' you find <a href="#navSign">here</a>. </p></TD>
     </TR>
   </TBODY>
   </TABLE>

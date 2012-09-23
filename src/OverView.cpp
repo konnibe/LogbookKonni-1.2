@@ -815,10 +815,8 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 	wxDateTime startdt, enddt;
 
 	parent->myParseDate(startdate,startdt);
-//	startdt.ParseTime(starttime);
 	parent->myParseTime(starttime,startdt);
 	parent->myParseDate(enddate,enddt);
-//	enddt.ParseTime(endtime);
 	parent->myParseTime(endtime,enddt);
 
 	wxTimeSpan journey = enddt.Subtract(startdt);
@@ -865,9 +863,7 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 	wxString temp = wxString::Format(_T("%6.2f %s"),data.distance,opt->distance.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FDISTANCE,temp);
-/*	temp = wxString::Format(_T("%6.2f %s"),etmal,opt->distance.c_str());
-	temp.Replace(_T("."),parent->decimalPoint);
-	grid->SetCellValue(row,FETMAL,temp);*/
+
 	temp = wxString::Format(_T("%6.2f %s"),data.bestetmal,opt->distance.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FBESTETMAL,temp);
@@ -995,24 +991,40 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 	else
 		temp = nothing;
 	temp.Replace(_T("."),parent->decimalPoint);
-//	grid->SetCellValue(row,FSPEEDSTW,temp);
 
 	temp = wxString::Format(_T("%6.2f %s"),data.speedpeakSTW,opt->speed.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
-//	grid->SetCellValue(row,FBSPEEDSTW,temp);
 
-	wxDateTime startdt, enddt;
+	wxDateTime startdt, enddt, startdtd, enddtd;
 
 	parent->myParseDate(data.logbookStart,startdt);
-//	startdt.ParseTime(data.logbookTimeStart);
 	parent->myParseTime(data.logbookTimeStart,startdt);
 	parent->myParseDate(enddate,enddt);
-//	enddt.ParseTime(endtime);
 	parent->myParseTime(endtime,enddt);
-//	wxMessageBox(enddate+endtime+_("\n")+data.logbookStart+data.logbookTimeStart+_("\n")+enddt.FormatDate()+enddt.FormatTime()+_T("\n")+startdt.FormatDate()+startdt.FormatTime());
 
 	wxTimeSpan journey = enddt.Subtract(startdt);
-	grid->SetCellValue(row,FJOURNEY,journey.Format(_T("%E Weeks %D Days %H:%M "))+opt->motorh);
+	if(journey.GetWeeks() > 3)
+	{
+		int years;
+		int month;
+		int days;
+
+		month = startdt.GetMonth()-enddt.GetMonth();
+		if(month < 0)
+			month = 12 -month;
+		if(month > 11)
+		{
+			years = month / 12;
+			month = month - years * 12;
+		}
+		days = enddt.GetDay() - startdt.GetDay();
+		if(days < 0)
+		days = startdt.GetDay() - enddt.GetDay();
+
+		grid->SetCellValue(row,FJOURNEY,wxString::Format(_T("%i Year(s) %i Month(s) %i Day(s)"),years,month,days));	
+	}
+	else
+		grid->SetCellValue(row,FJOURNEY,journey.Format(_T("%E Weeks %D Days %H:%M "))+opt->motorh);
 
 	int max = 0; 
 	wxString result;

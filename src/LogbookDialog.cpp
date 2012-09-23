@@ -167,7 +167,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 
 	m_notebook8 = new wxNotebook( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	m_panel6 = new wxPanel( m_notebook8, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxFlexGridSizer* fgSizer9;
+/*	wxFlexGridSizer* fgSizer9;
 	fgSizer9 = new wxFlexGridSizer( 1, 1, 0, 0 );
 	fgSizer9->AddGrowableCol( 0 );
 	fgSizer9->AddGrowableRow( 0 );
@@ -175,6 +175,9 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	fgSizer9->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	fgSizer9->SetMinSize( wxSize( -1,400 ) ); 
+	*/
+	wxBoxSizer* bSizer391;
+	bSizer391 = new wxBoxSizer( wxVERTICAL );
 	m_gridGlobal = new wxGrid( m_panel6, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxALWAYS_SHOW_SB );
 	
 	// Grid
@@ -255,11 +258,11 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	m_gridGlobal->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( LogbookDialog::m_gridGlobalOnContextMenu ), NULL, this ); 
 	
-	fgSizer9->Add( m_gridGlobal, 1, wxALL|wxEXPAND, 5 );
+	bSizer391->Add( m_gridGlobal, 1, wxALL|wxEXPAND, 5 );
 	
-	m_panel6->SetSizer( fgSizer9 );
+	m_panel6->SetSizer( bSizer391 );
 	m_panel6->Layout();
-	fgSizer9->Fit( m_panel6 );
+	bSizer391->Fit( m_panel6 );
 
 	m_menu10 = new wxMenu();
 	wxMenuItem* m_menuItemDelRows;
@@ -498,12 +501,18 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	bSizer39->Add( m_staticline46, 0, wxEXPAND | wxALL, 5 );
 	
 	wxFlexGridSizer* fgSizer53;
-	fgSizer53 = new wxFlexGridSizer( 1, 2, 0, 0 );
+	fgSizer53 = new wxFlexGridSizer( 1, 1, 0, 0 );
 	fgSizer53->AddGrowableCol( 0 );
+	fgSizer53->AddGrowableRow( 0 );
 	fgSizer53->SetFlexibleDirection( wxBOTH );
 	fgSizer53->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
+
+#ifdef __WXOSX__
+	fgSizer53->SetMinSize( wxSize( -1,25 ) );
+	m_staticTextStatusText = new wxStaticText( Statusbar, wxID_ANY, _T("T\nT"), wxDefaultPosition, wxSize(350,-1), 0 ); 
+#else
 	m_staticTextStatusText = new wxStaticText( Statusbar, wxID_ANY, _T("T\nT"), wxDefaultPosition, wxDefaultSize, 0 );
+#endif
 	m_staticTextStatusText->Wrap( -1 );
 	fgSizer53->Add( m_staticTextStatusText, 0, wxRIGHT|wxLEFT, 5 );
 	m_staticTextStatusText->SetFont( wxFont( 7, 74, 90, 90, false, wxT("Tahoma") ) );	
@@ -2711,12 +2720,28 @@ void LogbookDialog::OnButtonClickStatusStartStop( wxCommandEvent& event )
 		m_buttonStartStop->SetLabel(_("Stop"));
 		logbookPlugIn->eventsEnabled = false;
 		m_staticTextStatusText->SetLabel(statusText[RUN]);
+ #ifdef WXMAC
+
+    // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
+    wxClientDC aDC(this);
+    wxSize aSize=aDC.GetMultiLineTextExtent(statusText[RUN]);
+    m_staticTextStatusText->SetClientSize(aSize);
+
+#endif 
 	}
 	else
 	{
 		m_buttonStartStop->SetLabel(_("Start"));
 		logbookPlugIn->eventsEnabled = true;
 		m_staticTextStatusText->SetLabel(statusText[SUSPEND]);
+ #ifdef WXMAC
+
+    // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
+    wxClientDC aDC(this);
+    wxSize aSize=aDC.GetMultiLineTextExtent(statusText[SUSPEND]);
+    m_staticTextStatusText->SetClientSize(aSize);
+
+#endif 
 	}
 	m_buttonStartStop->Refresh();
 	refreshBullets();
@@ -2798,6 +2823,15 @@ int LogbookDialog::checkBitmaps()
 		m_buttonStartStop->Enable(true);
 		logbookPlugIn->eventsEnabled = true;
 		m_staticTextStatusText->SetLabel(statusText[SUSPEND]);
+ #ifdef WXMAC
+
+    // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
+    wxClientDC aDC(this);
+    wxSize aSize=aDC.GetMultiLineTextExtent(statusText[SUSPEND]);
+    m_staticTextStatusText->SetClientSize(aSize);
+
+#endif
+
 		return 1;
 	}
 	else if(m_bpButtonTimer->state == 2 ||
@@ -2810,6 +2844,14 @@ int LogbookDialog::checkBitmaps()
 		m_buttonStartStop->Enable(true);
 		logbookPlugIn->eventsEnabled = false;
 		m_staticTextStatusText->SetLabel(statusText[RUN]);
+ #ifdef WXMAC
+
+    // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
+    wxClientDC aDC(this);
+    wxSize aSize=aDC.GetMultiLineTextExtent(statusText[RUN]);
+    m_staticTextStatusText->SetClientSize(aSize);
+
+#endif
 		return 2;
 	}
 	else 
@@ -2817,6 +2859,14 @@ int LogbookDialog::checkBitmaps()
 		logbookPlugIn->eventsEnabled = false;
 		m_buttonStartStop->Enable(false);
 		m_staticTextStatusText->SetLabel(statusText[STOP]);
+ #ifdef WXMAC
+
+    // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
+    wxClientDC aDC(this);
+    wxSize aSize=aDC.GetMultiLineTextExtent(statusText[STOP]);
+    m_staticTextStatusText->SetClientSize(aSize);
+
+#endif
 		return 0;
 	}
 }
@@ -3060,6 +3110,9 @@ void LogbookDialog::gridGlobalScrolled( wxScrollWinEvent& ev )
 	ev.Skip();
 	m_gridWeather->HandleOnScroll(ev);
 	m_gridMotorSails->HandleOnScroll(ev);
+#ifdef __WXOSX__
+	m_gridGlobal->Refresh();
+#endif
 }
 
 void LogbookDialog::gridWeatherScrolled( wxScrollWinEvent& ev )
@@ -3067,6 +3120,9 @@ void LogbookDialog::gridWeatherScrolled( wxScrollWinEvent& ev )
 	ev.Skip();
 	m_gridGlobal->HandleOnScroll(ev);
 	m_gridMotorSails->HandleOnScroll(ev);
+#ifdef __WXOSX__
+	m_gridWeather->Refresh();
+#endif
 }
 
 void LogbookDialog::gridMotorSailsScrolled( wxScrollWinEvent& ev )
@@ -3074,6 +3130,9 @@ void LogbookDialog::gridMotorSailsScrolled( wxScrollWinEvent& ev )
 	ev.Skip();
 	m_gridWeather->HandleOnScroll(ev);
 	m_gridGlobal->HandleOnScroll(ev);
+#ifdef __WXOSX__
+	m_gridMotorSails->Refresh();
+#endif
 }
 
 void LogbookDialog::m_gridMotorSailsOnKeyDown( wxKeyEvent& ev )
@@ -3354,13 +3413,13 @@ void LogbookDialog::init()
 	setDatePattern();
 	logbookPlugIn->opt->dateseparatorlocale = dateSeparator;
 	m_buttonCalculate->Enable(false);
-/*
-#ifdef __WXGTK__
+
+#ifdef __WXOSX__
 	wxFont f = m_staticTextStatusText->GetFont();
-	f.SetPointSize(7);
+	f.SetPointSize(11);
 	m_staticTextStatusText->SetFont(f);
 #endif
-*/
+
 	wxInitAllImageHandlers();
 	clouds[0] = wxT("Cirrus");
 	clouds[1] = wxT("Cirrocumulus");
@@ -3373,9 +3432,9 @@ void LogbookDialog::init()
 	clouds[8] = wxT("Nimbostratus");
 	clouds[9] = wxT("Cumulonimbus");
 
-	statusText[0] = _("no Event/s\nClick a bullet to start");
-	statusText[1] = _("Event/s suspended\nClick the button to start");
-	statusText[2] = _("Event/s running\nClick the button to suspend");
+	statusText[0] = _("no Event/s\nClick one or more bullets to start");
+	statusText[1] = _("Event/s suspended\nClick the button to restart all events");
+	statusText[2] = _("Event/s running\nClick the button to suspend or a bullet to stop");
 
 	wxString bulletToolTip = _("green = Event is running\nred = Event is stopped\nyellow = Event is suspended. Restart event with Start-Button");
 	m_bpButton8Waypoint->SetToolTip(bulletToolTip);
@@ -3478,6 +3537,7 @@ Backup Logbook(*.txt)|*.txt");
 	crewList->loadData();
 	boat->loadData();
 	maintenance->loadData();
+	logbook->setPlaceholders();
 
 	m_gridGlobal->SetColMinimalAcceptableWidth(0);
 	m_gridWeather->SetColMinimalAcceptableWidth(0);
