@@ -21,8 +21,8 @@
 #include <wx/datetime.h>
 
 
-#include <memory>
-using namespace std;
+//#include <memory>
+//using namespace std;
 
 Maintenance::Maintenance(LogbookDialog* d, wxString data, wxString layout, wxString layoutODT)
 	: Export(d)

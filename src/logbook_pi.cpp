@@ -1326,7 +1326,7 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 		
 		cmd = _T("rm -r ")+tempdir;
 		wxSystem(cmd.c_str());
-#elseif __WXGTK__
+#elif defined __WXGTK__
 	    wxString cmd= _T("unzip -o ")+openFileDialog->GetPath()
 			      +_T(" -d ")+languagePath;
 		wxSystem(cmd.c_str());
@@ -1350,9 +1350,9 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 		wxString s = wxString::Format(_("Languages installed at\n\n%s"),languagePath.c_str());
 #ifdef __WXOSX__
         MessageBoxOSX(m_plogbook_window,s,_T("Information"),wxID_OK);
-#elseif __WXGTK__
+#elif defined __WXGTK__
 		wxMessageBox(s);
-#elseif __WXMSW__
+#elif defined __WXMSW__
 		s = wxString::Format(_("Tried to install Languages at\n\n%s\n\nOn Windows Vista/7/8 you need administrator rights.\nIf no languages installed please restart OpenCPN as admin.\n(Rightclick on the icon and select \"Run as administrator\")\n\nAfter installation restart as normal user.\n\nThe dialog 'Logbook Preferences' is closed now."),languagePath.c_str());
 		wxMessageBox(s);
 #endif

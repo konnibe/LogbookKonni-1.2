@@ -9,6 +9,8 @@ Clone the git repository to <OPENCPN_SOURCE_TLD>/plugins/LogbookKonni_pi (the _p
 ---------------------------------------------------------------------------
 
 cd <OPENCPN_SOURCE_TLD>/plugins
+<OPENCPN_SOURCE_TLD> = where you stored the opencpn-source files e.g. ~/home/username/path_to_opencpn-source
+
 open a terminal here and copy/paste this command:
  
 git clone git://github.com/konnibe/LogbookKonni-1.2.git LogbookKonni_pi

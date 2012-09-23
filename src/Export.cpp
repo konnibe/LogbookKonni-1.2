@@ -197,6 +197,7 @@ wxString Export::replaceNewLine(int mode, wxString str, bool label)
 	str.Replace(wxT(">"),wxT("&gt;"));
 	str.Replace(wxT("'"),wxT("&apos;"));
 	str.Replace(wxT("\""),wxT("&quot;"));
+//	str.Replace(wxT("°"),wxT("&deg;"));
 
 	if(mode == 0)
 		{// HTML

@@ -174,7 +174,7 @@ Section "Layouts" SEC03
   SetOutPath "$APPDATA\opencpn\plugins\logbook\data"
   File "C:\Users\Konni\Documents\Visual Studio 2010\Projects\OpenCPN-3.0.0-Source\plugins\LogbookKonni_pi\data\Help.html"
   SetOutPath "$APPDATA\opencpn\plugins\logbook\data\Images"
-  File "C:\Users\Konni\Documents\Visual Studio 2010\Projects\OpenCPN-3.0.0-Source\plugins\LogbookKonni_pi\data\Images\*.png"
+  File "C:\Users\Konni\Documents\Visual Studio 2010\Projects\OpenCPN-3.0.0-Source\plugins\LogbookKonni_pi\data\Images\*.*"
   SetOutPath "$APPDATA\opencpn\plugins\logbook\data\HTMLLayouts"
   File /r "C:\Users\Konni\Documents\Visual Studio 2010\Projects\OpenCPN-3.0.0-Source\plugins\LogbookKonni_pi\data\HTMLLayouts\*.html"
   SetOutPath "$APPDATA\opencpn\plugins\logbook\data\ODTLayouts"

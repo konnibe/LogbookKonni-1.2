@@ -1070,6 +1070,7 @@ void CrewList::deleteMembers()
 			gridWake->SetCellValue(3,i,wxEmptyString);
 
 	updateLine();
+	gridWake->AutoSizeColumns();
 }
 
 void CrewList::setMembersInMenu()
@@ -1134,7 +1135,8 @@ void CrewList::checkMemberIsInMenu(wxString member)
 
 void CrewList::wakeMemberDrag(int row, int col)
 {
-	gridWake->SetRowHeight(row,gridWake->GetRowHeight(row)+30);
+//	gridWake->SetRowHeight(row,gridWake->GetRowHeight(row)+30);
+	gridWake->SetColumnWidth(col,gridWake->GetColumnWidth(col)+20);
 	gridWake->Refresh();
 }
 
@@ -1150,6 +1152,8 @@ void CrewList::watchEditorShown(int row, int col)
 		((DnDWatch*)gridWake->GetGridWindow()->GetDropTarget())->source = gridWake;
 		((DnDCrew*)gridCrew->GetGridWindow()->GetDropTarget())->source = gridWake;
 		((DnDWatch*)gridWake->GetGridWindow()->GetDropTarget())->col = col;
+
+//		gridTextCtrl->ShowPosition(0);
 	}
 }
 
@@ -1170,6 +1174,7 @@ void CrewList::watchEditorHidden(int row, int col)
 	}
 	gridWake->AutoSizeRow(3);
 	gridWake->AutoSizeColumn(col);
+	gridWake->SetRowHeight(	3, gridWake->GetRowHeight(3)+10);
 }
 
 
@@ -1506,6 +1511,8 @@ void CrewList::readRecord(int nr)
 
 	gridWake->AutoSizeColumns();
 	gridWake->AutoSizeRows();
+	gridWake->SetRowHeight(	3, gridWake->GetRowHeight(3)+10);
+
 	dialog->m_textCtrlWakeDay->SetValue(wxString::Format(_T("%i"),day));
 }
 
@@ -2601,6 +2608,14 @@ void LogbookDialog::OnGridBeginDragCrew( wxGridEvent& event )
 	s.RemoveLast();
 	s.RemoveLast();
     if (s.IsEmpty()) return;
+
+#ifdef __WXOSX__
+	// OSX needs it or textcttrl is droptarget, too
+	m_textCtrlWatchStartDate->Enable(false);
+	m_textCtrlWatchStartTime->Enable(false);
+	m_textCtrlWakeDay->Enable(false);
+	m_textCtrlWakeTrip->Enable(false);
+#endif
     wxTextDataObject txtData(s);
     wxDropSource src(txtData,m_gridCrew);
 	((DnDWatch*)m_gridCrewWake->GetGridWindow()->GetDropTarget())->source = m_gridCrew;
@@ -2621,6 +2636,14 @@ void LogbookDialog::OnGridBeginDragCrew( wxGridEvent& event )
 
 	if(((DnDWatch*)m_gridCrewWake->GetGridWindow()->GetDropTarget())->col != -1)
 		m_gridCrewWake->SetGridCursor(3,((DnDWatch*)m_gridCrewWake->GetGridWindow()->GetDropTarget())->col);
+
+#ifdef __WXOSX__
+	// OSX needs it or textcttrl is droptarget, too
+	m_textCtrlWatchStartDate->Enable(true);
+	m_textCtrlWatchStartTime->Enable(true);
+	m_textCtrlWakeDay->Enable(true);
+	m_textCtrlWakeTrip->Enable(true);
+#endif
 }
 
 bool DnDWatch::OnDropText(wxCoord x, wxCoord y, const wxString &text)
@@ -2728,6 +2751,7 @@ bool DnDWatch::OnDropText(wxCoord x, wxCoord y, const wxString &text)
 
 	m_pOwner->AutoSizeRow(3);
 	m_pOwner->AutoSizeColumn(col);
+	m_pOwner->SetRowHeight(	3, m_pOwner->GetRowHeight(3)+10);
 
 	crewList->updateLine();
 	if(ActuellWatch::col == col && ActuellWatch::day == crewList->day)
