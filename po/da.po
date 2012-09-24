@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 19:04+0200\n"
+"POT-Creation-Date: 2012-09-23 21:15+0200\n"
 "PO-Revision-Date: 2012-06-20 11:53+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -2108,8 +2108,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2230,8 +2232,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "     Kurs- Besked efter minutter"
+#
 #
 #
 #
@@ -2297,8 +2301,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2350,9 +2356,11 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "10"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2411,8 +2419,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist"
 #~ msgstr "Tilføj til vagtliste"
+#
 #
 #
 #
@@ -2468,8 +2478,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Tilføj linje hver sm"
+#
 #
 #
 #
@@ -2754,8 +2766,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "CrewList"
 #~ msgstr "Crewliste"
+#
 #
 #
 #
@@ -2792,6 +2806,7 @@ msgstr "skriv din egen label"
 #~ "\n"
 #~ "Indstil kolonnen 'Ombord' til JA\n"
 #~ "(dobbeltklik på kolonnen) "
+#
 #
 #
 #
@@ -2949,9 +2964,11 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Slet række"
+#
 #
 #
 #
@@ -3006,8 +3023,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr "Slut på 1. vagt"
+#
 #
 #
 #
@@ -3062,8 +3081,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Slut på 3. vagt"
+#
 #
 #
 #
@@ -3118,6 +3139,7 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr "Slut på 5. vagt"
 #
@@ -3146,8 +3168,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr "Slut på 6. vagt"
+#
 #
 #
 #
@@ -3335,9 +3359,11 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "FirstName"
 #~ msgstr "Fornavn"
+#
 #
 #
 #
@@ -3393,8 +3419,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Hvis ankomst til waypoint"
+#
 #
 #
 #
@@ -3451,8 +3479,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interval:"
+#
 #
 #
 #
@@ -3473,6 +3503,7 @@ msgstr "skriv din egen label"
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "Brugerlabel"
+#
 #
 #
 #
@@ -3722,6 +3753,7 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Nm"
 #~ msgstr "Navn"
@@ -3751,8 +3783,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Nr. vagter"
+#
 #
 #
 #
@@ -3934,8 +3968,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Path to HTML-Editor (optional)"
 #~ msgstr "Pfad zum HTML-Editor (optional)"
+#
 #
 #
 #
@@ -3990,8 +4026,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Persons:"
 #~ msgstr "Personer:"
+#
 #
 #
 #
@@ -4096,12 +4134,14 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter like 1.30 or 1,30 or 1:30\n"
 #~ "for 1:30h"
 #~ msgstr ""
 #~ "Anfør 1.30 eller 1,30 eller 1:30\n"
 #~ "for 1:30t."
+#
 #
 #
 #
@@ -4281,8 +4321,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Save"
 #~ msgstr "Speichern"
+#
 #
 #
 #
@@ -4560,6 +4602,7 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Select boat-layout to view"
 #~ msgstr "Wähle Route"
@@ -4589,8 +4632,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Beklager, 0 timer 0 minutter 0 sekunder er ikke muligt"
+#
 #
 #
 #
@@ -4733,8 +4778,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr "Maximal STW fart"
+#
 #
 #
 #
@@ -4789,8 +4836,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Start 2.vagt"
+#
 #
 #
 #
@@ -4845,8 +4894,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr "Start 4.vagt"
+#
 #
 #
 #
@@ -4901,8 +4952,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr "Start 6.vagt"
+#
 #
 #
 #
@@ -4966,8 +5019,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer til/fra"
+#
 #
 #
 #
@@ -5125,9 +5180,11 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "View "
 #~ msgstr "Ansehen"
+#
 #
 #
 #
@@ -5172,8 +5229,10 @@ msgstr "skriv din egen label"
 #
 #
 #
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
 #
 #
 #

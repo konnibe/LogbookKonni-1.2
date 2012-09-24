@@ -368,6 +368,7 @@ wxString LogbookHTML::toHTML(wxString path, wxString layout, bool mode)
 					replacePlaceholder(newMiddleHTML,headerHTML,grid,row,0,0,htmlFile);
 					continue;
 				}
+#ifdef __WXMSW__
 				first = newMiddleHTML.find_first_of('#')-1;
 				if(first != ofirst)
 				{
@@ -375,6 +376,7 @@ wxString LogbookHTML::toHTML(wxString path, wxString layout, bool mode)
 					newMiddleHTML.Remove(0,first+1);
 					ofirst = first;
 				}
+#endif
 				newMiddleHTML = replacePlaceholder(newMiddleHTML,headerHTML,grid,row,col,0,htmlFile);
 			}
 		}

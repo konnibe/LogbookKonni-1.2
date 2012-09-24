@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 19:04+0200\n"
+"POT-Creation-Date: 2012-09-23 21:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,9 +205,9 @@ msgstr ""
 #: src/Logbook.h:174 src/Logbook.cpp:602 src/Logbook.cpp:1596
 #: src/Logbook.cpp:1598 src/Logbook.cpp:1621 src/Logbook.cpp:1669
 #: src/Logbook.cpp:1671 src/Logbook.cpp:1678 src/Logbook.cpp:1680
-#: src/LogbookDialog.cpp:2608 src/LogbookHTML.cpp:285 src/LogbookHTML.cpp:390
-#: src/LogbookHTML.cpp:800 src/LogbookHTML.cpp:803 src/LogbookHTML.cpp:882
-#: src/LogbookHTML.cpp:1031 src/LogbookHTML.cpp:1108 src/CrewList.cpp:1724
+#: src/LogbookDialog.cpp:2608 src/LogbookHTML.cpp:285 src/LogbookHTML.cpp:392
+#: src/LogbookHTML.cpp:802 src/LogbookHTML.cpp:805 src/LogbookHTML.cpp:884
+#: src/LogbookHTML.cpp:1033 src/LogbookHTML.cpp:1110 src/CrewList.cpp:1724
 #: src/CrewList.cpp:1726 src/CrewList.cpp:2108 src/CrewList.cpp:2110
 #: src/CrewList.cpp:2436 src/CrewList.cpp:2438 src/boat.cpp:264
 #: src/boat.cpp:266 src/boat.cpp:528 src/boat.cpp:530
@@ -2079,51 +2079,51 @@ msgstr ""
 msgid "Set Path to ODT-Editor"
 msgstr ""
 
-#: src/LogbookHTML.cpp:185 src/LogbookHTML.cpp:338 src/LogbookHTML.cpp:911
+#: src/LogbookHTML.cpp:185 src/LogbookHTML.cpp:338 src/LogbookHTML.cpp:913
 #: src/CrewList.cpp:1816 src/CrewList.cpp:1832 src/CrewList.cpp:2173
 #: src/CrewList.cpp:2210
 msgid "from"
 msgstr ""
 
-#: src/LogbookHTML.cpp:186 src/LogbookHTML.cpp:339 src/LogbookHTML.cpp:912
+#: src/LogbookHTML.cpp:186 src/LogbookHTML.cpp:339 src/LogbookHTML.cpp:914
 #: src/CrewList.cpp:1817 src/CrewList.cpp:1833 src/CrewList.cpp:2174
 #: src/CrewList.cpp:2211
 msgid "to"
 msgstr ""
 
-#: src/LogbookHTML.cpp:283 src/LogbookHTML.cpp:285 src/LogbookHTML.cpp:880
-#: src/LogbookHTML.cpp:882 src/CrewList.cpp:1724 src/CrewList.cpp:1726
+#: src/LogbookHTML.cpp:283 src/LogbookHTML.cpp:285 src/LogbookHTML.cpp:882
+#: src/LogbookHTML.cpp:884 src/CrewList.cpp:1724 src/CrewList.cpp:1726
 #: src/CrewList.cpp:2108 src/CrewList.cpp:2110 src/boat.cpp:264
 #: src/boat.cpp:266 src/boat.cpp:528 src/boat.cpp:530
 msgid "Sorry, no Layout installed"
 msgstr ""
 
-#: src/LogbookHTML.cpp:388 src/LogbookHTML.cpp:390 src/CrewList.cpp:2436
+#: src/LogbookHTML.cpp:390 src/LogbookHTML.cpp:392 src/CrewList.cpp:2436
 #: src/CrewList.cpp:2438
 msgid "Sorry, Logbook has no lines"
 msgstr ""
 
-#: src/LogbookHTML.cpp:800 src/LogbookHTML.cpp:803
+#: src/LogbookHTML.cpp:802 src/LogbookHTML.cpp:805
 msgid ""
 "\n"
 "not found in layoutfile "
 msgstr ""
 
-#: src/LogbookHTML.cpp:800 src/LogbookHTML.cpp:803
+#: src/LogbookHTML.cpp:802 src/LogbookHTML.cpp:805
 msgid ""
 "!\n"
 "\n"
 "Did you forget to add this line in your layout ?"
 msgstr ""
 
-#: src/LogbookHTML.cpp:891 src/LogbookHTML.cpp:893
+#: src/LogbookHTML.cpp:893 src/LogbookHTML.cpp:895
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
 " or Data with {{ and }} ?"
 msgstr ""
 
-#: src/LogbookHTML.cpp:1029 src/LogbookHTML.cpp:1031 src/LogbookHTML.cpp:1106
-#: src/LogbookHTML.cpp:1108
+#: src/LogbookHTML.cpp:1031 src/LogbookHTML.cpp:1033 src/LogbookHTML.cpp:1108
+#: src/LogbookHTML.cpp:1110
 msgid "Sorry, Your Logbook has no lines"
 msgstr ""
 

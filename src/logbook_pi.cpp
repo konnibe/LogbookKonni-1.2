@@ -661,7 +661,7 @@ void logbookkonni_pi::ShowPreferencesDialog( wxWindow* parent )
     optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 710,660 ) ,
 		wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 #else
-	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 740,838 ) ,
+	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 740,668 ) ,
 		wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );	
 #endif
 	optionsDialog->m_checkBoxShowLogbook->SetValue(m_bLOGShowIcon);
@@ -894,7 +894,13 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T( "Traditional" ),  &opt->traditional, 1 );
 			pConf->Read ( _T( "ToolTips" ),  &opt->showToolTips );
 			pConf->Read ( _T( "FirstTime" ),  &opt->firstTime);
+#ifdef __WXMSW__
 			pConf->Read ( _T( "DlgWidth" ),  &opt->dlgWidth,1010);
+#elif defined __WXGTK__
+			pConf->Read ( _T( "DlgWidth" ),  &opt->dlgWidth,1085);
+#elif defined __WXOSX__
+			pConf->Read ( _T( "DlgWidth" ),  &opt->dlgWidth,1085);
+#endif
 			pConf->Read ( _T( "DlgHeight" ),  &opt->dlgHeight,535);
 			pConf->Read ( _T( "Popup" ),  &opt->popup,true);
 
