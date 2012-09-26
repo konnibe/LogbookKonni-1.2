@@ -764,11 +764,11 @@ void Logbook::loadData()
 				break;
 			case 47:	dialog->m_gridMotorSails->SetCellValue(row,BANK2T-sailsCol,s);
 				break;
-			case 49:	dialog->m_gridMotorSails->SetCellValue(row,WATERM-sailsCol,s);
+			case 48:	dialog->m_gridMotorSails->SetCellValue(row,WATERM-sailsCol,s);
 				break;
-			case 50:	dialog->m_gridMotorSails->SetCellValue(row,WATERMT-sailsCol,s);
+			case 49:	dialog->m_gridMotorSails->SetCellValue(row,WATERMT-sailsCol,s);
 				break;
-			case 51:	dialog->m_gridMotorSails->SetCellValue(row,WATERMO-sailsCol,s);
+			case 50:	dialog->m_gridMotorSails->SetCellValue(row,WATERMO-sailsCol,s);
 				break;
 			}			
 			c++;

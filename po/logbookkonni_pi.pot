@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 21:15+0200\n"
+"POT-Creation-Date: 2012-09-25 23:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,7 @@ msgstr ""
 
 #: src/logbook_pi.cpp:401 src/logbook_pi.cpp:700 src/Logbook.cpp:536
 #: src/Logbook.cpp:568 src/Logbook.cpp:1069 src/LogbookDialog.h:589
+#: src/OverView.cpp:211
 msgid "Active Logbook"
 msgstr ""
 
@@ -61,11 +62,11 @@ msgstr ""
 msgid "Logbook Preferences"
 msgstr ""
 
-#: src/logbook_pi.cpp:1190
+#: src/logbook_pi.cpp:1196
 msgid "Select zipped Layout-Files"
 msgstr ""
 
-#: src/logbook_pi.cpp:1259
+#: src/logbook_pi.cpp:1265
 #, c-format
 msgid ""
 "Layouts %sinstalled at\n"
@@ -76,11 +77,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/logbook_pi.cpp:1304
+#: src/logbook_pi.cpp:1310
 msgid "Select zipped Languages-Files"
 msgstr ""
 
-#: src/logbook_pi.cpp:1350
+#: src/logbook_pi.cpp:1356
 #, c-format
 msgid ""
 "Languages installed at\n"
@@ -88,7 +89,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/logbook_pi.cpp:1356
+#: src/logbook_pi.cpp:1362
 #, c-format
 msgid ""
 "Tried to install Languages at\n"
@@ -2184,10 +2185,19 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/OverView.cpp:213
+#: src/OverView.cpp:215
 msgid "Logbook until "
 msgstr ""
 
 #: src/OverView.cpp:859
 msgid "Logbook Total"
+msgstr ""
+
+#: src/OverView.cpp:1024
+#, c-format
+msgid "%i Year(s) %i Month(s) %i Day(s)"
+msgstr ""
+
+#: src/OverView.cpp:1027
+msgid "%E Week(s) %D Day(s) %H:%M "
 msgstr ""

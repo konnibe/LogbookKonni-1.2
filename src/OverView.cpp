@@ -121,6 +121,7 @@ void OverView::loadAllLogbooks()
 {
 	wxArrayString		files;
 
+	logbooks.clear();
 	int i = wxDir::GetAllFiles(data_locn,&files,_T("*logbook*.txt"),wxDIR_FILES);
 
 	for(int f = 0; f < i; f++)
@@ -170,6 +171,7 @@ void OverView::actuellLogbook()
 void OverView::allLogbooks()
 {
 	showAllLogbooks = true;
+	loadAllLogbooks();
 	clearGrid();
 	for(unsigned int i = 0; i < logbooks.Count(); i++)
 	{
@@ -206,7 +208,7 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 	wxFileName fn(logbook);
 	logbook = fn.GetName();
 	if(logbook == _T("logbook"))
-		logbook = _T("Active Logbook");
+		logbook = _("Active Logbook");
 	else
 	{
 		wxDateTime dt = parent->getDateTo(logbook);
@@ -222,10 +224,8 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 	stream->ReadLine(); // skip line with #1.2#
 	int month = 0,day = 0,year = 0,hour = 0,min = 0,sec = 0;
 
-	while( (t = stream->ReadLine()))
+	while( (!(t = stream->ReadLine()).IsEmpty()))
 	{
-
-		if(input.Eof()) break;
 		sign = wxEmptyString;
 		rowNewLogbook++;
 		wxStringTokenizer tkz(t, _T("\t"),wxTOKEN_RET_EMPTY );
@@ -876,10 +876,10 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FWATER,temp);
 #else
-	temp = wxString::Format(_T("%6.2f %s"),abs(data.fuel),opt->vol.c_str());
+	temp = wxString::Format(_T("%6.2f %s"),fabs(data.fuel),opt->vol.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FFUEL,temp);
-	temp = wxString::Format(_T("%6.2f %s"),abs(data.water),opt->vol.c_str());
+	temp = wxString::Format(_T("%6.2f %s"),fabs(data.water),opt->vol.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FWATER,temp);
 #endif
@@ -1021,10 +1021,10 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 		if(days < 0)
 		days = startdt.GetDay() - enddt.GetDay();
 
-		grid->SetCellValue(row,FJOURNEY,wxString::Format(_T("%i Year(s) %i Month(s) %i Day(s)"),years,month,days));	
+		grid->SetCellValue(row,FJOURNEY,wxString::Format(_("%i Year(s) %i Month(s) %i Day(s)"),years,month,days));	
 	}
 	else
-		grid->SetCellValue(row,FJOURNEY,journey.Format(_T("%E Weeks %D Days %H:%M "))+opt->motorh);
+		grid->SetCellValue(row,FJOURNEY,journey.Format(_("%E Week(s) %D Day(s) %H:%M "))+opt->motorh);
 
 	int max = 0; 
 	wxString result;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 2.6.1310\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 21:15+0200\n"
+"POT-Creation-Date: 2012-09-25 23:49+0200\n"
 "PO-Revision-Date: 2012-06-22 17:41+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -81,6 +81,13 @@ msgstr "Woda łącznie"
 #, fuzzy
 msgid "#2 Total"
 msgstr "Woda łącznie"
+#
+msgid "%E Week(s) %D Day(s) %H:%M "
+msgstr ""
+#
+#, c-format
+msgid "%i Year(s) %i Month(s) %i Day(s)"
+msgstr ""
 #
 msgid "'"
 msgstr "'"
@@ -1937,8 +1944,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2060,8 +2069,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "    Wpis o zmianie kursu po minutach"
+#
 #
 #
 #
@@ -2129,8 +2140,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2158,6 +2171,7 @@ msgstr "wpisz własną etykietę"
 #, fuzzy
 #~ msgid "10"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2219,8 +2233,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Dodawaj Wpis co X mm"
+#
 #
 #
 #
@@ -2293,10 +2309,12 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "I wachty"
+#
 #
 #
 #
@@ -2355,10 +2373,12 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "III wachty"
+#
 #
 #
 #
@@ -2417,6 +2437,7 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
@@ -2448,10 +2469,12 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "VI wachty"
+#
 #
 #
 #
@@ -2643,9 +2666,11 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "FirstName"
 #~ msgstr "Imię"
+#
 #
 #
 #
@@ -2702,8 +2727,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Jeśli osiągnięto Waypoint"
+#
 #
 #
 #
@@ -2760,8 +2787,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interwał:"
+#
 #
 #
 #
@@ -2782,6 +2811,7 @@ msgstr "wpisz własną etykietę"
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "Etykieta użytkownika"
+#
 #
 #
 #
@@ -2924,6 +2954,7 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "No. Watches"
 #~ msgstr "Wachta"
@@ -2967,9 +2998,11 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Paste"
 #~ msgstr "Data"
+#
 #
 #
 #
@@ -3077,12 +3110,14 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter like 1.30 or 1,30 or 1:30\n"
 #~ "for 1:30h"
 #~ msgstr ""
 #~ "Wprowadź 1.30, 1,30 lub 1:30\n"
 #~ "dla 1:30h"
+#
 #
 #
 #
@@ -3218,6 +3253,7 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Search.."
 #~ msgstr "Wybierz Dziennik"
@@ -3248,8 +3284,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Niestety, 0 godz., 0 min, 0 sek. nie jest możliwe"
+#
 #
 #
 #
@@ -3308,10 +3346,12 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "II wachty"
+#
 #
 #
 #
@@ -3370,10 +3410,12 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "IV wachty"
+#
 #
 #
 #
@@ -3432,10 +3474,12 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "VI wachty"
+#
 #
 #
 #
@@ -3503,8 +3547,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer"
+#
 #
 #
 #
@@ -3561,8 +3607,10 @@ msgstr "wpisz własną etykietę"
 #
 #
 #
+#
 #~ msgid "delay to find the right course to the wind"
 #~ msgstr "czas na ustawienie jachtu odpowiednio do wiatru"
+#
 #
 #
 #
