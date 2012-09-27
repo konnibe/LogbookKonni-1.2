@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-25 23:49+0200\n"
+"POT-Creation-Date: 2012-09-27 21:21+0200\n"
 "PO-Revision-Date: 2012-06-22 16:26+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -150,6 +150,9 @@ msgstr "Ajouter un nouveau membre d'équipage"
 #
 msgid "Add a new line"
 msgstr "Ajouter une nouvelle ligne"
+#
+msgid "Administrator (Sudo) Password:"
+msgstr ""
 #
 # used in ODT-Layout
 msgid "Adress"
@@ -774,6 +777,15 @@ msgid ""
 "%s"
 msgstr "Langues installées"
 #
+#, c-format
+msgid ""
+"Languages not installed at\n"
+"\n"
+"%s\n"
+"\n"
+"Click Help Options/Behavoir in the image the button 'Install Languages'"
+msgstr ""
+#
 msgid "Last Logbook is\n"
 msgstr "Dernière ligne du livre de bord\n"
 #
@@ -826,14 +838,9 @@ msgstr "Livre de bord Total"
 msgid "Logbook for OpenCPN"
 msgstr "Livre de bord pour OpenCPN"
 #
+#, fuzzy
 msgid ""
 "Logbook for OpenCPN\n"
-"\n"
-"\t- automatic (NMEA) or manual input\n"
-"\t- Timer for automatic line insert\n"
-"\t- Fileexport to ods,html,xml(Windows only),csv\n"
-"\t- Multiple layouts\n"
-"\t- Costumizable layout\n"
 "\n"
 "Thanks's to the community for their helpfull suggestions.\n"
 "\n"
@@ -2054,6 +2061,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "\n"
 #~ msgstr "\n"
 #
@@ -2084,8 +2093,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "      Course- Message toute les x minutes"
+#
+#
 #
 #
 #
@@ -2166,6 +2179,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "0"
 #~ msgstr "0"
 #
@@ -2196,8 +2211,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1. quart de 1. Personne"
+#
+#
 #
 #
 #
@@ -2269,8 +2288,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid ":0"
 #~ msgstr ":0"
+#
+#
 #
 #
 #
@@ -2329,8 +2352,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "Ajouter à la liste des quarts comme avec"
+#
+#
 #
 #
 #
@@ -2389,8 +2416,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Durée automatique de quart"
+#
+#
 #
 #
 #
@@ -2471,6 +2502,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Supprimer la ligne"
@@ -2502,8 +2535,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Glisser-déposer pour changer l'ordre dans la liste"
+#
+#
 #
 #
 #
@@ -2564,10 +2601,14 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Fin"
+#
+#
 #
 #
 #
@@ -2628,10 +2669,14 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
 #~ "Fin"
+#
+#
 #
 #
 #
@@ -2692,10 +2737,14 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "Quart 6 :\n"
 #~ "Fin"
+#
+#
 #
 #
 #
@@ -2754,8 +2803,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Si waypoint d'arrivé"
+#
+#
 #
 #
 #
@@ -2814,8 +2867,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Interval:"
 #~ msgstr "Délai : "
+#
+#
 #
 #
 #
@@ -2866,8 +2923,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "No. Watches"
 #~ msgstr "Numéro du quart"
+#
+#
 #
 #
 #
@@ -2940,8 +3001,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Person:"
 #~ msgstr "Personne :"
+#
+#
 #
 #
 #
@@ -3000,8 +3065,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Veuillez entrer 4 chiffres au format 24h ex : 1545 = 03:45 PM"
+#
+#
 #
 #
 #
@@ -3064,8 +3133,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Désolé, 0 Hrs 0 Min 0 Sec est impossible"
+#
+#
 #
 #
 #
@@ -3126,10 +3199,14 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Début"
+#
+#
 #
 #
 #
@@ -3190,6 +3267,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
@@ -3222,10 +3301,14 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Start 5.Watch"
 #~ msgstr ""
 #~ "Quart 5 :\n"
 #~ "Début"
+#
+#
 #
 #
 #
@@ -3294,9 +3377,13 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #, fuzzy
 #~ msgid "Static Watchtimes"
 #~ msgstr "Appliquer les quarts"
+#
+#
 #
 #
 #
@@ -3355,8 +3442,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Marche/Arrêt"
+#
+#
 #
 #
 #
@@ -3405,8 +3496,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
+#
 #
 #
 #

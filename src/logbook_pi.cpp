@@ -580,11 +580,6 @@ wxString logbookkonni_pi::GetShortDescription()
 wxString logbookkonni_pi::GetLongDescription()
 {
 	return _("Logbook for OpenCPN\n\n\
-	- automatic (NMEA) or manual input\n\
-	- Timer for automatic line insert\n\
-	- Fileexport to ods,html,xml(Windows only),csv\n\
-	- Multiple layouts\n\
-	- Costumizable layout\n\n\
 Thanks's to the community for their helpfull suggestions.\n\n\
 If You find a bug post it on\nhttp://www.cruisersforum.com/forums/f134/logbook-konni-for-opencpn-68945.html\n\
 Helpfull Videos are at Youtube, search for LogbookKonni.");
@@ -1116,7 +1111,7 @@ void logbookkonni_pi::LoadConfig()
 				if(!r) break;
 			}
 #endif
-			opt->ampereh = opt->ampere+opt->motorh.Upper();
+			opt->ampereh = opt->ampere+opt->motorh;
 	  }
 
 	if(opt->timeformat == -1)
@@ -1133,7 +1128,7 @@ void logbookkonni_pi::LoadConfig()
 
 void logbookkonni_pi::loadLayouts(wxWindow *parent)
 {
-	wxString FILE = _T("OpenCPN_Logbook_Layouts.zip");
+	wxString FILE = _T("LogbookKonni*.zip");
 	std::auto_ptr<wxZipEntry> entry;
 	wxString path, sep;
 	sep = wxFileName::GetPathSeparator();
@@ -1333,8 +1328,11 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 		cmd = _T("rm -r ")+tempdir;
 		wxSystem(cmd.c_str());
 #elif defined __WXGTK__
-	    wxString cmd= _T("unzip -o ")+openFileDialog->GetPath()
-			      +_T(" -d ")+languagePath;
+		PWDialog pw(m_parent_window);
+		if(pw.ShowModal() != wxID_OK)
+			return;
+		wxString pwd = pw.m_textCtrl89->GetValue();
+		wxString cmd= wxString::Format(_T("echo %s unzip -o %s -d %s"),pwd.c_str(),openFileDialog->GetPath().c_str(),languagePath.c_str());
 		wxSystem(cmd.c_str());
 #else	
 		wxFFileInputStream in(openFileDialog->GetPath());
@@ -1353,7 +1351,16 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 			out.Close();
 		}
 #endif
-		wxString s = wxString::Format(_("Languages installed at\n\n%s"),languagePath.c_str());
+		wxString s;
+
+#ifdef __WXOSX__
+		if(wxFile::Exists(languagePath+sep+_T("de.lproj")+sep+_T("opencpn-logbookkonni.mo")))
+#else
+		if(wxFile::Exists(languagePath+sep+_T("de")+sep+_T("LC_MESSAGES")+sep+_T("opencpn-logbookkonni_pi.mo")))
+#endif
+			s = wxString::Format(_("Languages installed at\n\n%s"),languagePath.c_str());
+		else
+			s = wxString::Format(_("Languages not installed at\n\n%s\n\nClick Help Options/Behavoir in the image the button 'Install Languages'"),languagePath.c_str());
 #ifdef __WXOSX__
         MessageBoxOSX(m_plogbook_window,s,_T("Information"),wxID_OK);
 #elif defined __WXGTK__
@@ -1413,4 +1420,38 @@ bool LogbookTimer::popUp()
 	return true;
 }
 
+//////////// Password Dialog for language install, Linux only //////////////////
+#ifdef __WXGTK__
+PWDialog::PWDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* bSizer40;
+	bSizer40 = new wxBoxSizer( wxVERTICAL );
+	
+	m_staticText126 = new wxStaticText( this, wxID_ANY, _("Administrator (Sudo) Password:"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+	m_staticText126->Wrap( -1 );
+	bSizer40->Add( m_staticText126, 0, wxALL|wxEXPAND, 5 );
+	
+	m_textCtrl89 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer40->Add( m_textCtrl89, 0, wxALL|wxEXPAND, 5 );
+	
+	m_sdbSizer10 = new wxStdDialogButtonSizer();
+	m_sdbSizer10OK = new wxButton( this, wxID_OK );
+	m_sdbSizer10->AddButton( m_sdbSizer10OK );
+	m_sdbSizer10Cancel = new wxButton( this, wxID_CANCEL );
+	m_sdbSizer10->AddButton( m_sdbSizer10Cancel );
+	m_sdbSizer10->Realize();
+	bSizer40->Add( m_sdbSizer10, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	this->SetSizer( bSizer40 );
+	this->Layout();
+	
+	this->Centre( wxBOTH );
+	m_textCtrl89->SetFocus();
+}
 
+PWDialog::~PWDialog()
+{
+}
+#endif

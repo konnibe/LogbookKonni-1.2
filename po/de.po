@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-25 23:49+0200\n"
-"PO-Revision-Date: 2012-09-25 23:51+0100\n"
+"POT-Creation-Date: 2012-09-27 21:21+0200\n"
+"PO-Revision-Date: 2012-09-27 21:25+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -130,11 +130,11 @@ msgstr "24 Stunden Format"
 
 #
 msgid "AH #1 Total"
-msgstr "AH #1 gesamt"
+msgstr "Ah #1 gesamt"
 
 #
 msgid "AH #2 Total"
-msgstr "AH #2 gesamt"
+msgstr "Ah #2 gesamt"
 
 #
 msgid "AM"
@@ -188,6 +188,10 @@ msgstr "Fügt ein neues Crewmitglied hinzu"
 #
 msgid "Add a new line"
 msgstr "Neue Zeile"
+
+#
+msgid "Administrator (Sudo) Password:"
+msgstr ""
 
 #
 msgid "Adress"
@@ -1010,6 +1014,21 @@ msgstr ""
 "%s"
 
 #
+#, c-format
+msgid ""
+"Languages not installed at\n"
+"\n"
+"%s\n"
+"\n"
+"Click Help Options/Behavoir in the image the button 'Install Languages'"
+msgstr ""
+"Sprachen wirden nicht installiert in\n"
+"\n"
+"%s\n"
+"\n"
+"Klicke Help Options/Verhalten, im Bild auf 'Installiere Sprach-Dateien'"
+
+#
 msgid "Last Logbook is\n"
 msgstr "letzte Logbuch-Datei ist\n"
 
@@ -1105,12 +1124,6 @@ msgstr "Logbuch für OpenCPN"
 msgid ""
 "Logbook for OpenCPN\n"
 "\n"
-"\t- automatic (NMEA) or manual input\n"
-"\t- Timer for automatic line insert\n"
-"\t- Fileexport to ods,html,xml(Windows only),csv\n"
-"\t- Multiple layouts\n"
-"\t- Costumizable layout\n"
-"\n"
 "Thanks's to the community for their helpfull suggestions.\n"
 "\n"
 "If You find a bug post it on\n"
@@ -1118,12 +1131,6 @@ msgid ""
 "Helpfull Videos are at Youtube, search for LogbookKonni."
 msgstr ""
 "Logbuch für OpenCPN\n"
-"\n"
-"\t- automatische (NMEA) oder manuelle Eingabe\n"
-"\t- Timer für automatischen Logbucheintrag\n"
-"\t- Fileexport nach ods,html,xml(Windows only),csv\n"
-"\t- mehrere Layouts\n"
-"\t- Layouts editierbar\n"
 "\n"
 "Dank an die Community für ihre Ünterstützung \n"
 "\n"
@@ -2533,7 +2540,7 @@ msgstr ""
 
 #
 msgid "mb"
-msgstr ""
+msgstr "hPa"
 
 #
 msgid "month"
@@ -2645,6 +2652,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid ""
 #~ "\n"
 #~ "Name of Waypoint: %s\n"
@@ -2668,8 +2677,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "     Kurs-Mitteilung nach Minuten"
+#
+#
 #
 #
 #
@@ -2709,8 +2722,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1. Wache der 1. Person"
+#
+#
 #
 #
 #
@@ -2737,8 +2754,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "zur Wachliste hinzufügen wie.."
+#
+#
 #
 #
 #
@@ -2836,6 +2857,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Füge Zeile hinzu je Nm"
 #
@@ -2850,8 +2873,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Automatisches Wachinterval"
+#
+#
 #
 #
 #
@@ -3000,8 +3027,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Copy"
 #~ msgstr "Kopieren"
+#
+#
 #
 #
 #
@@ -3139,6 +3170,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid ""
 #~ "Crewmember is not onboard\n"
 #~ "\n"
@@ -3149,6 +3182,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #~ "\n"
 #~ "Bitte setzte das Feld 'an Bord' auf 'Ja'\n"
 #~ "(klicke zweimal in das Feld)"
+#
+#
 #
 #
 #
@@ -3270,8 +3305,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Delete"
 #~ msgstr "Löschen"
+#
+#
 #
 #
 #
@@ -3298,8 +3337,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "End 1.Watch"
 #~ msgstr "Ende 1. Wache"
+#
+#
 #
 #
 #
@@ -3326,8 +3369,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Ende 3. Wache"
+#
+#
 #
 #
 #
@@ -3354,6 +3401,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "End 5.Watch"
 #~ msgstr "Ende 5. Wache"
 #
@@ -3368,8 +3417,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "End 6.Watch"
 #~ msgstr "Ende 6. Wache"
+#
+#
 #
 #
 #
@@ -3509,8 +3562,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "FirstName"
 #~ msgstr "Vorname"
+#
+#
 #
 #
 #
@@ -3538,8 +3595,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Wenn Wegpunkt erreicht"
+#
+#
 #
 #
 #
@@ -3568,8 +3629,24 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Interval:"
 #~ msgstr "Interval:"
+#
+#
+#
+#~ msgid ""
+#~ "Languages not installed at\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Spachen nicht installiert im Verzeichnis:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#
+#
 #
 #
 #
@@ -3699,6 +3776,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "No Events running"
 #~ msgstr "keine laufenden Ereignisse"
 #
@@ -3713,8 +3792,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "No. Watches"
 #~ msgstr "Anzahl Wachen"
+#
+#
 #
 #
 #
@@ -3861,8 +3944,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Path to HTML-Editor (optional)"
 #~ msgstr "Pfad zum HTML-Editor (optional)"
+#
+#
 #
 #
 #
@@ -3889,6 +3976,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Persons:"
 #~ msgstr "Personen:"
 #
@@ -3903,8 +3992,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Bitte 4 Zahlen im 24h-Format eingeben z.B. 1545 = 15:45"
+#
+#
 #
 #
 #
@@ -3982,12 +4075,16 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Bitte geben Sie die Zeit im Format:\n"
 #~ "   12:30:00 ein."
+#
+#
 #
 #
 #
@@ -4142,8 +4239,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Save"
 #~ msgstr "Speichern"
+#
+#
 #
 #
 #
@@ -4381,6 +4482,8 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #, fuzzy
 #~ msgid "Select boat-layout to view"
 #~ msgstr "Wähle Route"
@@ -4397,8 +4500,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Sorry, 0 Hrs 0 Min 0 Sec ist nicht möglich"
+#
+#
 #
 #
 #
@@ -4507,8 +4614,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Speed STW Max."
 #~ msgstr "Fahrt d.W. max."
+#
+#
 #
 #
 #
@@ -4535,8 +4646,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Start 2.Wache"
+#
+#
 #
 #
 #
@@ -4563,8 +4678,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr "Start 4.Wache"
+#
+#
 #
 #
 #
@@ -4591,8 +4710,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr "Start 6.Wache"
+#
+#
 #
 #
 #
@@ -4627,8 +4750,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Timer "
 #~ msgstr "Timer an/aus"
+#
+#
 #
 #
 #
@@ -4667,8 +4794,12 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
+#
 #~ msgid "Undo"
 #~ msgstr "Rückgängig"
+#
+#
 #
 #
 #

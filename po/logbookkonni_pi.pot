@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-25 23:49+0200\n"
+"POT-Creation-Date: 2012-09-27 21:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/logbook_pi.cpp:125 src/logbook_pi.cpp:572 src/logbook_pi.cpp:622
-#: src/logbook_pi.cpp:679 src/LogbookDialog.cpp:530 src/LogbookDialog.cpp:656
+#: src/logbook_pi.cpp:125 src/logbook_pi.cpp:572 src/logbook_pi.cpp:617
+#: src/logbook_pi.cpp:674 src/LogbookDialog.cpp:530 src/LogbookDialog.cpp:656
 #: src/LogbookDialog.cpp:6447
 msgid "Logbook"
 msgstr ""
@@ -30,7 +30,7 @@ msgstr ""
 msgid "-Plugin"
 msgstr ""
 
-#: src/logbook_pi.cpp:401 src/logbook_pi.cpp:700 src/Logbook.cpp:536
+#: src/logbook_pi.cpp:401 src/logbook_pi.cpp:695 src/Logbook.cpp:536
 #: src/Logbook.cpp:568 src/Logbook.cpp:1069 src/LogbookDialog.h:589
 #: src/OverView.cpp:211
 msgid "Active Logbook"
@@ -44,12 +44,6 @@ msgstr ""
 msgid ""
 "Logbook for OpenCPN\n"
 "\n"
-"\t- automatic (NMEA) or manual input\n"
-"\t- Timer for automatic line insert\n"
-"\t- Fileexport to ods,html,xml(Windows only),csv\n"
-"\t- Multiple layouts\n"
-"\t- Costumizable layout\n"
-"\n"
 "Thanks's to the community for their helpfull suggestions.\n"
 "\n"
 "If You find a bug post it on\n"
@@ -58,15 +52,15 @@ msgid ""
 "Helpfull Videos are at Youtube, search for LogbookKonni."
 msgstr ""
 
-#: src/logbook_pi.cpp:658 src/logbook_pi.cpp:661 src/logbook_pi.cpp:664
+#: src/logbook_pi.cpp:653 src/logbook_pi.cpp:656 src/logbook_pi.cpp:659
 msgid "Logbook Preferences"
 msgstr ""
 
-#: src/logbook_pi.cpp:1196
+#: src/logbook_pi.cpp:1191
 msgid "Select zipped Layout-Files"
 msgstr ""
 
-#: src/logbook_pi.cpp:1265
+#: src/logbook_pi.cpp:1260
 #, c-format
 msgid ""
 "Layouts %sinstalled at\n"
@@ -77,11 +71,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/logbook_pi.cpp:1310
+#: src/logbook_pi.cpp:1305
 msgid "Select zipped Languages-Files"
 msgstr ""
 
-#: src/logbook_pi.cpp:1356
+#: src/logbook_pi.cpp:1361
 #, c-format
 msgid ""
 "Languages installed at\n"
@@ -89,7 +83,17 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/logbook_pi.cpp:1362
+#: src/logbook_pi.cpp:1363
+#, c-format
+msgid ""
+"Languages not installed at\n"
+"\n"
+"%s\n"
+"\n"
+"Click Help Options/Behavoir in the image the button 'Install Languages'"
+msgstr ""
+
+#: src/logbook_pi.cpp:1369
 #, c-format
 msgid ""
 "Tried to install Languages at\n"
@@ -103,6 +107,10 @@ msgid ""
 "After installation restart as normal user.\n"
 "\n"
 "The dialog 'Logbook Preferences' is closed now."
+msgstr ""
+
+#: src/logbook_pi.cpp:1432
+msgid "Administrator (Sudo) Password:"
 msgstr ""
 
 #: src/Options.cpp:50

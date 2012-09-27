@@ -227,7 +227,7 @@ Please click in the fields to get an explanation / the tabs brings you to the ne
 <AREA href="#opttextappendlinenm" shape=rect coords=195,403,460,437>
 <AREA href="#opttextcoursechanged" shape=rect  coords=193,438,459,483>
 <AREA href="#optinstalllayouts" shape=rect coords=148,513,230,562>
-<AREA href="#optinstalllanguages" shape=rect coords=237,513,324,563>
+<AREA href="#optinstalllanguages" shape=rect coords=236,513,323,563>
 <AREA href="#optuninstalllagbook" shape=rect coords=333,513,416,562>
 <AREA href="#OptCapacity" shape=rect coords=74,42,127,64>
 <AREA href="#showlogbookicon" shape=rect coords=25,143,142,160>
@@ -368,15 +368,30 @@ e.g. for  users without a translation of OpenCPN in their language and english l
   <TR>
     <TD class=dashedCell vAlign=top><A name=optinstalllayouts></A>
       Install Layouts</TD>
-    <TD class=dashedCell vAlign=top><P>Windows doesn't need this button, all layouts are copied with the exe-installer. </P>
-      <P>Linux: search in the filedialog for the directory '&lt;OPENCPN_SOURCE_TLD&gt;/plugins/LogbookKonni_pi' and there for the file 'OpenCPN_Logbook_Layouts.zip'</P>
+    <TD class=dashedCell vAlign=top><P>Search in the filedialog for the file 'LogbookKonni_Layouts.zip'</P>
+      <P>Windows needs this button only to install layout-updates.<br>
+        All layouts are copied with the exe-installer.</P>
       </TD>
     </TR>
   <TR>
     <TD class=dashedCell vAlign=top><A name=optinstalllanguages></A>
       Install Languages</TD>
-    <TD class=dashedCell vAlign=top>used only by Linux and Apple<br>
-      in windows this button is disabled, the translations are in the installer </TD>
+    <TD class=dashedCell vAlign=top><p>used only by Linux and Apple<br>
+      in windows this button is used only for translation-updates. All translations are in the installer </p>
+      <p>Linux Remarks<br>
+        A installed and working sudo command is required !</p>
+      <p>How to install the languages manual:<br>
+        Enter the following command in a terminal: find /usr -name opencpn.mo<br>
+      You should get get a output like: /usr/local/share/locale/nl/LC_MESSAGES/opencpn.mo<br>
+      The language-installpath in this case is /usr/local/share/local <br>
+        Change the /usr into a different directory (e.g. /opt) when nothing was found.<br>
+        <br>
+run as administrator the command  <br>
+unzip -o path_to_LogbookKonni_Languages.zip -d your_language-installpath<br>
+<br>
+        Example:<br>
+        unzip -o ~/Downloads/LogbookKonni_Languages.zip -d /usr/local/share/local </p>
+      </TD>
     </TR>
   <TR>
     <TD class=dashedCell vAlign=top><A name=optuninstalllagbook></A>
