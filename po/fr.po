@@ -3,15 +3,17 @@ msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-27 21:21+0200\n"
-"PO-Revision-Date: 2012-06-22 16:26+0100\n"
-"Last-Translator: Konni <konnibe@hotmail.de>\n"
+"PO-Revision-Date: 2012-10-07 23:38+0100\n"
+"Last-Translator: Gilletarom/Laverge <contact@gilletarom.fr>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.3\n"
 "X-Poedit-SearchPath-0: .\n"
 #
 #, c-format
@@ -35,14 +37,13 @@ msgid "     Winddirection set to:"
 msgstr "     Direction du vent fixée à :"
 #
 msgid " - Full Hour Timer"
-msgstr ""
+msgstr "- Format horaire complet"
 #
 msgid " - Individual Timer"
-msgstr ""
+msgstr "- Minuterie personnalisée"
 #
-#, fuzzy
 msgid " - Normal Timer - Interval: "
-msgstr "- Minuterie active  - Délai :"
+msgstr "- Minuterie par défaut - Interval :"
 #
 msgid " Direction "
 msgstr "Direction"
@@ -66,11 +67,11 @@ msgid "#2 Total"
 msgstr "Total 2"
 #
 msgid "%E Week(s) %D Day(s) %H:%M "
-msgstr ""
+msgstr "%E Semaine(s) %D Jour(s) %H:%M"
 #
 #, c-format
 msgid "%i Year(s) %i Month(s) %i Day(s)"
-msgstr ""
+msgstr "%i Année(s) %i Mois %i Jour(s)"
 #
 msgid "'"
 msgstr "'"
@@ -82,35 +83,39 @@ msgid ""
 "*Optional* Prepend a * to a member to make this member static to a watch / "
 "Click Calculate"
 msgstr ""
+"*Option* Préfixer un équipier avec un * pour qu'il soit figé au quart / "
+"Cliquer sur Calculer"
 #
-#, fuzzy
 msgid "+ Minutes"
-msgstr "Minutes"
+msgstr "+ Minutes"
 #
 msgid "-Plugin"
 msgstr "-Complément"
 #
-#, fuzzy
 msgid "1. Watch"
-msgstr "Validé par"
+msgstr "1. Quart"
 #
 msgid "12 Hour Format"
-msgstr ""
+msgstr "Format 12H"
 #
 msgid "24 Hour Format"
-msgstr ""
+msgstr "Format 24H"
 #
 msgid "AH #1 Total"
-msgstr "Amp./H Total 1"
+msgstr ""
+"Amp./H\n"
+"Total 1"
 #
 msgid "AH #2 Total"
-msgstr "Amp./H Total 2"
+msgstr ""
+"Amp./H\n"
+"Total 2"
 #
 msgid "AM"
-msgstr ""
+msgstr "AM"
 #
 msgid "AM/PM"
-msgstr ""
+msgstr "AM/PM"
 #
 msgid "Abbreviations"
 msgstr "Abréviations"
@@ -152,7 +157,7 @@ msgid "Add a new line"
 msgstr "Ajouter une nouvelle ligne"
 #
 msgid "Administrator (Sudo) Password:"
-msgstr ""
+msgstr "Password Administrateur (sudo) :"
 #
 # used in ODT-Layout
 msgid "Adress"
@@ -165,10 +170,10 @@ msgid "All Logbooks"
 msgstr "Tous les livres de bord"
 #
 msgid "All changes depending to this day only."
-msgstr ""
+msgstr "Tous les changements relatifs à ce jour uniquement"
 #
 msgid "Alter watchtimes as desired / Drag 'n Drop members from the Crewlist"
-msgstr ""
+msgstr "Modifier les quarts par Glisser/Déposer des équipiers dans la liste"
 #
 msgid "Ampere"
 msgstr "Ampère"
@@ -264,10 +269,10 @@ msgstr ""
 "Rte fond"
 #
 msgid "Calculate"
-msgstr ""
+msgstr "Calculer"
 #
 msgid "Calculate the watches with the members entered in the columns"
-msgstr ""
+msgstr "Calculer les quarts avec les équipiers figurant dans les lignes"
 #
 msgid "Callsign"
 msgstr ""
@@ -281,7 +286,7 @@ msgid "Category"
 msgstr "Catégories"
 #
 msgid "Clear"
-msgstr ""
+msgstr "Effacer tout"
 #
 #
 #
@@ -298,12 +303,11 @@ msgstr ""
 #
 # Me semble plus approprié que le terme :
 # Sélectionner la route du fait du contexte d'affichage
-#, fuzzy
 msgid "Clear all"
-msgstr "Sélectionner une date"
+msgstr "Effacer tout"
 #
 msgid "Clear all data"
-msgstr ""
+msgstr "Effacer tout"
 #
 msgid "Clouds"
 msgstr "Nuages"
@@ -315,18 +319,16 @@ msgid "Construction"
 msgstr "Fabrication"
 #
 msgid "Copy to watch"
-msgstr ""
+msgstr "Copier vers le quart"
 #
 msgid "Country"
 msgstr "Pays"
 #
-#, fuzzy
 msgid "Course"
-msgstr "Nuages"
+msgstr "Cap"
 #
-#, fuzzy
 msgid "Course changes"
-msgstr "Si le cap change plus que de"
+msgstr "Changement de cap"
 #
 msgid ""
 "Create a new logbook\n"
@@ -386,35 +388,31 @@ msgstr ""
 "d'émission"
 #
 msgid "Date-Format:"
-msgstr ""
+msgstr "Format de la date :"
 #
-#, fuzzy
 msgid "Day"
-msgstr "Jour(s)"
+msgstr "Jour"
 #
 msgid "Day backward"
-msgstr ""
+msgstr "Jour précédent"
 #
 msgid "Day forward"
-msgstr ""
+msgstr "Jour suivant"
 #
 msgid "Day(s)"
 msgstr "Jour(s)"
 #
-#, fuzzy
 msgid "Day:"
-msgstr "Jour(s)"
+msgstr "Jour :"
 #
-#, fuzzy
 msgid "Days"
-msgstr "Jour(s)"
+msgstr "Jours"
 #
 msgid "Degres"
 msgstr "Degrés"
 #
-#, fuzzy
 msgid "Delete Crewmembers"
-msgstr "Supprimer un noeud d'arbre"
+msgstr "Supprimer les équipiers"
 #
 msgid "Delete Item"
 msgstr "Supprimer un item"
@@ -429,9 +427,8 @@ msgstr "Supprimer la ligne"
 msgid "Delete Row Nr. %i ?"
 msgstr "Supprimer la ligne n° %i ?"
 #
-#, fuzzy
 msgid "Delete Rows"
-msgstr "Supprimer la ligne"
+msgstr "Supprimer les lignes"
 #
 msgid "Delete Treenode"
 msgstr "Supprimer un noeud d'arbre"
@@ -457,9 +454,8 @@ msgstr "Détails"
 msgid "Displacement"
 msgstr "Déplacement"
 #
-#, fuzzy
 msgid "Display"
-msgstr "Déplacement"
+msgstr "Afficher"
 #
 msgid "Distance"
 msgstr "Distance"
@@ -470,7 +466,9 @@ msgstr ""
 "quotidienne"
 #
 msgid "DistanceTotal"
-msgstr "Distance totale"
+msgstr ""
+"Distance\n"
+"totale"
 #
 msgid "Draft"
 msgstr ""
@@ -516,25 +514,31 @@ msgid ""
 "Enter default watchtime e.g. 3.30 / available formats are 3.30, 3,30, 3:30, "
 "0330 for 3 hours 30 minutes"
 msgstr ""
+"Durée de quart par défaut ex. 3.30 / Formats autorisés 3.30, 3,30, 3:30, 0330 "
+"pour  3 heures 30 minutes"
 #
 msgid "Equipment"
 msgstr "Equipement"
 #
 msgid "Event"
-msgstr ""
+msgstr "Evenement"
 #
 msgid ""
 "Event/s running\n"
 "Click the button to suspend or a bullet to stop"
 msgstr ""
+"Evenement(s) actif(s)\n"
+"Cliquer sur le bouton ou la bulle pour suspendre ou stoper"
 #
 msgid ""
 "Event/s suspended\n"
 "Click the button to restart all events"
 msgstr ""
+"Evenement(s) suspendu(s)\n"
+"Cliquer sur le bouton pour redémarrer tous les évenements"
 #
 msgid "Events"
-msgstr ""
+msgstr "Evenements"
 #
 msgid "Export"
 msgstr "Exporter"
@@ -554,15 +558,14 @@ msgstr "Trier les mises en page par "
 msgid "Firstname"
 msgstr "Prénom"
 #
-#, fuzzy
 msgid "Firstname only"
-msgstr "Prénom"
+msgstr "Prénom uniquement"
 #
 msgid "Fix Date"
 msgstr "Fixer une date"
 #
 msgid "Flip Day<->Month"
-msgstr ""
+msgstr "Permuter Jour<->Mois"
 #
 msgid "Fuel"
 msgstr "Carburant"
@@ -576,7 +579,7 @@ msgstr ""
 "total"
 #
 msgid "Full Hour Timer"
-msgstr ""
+msgstr "Format horaire complet"
 #
 msgid "GPS Auto"
 msgstr "GPS automatique"
@@ -588,7 +591,7 @@ msgid "Generator"
 msgstr "Alternateur"
 #
 msgid "Go to date/time now"
-msgstr ""
+msgstr "Aller au jour et heure actuel"
 #
 msgid "Goto Route"
 msgstr "Faire route"
@@ -604,7 +607,7 @@ msgstr ""
 "coque"
 #
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 #
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
@@ -619,7 +622,7 @@ msgstr ""
 "compas"
 #
 msgid "Help"
-msgstr ""
+msgstr "Aide"
 #
 msgid ""
 "Help\n"
@@ -675,7 +678,7 @@ msgstr ""
 "d'attache"
 #
 msgid "Hour"
-msgstr ""
+msgstr "Heure"
 #
 msgid "Hull"
 msgstr "Coque"
@@ -714,10 +717,10 @@ msgid "In Column"
 msgstr "Cacher la colonne"
 #
 msgid "Individual"
-msgstr ""
+msgstr "Personnalisé"
 #
 msgid "Individual Timer"
-msgstr ""
+msgstr "Minuterie personnalisée"
 #
 msgid "Information"
 msgstr "Information"
@@ -770,12 +773,15 @@ msgstr ""
 "Longueur\n"
 "de flottaison"
 #
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Languages installed at\n"
 "\n"
 "%s"
-msgstr "Langues installées"
+msgstr ""
+"Langues installées dans\n"
+"\n"
+"%s"
 #
 #, c-format
 msgid ""
@@ -785,6 +791,11 @@ msgid ""
 "\n"
 "Click Help Options/Behavoir in the image the button 'Install Languages'"
 msgstr ""
+"Fichiers de langues non installé dans\n"
+"\n"
+"%s\n"
+"Cliquer sur le bouton d'aide correspondant à l'image du bouton 'Installer les "
+"langues'"
 #
 msgid "Last Logbook is\n"
 msgstr "Dernière ligne du livre de bord\n"
@@ -796,9 +807,9 @@ msgid "Last waypoint of the Route"
 msgstr "Dernier waypoint de la route"
 #
 msgid "Lastname only"
-msgstr ""
+msgstr "Nom uniquement"
 #
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Layouts %sinstalled at\n"
 "\n"
@@ -806,13 +817,19 @@ msgid ""
 "%s\n"
 "%s\n"
 "%s"
-msgstr "Mises en page  installée"
+msgstr ""
+"Mises en page %s installées dans\n"
+"\n"
+"%s\n"
+"%s\n"
+"%s\n"
+"%s"
 #
 msgid "Length in Waterline"
 msgstr "Longueur de flotaison"
 #
 msgid "Length of your sailing trip"
-msgstr ""
+msgstr "Durée de votre navigation"
 #
 msgid "Length over Deck"
 msgstr "Longueur du pont"
@@ -824,7 +841,7 @@ msgid "Local = UTC"
 msgstr "Localement = UTC"
 #
 msgid "Local Format"
-msgstr ""
+msgstr "Format local"
 #
 msgid "Logbook"
 msgstr "Livre de bord"
@@ -838,7 +855,6 @@ msgstr "Livre de bord Total"
 msgid "Logbook for OpenCPN"
 msgstr "Livre de bord pour OpenCPN"
 #
-#, fuzzy
 msgid ""
 "Logbook for OpenCPN\n"
 "\n"
@@ -851,12 +867,6 @@ msgid ""
 msgstr ""
 "Livre de bord pour OpenCPN\n"
 "\n"
-"\t- Entrée automatique (NMEA) ou manuelle\n"
-"\t- Minuterie pour insertion automatique des lignes\n"
-"\t- Exportation des fichiers en ods,html,xm l(Windows seulement),csv\n"
-"\t- Mises en page mutiples\n"
-"\t- Mise en page adaptable\n"
-"\n"
 "Merci à la communauté pour son aide et ses suggestions\n"
 "\n"
 "Si vous remarquez un bug, mettez un post sur :\n"
@@ -866,7 +876,7 @@ msgstr ""
 #
 #, c-format
 msgid "Logbook from %s to %s"
-msgstr "Journal de bord de %s à %s"
+msgstr "Livre de bord du %s au %s"
 #
 msgid "Logbook until "
 msgstr "Livre de bord depuis "
@@ -880,17 +890,14 @@ msgstr "Magnétique"
 msgid "Maintenance"
 msgstr "Maintenance"
 #
-#, fuzzy
 msgid "Member"
-msgstr "Mètre"
+msgstr "Equipier"
 #
-#, fuzzy
 msgid "Merge Watches"
-msgstr "Appliquer les quarts"
+msgstr "Fusionner les quarts"
 #
-#, fuzzy
 msgid "Meteo"
-msgstr "Mètre"
+msgstr "Météo"
 #
 msgid "Meter"
 msgstr "Mètre"
@@ -910,7 +917,6 @@ msgstr "Mois"
 #
 #
 #
-#, fuzzy
 msgid "Month "
 msgstr "Mois"
 #
@@ -930,7 +936,7 @@ msgid "Name      "
 msgstr "Nom"
 #
 msgid "Name in full"
-msgstr ""
+msgstr "Nom complet"
 #
 msgid "Nationality"
 msgstr "Nationalité"
@@ -985,25 +991,20 @@ msgstr ""
 "Pas de chemin vers l'éditeur HTML\n"
 "dans \"Boite à outils/Compléments/LogbookKonni/Préférences\""
 #
-#, fuzzy
 msgid "No Seconds"
-msgstr "Secondes"
+msgstr "pas de secondes"
 #
-#, fuzzy
 msgid "Normal Timer"
-msgstr ""
-"Durée\n"
-"totale"
+msgstr "Minuterie par défaut"
 #
-#, fuzzy
 msgid ""
 "Normal Timer has 0 h 0 Min.\n"
 "\n"
 "Please change settings (Timer-Interval)"
 msgstr ""
-"Minuterie : 0h 0 min. 0 sec.\n"
+"La minuterie par defaut est : 0h 0 min. 0 sec.\n"
 "\n"
-"Veuillez changer les réglages dans 'Options'"
+"Veuillez changer ces paramètres dans (Minuterie - Interval)"
 #
 #
 #
@@ -1016,15 +1017,11 @@ msgstr ""
 #
 #
 #
-#, fuzzy
 msgid "Now"
-msgstr "Non"
+msgstr "Maintenant"
 #
-#, fuzzy
 msgid "ODT"
-msgstr ""
-"Longueur\n"
-"de coque"
+msgstr "Editeur"
 #
 #, c-format
 msgid "Old Logbook until %s"
@@ -1057,7 +1054,7 @@ msgid "Owner"
 msgstr "Propriétaire"
 #
 msgid "PM"
-msgstr ""
+msgstr "PM"
 #
 msgid "Passport-Nr"
 msgstr ""
@@ -1113,13 +1110,13 @@ msgstr ""
 "Veuillez entrer la date au format :\n"
 "    %s"
 #
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the Time in the format:\n"
 "   %s"
 msgstr ""
 "Veuillez entrer la date au format :\n"
-"    11/18/2011"
+"   %s"
 #
 msgid "Please fill in one character in Degrees, Minutes and Seconds"
 msgstr "Veuillez remplir en degrés, minutes, secondes"
@@ -1133,7 +1130,7 @@ msgstr ""
 "d'assurance"
 #
 msgid "Popup logbook on event"
-msgstr ""
+msgstr "Livre de bord au premier plan à chaque evenement"
 #
 msgid "Position"
 msgstr "Position"
@@ -1163,9 +1160,8 @@ msgstr "Recharger les mises en page"
 msgid "Remarks"
 msgstr "Remarque"
 #
-#, fuzzy
 msgid "Reminder"
-msgstr "Architecte"
+msgstr "Rappeler"
 #
 msgid "Rename Item"
 msgstr "Renommer l'item"
@@ -1182,9 +1178,8 @@ msgstr "Réparations"
 msgid "RepairsTODO"
 msgstr "Réparation à faire"
 #
-#, fuzzy
 msgid "Reset"
-msgstr "Pieds"
+msgstr "Effacer"
 #
 # En conception logicielle au peu aussi utiliser :
 # Réinitialiser
@@ -1196,7 +1191,7 @@ msgid "Reset all Values to zero ?"
 msgstr "Réinitialiser toutes les valeurs à zéro ?"
 #
 msgid "Reset data to edit-level"
-msgstr ""
+msgstr "Effacer les données pour éditer les niveaux"
 #
 msgid "Route"
 msgstr "Route"
@@ -1296,9 +1291,8 @@ msgstr "Sélectionner une route"
 #
 # Me semble plus approprié que le terme :
 # Sélectionner la route du fait du contexte d'affichage
-#, fuzzy
 msgid "Select a date"
-msgstr "Sélectionner une route"
+msgstr "Sélectionner une date"
 #
 msgid ""
 "Select a layout which is displayed\n"
@@ -1328,9 +1322,8 @@ msgstr "Sélectionner le fichier de mise en page"
 msgid "Send Layout by email"
 msgstr "Envoyer la mise en page par mail ?"
 #
-#, fuzzy
 msgid "Separator"
-msgstr "Alternateur"
+msgstr "Séparateur"
 #
 msgid "Serial-Nr."
 msgstr "N° de série"
@@ -1356,32 +1349,34 @@ msgstr "Activer le chemin du logiciel Clientmail"
 msgid "Set Path to ODT-Editor"
 msgstr "Activer le chemin de l'éditeur Odt"
 #
-#, fuzzy
 msgid "Set Timer"
-msgstr "Minuterie"
+msgstr "Paramétrer la minuterie"
 #
 msgid "Set Timer Interval"
 msgstr "Choisir l'intervalle de temps"
 #
-#, fuzzy
 msgid "Set Watchtimes"
-msgstr "Appliquer les quarts"
+msgstr "Paramétrer les quarts"
 #
-#, fuzzy
 msgid "Set as Watchbase"
-msgstr "Associé au même quart que "
+msgstr "Paramétrer en tant que Quart"
 #
 msgid ""
 "Set desired Degrees\n"
 "if the course changes by this amount\n"
 "a course-changed-event occurs"
 msgstr ""
+"Définir un cap en dégrée à partir duquel un évenement sera ajouté lorsqu'il "
+"est atteint."
 #
 msgid ""
 "Set desired delay in minutes\n"
 "It's a good idea to set here a value > 0\n"
 "to find the right wind."
 msgstr ""
+"Définir un délais en minutes\n"
+"supérieur à 0\n"
+"pour trouver le vent vrai"
 #
 msgid "Set gal/liter in Abbreviations "
 msgstr "Choisir Gal/litre comme abréviations"
@@ -1390,15 +1385,17 @@ msgid ""
 "Set the desired distance in NM\n"
 " = (Track made good)"
 msgstr ""
+"Définir une distance en MN\n"
+"pour un meilleur suivi"
 #
 msgid "Set the interval for the timer"
-msgstr ""
+msgstr "Définir un interval pour la minuterie"
 #
 msgid "Set the startdate of the sailing trip"
-msgstr ""
+msgstr "Date de début de navigation"
 #
 msgid "Set the starttime of your sailing trip"
-msgstr ""
+msgstr "Heure de début de navigation"
 #
 msgid "Show Depth in"
 msgstr "Profondeur en"
@@ -1422,9 +1419,8 @@ msgstr "Vague/houle en"
 msgid "Show all Layouts"
 msgstr "Montrer les mises en page"
 #
-#, fuzzy
 msgid "Show all entries"
-msgstr "Montrer toutes les entrées de la liste d'équipage"
+msgstr "Montrer toutes les entrées"
 #
 msgid "Show hidden columns"
 msgstr "Montrer les colonnes cachées"
@@ -1438,16 +1434,17 @@ msgstr ""
 "la grille d'équipement"
 #
 msgid "Show/Hide Statusbar"
-msgstr ""
+msgstr "Afficher/Masquer la barre de statut"
 #
 msgid ""
 "Shows/Sets the day\n"
 "Displays the data in your ODT/Browser-program from this day to end"
 msgstr ""
+"Montrer/Définir la date de début\n"
+"des données à afficher dans votre editeur/navigateur à la fin"
 #
-#, fuzzy
 msgid "Shutdown Logbook"
-msgstr "Montrer l'icône de LogBook"
+msgstr "Fermer le livre de bord"
 #
 msgid "Sign"
 msgstr "Signature"
@@ -1462,10 +1459,10 @@ msgid "Sorry, no Layout installed"
 msgstr "Désolé, aucune mise en page installée"
 #
 msgid "Sort ascending"
-msgstr ""
+msgstr "Tri croissant"
 #
 msgid "Sort descending"
-msgstr ""
+msgstr "Tri décroissant"
 #
 msgid "Speed"
 msgstr "Vitesse"
@@ -1480,9 +1477,8 @@ msgstr ""
 "Vitesse\n"
 "maximale"
 #
-#, fuzzy
 msgid "Split Watch"
-msgstr "Appliquer les quarts"
+msgstr "Séparer les quarts"
 #
 msgid "Start"
 msgstr "Début"
@@ -1494,25 +1490,27 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Démarrer la conversion vers le nouveau format Date/heure\n"
+"et sauvegarder toutes les donées de la version 1.1 vers\n"
+"\n"
+"%s"
 #
 msgid "Startvalue"
 msgstr "Valeur initiale"
 #
 # means
 # Logbook from date to date
-#, fuzzy
 msgid "Stop"
-msgstr "à"
+msgstr "Stop"
 #
 msgid "Street"
 msgstr "Rue"
 #
 msgid "Suspend/Resume running event/s"
-msgstr ""
+msgstr "Suspendre/Reprendre les évenements"
 #
-#, fuzzy
 msgid "Swap two Watches"
-msgstr "Appliquer les quarts"
+msgstr "Permuter 2 quarts"
 #
 msgid "Swell"
 msgstr "Houle"
@@ -1542,7 +1540,6 @@ msgstr "Texte"
 msgid "Textblocks"
 msgstr "Blocs de texte"
 #
-#, fuzzy
 msgid "Textblocks Dialog"
 msgstr "Blocs de texte"
 #
@@ -1577,10 +1574,10 @@ msgstr ""
 "Utilisez le \"glisser déposer\" pour placer l'item dans le menu"
 #
 msgid "Time"
-msgstr "Heure"
+msgstr "Période"
 #
 msgid "Time-Format:"
-msgstr ""
+msgstr "Format horaire :"
 #
 msgid "Timer"
 msgstr "Minuterie"
@@ -1610,6 +1607,16 @@ msgid ""
 "\n"
 "The dialog 'Logbook Preferences' is closed now."
 msgstr ""
+"Essayez d'installer les fichiers de langues dans\n"
+"\n"
+"%s\n"
+"Sous Windows Vista/7/8 vous devez avoir les droits d'administrateur.\n"
+"Si aucune langues n'est installée, redémarrer OpenCPN en tant "
+"qu'administrateur.\n"
+"(Clique droit sur l'icône et selectionnez \"Démarrer en tant qu'administrateur"
+"\")\n"
+"\n"
+"La fenêtre de dialogue 'Préférences de LogBook' est maintenant fermée. "
 #
 msgid "True"
 msgstr "Vraie"
@@ -1657,6 +1664,8 @@ msgid ""
 "Used for ODT/Browser-program\n"
 "One Row for the day + selected days = Days displayed"
 msgstr ""
+"Utilser dans l'Editeur/Navigateur Web\n"
+"Une ligne par jour + jour sélectionné = Jours à afficher"
 #
 # Textfield for userlabel in boat
 msgid "UserLabel"
@@ -1678,7 +1687,9 @@ msgstr ""
 "eau"
 #
 msgid "W-Total"
-msgstr "Capacité d'eau"
+msgstr ""
+"Capacité\n"
+"d'eau"
 #
 msgid "W/Strength"
 msgstr ""
@@ -1689,11 +1700,12 @@ msgid "Warnvalue"
 msgstr "Valeur d'alarme"
 #
 msgid "Watch"
-msgstr "Validé par"
+msgstr "Quart"
 #
-#, fuzzy
 msgid "Watchtime"
-msgstr "Durée du quart :"
+msgstr ""
+"Durée\n"
+"du quart :"
 #
 msgid "Water"
 msgstr "Eau"
@@ -1710,7 +1722,9 @@ msgid "Waterm. Outp"
 msgstr "Eau produite"
 #
 msgid "Watermaker"
-msgstr "Production d'eau par heure"
+msgstr ""
+"Production d'eau\n"
+"par heure"
 #
 msgid "Wave"
 msgstr "Vague"
@@ -1728,9 +1742,8 @@ msgstr ""
 msgid "WayPoint arrived"
 msgstr "Waypoint d'arrivé"
 #
-#, fuzzy
 msgid "Waypoint"
-msgstr "Waypoint évité"
+msgstr "Waypoint"
 #
 msgid "Waypoint skipped"
 msgstr "Waypoint évité"
@@ -1784,7 +1797,7 @@ msgstr "Afficher une alerte \"Pas de GPS\""
 #
 msgid ""
 "Writes this text to the logbook when the event occurs, alter texts as desired"
-msgstr ""
+msgstr "Ajouter ce texte dans le livre de bord à chaque évenement."
 #
 msgid "Yard-Nr."
 msgstr ""
@@ -1792,7 +1805,7 @@ msgstr ""
 "de port"
 #
 msgid "Year"
-msgstr ""
+msgstr "Année"
 #
 #
 #
@@ -1816,23 +1829,29 @@ msgid ""
 "\n"
 "Please use a different Dateformat in all three Choiceboxes."
 msgstr ""
+"Vous ne pouvez définir ce format de date\n"
+"\n"
+"%s%s%s%s%s\n"
+"\n"
+"Veuillez utiliser un format de date défini dans la liste"
 #
 msgid ""
 "Your Country has 24 Hour Format.\n"
 "In this case the OS doen't serve AM/PM-Strings.\n"
 msgstr ""
+"Votre région utilise un format 24 heures\n"
+"Dans ce cas le systèm n'utilisera pas le texte AM/PM.\n"
 #
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Your Logbook has %i lines\n"
 "\n"
 "You should create a new logbook to minimize loadingtime."
 msgstr ""
-"Votre livre de bord a 800 lignes ou plus\n"
+"Votre livre de bord a %i lignes \n"
 "\n"
-"Veuillez créer un nouveau livre de bord pour réduire le temps de chargement\n"
-"\n"
-"Si vous aviez une minuterie activée, celle ci est actuellement stoppée  !!!"
+"Vous devriez créer un nouveau livre de bord pour réduire le temps de "
+"chargement"
 #
 msgid "Your Logbook has no lines ?"
 msgstr "Votre livre de bord ne contient aucune ligne"
@@ -1842,17 +1861,15 @@ msgstr ""
 "Code\n"
 "postal"
 #
-#, fuzzy
 msgid "add a line to the end of your logbook"
-msgstr "Ajouter une ligne à la fin du logbook"
+msgstr "Ajouter une ligne à la fin du livre de bord"
 #
 msgid "add the equipment of your boat"
 msgstr "Ajouter l'équipement du bateau"
 #
 # Sur une version FR l'utilisateur souhaitera plus saisir des Litres.
-#, fuzzy
 msgid "all"
-msgstr "Gal"
+msgstr "Tous"
 #
 msgid ""
 "automatic line\n"
@@ -1887,7 +1904,6 @@ msgstr ""
 "Ajouter une ligne en automatique\n"
 "à l'arrivée d'un waypoint"
 #
-#, fuzzy
 msgid ""
 "automatic line by timer\n"
 "You can set/unset a timer\n"
@@ -1911,9 +1927,8 @@ msgstr ""
 "Par défaut = par rapport au bateau \n"
 "Cap = direction vent réel"
 #
-#, fuzzy
 msgid "every"
-msgstr "Mètre"
+msgstr "chaque"
 #
 msgid "every 15 Degrees +/- 1 hour"
 msgstr "Chaque 15 degrés +/- 1 heure"
@@ -1975,6 +1990,9 @@ msgid ""
 "red = Event is stopped\n"
 "yellow = Event is suspended. Restart event with Start-Button"
 msgstr ""
+"Vert     = Evenement actif\n"
+"Rouge = Evenement stopé\n"
+"Jaune  = Evenement en pause. Redémarrer l'évenement avec le bouton Démarrer"
 #
 msgid "h"
 msgstr "h"
@@ -2001,12 +2019,14 @@ msgid ""
 "no Event/s\n"
 "Click one or more bullets to start"
 msgstr ""
+"Aucun evenement\n"
+"Cliquez sur une ou plusieurs bulles pour démarrer"
 #
 msgid "none"
 msgstr "Rien"
 #
 msgid "this day"
-msgstr ""
+msgstr "Ce jour"
 #
 # means
 # Logbook from date to date
@@ -2029,6 +2049,7 @@ msgstr "semaine(s)"
 #
 msgid "write your own label"
 msgstr "Ecrire votre  propre \"étiquette\" "
+#
 #
 #
 #
@@ -2095,8 +2116,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "      Course- Message toute les x minutes"
+#
 #
 #
 #
@@ -2181,6 +2204,7 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
 #
@@ -2213,8 +2237,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1. quart de 1. Personne"
+#
 #
 #
 #
@@ -2290,8 +2316,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid ":0"
 #~ msgstr ":0"
+#
 #
 #
 #
@@ -2354,8 +2382,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "Ajouter à la liste des quarts comme avec"
+#
 #
 #
 #
@@ -2418,8 +2448,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Durée automatique de quart"
+#
 #
 #
 #
@@ -2504,6 +2536,7 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Supprimer la ligne"
@@ -2537,8 +2570,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Glisser-déposer pour changer l'ordre dans la liste"
+#
 #
 #
 #
@@ -2603,10 +2638,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Fin"
+#
 #
 #
 #
@@ -2671,10 +2708,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
 #~ "Fin"
+#
 #
 #
 #
@@ -2739,10 +2778,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "Quart 6 :\n"
 #~ "Fin"
+#
 #
 #
 #
@@ -2805,8 +2846,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Si waypoint d'arrivé"
+#
 #
 #
 #
@@ -2869,8 +2912,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Délai : "
+#
 #
 #
 #
@@ -2925,8 +2970,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Numéro du quart"
+#
 #
 #
 #
@@ -3003,8 +3050,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Person:"
 #~ msgstr "Personne :"
+#
 #
 #
 #
@@ -3067,8 +3116,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Veuillez entrer 4 chiffres au format 24h ex : 1545 = 03:45 PM"
+#
 #
 #
 #
@@ -3135,8 +3186,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Désolé, 0 Hrs 0 Min 0 Sec est impossible"
+#
 #
 #
 #
@@ -3201,10 +3254,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Début"
+#
 #
 #
 #
@@ -3269,6 +3324,7 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
@@ -3303,10 +3359,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #~ msgid "Start 5.Watch"
 #~ msgstr ""
 #~ "Quart 5 :\n"
 #~ "Début"
+#
 #
 #
 #
@@ -3379,156 +3437,7 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Static Watchtimes"
 #~ msgstr "Appliquer les quarts"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#~ msgid "Timer "
-#~ msgstr "Minuterie"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#~ msgid "Timer on/off"
-#~ msgstr "Marche/Arrêt"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#~ msgid "delay to find the right course to the wind"
-#~ msgstr "Délai pour trouver la bonne direction du vent"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#~ msgid "s"
-#~ msgstr "s"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#~ msgid "same watch as"
-#~ msgstr "Même quart que "
