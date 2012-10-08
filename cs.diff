@@ -1,0 +1,2806 @@
+diff --git a/po/cs.po b/po/cs.po
+index 80bb2b8..f9fab6f 100644
+--- a/po/cs.po
++++ b/po/cs.po
+@@ -8,8 +8,8 @@ msgstr ""
+ "Project-Id-Version: logbookkonni_pi 2.5.0\n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2012-09-27 21:21+0200\n"
+-"PO-Revision-Date: 2012-06-20 11:53+0100\n"
+-"Last-Translator: Konni <konnibe@hotmail.de>\n"
++"PO-Revision-Date: 2012-10-07 10:31+0100\n"
++"Last-Translator: Pavel Kalian <pavel@kalian.cz>\n"
+ "Language-Team: Pavel Kalian <pavel@kalian.cz>\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+@@ -17,6 +17,7 @@ msgstr ""
+ "X-Poedit-Language: Czech\n"
+ "X-Poedit-Country: CZECH REPUBLIC\n"
+ "X-Poedit-SourceCharset: utf-8\n"
++
+ #
+ #, c-format
+ msgid ""
+@@ -27,6 +28,7 @@ msgstr ""
+ "\n"
+ "Jméno bodu: %s\n"
+ "%s %s"
++
+ #
+ msgid ""
+ "\n"
+@@ -34,23 +36,28 @@ msgid ""
+ msgstr ""
+ "\n"
+ "nenalezeno v souboru rozvržení"
++
+ #
+ msgid "     Winddirection set to:"
+ msgstr "     Smer vetru nastaven na:"
++
+ #
+ msgid " - Full Hour Timer"
+-msgstr ""
++msgstr " - Stopky celých hodin"
++
+ #
+ msgid " - Individual Timer"
+-msgstr ""
++msgstr " - Individuální stopky"
++
+ #
+-#, fuzzy
+ msgid " - Normal Timer - Interval: "
+-msgstr " - Casovac beží - Interval:"
++msgstr " - Normální stopky - Interval:"
++
+ #
+ #
+ msgid " Direction "
+ msgstr " Smer"
++
+ #
+ msgid ""
+ "!\n"
+@@ -60,134 +67,166 @@ msgstr ""
+ "!\n"
+ "\n"
+ "Nezapomnel's pridat tuto rádku v rozvržení?"
++
+ #
+ msgid "\""
+ msgstr ""
++
+ #
+ #
+ #
+ #
+ #
+-#, fuzzy
+ msgid "#1 Total"
+-msgstr "Palivo celkem"
++msgstr "#1 celkem"
++
+ #
+ #
+ #
+ #
+ #
+-#, fuzzy
+ msgid "#2 Total"
+-msgstr "Palivo celkem"
++msgstr "#2 celkem"
++
+ #
+ msgid "%E Week(s) %D Day(s) %H:%M "
+-msgstr ""
++msgstr "%E týdny %D dny %H:%M "
++
+ #
+ #, c-format
+ msgid "%i Year(s) %i Month(s) %i Day(s)"
+-msgstr ""
++msgstr "%i roky %i mesíce %i dny"
++
+ #
+ msgid "'"
+-msgstr ""
++msgstr "'"
++
+ #
+ msgid "(Unnamed Route)"
+ msgstr "(Nepojmenovaná trasa)"
++
+ #
+-msgid ""
+-"*Optional* Prepend a * to a member to make this member static to a watch / "
+-"Click Calculate"
+-msgstr ""
++msgid "*Optional* Prepend a * to a member to make this member static to a watch / Click Calculate"
++msgstr "*Volitelné* Predradit * pred clen, aby byl pro hlídku statický / Klikni pro výpocet"
++
+ #
+ #
+-#, fuzzy
+ msgid "+ Minutes"
+-msgstr "Minuty"
++msgstr "+ Minuty"
++
+ #
+ msgid "-Plugin"
+ msgstr "-Doplnek"
++
+ #
+-#, fuzzy
+ msgid "1. Watch"
+-msgstr "Hlídka"
++msgstr "1. Hlídka"
++
+ #
+ msgid "12 Hour Format"
+-msgstr ""
++msgstr "12ti hodinový formát"
++
+ #
+ msgid "24 Hour Format"
+-msgstr ""
++msgstr "24 hodinový formát"
++
+ #
+ msgid "AH #1 Total"
+-msgstr ""
++msgstr "AH #1 celkem"
++
+ #
+ msgid "AH #2 Total"
+-msgstr ""
++msgstr "AH #2 celkem"
++
+ #
+ msgid "AM"
+-msgstr ""
++msgstr "AM"
++
+ #
+ msgid "AM/PM"
+-msgstr ""
++msgstr "AM/PM"
++
+ #
+ #
+ msgid "Abbreviations"
+ msgstr "Zkratky"
++
+ #
+ msgid "Active"
+ msgstr "Aktivní"
++
+ #
+ msgid "Active Logbook"
+ msgstr "Aktivní  lodní deník"
++
+ #
+ msgid "Actuell Logbook"
+ msgstr "Aktuální deník"
++
+ #
+ msgid "Add Crew"
+ msgstr "Pridej posádku"
++
+ #
+ msgid "Add Equipment"
+ msgstr "Pridat vybavení"
++
+ #
+ msgid "Add Item"
+ msgstr "Pridej položku"
++
+ #
+ msgid "Add Line"
+ msgstr "Pridat záznam"
++
+ #
+ msgid "Add Treenode"
+ msgstr "Pridej uzel stromu"
++
+ #
+ msgid "Add a new Crewmember"
+ msgstr "P5idat clena posádky"
++
+ #
+ msgid "Add a new line"
+ msgstr "Pridat nový záznam"
++
+ #
+ msgid "Administrator (Sudo) Password:"
+-msgstr ""
++msgstr "Heslo administrátora (sudo):"
++
+ #
+ msgid "Adress"
+ msgstr "Adresa"
++
+ #
+ msgid "Air"
+ msgstr "Vzduch"
++
+ #
+ msgid "All Logbooks"
+ msgstr "Všechny deníky"
++
+ #
+ msgid "All changes depending to this day only."
+-msgstr ""
++msgstr "Všechny zmeny zaleží pouze na tomto dnu."
++
+ #
+ msgid "Alter watchtimes as desired / Drag 'n Drop members from the Crewlist"
+-msgstr ""
++msgstr "Zmen casy hlídek podle potreby / Pretáhni myší cleny z Crewlistu"
++
+ #
+ msgid "Ampere"
+-msgstr ""
++msgstr "Ampéry"
++
+ #
+ msgid "Are you sure ?"
+ msgstr "Jsi si jist?"
++
+ #
+ msgid "At"
+ msgstr "U"
++
+ #
+ msgid ""
+ "Automatic line by timer\n"
+@@ -203,83 +242,108 @@ msgstr ""
+ "nebo zmenit tento text v Nástroje/Zásuvné moduly/Lodní deník\n"
+ "\n"
+ "Shift+Enter pridá nový záznam"
++
+ #
+ msgid "Bank #1"
+-msgstr ""
++msgstr "Bank #1"
++
+ #
+ msgid "Bank #1 gen."
+-msgstr ""
++msgstr "Bank #1 gen."
++
+ #
+ msgid "Bank #1 used"
+-msgstr ""
++msgstr "Bank #1 použito"
++
+ #
+ msgid "Bank #2"
+-msgstr ""
++msgstr "Bank #2"
++
+ #
+ msgid "Bank #2 gen."
+-msgstr ""
++msgstr "Bank #2 gen."
++
+ #
+ msgid "Bank #2 used"
+-msgstr ""
++msgstr "Bank #2 použito"
++
+ #
+ msgid "Barometer"
+ msgstr "Barometr"
++
+ #
+-#, fuzzy
+ msgid "Battery"
+-msgstr "Kategorie"
++msgstr "Baterie"
++
+ #
+ msgid "Beam"
+ msgstr "Šírka"
++
+ #
+ msgid "Behavior"
+ msgstr "Chování"
++
+ #
+ msgid "Best Dist. p. Day"
+ msgstr "Nej upluto za den"
++
+ #
+ msgid "Birthname"
+ msgstr "Rodné príjmení"
++
+ #
+ msgid "Boat"
+ msgstr "Lod"
++
+ #
+ msgid "Builder"
+ msgstr "Stavitel"
++
+ #
+ msgid "Buy Parts"
+ msgstr "Koupit díly"
++
+ #
+ msgid "Buy parts for this repair"
+ msgstr "Koupit díly na tuto opravu"
++
+ #
+ msgid "Buy parts for this service"
+ msgstr "Koupit díly na tento servis"
++
+ #
+ msgid "C/Strength"
+ msgstr "P/Síla"
++
+ #
+ msgid "COG (T)"
+-msgstr ""
++msgstr "COG (T)"
++
+ #
+ msgid "Calculate"
+-msgstr ""
++msgstr "Vypocítat"
++
+ #
+ msgid "Calculate the watches with the members entered in the columns"
+-msgstr ""
++msgstr "Vypocítat hlídky se cleny vyplnenými ve sloupcích"
++
+ #
+ msgid "Callsign"
+ msgstr "Volací znak"
++
+ #
+ #
+ msgid "Capacity"
+ msgstr "Kapacita"
++
+ #
+ msgid "Category"
+ msgstr "Kategorie"
++
+ #
+ msgid "Clear"
+-msgstr ""
++msgstr "Vymazat"
++
+ #
+ #
+ #
+@@ -292,35 +356,41 @@ msgstr ""
+ #
+ #
+ #
+-#, fuzzy
+ msgid "Clear all"
+-msgstr "Vyber"
++msgstr "Smaž vše"
++
+ #
+ msgid "Clear all data"
+-msgstr ""
++msgstr "Vymazat vše"
++
+ #
+ msgid "Clouds"
+ msgstr "Mraky"
++
+ #
+ msgid "Confirm"
+ msgstr "Potvrdit"
++
+ #
+ msgid "Construction"
+ msgstr "Konstrukce"
++
+ #
+ msgid "Copy to watch"
+-msgstr ""
++msgstr "Kopírovat do hlídky"
++
+ #
+ msgid "Country"
+ msgstr "Stát"
++
+ #
+-#, fuzzy
+ msgid "Course"
+-msgstr "Mraky"
++msgstr "Kurs"
++
+ #
+-#, fuzzy
+ msgid "Course changes"
+-msgstr "Pokud se kurs zmení o více než"
++msgstr "Zmena kursu"
++
+ #
+ msgid ""
+ "Create a new logbook\n"
+@@ -330,27 +400,34 @@ msgstr ""
+ "Vytvorit nový deník\n"
+ "aktivní deník je uložen s aktuálním datem\n"
+ "a muže být zobrazen tlacítkem \"Vyber deník\""
++
+ #
+ msgid "Crewlist"
+ msgstr "Seznam posádky"
++
+ #
+ msgid "Current"
+ msgstr "Proud"
++
+ #
+ msgid "Current Avg."
+ msgstr "Proud prum."
++
+ #
+ #
+ #
+ #
+ msgid "Current Max."
+ msgstr "Max proud"
++
+ #
+ msgid "Currentdirection Avg."
+ msgstr "Prum. smer proudu"
++
+ #
+ msgid "Date"
+ msgstr "Datum"
++
+ #
+ #
+ #
+@@ -376,6 +453,7 @@ msgstr "Datum"
+ #
+ msgid "Date + Days"
+ msgstr "Datum + dny"
++
+ #
+ #
+ #
+@@ -405,6 +483,7 @@ msgstr "Datum + dny"
+ #
+ msgid "Date + Month"
+ msgstr "Datum + mesíce"
++
+ #
+ #
+ #
+@@ -430,110 +509,137 @@ msgstr "Datum + mesíce"
+ #
+ msgid "Date + Weeks"
+ msgstr "Datum + týdny"
++
+ #
+ msgid "Date Launched"
+ msgstr "Datum spuštení"
++
+ #
+ msgid "Date of Birth"
+ msgstr "Datum narození"
++
+ #
+ msgid "Date of Issue"
+ msgstr "Datum vydání"
++
+ #
+ msgid "Date-Format:"
+-msgstr ""
++msgstr "Formát data:"
++
+ #
+-#, fuzzy
+ msgid "Day"
+-msgstr "Dny"
++msgstr "Den"
++
+ #
+ msgid "Day backward"
+-msgstr ""
++msgstr "O den zpet"
++
+ #
+ msgid "Day forward"
+-msgstr ""
++msgstr "O den vpred"
++
+ #
+ msgid "Day(s)"
+ msgstr "Dny"
++
+ #
+-#, fuzzy
+ msgid "Day:"
+-msgstr "Dny"
++msgstr "Den:"
++
+ #
+-#, fuzzy
+ msgid "Days"
+ msgstr "Dny"
++
+ #
+ #
+ msgid "Degres"
+ msgstr "Stupne"
++
+ #
+-#, fuzzy
+ msgid "Delete Crewmembers"
+-msgstr "Smaž uzel stromu"
++msgstr "Smaž cleny posádky"
++
+ #
+ msgid "Delete Item"
+ msgstr "Smaž položku"
++
+ #
+ msgid "Delete Layout"
+ msgstr "Smaž rozvržení"
++
+ #
+ msgid "Delete Row"
+ msgstr "Smaž záznam"
++
+ #
+ #, c-format
+ msgid "Delete Row Nr. %i ?"
+ msgstr "Smazat rádku c. %i ?"
++
+ #
+-#, fuzzy
+ msgid "Delete Rows"
+-msgstr "Smaž záznam"
++msgstr "Smaž rádky"
++
+ #
+ msgid "Delete Treenode"
+ msgstr "Smaž uzel stromu"
++
+ #
+ msgid "Demo Engine stopped"
+ msgstr "Demo Motor zastaven"
++
+ #
+ msgid "Demo Sails up"
+ msgstr "Demo Plachty vytaženy"
++
+ #
+ msgid "Depth"
+ msgstr "Hloubka"
++
+ #
+ msgid "Description"
+ msgstr "Popis"
++
+ #
+ msgid "Designer"
+ msgstr "Designer"
++
+ #
+ msgid "Details"
+ msgstr "Detaily"
++
+ #
+ msgid "Displacement"
+ msgstr "Výtlak"
++
+ #
+-#, fuzzy
+ msgid "Display"
+-msgstr "Výtlak"
++msgstr "Zobrazení"
++
+ #
+ msgid "Distance"
+ msgstr "Vzdálenost"
++
+ #
+ msgid "Distance p. Day"
+ msgstr "Vzdálenost za den"
++
+ #
+ msgid "DistanceTotal"
+ msgstr "Celková vzdálenost"
++
+ #
+ msgid "Draft"
+ msgstr "Ponor"
++
+ #
+ msgid "E"
+-msgstr ""
++msgstr "E"
++
+ #
+ msgid "Edit Layout"
+ msgstr "Editovat rozvržení"
++
+ #
+ #
+ #
+@@ -552,22 +658,26 @@ msgstr "Editovat rozvržení"
+ #
+ msgid "Edit Layouts"
+ msgstr "Uprav rozvržení"
++
+ #
+ #
+ #
+ #
+ msgid "End"
+ msgstr "Konec"
++
+ #
+-#, fuzzy
+ msgid "Engine "
+ msgstr "Motor"
++
+ #
+ msgid "Engine #1"
+ msgstr "Motor #1"
++
+ #
+ msgid "Engine #2"
+ msgstr "Motor #2"
++
+ #
+ msgid ""
+ "Engine stopped\n"
+@@ -577,54 +687,69 @@ msgstr ""
+ "Motor zastaven\n"
+ "\n"
+ "Demo - kontextová nabídka 'použij Testextblocks' pro nápovedu"
++
+ #
+-msgid ""
+-"Enter default watchtime e.g. 3.30 / available formats are 3.30, 3,30, 3:30, "
+-"0330 for 3 hours 30 minutes"
+-msgstr ""
++msgid "Enter default watchtime e.g. 3.30 / available formats are 3.30, 3,30, 3:30, 0330 for 3 hours 30 minutes"
++msgstr "Zadej výchozí cas hlídky, napr. 3.30 / možné formáty jsou 3.30, 3,30, 3:30, 0330 pro 3 hodiny a 30 minut"
++
+ #
+ msgid "Equipment"
+ msgstr "Vybavení"
++
+ #
+ msgid "Event"
+-msgstr ""
++msgstr "Událost"
++
+ #
+ msgid ""
+ "Event/s running\n"
+ "Click the button to suspend or a bullet to stop"
+ msgstr ""
++"Událost/i probíhají\n"
++"Klikni na tlacítko pro uspání nebo na odrážku pro zastavení"
++
+ #
+ msgid ""
+ "Event/s suspended\n"
+ "Click the button to restart all events"
+ msgstr ""
++"Událost/i uspány\n"
++"Klikni na tlacítko pro restart všech událostí"
++
+ #
+ msgid "Events"
+-msgstr ""
++msgstr "Události"
++
+ #
+ msgid "Export"
+ msgstr "Exportovat"
++
+ #
+ msgid "F"
+-msgstr ""
++msgstr "F"
++
+ #
+ #
+ msgid "Fathom"
+ msgstr "Fathomy"
++
+ #
+ #
+ msgid "Feet"
+ msgstr "Stopy"
++
+ #
+ msgid "Filter Layout by"
+ msgstr "Filtr rozvržení podle"
++
+ #
+ msgid "Firstname"
+ msgstr "Jméno"
++
+ #
+-#, fuzzy
+ msgid "Firstname only"
+-msgstr "Jméno"
++msgstr "Pouze jméno"
++
+ #
+ #
+ #
+@@ -654,16 +779,20 @@ msgstr "Jméno"
+ #
+ msgid "Fix Date"
+ msgstr "Fix datum"
++
+ #
+ msgid "Flip Day<->Month"
+-msgstr ""
++msgstr "Prehod den<->mesíc"
++
+ #
+ msgid "Fuel"
+ msgstr "Palivo"
++
+ #
+ #
+ msgid "Fuel/Water"
+ msgstr "Palivo/voda"
++
+ #
+ #
+ #
+@@ -671,34 +800,43 @@ msgstr "Palivo/voda"
+ #
+ msgid "FuelTotal"
+ msgstr "Palivo celkem"
++
+ #
+ msgid "Full Hour Timer"
+-msgstr ""
++msgstr "Stopky celých hodin"
++
+ #
+ msgid "GPS Auto"
+-msgstr ""
++msgstr "GPS Auto"
++
+ #
+ msgid "Gen. total"
+-msgstr ""
++msgstr "Gen. celkem"
++
+ #
+-#, fuzzy
+ msgid "Generator"
+-msgstr "Teplota"
++msgstr "Generátor"
++
+ #
+ msgid "Go to date/time now"
+-msgstr ""
++msgstr "Jdi na aktuální datum/cas"
++
+ #
+ msgid "Goto Route"
+ msgstr "Jít na trasu"
++
+ #
+ msgid "Greatest Width of Hull"
+ msgstr "Nejvetší šírka trupu"
++
+ #
+ msgid "HIN-Nr."
+ msgstr "C. trupu"
++
+ #
+ msgid "HTML"
+-msgstr ""
++msgstr "HTML"
++
+ #
+ msgid ""
+ "Have You forgotten to enclose the Header with [[ and ]]\n"
+@@ -706,12 +844,15 @@ msgid ""
+ msgstr ""
+ "Nezapomnel's uzavrít hlavicku do [[ a ]]\n"
+ " nebo Data do {{ a }} ?"
++
+ #
+ msgid "Heading"
+ msgstr "Smer"
++
+ #
+ msgid "Help"
+-msgstr ""
++msgstr "Nápoveda"
++
+ #
+ msgid ""
+ "Help\n"
+@@ -748,39 +889,48 @@ msgstr ""
+ "\n"
+ "Vložit text\n"
+ "\n"
+-"V 'Texty pouze pri použití tohoto dialogu' mužeš jen vkládat/mazt uzly "
+-"stromu\n"
++"V 'Texty pouze pri použití tohoto dialogu' mužeš jen vkládat/mazt uzly stromu\n"
+ "\n"
+ "Pretáhni a pust položku do/z nabídky\n"
+ "\n"
+ "Podívej se na ostatní uzly stromu pro další nápovedu"
++
+ #
+ msgid "Hide Equipment"
+ msgstr "Schovat vybavení"
++
+ #
+ msgid "Hide column"
+ msgstr "Schovat sloupec"
++
+ #
+ msgid "Homeport"
+ msgstr "Domovský prístav"
++
+ #
+ msgid "Hour"
+-msgstr ""
++msgstr "Hodina"
++
+ #
+ msgid "Hull"
+ msgstr "Trup"
++
+ #
+ msgid "Hull Identification No."
+ msgstr "Identifikacní císlo trupu"
++
+ #
+ msgid "Hygrometer"
+ msgstr "Hygrometer"
++
+ #
+ msgid "If"
+ msgstr "Pokud"
++
+ #
+ msgid "If GPS off use for manual entry"
+ msgstr "Pokud je vypnutá GPS, použij pro rucní vstup"
++
+ #
+ msgid ""
+ "If You have created Your own Layouts\n"
+@@ -790,6 +940,7 @@ msgstr ""
+ "Pokud sis vytvoril vlastní rozvržení\n"
+ "pojmenuj je s predponou napr My_ \n"
+ "\"_\" je dúležité"
++
+ #
+ msgid ""
+ "If You have created Your own layouts\n"
+@@ -797,22 +948,28 @@ msgid ""
+ msgstr ""
+ "pokud sis vytvoril vlastní rozvržení\n"
+ "s prefixem napr. My_"
++
+ #
+ msgid "In Column"
+ msgstr "Ve sloupci"
++
+ #
+ msgid "Individual"
+-msgstr ""
++msgstr "Individuální"
++
+ #
+ msgid "Individual Timer"
+-msgstr ""
++msgstr "Individuální stopky"
++
+ #
+ msgid "Information"
+ msgstr "Informace"
++
+ #
+ #
+ msgid "Install"
+ msgstr "Instalovat"
++
+ #
+ #
+ #
+@@ -849,27 +1006,34 @@ msgstr "Instalovat"
+ #
+ msgid "Install Languages"
+ msgstr "Instalovat jazyky"
++
+ #
+ #
+ msgid "Install Layouts"
+ msgstr "Instalovat rozvržení"
++
+ #
+ #
+ msgid "Install OpenCPN_Logbook_Languages.zip"
+ msgstr "Nainstalovat OpenCPN_Logbook_Languages.zip"
++
+ #
+ #
+ msgid "Install OpenCPN_Logbook_Layouts.zip"
+ msgstr "Nainstalovat OpenCPN_Logbook_Layouts.zip"
++
+ #
+ msgid "Install single Layout"
+ msgstr "Nainstaluj jedno rozvržení"
++
+ #
+ msgid "Insurance"
+ msgstr "Pojištení"
++
+ #
+ msgid "Issued in"
+ msgstr "Vydán v"
++
+ #
+ msgid ""
+ "It's not allowed to append Data to a old Logbook\n"
+@@ -879,22 +1043,30 @@ msgstr ""
+ "Není povoleno pridávat data do starého deníku\n"
+ "\n"
+ "OpenCPN prepne na aktuální deník"
++
+ #
+ msgid "LOA"
+-msgstr ""
++msgstr "LOA"
++
+ #
+ msgid "LOD"
+-msgstr ""
++msgstr "LOD"
++
+ #
+ msgid "LWL"
+-msgstr ""
++msgstr "LWL"
++
+ #
+-#, fuzzy, c-format
++#, c-format
+ msgid ""
+ "Languages installed at\n"
+ "\n"
+ "%s"
+-msgstr "Jazyky instalovány"
++msgstr ""
++"Jazyky instalovány v\n"
++"\n"
++"%s"
++
+ #
+ #, c-format
+ msgid ""
+@@ -904,20 +1076,30 @@ msgid ""
+ "\n"
+ "Click Help Options/Behavoir in the image the button 'Install Languages'"
+ msgstr ""
++"Jazyky nejsou nainstalovány v\n"
++"\n"
++"%s\n"
++"\n"
++"Klikni na Nápoveda - Nastavení/Chování na tlacítko 'Instaluj jazyky'"
++
+ #
+ msgid "Last Logbook is\n"
+ msgstr "Poslední lodní deník je\n"
++
+ #
+ msgid "Last line from Logbook\n"
+ msgstr "Poslední rádka lodního deníku\n"
++
+ #
+ msgid "Last waypoint of the Route"
+ msgstr "Poslední bod trasy"
++
+ #
+ msgid "Lastname only"
+-msgstr ""
++msgstr "Jen príjmení"
++
+ #
+-#, fuzzy, c-format
++#, c-format
+ msgid ""
+ "Layouts %sinstalled at\n"
+ "\n"
+@@ -925,32 +1107,47 @@ msgid ""
+ "%s\n"
+ "%s\n"
+ "%s"
+-msgstr "Rozvržení instalovány"
++msgstr ""
++"Rozvržení %sinstalovány v\n"
++"\n"
++"%s\n"
++"%s\n"
++"%s\n"
++"%s"
++
+ #
+ msgid "Length in Waterline"
+ msgstr "Délka vodorysky"
++
+ #
+ msgid "Length of your sailing trip"
+-msgstr ""
++msgstr "Délka tvé plavby"
++
+ #
+ msgid "Length over Deck"
+ msgstr "Délka pres palubu"
++
+ #
+ msgid "Length over all"
+ msgstr "Celková délka"
++
+ #
+ #
+ msgid "Local = UTC"
+ msgstr "Lokální = UTC"
++
+ #
+ msgid "Local Format"
+-msgstr ""
++msgstr "Lokální formát"
++
+ #
+ msgid "Logbook"
+ msgstr "Lodní deník"
++
+ #
+ msgid "Logbook Preferences"
+ msgstr "Nastavení lodného deníku"
++
+ #
+ #
+ #
+@@ -980,39 +1177,34 @@ msgstr "Nastavení lodného deníku"
+ #
+ msgid "Logbook Total"
+ msgstr "Deník celkem"
++
+ #
+ msgid "Logbook for OpenCPN"
+ msgstr "Lodní deník pro OpenCPN"
++
+ #
+-#, fuzzy
+ msgid ""
+ "Logbook for OpenCPN\n"
+ "\n"
+ "Thanks's to the community for their helpfull suggestions.\n"
+ "\n"
+ "If You find a bug post it on\n"
+-"http://www.cruisersforum.com/forums/f134/logbook-konni-for-opencpn-68945."
+-"html\n"
++"http://www.cruisersforum.com/forums/f134/logbook-konni-for-opencpn-68945.html\n"
+ "Helpfull Videos are at Youtube, search for LogbookKonni."
+ msgstr ""
+ "Lodní deník pro OpenCPN\n"
+ "\n"
+-"\t- automatický (NMEA) nebo manuální vstup\n"
+-"\t- Casovac pro automatické záznamy\n"
+-"\t- Export do ODS, HTML, XML(jen pod Windows), CSV\n"
+-"\t- Nekolik rozvržení\n"
+-"\t- Prizpusobitelné rozvržení\n"
++"Díky komunite za pomoc a ohlasy.\n"
+ "\n"
+-"Díky komunite za podnetné pripomínky.\n"
+-"\n"
+-"Pokud najdeš chybu, popiš ji na\n"
+-"http://www.cruisersforum.com/forums/f134/logbook-konni-for-opencpn-68945."
+-"html\n"
+-"Na Youtube je pár videí, která Ti v zacátku pomužou, hledej \"LogbookKonni\"."
++"Jestli najdeš chybu, napiš o ní na\n"
++"http://www.cruisersforum.com/forums/f134/logbook-konni-for-opencpn-68945.html\n"
++"Instruktážní videa jsou na Youtube, hledej LogbookKonni."
++
+ #
+ #, c-format
+ msgid "Logbook from %s to %s"
+ msgstr "Deník od %s do %s"
++
+ #
+ #
+ #
+@@ -1042,41 +1234,48 @@ msgstr "Deník od %s do %s"
+ #
+ msgid "Logbook until "
+ msgstr "Deník do"
++
+ #
+ msgid "MMSI"
+-msgstr ""
++msgstr "MMSI"
++
+ #
+ #
+ msgid "Magnetic"
+ msgstr "Magnetický"
++
+ #
+ msgid "Maintenance"
+ msgstr "Údržba"
++
+ #
+ #
+-#, fuzzy
+ msgid "Member"
+-msgstr "Metry"
++msgstr "Clen"
++
+ #
+-#, fuzzy
+ msgid "Merge Watches"
+-msgstr "Nastav hlídky"
++msgstr "Spoj hlídky"
++
+ #
+ #
+-#, fuzzy
+ msgid "Meteo"
+-msgstr "Metry"
++msgstr "Meteo"
++
+ #
+ #
+ msgid "Meter"
+ msgstr "Metry"
++
+ #
+ #
+ msgid "Minutes"
+ msgstr "Minuty"
++
+ #
+ msgid "Minutes greater than 59"
+ msgstr "Minuty vetší než 59"
++
+ #
+ #
+ #
+@@ -1084,61 +1283,76 @@ msgstr "Minuty vetší než 59"
+ #
+ msgid "Month"
+ msgstr "Mesíc"
++
+ #
+ #
+ #
+ #
+ #
+-#, fuzzy
+ msgid "Month "
+ msgstr "Mesíc"
++
+ #
+ #
+ msgid "Motor Hours"
+ msgstr "Motohodiny"
++
+ #
+ msgid "Motor/Sails"
+ msgstr "Motor/Plachty"
++
+ #
+ msgid "NM"
+-msgstr ""
++msgstr "NM"
++
+ #
+ msgid "Name"
+ msgstr "Príjmení"
++
+ #
+ msgid "Name      "
+ msgstr "Jméno"
++
+ #
+ msgid "Name in full"
+-msgstr ""
++msgstr "Celé jméno"
++
+ #
+ msgid "Nationality"
+ msgstr "Národnost"
++
+ #
+ msgid "Navigation"
+ msgstr "Navigace"
++
+ #
+ #, c-format
+ msgid "New Item%i"
+ msgstr "Nová položka%i"
++
+ #
+ msgid "New Logbook"
+ msgstr "Nový lodní deník"
++
+ #
+ #, c-format
+ msgid "New Node%i"
+ msgstr "Nový uzel%i"
++
+ #
+ msgid "Next WP Name: "
+ msgstr "Jméno príštího WP:"
++
+ #
+ #
+ #
+ msgid "No"
+ msgstr "Ne"
++
+ #
+ msgid "No GPS-Signal !"
+ msgstr "Není GPS signál"
++
+ #
+ msgid ""
+ "No Path set to HTML-Editor\n"
+@@ -1146,6 +1360,7 @@ msgid ""
+ msgstr ""
+ "Není nastavena cesta k editoru HTML\n"
+ "v Nástroje/Zásuvné moduly/LogbookKonni/Nastavení"
++
+ #
+ msgid ""
+ "No Path set to HTML-Editor\n"
+@@ -1153,67 +1368,74 @@ msgid ""
+ msgstr ""
+ "Není nastavena cesta k editoru HTML\n"
+ "v Nástroje/Zásuvné moduly/LogbookKonni/Nastavení"
++
+ #
+ #
+-#, fuzzy
+ msgid "No Seconds"
+-msgstr "Sekundy"
++msgstr "Bez zekund"
++
+ #
+-#, fuzzy
+ msgid "Normal Timer"
+-msgstr "Celkový cas"
++msgstr "Normální stopky"
++
+ #
+-#, fuzzy
+ msgid ""
+ "Normal Timer has 0 h 0 Min.\n"
+ "\n"
+ "Please change settings (Timer-Interval)"
+ msgstr ""
+-"Casovac má 0h 0m 0s\n"
++"Normální casovac má 0h 0min\n"
+ "\n"
+ "Prosím zmen hodnoty v nastavení"
++
+ #
+ #
+ #
+-#, fuzzy
+ msgid "Now"
+-msgstr "Ne"
++msgstr "Ted"
++
+ #
+ msgid "ODT"
+-msgstr ""
++msgstr "ODT"
++
+ #
+ #, c-format
+ msgid "Old Logbook until %s"
+ msgstr "Starý deník do %s"
++
+ #
+ msgid "Onboard"
+ msgstr "Na palube"
++
+ #
+ #
+ msgid "Only Layouts with prefix:"
+ msgstr "Pouze rozložení s prefixem:"
++
+ #
+-msgid ""
+-"Only used when you enter 1/2, 1/4 ... in a total-field, or to calculate the "
+-"watermaker\n"
+-msgstr ""
++msgid "Only used when you enter 1/2, 1/4 ... in a total-field, or to calculate the watermaker\n"
++msgstr "Použito pouze pokud zadáš 1/2, 1/4 ... v celkovém poli, nebo pro výpocet watermakeru\n"
++
+ #
+-msgid ""
+-"Opendocument SpreadSheet(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV "
+-"Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
+-msgstr ""
++msgid "Opendocument SpreadSheet(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
++msgstr "Opendocument SpreadSheet(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
++
+ #
+ msgid "Overview"
+ msgstr "Prehled"
++
+ #
+ msgid "Owner"
+ msgstr "Majitel"
++
+ #
+ msgid "PM"
+-msgstr ""
++msgstr "PM"
++
+ #
+ msgid "Passport-Nr"
+ msgstr "Císlo pasu"
++
+ #
+ #
+ #
+@@ -1275,9 +1497,11 @@ msgstr "Císlo pasu"
+ #
+ msgid "Path"
+ msgstr "Cesta"
++
+ #
+ msgid "Path to Datamanager"
+ msgstr "Cesta k manažeru dat"
++
+ #
+ #
+ msgid ""
+@@ -1286,12 +1510,15 @@ msgid ""
+ msgstr ""
+ "Cesta k editoru HTML\n"
+ "(volitelné)"
++
+ #
+ msgid "Path to MailClient"
+ msgstr "Cesta k poštovnímu programu"
++
+ #
+ msgid "Path to ODT-Editor"
+ msgstr "Cesta k editoru ODT"
++
+ #
+ #
+ #
+@@ -1353,9 +1580,11 @@ msgstr "Cesta k editoru ODT"
+ #
+ msgid "Paths"
+ msgstr "Cesty"
++
+ #
+ msgid "Place of Birth"
+ msgstr "Místo narození"
++
+ #
+ msgid ""
+ "Please enter 05445.1234n03012.0504e for\n"
+@@ -1363,6 +1592,7 @@ msgid ""
+ msgstr ""
+ "Prosím zadej 05445.1234n03012.0504e pro\n"
+ "054Deg 45Min 12Sec N 030Deg 12Min 05Sec E"
++
+ #
+ msgid ""
+ "Please enter 0544512.15n0301205.15e for\n"
+@@ -1370,6 +1600,7 @@ msgid ""
+ msgstr ""
+ "Prosím zadej  0544512.15n0301205.15e pro\n"
+ "054Deg 45Min 12Sec N 030Deg 12Min 05Sec E"
++
+ #
+ #, c-format
+ msgid ""
+@@ -1378,35 +1609,44 @@ msgid ""
+ msgstr ""
+ "Prosím vlož datum ve formátu: \n"
+ "      %s"
++
+ #
+-#, fuzzy, c-format
++#, c-format
+ msgid ""
+ "Please enter the Time in the format:\n"
+ "   %s"
+ msgstr ""
+-"Prosím vlož datum ve formátu: \n"
+-"   "
++"Prosím vlož cas ve formátu: \n"
++"   %s"
++
+ #
+ msgid "Please fill in one character in Degrees, Minutes and Seconds"
+ msgstr "Prosím, vypln jeden znak do stupnu, minut a sekund"
++
+ #
+ msgid "Please fill in one character in Degrees, Minuts and Seconds"
+ msgstr "Prosím, vypln jeden znak do stupnu, minut a sekund"
++
+ #
+ msgid "Policy"
+ msgstr "Podmínky"
++
+ #
+ msgid "Popup logbook on event"
+-msgstr ""
++msgstr "Deník do popredí pri události"
++
+ #
+ msgid "Position"
+ msgstr "Pozice"
++
+ #
+ msgid "Priority"
+ msgstr "Priorita"
++
+ #
+ msgid "R"
+-msgstr ""
++msgstr "R"
++
+ #
+ #
+ #
+@@ -1414,43 +1654,53 @@ msgstr ""
+ #
+ msgid "Reef"
+ msgstr "Ref"
++
+ #
+ msgid "Registration"
+ msgstr "Registrace"
++
+ #
+ #
+ msgid "Relative"
+ msgstr "Relativní"
++
+ #
+ msgid "Reload Layouts"
+ msgstr "Nahrát rozvržení"
++
+ #
+ msgid "Remarks"
+ msgstr "Poznámky"
++
+ #
+-#, fuzzy
+ msgid "Reminder"
+-msgstr "Designer"
++msgstr "Pripomenutí"
++
+ #
+ msgid "Rename Item"
+ msgstr "Prejmenovat  položku"
++
+ #
+ msgid "Rename Layout"
+ msgstr "Prejmenovat  rozvržení"
++
+ #
+ msgid "Repair done"
+ msgstr "Oprava provedena"
++
+ #
+ msgid "Repairs"
+ msgstr "Opravy"
++
+ #
+ msgid "RepairsTODO"
+ msgstr "Co opravit"
++
+ #
+ #
+-#, fuzzy
+ msgid "Reset"
+-msgstr "Stopy"
++msgstr "Reset"
++
+ #
+ #
+ #
+@@ -1512,24 +1762,31 @@ msgstr "Stopy"
+ #
+ msgid "Reset Paths"
+ msgstr "Reset cest"
++
+ #
+ msgid "Reset all Values to zero ?"
+ msgstr "Resetovat všechny hodnoty na nulu"
++
+ #
+ msgid "Reset data to edit-level"
+-msgstr ""
++msgstr "Reset dat na úroven editace"
++
+ #
+ msgid "Route"
+ msgstr "Trasa"
++
+ #
+ msgid "SOG"
+-msgstr ""
++msgstr "SOG"
++
+ #
+ msgid "STW"
+-msgstr ""
++msgstr "STW"
++
+ #
+ msgid "Sail-Nr."
+ msgstr "C. plachty"
++
+ #
+ #
+ #
+@@ -1537,6 +1794,7 @@ msgstr "C. plachty"
+ #
+ msgid "Sails"
+ msgstr "Plachty"
++
+ #
+ msgid ""
+ "Sails up\n"
+@@ -1548,62 +1806,80 @@ msgstr ""
+ "Motor zastaven\n"
+ "\n"
+ "Demo - kontextová nabídka 'použij Testextblocks' pro nápovedu"
++
+ #
+ msgid "Sails used mostly"
+ msgstr "Nejpoužívanejší plachty"
++
+ #
+ msgid "Save Boat File"
+ msgstr "Ulož soubor lodi"
++
+ #
+ msgid "Save BuyParts File"
+ msgstr "Ulož soubor nákupního seznamu"
++
+ #
+ msgid "Save CrewList File"
+ msgstr "Ulož soubor seznamu posádky"
++
+ #
+ msgid "Save Logbook File"
+ msgstr "Ulož soubor deníku"
++
+ #
+ msgid "Save Overview File"
+ msgstr "Ulož soubor prehledu"
++
+ #
+ msgid "Save Repairs File"
+ msgstr "Ulož soubor oprav"
++
+ #
+ msgid "Save Service File"
+ msgstr "Ulož soubor servisu"
++
+ #
+ msgid "Search in"
+ msgstr "Hledej v"
++
+ #
+ msgid "Search in Logbook"
+ msgstr "Hledej v lodním deníku"
++
+ #
+ msgid "Searchstring"
+ msgstr "Hledaný retezec"
++
+ #
+ #
+ msgid "Seconds"
+ msgstr "Sekundy"
++
+ #
+ msgid "Select"
+ msgstr "Vyber"
++
+ #
+ msgid "Select Layout:"
+ msgstr "Vyber rozložení:"
++
+ #
+ msgid "Select Layout: "
+ msgstr "Vybrat rozvržení:"
++
+ #
+ msgid "Select Logbook"
+ msgstr "Vybrat lodní deník"
++
+ #
+ msgid "Select Route"
+ msgstr "Vyber trasu"
++
+ #
+-#, fuzzy
+ msgid "Select a date"
+-msgstr "Vyber trasu"
++msgstr "Vyber datum"
++
+ #
+ msgid ""
+ "Select a layout which is displayed\n"
+@@ -1611,6 +1887,7 @@ msgid ""
+ msgstr ""
+ "Vyber rozvržení, které je zobrazeno\n"
+ "tlacítkem \"Zobrazit\""
++
+ #
+ msgid ""
+ "Select a old logbook\n"
+@@ -1620,106 +1897,138 @@ msgstr ""
+ "Vyber starý deník\n"
+ "Pokaždé, když je vytvoren nový deník,  \n"
+ "najdeš aktivní deník jako starší deník zde"
++
+ #
+ msgid "Select one of the old logbooks"
+ msgstr "Vyber jeden ze starších deníku"
++
+ #
+ msgid "Select zipped Languages-Files"
+ msgstr "Vyber zabalené soubory s preklady"
++
+ #
+ msgid "Select zipped Layout-Files"
+ msgstr "Vyber zabalené šablony"
++
+ #
+ msgid "Send Layout by email"
+ msgstr "Odešli rozložení e-mailem"
++
+ #
+-#, fuzzy
+ msgid "Separator"
+-msgstr "Teplota"
++msgstr "Oddelovac"
++
+ #
+ msgid "Serial-Nr."
+ msgstr "Cériové c."
++
+ #
+ msgid "Service"
+ msgstr "Servis"
++
+ #
+ msgid "Service TODO"
+ msgstr "Co servisovat"
++
+ #
+ msgid "Service done"
+ msgstr "Servis proveden"
++
+ #
+ msgid "Set Path to DataManager"
+ msgstr "Nastavit cestu k manažeru dat"
++
+ #
+ msgid "Set Path to HTML-Editor"
+ msgstr "Nastavit cestu k editoru HTML"
++
+ #
+ msgid "Set Path to MailClient"
+ msgstr "Nastavit cestu k poštovnímu programu"
++
+ #
+ msgid "Set Path to ODT-Editor"
+ msgstr "Nastavit cestu k editoru ODT"
++
+ #
+ #
+-#, fuzzy
+ msgid "Set Timer"
+-msgstr "Casovac"
++msgstr "Nastav stopky"
++
+ #
+-#, fuzzy
+ msgid "Set Timer Interval"
+-msgstr " - Casovac beží - Interval:"
++msgstr "Nastav interval stopek"
++
+ #
+-#, fuzzy
+ msgid "Set Watchtimes"
+-msgstr "Nastav hlídky"
++msgstr "Nastav casy hlídek"
++
+ #
+-#, fuzzy
+ msgid "Set as Watchbase"
+-msgstr "Stejná hlídka jako"
++msgstr "Nastav jako základ hlídek"
++
+ #
+ msgid ""
+ "Set desired Degrees\n"
+ "if the course changes by this amount\n"
+ "a course-changed-event occurs"
+ msgstr ""
++"Nastav stupne podle prání\n"
++"pokud se kurs zmení o tuto hodnotu\n"
++"nastane událost course-changed-event"
++
+ #
+ msgid ""
+ "Set desired delay in minutes\n"
+ "It's a good idea to set here a value > 0\n"
+ "to find the right wind."
+ msgstr ""
++"Nastav prodlevu v minutách\n"
++"Je skvelý nápad nastavit hodnotu > 0\n"
++"abys našel správný vítr."
++
+ #
+ msgid "Set gal/liter in Abbreviations "
+-msgstr ""
++msgstr "Nastav gal/litr ve Zkratkách"
++
+ #
+ msgid ""
+ "Set the desired distance in NM\n"
+ " = (Track made good)"
+ msgstr ""
++"Nastav požadovanou hodnotu v NM\n"
++" = (Track made good)"
++
+ #
+ msgid "Set the interval for the timer"
+-msgstr ""
++msgstr "Nastav interval stopek"
++
+ #
+ msgid "Set the startdate of the sailing trip"
+-msgstr ""
++msgstr "Nastav datum vyplutí"
++
+ #
+ msgid "Set the starttime of your sailing trip"
+-msgstr ""
++msgstr "Nastav cas vyplutí"
++
+ #
+ #
+ msgid "Show Depth in"
+ msgstr "Zobraz hloubku v"
++
+ #
+ msgid "Show Equipment"
+ msgstr "Ukaž vybavení"
++
+ #
+ #
+ msgid "Show Logbook Icon"
+ msgstr "Zobraz ikonu deníku"
++
+ #
+ msgid "Show Position Fomat"
+ msgstr "Zobraz formát pozice"
++
+ #
+ #
+ #
+@@ -1727,81 +2036,101 @@ msgstr "Zobraz formát pozice"
+ #
+ msgid "Show ToolTips"
+ msgstr "Zobraz tooltipy"
++
+ #
+ #
+ msgid "Show Wave/Swell in"
+ msgstr "Zobraz vlny/príboj v"
++
+ #
+ #
+ msgid "Show all Layouts"
+ msgstr "Zobraz všechna rozvržení"
++
+ #
+-#, fuzzy
+ msgid "Show all entries"
+-msgstr "Ukaž všechny záznamy posádky"
++msgstr "Ukaž všechny záznamy"
++
+ #
+ msgid "Show hidden columns"
+ msgstr "Zobrazit schované sloupce"
++
+ #
+ #
+ msgid "Show onboard only"
+ msgstr "Zobraz pouze nalodené"
++
+ #
+ msgid "Show/Hide Equipmentgrid"
+ msgstr "Ukaž/Schovej tab. vybavení"
++
+ #
+ msgid "Show/Hide Statusbar"
+-msgstr ""
++msgstr "Ukaž/schovej stavový rádek"
++
+ #
+ msgid ""
+ "Shows/Sets the day\n"
+ "Displays the data in your ODT/Browser-program from this day to end"
+ msgstr ""
++"Ukazuje/Nastavuje den\n"
++"Zobrazuje datum ve tvém ODT/Prohlížeci od tohoto dne do konce"
++
+ #
+ #
+-#, fuzzy
+ msgid "Shutdown Logbook"
+-msgstr "Zobraz ikonu deníku"
++msgstr "Vypni lodní deník"
++
+ #
+ msgid "Sign"
+ msgstr "Znacka"
++
+ #
+ msgid "Sorry, Logbook has no lines"
+ msgstr "Promin, deník nemá žádné záznamy"
++
+ #
+ msgid "Sorry, Your Logbook has no lines"
+ msgstr "Promin, Tvuj deník nemá žádné rádky"
++
+ #
+ msgid "Sorry, no Layout installed"
+ msgstr "Promin, není instalováno žádné rozvržení"
++
+ #
+ msgid "Sort ascending"
+-msgstr ""
++msgstr "Serad vzestupne"
++
+ #
+ msgid "Sort descending"
+-msgstr ""
++msgstr "Serad sestupne"
++
+ #
+ msgid "Speed"
+ msgstr "Rychlost"
++
+ #
+ msgid "Speed Avg."
+ msgstr "Prúm. Rychlost"
++
+ #
+ #
+ #
+ #
+ msgid "Speed Max."
+ msgstr "Max rychlost"
++
+ #
+-#, fuzzy
+ msgid "Split Watch"
+-msgstr "Nastav hlídky"
++msgstr "Rozdel hlídku"
++
+ #
+ #
+ #
+ #
+ msgid "Start"
+ msgstr "Start"
++
+ #
+ #, c-format
+ msgid ""
+@@ -1810,9 +2139,15 @@ msgid ""
+ "\n"
+ "%s"
+ msgstr ""
++"Zacni konvertovat do nového formátu data/casu\n"
++"a zazálohuj všechna data z verze 1.1 do\n"
++"\n"
++"%s"
++
+ #
+ msgid "Startvalue"
+ msgstr "Pocátecní hodnota"
++
+ #
+ #
+ #
+@@ -1828,22 +2163,25 @@ msgstr "Pocátecní hodnota"
+ #
+ #
+ #
+-#, fuzzy
+ msgid "Stop"
+-msgstr "do"
++msgstr "Stop"
++
+ #
+ msgid "Street"
+ msgstr "Ulice"
++
+ #
+ msgid "Suspend/Resume running event/s"
+-msgstr ""
++msgstr "Uspi/probud probíhající událost/i"
++
+ #
+-#, fuzzy
+ msgid "Swap two Watches"
+-msgstr "Nastav hlídky"
++msgstr "Prehod dve hlídky"
++
+ #
+ msgid "Swell"
+ msgstr "Príboj"
++
+ #
+ #
+ #
+@@ -1874,6 +2212,7 @@ msgstr "Príboj"
+ #
+ msgid "Swell Avg."
+ msgstr "Príboj prum."
++
+ #
+ #
+ #
+@@ -1904,30 +2243,39 @@ msgstr "Príboj prum."
+ #
+ msgid "Swell Max."
+ msgstr "Príboj max"
++
+ #
+ msgid "Tank"
+-msgstr ""
++msgstr "Nádrž"
++
+ #
+ msgid "Telephone"
+ msgstr "Telefon"
++
+ #
+ msgid "Temperature"
+ msgstr "Teplota"
++
+ #
+ msgid "Text"
+-msgstr ""
++msgstr "Text"
++
+ #
+ msgid "Textblocks"
+-msgstr ""
++msgstr "Textové bloky"
++
+ #
+ msgid "Textblocks Dialog"
+-msgstr ""
++msgstr "Dialog textových bloku"
++
+ #
+ msgid "Texts for Rightclick-Menu"
+ msgstr "Texty pro kontextovou nabídku"
++
+ #
+ msgid "Texts when using this Dialog only"
+ msgstr "Texty pouze pri použití tohoto dialogu"
++
+ #
+ msgid ""
+ "The itemname is shown in the rightcklick-menu of the following Columns\n"
+@@ -1937,6 +2285,7 @@ msgstr ""
+ "Název položky je zobrazen v kontextové nabídce následujících sloupcu\n"
+ "Po kliknutí na ne je text vložen\n"
+ "\n"
++
+ #
+ msgid ""
+ "These texts are inserted into the grid-colmn\n"
+@@ -1954,25 +2303,32 @@ msgstr ""
+ "Klikni na tlacítko OK\n"
+ "\n"
+ "Táhni a pust pro pridání položky do nabídky"
++
+ #
+ msgid "Time"
+ msgstr "Cas"
++
+ #
+ msgid "Time-Format:"
+-msgstr ""
++msgstr "Formát casu:"
++
+ #
+ #
+ msgid "Timer"
+ msgstr "Casovac"
++
+ #
+ msgid "Title"
+ msgstr "Titul"
++
+ #
+ msgid "Total Time"
+ msgstr "Celkový cas"
++
+ #
+ msgid "Town"
+ msgstr "Mesto"
++
+ #
+ #, c-format
+ msgid ""
+@@ -1988,16 +2344,31 @@ msgid ""
+ "\n"
+ "The dialog 'Logbook Preferences' is closed now."
+ msgstr ""
++"Zkusil jsem instalovat jazyky do\n"
++"\n"
++"%s\n"
++"\n"
++"Na Windows Vista/7/8 potrebuješ práva administrátora.\n"
++"Pokud nebyly instalovány žádné jazyky, restartuj prosím OpenCPN jako admin.\n"
++"(Klikni pravým cudlem na ikonu a vyber \"Spust jako administrátor\")\n"
++"\n"
++"Po instalaci znovu spust jako normální uživatel.\n"
++"\n"
++"Dialog 'Nastavení Logbooku' bude nyní uzavren."
++
+ #
+ #
+ msgid "True"
+ msgstr "Skutecný"
++
+ #
+ msgid "Type"
+ msgstr "Typ"
++
+ #
+ msgid "UTC"
+-msgstr ""
++msgstr "UTC"
++
+ #
+ msgid ""
+ "Uncheck if You have no GPS\n"
+@@ -2007,12 +2378,15 @@ msgstr ""
+ "Odškrtni, pokud nemáš GPS\n"
+ "Pokud GPS není v porádku, odškrtni\n"
+ "aby se zpráva neopakovala."
++
+ #
+ msgid "Uninstall"
+ msgstr "Odinstalovat"
++
+ #
+ msgid "Uninstall Logbook"
+ msgstr "Odinstalovat Logbook"
++
+ #
+ msgid ""
+ "Uninstalls\n"
+@@ -2028,72 +2402,88 @@ msgstr ""
+ "všechna Logbook rozvržení,\n"
+ "všechny Logbook preklady\n"
+ "a vycistí OpenCPN.ini"
++
+ #
+ msgid "Urgentvalue"
+ msgstr "Urgentní hodnota"
++
+ #
+ msgid ""
+ "Used for ODT/Browser-program\n"
+ "One Row for the day + selected days = Days displayed"
+ msgstr ""
++"Užito pro ODT/Prohlížec\n"
++"Jeden rádek pro den + vybrané dny = Zobrazené dny"
++
+ #
+ # Textfield for userlabel in boat
+ msgid "UserLabel"
+ msgstr "VlastPopis"
++
+ #
+ msgid "View"
+ msgstr "Zobrazit"
++
+ #
+ msgid "View data in browser (HTML) or Openoffice/LibreOffice (ODT)"
+ msgstr "Zobrazit data v prohlížeci (HTML) nebo Openoffice/LibreOffice (ODT)"
++
+ #
+ msgid "Visibility"
+ msgstr "Viditelnost"
++
+ #
+ msgid "W-Output"
+-msgstr ""
++msgstr "W-Výstup"
++
+ #
+ #
+ #
+ #
+ #
+-#, fuzzy
+ msgid "W-Total"
+-msgstr "Palivo celkem"
++msgstr "W-Celkem"
++
+ #
+ msgid "W/Strength"
+ msgstr "V/Síla"
++
+ #
+ msgid "Warnvalue"
+ msgstr "Hodnota varování"
++
+ #
+ msgid "Watch"
+ msgstr "Hlídka"
++
+ #
+-#, fuzzy
+ msgid "Watchtime"
+-msgstr "Hlídka"
++msgstr "Cas hlídky"
++
+ #
+ msgid "Water"
+ msgstr "Voda"
++
+ #
+-#, fuzzy
+ msgid "Water used"
+-msgstr "Voda"
++msgstr "Spotrebovaná voda"
++
+ #
+-#, fuzzy
+ msgid "WaterTotal"
+-msgstr "Voda"
++msgstr "Voda celkem"
++
+ #
+ msgid "Waterm. Outp"
+-msgstr ""
++msgstr "Výkon Waterm."
++
+ #
+-#, fuzzy
+ msgid "Watermaker"
+-msgstr "Voda"
++msgstr "Watermaker"
++
+ #
+ msgid "Wave"
+ msgstr "Vlna"
++
+ #
+ #
+ #
+@@ -2124,6 +2514,7 @@ msgstr "Vlna"
+ #
+ msgid "Wave Avg."
+ msgstr "Vlna prum."
++
+ #
+ #
+ #
+@@ -2154,19 +2545,23 @@ msgstr "Vlna prum."
+ #
+ msgid "Wave Max."
+ msgstr "Vlna max"
++
+ #
+ msgid "WayPoint arrived"
+ msgstr "Bod dosažen"
++
+ #
+-#, fuzzy
+ msgid "Waypoint"
+-msgstr "Bod vynechán"
++msgstr "Trasový bod"
++
+ #
+ msgid "Waypoint skipped"
+ msgstr "Bod vynechán"
++
+ #
+ msgid "Weather"
+ msgstr "Pocasí"
++
+ #
+ #
+ #
+@@ -2174,6 +2569,7 @@ msgstr "Pocasí"
+ #
+ msgid "Week(s)"
+ msgstr "Týdny"
++
+ #
+ #
+ #
+@@ -2181,18 +2577,22 @@ msgstr "Týdny"
+ #
+ msgid "Weeks(s)"
+ msgstr "Týdny"
++
+ #
+ msgid "Wind"
+ msgstr "Vítr"
++
+ #
+ msgid "Wind Avg."
+ msgstr "Vítr prum."
++
+ #
+ #
+ #
+ #
+ msgid "Wind Max."
+ msgstr "Max vítr"
++
+ #
+ msgid ""
+ "Wind is set to Heading,\n"
+@@ -2204,36 +2604,44 @@ msgstr ""
+ "ale GPS neposílá žádné smerové data\n"
+ "Vítr je nastaven na relativní k lodi\n"
+ "\n"
++
+ #
+ msgid "Winddirection Avg."
+ msgstr "Prum. smer vetru"
++
+ #
+ #
+ msgid "Windspeed"
+ msgstr "Rychlost vetru"
++
+ #
+ #
+ msgid "Windspeed "
+ msgstr "Rychlost vetru"
++
+ #
+ #
+ msgid "Write warning \"No GPS\""
+ msgstr "Vypisuj varování \"Není GPS\""
++
+ #
+-msgid ""
+-"Writes this text to the logbook when the event occurs, alter texts as desired"
+-msgstr ""
++msgid "Writes this text to the logbook when the event occurs, alter texts as desired"
++msgstr "Zapisuje tento text do deníku když nastane událost, zmen texty jak chceš"
++
+ #
+ msgid "Yard-Nr."
+ msgstr "C. doku"
++
+ #
+ msgid "Year"
+-msgstr ""
++msgstr "Rok"
++
+ #
+ #
+ #
+ msgid "Yes"
+ msgstr "Ano"
++
+ #
+ #, c-format
+ msgid ""
+@@ -2243,41 +2651,52 @@ msgid ""
+ "\n"
+ "Please use a different Dateformat in all three Choiceboxes."
+ msgstr ""
++"Nemužeš nastavit tento formát data.\n"
++"\n"
++"%s%s%s%s%s\n"
++"\n"
++"Prosím vyber jiný formát data ve všech trech výberech."
++
+ #
+ msgid ""
+ "Your Country has 24 Hour Format.\n"
+ "In this case the OS doen't serve AM/PM-Strings.\n"
+ msgstr ""
++"Tvá zeme má 24 hhodinový formát.\n"
++"V tom prípade OS nedodává retezce AM/PM.\n"
++
+ #
+-#, fuzzy, c-format
++#, c-format
+ msgid ""
+ "Your Logbook has %i lines\n"
+ "\n"
+ "You should create a new logbook to minimize loadingtime."
+ msgstr ""
+-"Tvuj lodní deník má víc než 800 rádku\n"
++"Tvuj deník má %i rádek\n"
+ "\n"
+-"Please create a new logbook to minimize the loadingtime.\n"
+-"\n"
+-"If you have a running timer, it's stopped now !!!"
++"Mel bys založit nový, abys zkrátil cas nacítání."
++
+ #
+ msgid "Your Logbook has no lines ?"
+ msgstr "Tvuj lodní deník nemá žádné rádky?"
++
+ #
+ msgid "Zip"
+ msgstr "PSC"
++
+ #
+-#, fuzzy
+ msgid "add a line to the end of your logbook"
+-msgstr "Pridat rádku na konec deníku"
++msgstr "pridat rádku na konec deníku"
++
+ #
+ msgid "add the equipment of your boat"
+ msgstr "pridat vybavení na lod"
++
+ #
+ #
+-#, fuzzy
+ msgid "all"
+-msgstr "Instalovat"
++msgstr "vše"
++
+ #
+ msgid ""
+ "automatic line\n"
+@@ -2285,12 +2704,15 @@ msgid ""
+ msgstr ""
+ "automatický záznam\n"
+ "Vzdálenost > "
++
+ #
+-#, fuzzy
+ msgid ""
+ "automatic line\n"
+ "Waypoint arrived:"
+-msgstr "automatický záznam, bod dosažen"
++msgstr ""
++"automatický záznam\n"
++"bod dosažen:"
++
+ #
+ msgid ""
+ "automatic line\n"
+@@ -2298,6 +2720,7 @@ msgid ""
+ msgstr ""
+ "automatický záznam\n"
+ "zmena kurzu >"
++
+ #
+ msgid ""
+ "automatic line\n"
+@@ -2305,12 +2728,13 @@ msgid ""
+ msgstr ""
+ "automatický záznam\n"
+ "zmena hlídky"
++
+ #
+ msgid "automatic line Waypoint arrived"
+ msgstr "automatický záznam, bod dosažen"
++
+ #
+ #
+-#, fuzzy
+ msgid ""
+ "automatic line by timer\n"
+ "You can set/unset a timer\n"
+@@ -2319,14 +2743,18 @@ msgid ""
+ msgstr ""
+ "Automatický záznam casovace\n"
+ "\n"
+-"Mužeš nastavit nebo zrušit interval casovace\n"
+-"nebo zmenit tento text v Nástroje/Zásuvné moduly/Lodní deník"
++"Mužeš nastavit nebo zrušit casovac\n"
++"kliknutím na odrážku\n"
++"Zmenit tento text lze v nastavení"
++
+ #
+ msgid "day(s)"
+ msgstr "dny"
++
+ #
+ msgid "default"
+ msgstr "výchozí"
++
+ #
+ msgid ""
+ "default = Relative to Boat\n"
+@@ -2334,26 +2762,32 @@ msgid ""
+ msgstr ""
+ "výchozí = Relativní k lodi\n"
+ "Smer = Skutecný smer vetru"
++
+ #
+ #
+-#, fuzzy
+ msgid "every"
+-msgstr "Metry"
++msgstr "každý"
++
+ #
+ msgid "every 15 Degrees +/- 1 hour"
+ msgstr "každých 15 stupnu +/- 1 hour"
++
+ #
+ msgid "export your BuyParts-data as HTML or ODT"
+ msgstr "exportuj seznam nákupu dílu jako HTML nebo ODT"
++
+ #
+ msgid "export your Overview-data as HTML or ODT"
+ msgstr "exportovat tvá prehledová data jako HTML or ODT"
++
+ #
+ msgid "export your Repairs-data as HTML or ODT"
+ msgstr "exportuj data o opravách jako HTML nebo ODT"
++
+ #
+ msgid "export your Service-data as HTML or ODT"
+ msgstr "exportuj data o servisu jako HTML nebo ODT"
++
+ #
+ msgid ""
+ "export your boat/equipment-data as:\n"
+@@ -2361,6 +2795,7 @@ msgid ""
+ msgstr ""
+ "exportovat data o lodi/vybavení jako:\n"
+ "      HTML, ODT,  ODS, XML, CSV"
++
+ #
+ msgid ""
+ "export your crew-data as:\n"
+@@ -2368,6 +2803,7 @@ msgid ""
+ msgstr ""
+ "exportovat data posádky jako:\n"
+ "HTML, ODT,  ODS, XML, CSV"
++
+ #
+ msgid ""
+ "export your logbook-data as:\n"
+@@ -2375,71 +2811,94 @@ msgid ""
+ msgstr ""
+ "export dat deníku jako:\n"
+ "HTML, ODT,  ODS, XML, CSV"
++
+ #
+ msgid "fm"
+-msgstr ""
++msgstr "fm"
++
+ #
+ #
+ #
+ #
+ msgid "from"
+ msgstr "z"
++
+ #
+ #
+ #
+ #
+ msgid "from "
+ msgstr "z "
++
+ #
+ msgid "ft"
+-msgstr ""
++msgstr "ft"
++
+ #
+ msgid "fth"
+-msgstr ""
++msgstr "fth"
++
+ #
+ msgid "gal"
+-msgstr ""
++msgstr "gal"
++
+ #
+ msgid ""
+ "green = Event is running\n"
+ "red = Event is stopped\n"
+ "yellow = Event is suspended. Restart event with Start-Button"
+ msgstr ""
++"zelená = Událost beží\n"
++"cervená = Událost je zastavena\n"
++"žlutá = Událost je uspána. Restartuj kliknutím na tlacítko Start"
++
+ #
+ msgid "h"
+-msgstr ""
++msgstr "h"
++
+ #
+ msgid "km/h"
+-msgstr ""
++msgstr "km/h"
++
+ #
+ msgid "kts"
+-msgstr ""
++msgstr "kts"
++
+ #
+ msgid "m"
+-msgstr ""
++msgstr "m"
++
+ #
+ msgid "m/s"
+-msgstr ""
++msgstr "m/s"
++
+ #
+ msgid "mb"
+-msgstr ""
++msgstr "mb"
++
+ #
+ #
+ #
+ #
+ msgid "month"
+ msgstr "mesíc"
++
+ #
+ msgid ""
+ "no Event/s\n"
+ "Click one or more bullets to start"
+ msgstr ""
++"žádnéudálosti\n"
++"Klikni na jednu nebo více odrážek pro start"
++
+ #
+ msgid "none"
+ msgstr "nic"
++
+ #
+ msgid "this day"
+-msgstr ""
++msgstr "tento den"
++
+ #
+ #
+ #
+@@ -2457,6 +2916,7 @@ msgstr ""
+ #
+ msgid "to"
+ msgstr "do"
++
+ #
+ #, c-format
+ msgid ""
+@@ -2465,15 +2925,19 @@ msgid ""
+ msgstr ""
+ "pro použití MS-Word, pripoj %s jako:\n"
+ "\"C:\\yourPathToWinword\\WINWORD.EXE\" %s"
++
+ #
+ msgid "use Textblocks..."
+ msgstr "použij Textblocks..."
++
+ #
+ msgid "week(s)"
+ msgstr "týdny"
++
+ #
+ msgid "write your own label"
+ msgstr "Napiš vlastní popis"
++
+ #
+ #
+ #
+@@ -2645,6 +3109,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "&Cut"
+ #~ msgstr "Stát"
++
+ #
+ #
+ #
+@@ -3300,6 +3765,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "BuyParts"
+ #~ msgstr "Koupit díly"
++
+ #
+ #
+ #
+@@ -3699,6 +4165,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Delete"
+ #~ msgstr "Smaž záznam"
++
+ #
+ #
+ #
+@@ -4976,6 +5443,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Label_"
+ #~ msgstr "VlastPopis"
++
+ #
+ #
+ #
+@@ -5813,6 +6281,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Not implemented yet"
+ #~ msgstr "zatím neimplementováno"
++
+ #
+ #
+ #
+@@ -5857,6 +6326,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Paste"
+ #~ msgstr "Datum"
++
+ #
+ #
+ #
+@@ -6784,6 +7254,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Search.."
+ #~ msgstr "Vybrat lodní deník"
++
+ #
+ #
+ #
+@@ -6990,6 +7461,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Select boat-layout to view"
+ #~ msgstr "Vybrat rozvržení:"
++
+ #
+ #
+ #
+@@ -7638,6 +8110,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Static Watchtimes"
+ #~ msgstr "Nastav hlídky"
++
+ #
+ #
+ #
+@@ -8417,6 +8890,7 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "Traditional-Style"
+ #~ msgstr "Národnost"
++
+ #
+ #
+ #
+@@ -8574,89 +9048,3 @@ msgstr "Napiš vlastní popis"
+ #, fuzzy
+ #~ msgid "View "
+ #~ msgstr "Zobrazit"
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#~ msgid "delay to find the right course to the wind"
+-#~ msgstr "prodleva k nalezení správného kurzu k vetru"
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#~ msgid "s"
+-#~ msgstr "s"
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#~ msgid "same watch as"
+-#~ msgstr "Stejná hlídka jako"
