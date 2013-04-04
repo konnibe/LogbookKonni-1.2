@@ -819,7 +819,8 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 	parent->myParseTime(endtime,enddt);
 
 	wxTimeSpan journey = enddt.Subtract(startdt);
-	grid->SetCellValue(row,FJOURNEY,wxString::Format(_T("%s %s %s %s"),journey.Format(_T("%D")),opt->days,journey.Format(_T("%H:%M")),opt->motorh));
+	grid->SetCellValue(row,FJOURNEY,wxString::Format(_T("%s %s %s %s"),
+		journey.Format(_T("%D")),opt->days.c_str(),journey.Format(_T("%H:%M")),opt->motorh.c_str()));
 
 	int max = 0; 
 	wxString result;
