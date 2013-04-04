@@ -369,35 +369,32 @@ void Logbook::SetSentence(wxString &sentence)
 					  }
 			}
 	}
-	m_NMEA0183.Dbt.ErrorMessage = _T("");
-	m_NMEA0183.ErrorMessage = _T("");
 
 	if(sentence.Contains(_("$WIMDA")))
 	{
 		wimdaSentence = true;
 		wxStringTokenizer tkz(sentence,_T(","));
-		while(tkz.HasMoreTokens())
-		{
-			double t;
-			long p;
-			tkz.GetNextToken();
-			tkz.GetNextToken();
-			tkz.GetNextToken();
-			tkz.GetNextToken().ToLong(&p);
-			p /= 100;
-			sPressure = wxString::Format(_T("%2d %s %s"),p,opt->Deg.c_str(),opt->baro.c_str());
-			tkz.GetNextToken();
-			tkz.GetNextToken().ToDouble(&t);
-			if(opt->temperature == _T("F"))
-					t = (( t * 9 ) / 5 ) + 32;
-			sTemperatureAir = wxString::Format(_T("%2.0f %s %s"),t,opt->Deg.c_str(),opt->temperature.c_str());
-			tkz.GetNextToken();
-			tkz.GetNextToken();
-			tkz.GetNextToken();
-			sHumidity = tkz.GetNextToken();
-			for(int i = 9; i <= 21; i++)
-			   tkz.GetNextToken();
-		}
+
+		double t;
+		long p;
+		tkz.GetNextToken();
+		tkz.GetNextToken();
+		tkz.GetNextToken();
+		tkz.GetNextToken().ToLong(&p);
+
+		sPressure = wxString::Format(_T("%4d %s"),p,opt->baro.c_str());
+		tkz.GetNextToken();
+
+		tkz.GetNextToken().ToDouble(&t);
+		if(opt->temperature == _T("F"))
+			t = (( t * 9 ) / 5 ) + 32;
+		sTemperatureAir = wxString::Format(_T("%2.2f %s %s"),t,opt->Deg.c_str(),opt->temperature.c_str());
+
+		tkz.GetNextToken();
+		tkz.GetNextToken();
+		tkz.GetNextToken();
+		sHumidity = tkz.GetNextToken();
+
 	}
 }
 
@@ -1294,8 +1291,6 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		dialog->logGrids[1]->SetCellValue(lastRow,TEMPAIR-weatherCol,sTemperatureAir);
 		dialog->logGrids[1]->SetCellValue(lastRow,BARO-weatherCol,sPressure);
 		dialog->logGrids[1]->SetCellValue(lastRow,HYDRO-weatherCol,sHumidity);
-
-		wimdaSentence = false;
 	}
 
 	if(ActuellWatch::active == true)
@@ -2665,6 +2660,7 @@ bool Logbook::checkGPS(bool appendClick)
 		sLat = sLon = sDate = sTime = _T("");
 		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = sTemperatureAir = sPressure = sHumidity = _T("");
 		bCOW = false;
+		wimdaSentence = false;
 		if(opt->noGPS)
 			sLogText = _("No GPS-Signal !");
 		else
