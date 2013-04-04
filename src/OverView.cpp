@@ -134,7 +134,6 @@ void OverView::loadAllLogbooks()
 
 void OverView::selectLogbook()
 {
-	int selIndex = -1;
 	wxString path(*parent->pHome_Locn);
 	path = path + wxFileName::GetPathSeparator() + _T("data");
 
@@ -143,16 +142,16 @@ void OverView::selectLogbook()
 	if(selLogbook.ShowModal() == wxID_CANCEL)
 		return;
 
+	if(selLogbook.selRow == -1) return;
+
 	parent->m_radioBtnSelectLogbook->SetValue(true);
 	grid->DeleteRows(0,grid->GetNumberRows());
 	row = -1;
 
-	selIndex = selLogbook.m_listCtrlSelectLogbook->GetNextItem(selIndex,wxLIST_NEXT_ALL,wxLIST_STATE_SELECTED);
-	if(selIndex == -1) return;
-
-	selectedLogbook = selLogbook.files[selIndex];
+	selectedLogbook = selLogbook.files[selLogbook.selRow];
 	showAllLogbooks = false;
 	loadLogbookData(selectedLogbook,false);
+	opt->overviewAll = 2;
 }
 
 void OverView::actuellLogbook()
@@ -165,7 +164,7 @@ void OverView::actuellLogbook()
 	    loadLogbookData(logbooks[i],false);
 	    break;
 	  }
-    opt->overviewAll = false;
+    opt->overviewAll = 0;
 }
 
 void OverView::allLogbooks()
@@ -180,7 +179,7 @@ void OverView::allLogbooks()
 		else
 			loadLogbookData(logbooks[i],false);
 	}
-	opt->overviewAll = true;
+	opt->overviewAll = 1;
 }
 
 void OverView::clearGrid()
@@ -820,7 +819,7 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 	parent->myParseTime(endtime,enddt);
 
 	wxTimeSpan journey = enddt.Subtract(startdt);
-	grid->SetCellValue(row,FJOURNEY,journey.Format(_T("%D Days %H:%M "))+opt->motorh);
+	grid->SetCellValue(row,FJOURNEY,wxString::Format(_T("%s %s %s %s"),journey.Format(_T("%D")),opt->days,journey.Format(_T("%H:%M")),opt->motorh));
 
 	int max = 0; 
 	wxString result;
@@ -1009,19 +1008,49 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 		int month;
 		int days;
 
+		//years = journey.GetDays() / 365 ;
+
+		
+		years = enddt.GetYear()-startdt.GetYear();
+
+		int bd = startdt.GetDay(), bm = startdt.GetMonth() ,by = startdt.GetYear(),
+			cd = enddt.GetDay(),cm = enddt.GetMonth(),cy = enddt.GetYear(),ad,am,ay; 
+		if(cd<bd)
+{
+cm=cm-1;
+cd=cd+startdt.GetLastMonthDay().GetDay();
+}
+if(cm<bm)
+{
+cy=cy-1;
+cm=cm+12;
+}
+ad=cd-bd;
+am=cm-bm;
+ay=cy-by; 
+
 		month = startdt.GetMonth()-enddt.GetMonth();
-		if(month < 0)
-			month = 12 -month;
-		if(month > 11)
+		if(month < 0 && startdt.GetYear() != enddt.GetYear())
 		{
-			years = month / 12;
-			month = month - years * 12;
+			month = 12 + month;
+			years--;
 		}
+		else
+			month = enddt.GetMonth()-startdt.GetMonth();
+
 		days = enddt.GetDay() - startdt.GetDay();
 		if(days < 0)
-		days = startdt.GetDay() - enddt.GetDay();
-
-		grid->SetCellValue(row,FJOURNEY,wxString::Format(_("%i Year(s) %i Month(s) %i Day(s)"),years,month,days));	
+		{
+			days = startdt.GetDay() - days;
+			month --;
+		}
+/*		else
+		{
+			month--;
+			days = enddt.GetLastMonthDay((wxDateTime::Month)month).GetDay() - (startdt.GetDay() - enddt.GetDay());
+		}
+*/
+		grid->SetCellValue(row,FJOURNEY,wxString::Format(_("%i Year(s) %i Month(s) %i Day(s)"),ay,am,ad));	
 	}
 	else
 		grid->SetCellValue(row,FJOURNEY,journey.Format(_("%E Week(s) %D Day(s) %H:%M "))+opt->motorh);

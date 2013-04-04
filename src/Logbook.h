@@ -41,6 +41,9 @@ private:
 	wxString		    sCOW;
 	wxString			sDistance;
 	wxString			sTemperatureWater;
+	wxString			sTemperatureAir;
+	wxString			sPressure;
+	wxString			sHumidity;
 	wxString		    sWind;
 	wxString			sWindSpeed;
 	wxString			sDepth;
@@ -57,6 +60,7 @@ private:
 	bool				everySM;
 	bool				waypointArrived;
 	bool				oldLogbook;
+	bool				wimdaSentence;
 
 	wxString			toSDMM ( int NEflag, double a, bool mode );
 	wxString			toSDMMOpenCPN ( int NEflag, double a, bool hi_precision );
@@ -81,8 +85,9 @@ private:
 public:
 	enum fields{ ROUTE,RDATE,RTIME,SIGN,WAKE,DISTANCE,DTOTAL,POSITION,COG,COW,SOG,SOW,DEPTH,REMARKS,
 				 BARO,HYDRO,TEMPAIR,TEMPWATER,WIND,WSPD,CURRENT,CSPD,WAVE,SWELL,WEATHER,CLOUDS,VISIBILITY,
-				 MOTOR,MOTORT,MOTOR1,MOTOR1T,FUEL,FUELT,SAILS,REEF,GENE,GENET,BANK1,BANK1T,BANK2,BANK2T,WATERM,WATERMT,WATERMO,WATER,WATERT,MREMARKS};	
+				 MOTOR,MOTORT,MOTOR1,MOTOR1T,FUEL,FUELT,SAILS,REEF,GENE,GENET,BANK1,BANK1T,BANK2,BANK2T,WATERM,WATERMT,WATERMO,WATER,WATERT,MREMARKS,ROUTEID,TRACKID};	
 
+	wxArrayString	mergeList;
 	LogbookDialog*	dialog;
 	LogbookHTML*	logbookHTML;
 	wxString		layout_locn;
@@ -95,8 +100,15 @@ public:
 	bool			WP_skipped;
 	wxString		lastWayPoint;
 	bool			OCPN_Message;
+	bool			routeIsActive;
 	wxString		activeRoute;
 	wxString		activeRouteGUID;
+	bool			trackIsActive;
+	wxString		activeMOB;
+	wxString		MOB_GUID;
+	bool			MOBIsActive;
+	wxString		activeTrack;
+	wxString		activeTrackGUID;
 	int				weatherCol;
 	int				sailsCol;
 	wxString		sDate;
@@ -129,6 +141,7 @@ public:
 	void clearAllGrids();
 	void recalculateLogbook(int row);
 	void deleteRows();
+	void setTrackToNewID(wxString target);
 
 	static wxString makeDateFromFile(wxString date, wxString dateformat);
 	static wxString makeWatchtimeFromFile(wxString time, wxString timeformat);
@@ -144,6 +157,7 @@ private:
 
 	wxString	logbookData_actuell;
 	bool		noAppend; // Old Logbook; append Rows not allowed
+	wxString	logbookDescription;
 };
 
 

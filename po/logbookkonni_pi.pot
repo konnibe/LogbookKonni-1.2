@@ -8,17 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 21:21+0200\n"
+"POT-Creation-Date: 2012-10-12 17:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/logbook_pi.cpp:125 src/logbook_pi.cpp:572 src/logbook_pi.cpp:617
 #: src/logbook_pi.cpp:674 src/LogbookDialog.cpp:530 src/LogbookDialog.cpp:656
-#: src/LogbookDialog.cpp:6447
+#: src/LogbookDialog.cpp:6446
 msgid "Logbook"
 msgstr ""
 
@@ -30,9 +31,9 @@ msgstr ""
 msgid "-Plugin"
 msgstr ""
 
-#: src/logbook_pi.cpp:401 src/logbook_pi.cpp:695 src/Logbook.cpp:536
-#: src/Logbook.cpp:568 src/Logbook.cpp:1069 src/LogbookDialog.h:589
-#: src/OverView.cpp:211
+#: src/logbook_pi.cpp:401 src/logbook_pi.cpp:695 src/Logbook.cpp:535
+#: src/Logbook.cpp:567 src/Logbook.cpp:1071 src/LogbookDialog.h:589
+#: src/LogbookDialog.cpp:6517 src/LogbookDialog.cpp:6616 src/OverView.cpp:210
 msgid "Active Logbook"
 msgstr ""
 
@@ -109,7 +110,7 @@ msgid ""
 "The dialog 'Logbook Preferences' is closed now."
 msgstr ""
 
-#: src/logbook_pi.cpp:1432
+#: src/logbook_pi.cpp:1434
 msgid "Administrator (Sudo) Password:"
 msgstr ""
 
@@ -162,7 +163,7 @@ msgstr ""
 msgid "kts"
 msgstr ""
 
-#: src/Options.cpp:87 src/LogbookDialog.cpp:7523 src/LogbookOptions.cpp:627
+#: src/Options.cpp:87 src/LogbookDialog.cpp:7680 src/LogbookOptions.cpp:627
 msgid "m"
 msgstr ""
 
@@ -194,7 +195,7 @@ msgstr ""
 msgid "gal"
 msgstr ""
 
-#: src/Options.cpp:100 src/LogbookDialog.cpp:7516 src/LogbookDialog.cpp:7565
+#: src/Options.cpp:100 src/LogbookDialog.cpp:7673 src/LogbookDialog.cpp:7722
 #: src/LogbookOptions.cpp:171 src/LogbookOptions.cpp:741
 msgid "h"
 msgstr ""
@@ -211,27 +212,27 @@ msgstr ""
 msgid "month"
 msgstr ""
 
-#: src/Logbook.h:174 src/Logbook.cpp:602 src/Logbook.cpp:1596
-#: src/Logbook.cpp:1598 src/Logbook.cpp:1621 src/Logbook.cpp:1669
-#: src/Logbook.cpp:1671 src/Logbook.cpp:1678 src/Logbook.cpp:1680
+#: src/Logbook.h:175 src/Logbook.cpp:601 src/Logbook.cpp:1598
+#: src/Logbook.cpp:1600 src/Logbook.cpp:1623 src/Logbook.cpp:1671
+#: src/Logbook.cpp:1673 src/Logbook.cpp:1680 src/Logbook.cpp:1682
 #: src/LogbookDialog.cpp:2608 src/LogbookHTML.cpp:285 src/LogbookHTML.cpp:392
 #: src/LogbookHTML.cpp:802 src/LogbookHTML.cpp:805 src/LogbookHTML.cpp:884
-#: src/LogbookHTML.cpp:1033 src/LogbookHTML.cpp:1110 src/CrewList.cpp:1724
+#: src/LogbookHTML.cpp:1033 src/LogbookHTML.cpp:1129 src/CrewList.cpp:1724
 #: src/CrewList.cpp:1726 src/CrewList.cpp:2108 src/CrewList.cpp:2110
 #: src/CrewList.cpp:2436 src/CrewList.cpp:2438 src/boat.cpp:264
 #: src/boat.cpp:266 src/boat.cpp:528 src/boat.cpp:530
 msgid "Information"
 msgstr ""
 
-#: src/Logbook.h:193
+#: src/Logbook.h:194
 msgid "Reminder"
 msgstr ""
 
-#: src/Logbook.h:255 src/LogbookDialog.cpp:250
+#: src/Logbook.h:256 src/LogbookDialog.cpp:250
 msgid "Search in Logbook"
 msgstr ""
 
-#: src/Logbook.cpp:47
+#: src/Logbook.cpp:48
 #, c-format
 msgid ""
 "Your Logbook has %i lines\n"
@@ -239,37 +240,37 @@ msgid ""
 "You should create a new logbook to minimize loadingtime."
 msgstr ""
 
-#: src/Logbook.cpp:406 src/Logbook.cpp:416
+#: src/Logbook.cpp:407 src/Logbook.cpp:417
 msgid "Are you sure ?"
 msgstr ""
 
-#: src/Logbook.cpp:406 src/Logbook.cpp:416 src/Logbook.cpp:428
-#: src/Logbook.cpp:431 src/LogbookDialog.cpp:142
+#: src/Logbook.cpp:407 src/Logbook.cpp:417 src/Logbook.cpp:429
+#: src/Logbook.cpp:432 src/LogbookDialog.cpp:142
 msgid "New Logbook"
 msgstr ""
 
-#: src/Logbook.cpp:410 src/Logbook.cpp:420
+#: src/Logbook.cpp:411 src/Logbook.cpp:421
 msgid "Reset all Values to zero ?"
 msgstr ""
 
-#: src/Logbook.cpp:428 src/Logbook.cpp:431
+#: src/Logbook.cpp:429 src/Logbook.cpp:432
 msgid "Your Logbook has no lines ?"
 msgstr ""
 
-#: src/Logbook.cpp:480
+#: src/Logbook.cpp:481
 msgid "Last line from Logbook\n"
 msgstr ""
 
-#: src/Logbook.cpp:488
+#: src/Logbook.cpp:489
 msgid "Last Logbook is\n"
 msgstr ""
 
-#: src/Logbook.cpp:542
+#: src/Logbook.cpp:541
 #, c-format
 msgid "Old Logbook until %s"
 msgstr ""
 
-#: src/Logbook.cpp:602 src/Logbook.cpp:604
+#: src/Logbook.cpp:601 src/Logbook.cpp:603
 #, c-format
 msgid ""
 "Start converting to new Date/Time-Format\n"
@@ -278,52 +279,52 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/Logbook.cpp:1178
+#: src/Logbook.cpp:1180
 msgid "(Unnamed Route)"
 msgstr ""
 
-#: src/Logbook.cpp:1456 src/Logbook.cpp:1460 src/CrewList.cpp:2400
+#: src/Logbook.cpp:1458 src/Logbook.cpp:1462 src/CrewList.cpp:2400
 #: src/CrewList.cpp:2407 src/boat.cpp:804 src/boat.cpp:808
 #, c-format
 msgid "Delete Row Nr. %i ?"
 msgstr ""
 
-#: src/Logbook.cpp:1456 src/Logbook.cpp:1460 src/CrewList.cpp:2400
+#: src/Logbook.cpp:1458 src/Logbook.cpp:1462 src/CrewList.cpp:2400
 #: src/CrewList.cpp:2407 src/boat.cpp:804 src/boat.cpp:808
 msgid "Confirm"
 msgstr ""
 
-#: src/Logbook.cpp:1596 src/Logbook.cpp:1598
+#: src/Logbook.cpp:1598 src/Logbook.cpp:1600
 #, c-format
 msgid ""
 "Please enter the Date in the format:\n"
 "      %s"
 msgstr ""
 
-#: src/Logbook.cpp:1621 src/Logbook.cpp:1623
+#: src/Logbook.cpp:1623 src/Logbook.cpp:1625
 #, c-format
 msgid ""
 "Please enter the Time in the format:\n"
 "   %s"
 msgstr ""
 
-#: src/Logbook.cpp:1669 src/Logbook.cpp:1671
+#: src/Logbook.cpp:1671 src/Logbook.cpp:1673
 msgid ""
 "Please enter 0544512.15n0301205.15e for\n"
 "054Deg 45Min 12.15Sec N 030Deg 12Min 05.15Sec E"
 msgstr ""
 
-#: src/Logbook.cpp:1678 src/Logbook.cpp:1680
+#: src/Logbook.cpp:1680 src/Logbook.cpp:1682
 msgid ""
 "Please enter 05445.1234n03012.0504e for\n"
 "054Deg 45.1234Min N 030Deg 12.0504Min E"
 msgstr ""
 
-#: src/Logbook.cpp:1988 src/Logbook.cpp:1990
+#: src/Logbook.cpp:1990 src/Logbook.cpp:1992
 msgid "Minutes greater than 59"
 msgstr ""
 
-#: src/Logbook.cpp:2517
+#: src/Logbook.cpp:2519
 msgid ""
 "Wind is set to Heading,\n"
 "but GPS sends no Heading Data.\n"
@@ -331,19 +332,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/Logbook.cpp:2554
+#: src/Logbook.cpp:2556
 msgid "No GPS-Signal !"
 msgstr ""
 
-#: src/Logbook.cpp:2571
+#: src/Logbook.cpp:2573
 msgid "Next WP Name: "
 msgstr ""
 
-#: src/Logbook.cpp:2573
+#: src/Logbook.cpp:2575
 msgid "Last waypoint of the Route"
 msgstr ""
 
-#: src/Logbook.cpp:2575
+#: src/Logbook.cpp:2577
 #, c-format
 msgid ""
 "\n"
@@ -351,68 +352,68 @@ msgid ""
 "%s %s"
 msgstr ""
 
-#: src/Logbook.cpp:2578
+#: src/Logbook.cpp:2580
 msgid "Waypoint skipped"
 msgstr ""
 
-#: src/Logbook.cpp:2580
+#: src/Logbook.cpp:2582
 msgid "WayPoint arrived"
 msgstr ""
 
-#: src/Logbook.cpp:2615
+#: src/Logbook.cpp:2617
 msgid ""
 "It's not allowed to append Data to a old Logbook\n"
 "\n"
 "OpenCPN switchs to actuell logbook"
 msgstr ""
 
-#: src/Logbook.cpp:2690
+#: src/Logbook.cpp:2692
 msgid "Search in"
 msgstr ""
 
-#: src/Logbook.cpp:2694 src/LogbookDialog.cpp:589 src/LogbookDialog.cpp:6459
+#: src/Logbook.cpp:2696 src/LogbookDialog.cpp:589
 msgid "Actuell Logbook"
 msgstr ""
 
-#: src/Logbook.cpp:2697 src/LogbookDialog.cpp:593
+#: src/Logbook.cpp:2699 src/LogbookDialog.cpp:593
 msgid "All Logbooks"
 msgstr ""
 
-#: src/Logbook.cpp:2710
+#: src/Logbook.cpp:2712
 msgid "Searchstring"
 msgstr ""
 
-#: src/Logbook.cpp:2717
+#: src/Logbook.cpp:2719
 msgid "In Column"
 msgstr ""
 
-#: src/Logbook.cpp:2726 src/LogbookDialog.cpp:209 src/LogbookDialog.cpp:1014
+#: src/Logbook.cpp:2728 src/LogbookDialog.cpp:209 src/LogbookDialog.cpp:1014
 #: src/LogbookDialog.cpp:1855
 msgid "Date"
 msgstr ""
 
-#: src/Logbook.cpp:2744
+#: src/Logbook.cpp:2746
 msgid "Select"
 msgstr ""
 
-#: src/LogbookDialog.h:709 src/LogbookDialog.cpp:3891
+#: src/LogbookDialog.h:709 src/LogbookDialog.cpp:3893
 msgid "Select Route"
 msgstr ""
 
-#: src/LogbookDialog.h:775 src/LogbookDialog.h:777 src/LogbookDialog.cpp:146
+#: src/LogbookDialog.h:779 src/LogbookDialog.h:781 src/LogbookDialog.cpp:146
 #: src/LogbookDialog.cpp:599
 msgid "Select Logbook"
 msgstr ""
 
-#: src/LogbookDialog.h:888
+#: src/LogbookDialog.h:892
 msgid "Textblocks Dialog"
 msgstr ""
 
-#: src/LogbookDialog.h:1022
+#: src/LogbookDialog.h:1026
 msgid "Set Timer Interval"
 msgstr ""
 
-#: src/LogbookDialog.h:1069 src/LogbookDialog.cpp:215
+#: src/LogbookDialog.h:1073 src/LogbookDialog.cpp:215
 msgid "Position"
 msgstr ""
 
@@ -475,7 +476,7 @@ msgstr ""
 #: src/LogbookDialog.cpp:123 src/LogbookDialog.cpp:570
 #: src/LogbookDialog.cpp:761 src/LogbookDialog.cpp:1562
 #: src/LogbookDialog.cpp:1688 src/LogbookDialog.cpp:1805
-#: src/LogbookDialog.cpp:6305
+#: src/LogbookDialog.cpp:6315
 msgid "Edit Layout"
 msgstr ""
 
@@ -580,7 +581,7 @@ msgstr ""
 #: src/LogbookDialog.cpp:236 src/LogbookDialog.cpp:858
 #: src/LogbookDialog.cpp:1501 src/LogbookDialog.cpp:1638
 #: src/LogbookDialog.cpp:1755 src/LogbookDialog.cpp:1872
-#: src/LogbookDialog.cpp:7604 src/LogbookDialog.cpp:7667
+#: src/LogbookDialog.cpp:7761 src/LogbookDialog.cpp:7824
 msgid "Delete Row"
 msgstr ""
 
@@ -1148,7 +1149,7 @@ msgstr ""
 msgid "add the equipment of your boat"
 msgstr ""
 
-#: src/LogbookDialog.cpp:1093 src/LogbookDialog.cpp:5006
+#: src/LogbookDialog.cpp:1093 src/LogbookDialog.cpp:5016
 msgid "Show Equipment"
 msgstr ""
 
@@ -1304,7 +1305,7 @@ msgstr ""
 msgid "Equipment"
 msgstr ""
 
-#: src/LogbookDialog.cpp:1485
+#: src/LogbookDialog.cpp:1485 src/LogbookDialog.cpp:6448
 msgid "Description"
 msgstr ""
 
@@ -1454,117 +1455,120 @@ msgid ""
 "Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
 msgstr ""
 
-#: src/LogbookDialog.cpp:3954
+#: src/LogbookDialog.cpp:3956
 msgid "use Textblocks..."
 msgstr ""
 
-#: src/LogbookDialog.cpp:4068
+#: src/LogbookDialog.cpp:4070
 msgid "Save Logbook File"
 msgstr ""
 
-#: src/LogbookDialog.cpp:4127 src/LogbookDialog.cpp:4129
+#: src/LogbookDialog.cpp:4129 src/LogbookDialog.cpp:4131
 msgid ""
 "Normal Timer has 0 h 0 Min.\n"
 "\n"
 "Please change settings (Timer-Interval)"
 msgstr ""
 
-#: src/LogbookDialog.cpp:4284
+#: src/LogbookDialog.cpp:4286
 msgid ""
 "No Path set to HTML-Editor\n"
 "in Toolbox/Plugins/LogbookKonni/Preferences"
 msgstr ""
 
-#: src/LogbookDialog.cpp:4286
+#: src/LogbookDialog.cpp:4288
 msgid ""
 "No Path set to HTML-Editor\n"
 "in ToolBox/Plugins/LogbookKonni/Preferences"
 msgstr ""
 
-#: src/LogbookDialog.cpp:4677
+#: src/LogbookDialog.cpp:4687
 msgid "Save CrewList File"
 msgstr ""
 
-#: src/LogbookDialog.cpp:4998
+#: src/LogbookDialog.cpp:5008
 msgid "Hide Equipment"
 msgstr ""
 
-#: src/LogbookDialog.cpp:5021
+#: src/LogbookDialog.cpp:5031
 msgid "Save Boat File"
 msgstr ""
 
-#: src/LogbookDialog.cpp:5183
+#: src/LogbookDialog.cpp:5193
 msgid "Save Service File"
 msgstr ""
 
-#: src/LogbookDialog.cpp:5393
+#: src/LogbookDialog.cpp:5403
 msgid "Save Repairs File"
 msgstr ""
 
-#: src/LogbookDialog.cpp:5584
+#: src/LogbookDialog.cpp:5594
 msgid "Save BuyParts File"
 msgstr ""
 
-#: src/LogbookDialog.cpp:5807
+#: src/LogbookDialog.cpp:5817
 msgid "Save Overview File"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6315
+#: src/LogbookDialog.cpp:6325
 msgid "Filter Layout by"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6326
+#: src/LogbookDialog.cpp:6336
 msgid "Rename Layout"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6335
+#: src/LogbookDialog.cpp:6345
 msgid "Delete Layout"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6344
+#: src/LogbookDialog.cpp:6354
 msgid "Send Layout by email"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6353
+#: src/LogbookDialog.cpp:6363
 msgid "Install single Layout"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6473
-#, c-format
-msgid "Logbook from %s to %s"
+#: src/LogbookDialog.cpp:6447
+msgid "First/Last Entry"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6889
+#: src/LogbookDialog.cpp:6449
+msgid "File"
+msgstr ""
+
+#: src/LogbookDialog.cpp:7046
 msgid "Add Item"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6893
+#: src/LogbookDialog.cpp:7050
 msgid "Delete Item"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6897
+#: src/LogbookDialog.cpp:7054
 msgid "Rename Item"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6903 src/LogbookDialog.cpp:7226
-#: src/LogbookDialog.cpp:7228
+#: src/LogbookDialog.cpp:7060 src/LogbookDialog.cpp:7383
+#: src/LogbookDialog.cpp:7385
 msgid "Add Treenode"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6907 src/LogbookDialog.cpp:7221
-#: src/LogbookDialog.cpp:7223
+#: src/LogbookDialog.cpp:7064 src/LogbookDialog.cpp:7378
+#: src/LogbookDialog.cpp:7380
 msgid "Delete Treenode"
 msgstr ""
 
-#: src/LogbookDialog.cpp:6920
+#: src/LogbookDialog.cpp:7077
 msgid "Text"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7041
+#: src/LogbookDialog.cpp:7198
 msgid "Textblocks"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7042
+#: src/LogbookDialog.cpp:7199
 msgid ""
 "Help\n"
 "-----\n"
@@ -1587,18 +1591,18 @@ msgid ""
 "see next treenodes for more help"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7046
+#: src/LogbookDialog.cpp:7203
 msgid ""
 "The itemname is shown in the rightcklick-menu of the following Columns\n"
 "By clicking on it the text is inserted\n"
 "\n"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7054
+#: src/LogbookDialog.cpp:7211
 msgid "Texts for Rightclick-Menu"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7060
+#: src/LogbookDialog.cpp:7217
 msgid ""
 "Sails up\n"
 "Engine stopped\n"
@@ -1606,11 +1610,11 @@ msgid ""
 "Demo - Rightclick-Menu 'use Testextblocks' for help"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7061
+#: src/LogbookDialog.cpp:7218
 msgid "Demo Sails up"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7084
+#: src/LogbookDialog.cpp:7241
 msgid ""
 "These texts are inserted into the grid-colmn\n"
 "by calling this dialog\n"
@@ -1621,77 +1625,77 @@ msgid ""
 "Use Drag 'n Drop to place a item in menu"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7085
+#: src/LogbookDialog.cpp:7242
 msgid "Texts when using this Dialog only"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7091
+#: src/LogbookDialog.cpp:7248
 msgid ""
 "Engine stopped\n"
 "\n"
 "Demo - Rightclick-Menu 'use Testextblocks' for help"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7092
+#: src/LogbookDialog.cpp:7249
 msgid "Demo Engine stopped"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7165
+#: src/LogbookDialog.cpp:7322
 #, c-format
 msgid "New Node%i"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7202
+#: src/LogbookDialog.cpp:7359
 #, c-format
 msgid "New Item%i"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7505
+#: src/LogbookDialog.cpp:7662
 msgid "Normal Timer"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7541 src/LogbookDialog.cpp:7619
-#: src/LogbookDialog.cpp:7683
+#: src/LogbookDialog.cpp:7698 src/LogbookDialog.cpp:7776
+#: src/LogbookDialog.cpp:7840
 msgid "Event"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7555
+#: src/LogbookDialog.cpp:7712
 msgid "Full Hour Timer"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7558
+#: src/LogbookDialog.cpp:7715
 msgid "every"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7589
+#: src/LogbookDialog.cpp:7746
 msgid "+ Minutes"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7608 src/LogbookDialog.cpp:7671
+#: src/LogbookDialog.cpp:7765 src/LogbookDialog.cpp:7828
 msgid "Clear all"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7628
+#: src/LogbookDialog.cpp:7785
 msgid "Individual Timer"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7651
+#: src/LogbookDialog.cpp:7808
 msgid "Hour"
 msgstr ""
 
-#: src/LogbookDialog.cpp:7652 src/LogbookOptions.cpp:579
+#: src/LogbookDialog.cpp:7809 src/LogbookOptions.cpp:579
 msgid "Minutes"
 msgstr ""
 
-#: src/LogbookDialog.cpp:8024 src/LogbookDialog.cpp:8029
+#: src/LogbookDialog.cpp:8181 src/LogbookDialog.cpp:8186
 msgid "PM"
 msgstr ""
 
-#: src/LogbookDialog.cpp:8031
+#: src/LogbookDialog.cpp:8188
 msgid "AM"
 msgstr ""
 
-#: src/LogbookDialog.cpp:8132
+#: src/LogbookDialog.cpp:8289
 msgid "AM/PM"
 msgstr ""
 
@@ -2131,8 +2135,8 @@ msgid ""
 " or Data with {{ and }} ?"
 msgstr ""
 
-#: src/LogbookHTML.cpp:1031 src/LogbookHTML.cpp:1033 src/LogbookHTML.cpp:1108
-#: src/LogbookHTML.cpp:1110
+#: src/LogbookHTML.cpp:1031 src/LogbookHTML.cpp:1033 src/LogbookHTML.cpp:1127
+#: src/LogbookHTML.cpp:1129
 msgid "Sorry, Your Logbook has no lines"
 msgstr ""
 
@@ -2193,19 +2197,19 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: src/OverView.cpp:215
+#: src/OverView.cpp:214
 msgid "Logbook until "
 msgstr ""
 
-#: src/OverView.cpp:859
+#: src/OverView.cpp:858
 msgid "Logbook Total"
 msgstr ""
 
-#: src/OverView.cpp:1024
+#: src/OverView.cpp:1053
 #, c-format
 msgid "%i Year(s) %i Month(s) %i Day(s)"
 msgstr ""
 
-#: src/OverView.cpp:1027
+#: src/OverView.cpp:1056
 msgid "%E Week(s) %D Day(s) %H:%M "
 msgstr ""

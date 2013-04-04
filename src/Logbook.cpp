@@ -44,6 +44,7 @@ Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString
 	modified = false;
 	wxString logLay;
 	lastWayPoint = _T("");
+	logbookDescription = wxEmptyString;
 	sLinesReminder = _("Your Logbook has %i lines\n\nYou should create a new logbook to minimize loadingtime.");
 
 	dialog = parent;
@@ -88,11 +89,49 @@ Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString
 	oldPosition.latitude = 500;
 	activeRoute = wxEmptyString;
 	activeRouteGUID = wxEmptyString;
+	MOBIsActive = false;
+	routeIsActive = false;
+	trackIsActive = false;
+	wimdaSentence = false;
+
 }
 
 Logbook::~Logbook(void)
 {
 	update();
+}
+
+void Logbook::setTrackToNewID(wxString target)
+{
+	if(mergeList.Count() == 0) return;
+
+/*	for(unsigned int i = 0; i < mergeList.GetCount(); i++)
+		for(int row = 0; row < parent->logGrids[2]->GetRows(); row++)
+			if(parent->logGrids[2]->GetCellValue(row,LogbookHTML::TRACKID) == mergeList.Item(i))
+				parent->logGrids[2]->SetCellValue(row,LogbookHTML::TRACKID,target);
+*/
+	wxDir dir;
+	wxArrayString files;
+	dir.GetAllFiles(parent->data,&files,_T("until*.txt"),wxDIR_FILES);
+
+		for(unsigned int i = 0; i < files.Count(); i++)
+		{
+		//	if(files[i].Contains(wxString(wxFileName::GetPathSeparator())+_T("logbook.txt"))) continue;
+			wxFileInputStream file(files[i]);
+			wxTextInputStream txt(file);
+
+			wxString data = wxEmptyString;
+			while(!file.Eof())
+				data += txt.ReadLine() + _T("\n");
+
+			for(unsigned int n = 0; n < mergeList.GetCount(); n++)
+				data.Replace(mergeList.Item(n),target);
+
+			wxFileOutputStream fileo(files[i]);
+			wxTextOutputStream txto(fileo);
+			txto << data;
+			fileo.Close();
+		}
 }
 
 void Logbook::setLayoutLocation(wxString loc)
@@ -332,6 +371,34 @@ void Logbook::SetSentence(wxString &sentence)
 	}
 	m_NMEA0183.Dbt.ErrorMessage = _T("");
 	m_NMEA0183.ErrorMessage = _T("");
+
+	if(sentence.Contains(_("$WIMDA")))
+	{
+		wimdaSentence = true;
+		wxStringTokenizer tkz(sentence,_T(","));
+		while(tkz.HasMoreTokens())
+		{
+			double t;
+			long p;
+			tkz.GetNextToken();
+			tkz.GetNextToken();
+			tkz.GetNextToken();
+			tkz.GetNextToken().ToLong(&p);
+			p /= 100;
+			sPressure = wxString::Format(_T("%2d %s %s"),p,opt->Deg.c_str(),opt->baro.c_str());
+			tkz.GetNextToken();
+			tkz.GetNextToken().ToDouble(&t);
+			if(opt->temperature == _T("F"))
+					t = (( t * 9 ) / 5 ) + 32;
+			sTemperatureAir = wxString::Format(_T("%2.0f %s %s"),t,opt->Deg.c_str(),opt->temperature.c_str());
+			tkz.GetNextToken();
+			tkz.GetNextToken();
+			tkz.GetNextToken();
+			sHumidity = tkz.GetNextToken();
+			for(int i = 9; i <= 21; i++)
+			   tkz.GetNextToken();
+		}
+	}
 }
 
 void Logbook::setDateTimeString(wxDateTime dt)
@@ -499,22 +566,20 @@ void Logbook::selectLogbook()
 {
 	int selIndex = -1;
 	wxString path(*dialog->pHome_Locn);
-	path = path + wxFileName::GetPathSeparator() + _T("data");
+	path = path + _T("data");
 
+	update();
 	SelectLogbook selLogbook(dialog,path);
-	
+
 	if(selLogbook.ShowModal() == wxID_CANCEL)
 	{
 		dialog->logGrids[dialog->m_logbook->GetSelection()]->SetFocus();
 		return;
 	}
 
-	selIndex = selLogbook.m_listCtrlSelectLogbook->GetNextItem(selIndex,wxLIST_NEXT_ALL,wxLIST_STATE_SELECTED);
-	if(selIndex == -1) { 	dialog->logGrids[dialog->m_logbook->GetSelection()]->SetFocus(); return; }
+	if(selLogbook.selRow == -1) { 	dialog->logGrids[dialog->m_logbook->GetSelection()]->SetFocus(); return; }
 	
-	wxString s = selLogbook.files[selIndex];
-
-	update();
+	wxString s = selLogbook.files[selLogbook.selRow];
 
 	for(int i = 0; i < LOGGRIDS; i++)
 		if(dialog->logGrids[i]->GetNumberRows() != 0)
@@ -539,7 +604,7 @@ void Logbook::loadSelectedData(wxString path)
 	else
 	{
 		wxDateTime dt = dialog->getDateTo(path);
-		path = wxString::Format(_("Old Logbook until %s"),dt.FormatDate().c_str()); 
+		path = wxString::Format(_("Old Logbook until %s"),dt.FormatDate().c_str());
 		oldLogbook = true;
 	}
 	title = path;
@@ -565,7 +630,8 @@ void Logbook::loadData()
 	wxString dateFormat;
 
 	dialog->selGridCol = dialog->selGridRow = 0;
-	title = _("Active Logbook");
+	if(title.IsEmpty())
+		title = _("Active Logbook");
 
 	clearAllGrids();
 
@@ -634,7 +700,10 @@ void Logbook::loadData()
 	wxFileInputStream input( data_locn );
 	wxTextInputStream* stream = new wxTextInputStream (input);
 	
-	stream->ReadLine(); // for #1.2#
+	wxString firstrow = stream->ReadLine(); // for #1.2#
+	wxStringTokenizer first(firstrow, _T("\t"),wxTOKEN_RET_EMPTY );
+	first.GetNextToken();
+	logbookDescription = first.GetNextToken();
 
 	wxDateTime dt;
 	int month = 0,day = 0,year = 0,hour = 0,min = 0,sec = 0;
@@ -769,6 +838,10 @@ void Logbook::loadData()
 			case 49:	dialog->m_gridMotorSails->SetCellValue(row,WATERMT-sailsCol,s);
 				break;
 			case 50:	dialog->m_gridMotorSails->SetCellValue(row,WATERMO-sailsCol,s);
+				break;
+			case 51:	dialog->m_gridMotorSails->SetCellValue(row,ROUTEID-sailsCol,s);
+				break;
+			case 52:	dialog->m_gridMotorSails->SetCellValue(row,TRACKID-sailsCol,s);
 				break;
 			}			
 			c++;
@@ -1147,9 +1220,12 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 			dialog->logGrids[2]->SetCellValue(lastRow,WATERMT-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,WATERMT-sailsCol));
 			dialog->logGrids[2]->SetCellValue(lastRow,BANK1T-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,BANK1T-sailsCol));
 			dialog->logGrids[2]->SetCellValue(lastRow,BANK2T-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,BANK2T-sailsCol));
+			dialog->logGrids[2]->SetCellValue(lastRow,TRACKID-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,TRACKID-sailsCol));
+			dialog->logGrids[2]->SetCellValue(lastRow,ROUTEID-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,ROUTEID-sailsCol));
 		}
 	else
 	{
+			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,_("unnamed Route"));
 			if(gpsStatus)
 				dialog->logGrids[0]->SetCellValue(lastRow,POSITION,sLat+sLon);
 			dialog->logGrids[2]->SetCellValue(lastRow,FUELT- sailsCol,opt->fuelTank.c_str());
@@ -1165,18 +1241,39 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		}
 		else
 		{
-			mCorrectedDateTime = wxDateTime::Now();
+			if(!opt->UTC)
+				mCorrectedDateTime = wxDateTime::Now();
+			else
+				mCorrectedDateTime = wxDateTime::Now().ToUTC();
 			dialog->logGrids[0]->SetCellValue(lastRow,RDATE,mCorrectedDateTime.Format(opt->sdateformat));
 			dialog->logGrids[0]->SetCellValue(lastRow,RTIME,mCorrectedDateTime.Format(opt->stimeformat));
 		}
 
-	if(activeRouteGUID != wxEmptyString)
+	if(MOBIsActive)
+		dialog->logGrids[0]->SetCellValue(lastRow,REMARKS,_("*** MAN OVERBOARD ***\n"));
+	else
+		dialog->logGrids[0]->SetCellValue(lastRow,REMARKS,sLogText);
+
+	if(routeIsActive)
 	{
 		if(activeRoute != wxEmptyString)
 			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,activeRoute);
-		else
-			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,_("(Unnamed Route)"));
+
+		dialog->logGrids[2]->SetCellValue(lastRow,ROUTEID-sailsCol,activeRouteGUID);
 	}
+	else
+		dialog->logGrids[2]->SetCellValue(lastRow,ROUTEID-sailsCol,wxEmptyString);
+
+	if(trackIsActive)
+	{
+		if(!routeIsActive)
+			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,_("Track ")+activeTrack);
+
+		dialog->logGrids[2]->SetCellValue(lastRow,TRACKID-sailsCol,activeTrackGUID);
+	}
+	else
+		dialog->logGrids[2]->SetCellValue(lastRow,TRACKID-sailsCol,wxEmptyString);
+
 	dialog->logGrids[0]->SetCellValue(lastRow,COG,sCOG);
 	dialog->logGrids[0]->SetCellValue(lastRow,COW,sCOW);
 	dialog->logGrids[0]->SetCellValue(lastRow,SOG,sSOG);
@@ -1191,10 +1288,20 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 	dialog->logGrids[2]->SetCellValue(lastRow,WATERM-sailsCol,_T("00.00"));
 	dialog->logGrids[2]->SetCellValue(lastRow,WATERMO-sailsCol,_T("0"));
 	dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_T(" "));
+
+	if(wimdaSentence)
+	{
+		dialog->logGrids[1]->SetCellValue(lastRow,TEMPAIR-weatherCol,sTemperatureAir);
+		dialog->logGrids[1]->SetCellValue(lastRow,BARO-weatherCol,sPressure);
+		dialog->logGrids[1]->SetCellValue(lastRow,HYDRO-weatherCol,sHumidity);
+
+		wimdaSentence = false;
+	}
+
 	if(ActuellWatch::active == true)
 		dialog->logGrids[0]->SetCellValue(lastRow,WAKE,ActuellWatch::member);
 
-	dialog->logGrids[0]->SetCellValue(lastRow,13,sLogText);
+
 
 	changeCellValue(lastRow, 0,1);
 	setCellAlign(lastRow);
@@ -1227,7 +1334,7 @@ void Logbook::recalculateLogbook(int row)
 		else
 			grid = 2;
 
-		if(dialog->m_gridGlobal->GetNumberRows() >= 2)// && row != dialog->m_gridGlobal->GetNumberRows()-1)
+		if(dialog->m_gridGlobal->GetNumberRows() >= 2)
 			getModifiedCellValue(grid,row,0,cells[i]);
 	}
 
@@ -1486,7 +1593,7 @@ void Logbook::update()
 	
 	int count;
 	if((count  = dialog->logGrids[0]->GetNumberRows() )== 0) { wxFile f; f.Create(data_locn,true); return; }
-	
+
 	wxString s = _T(""), temp;
 
 	wxString newLocn = data_locn;
@@ -1496,9 +1603,9 @@ void Logbook::update()
 	wxFileOutputStream output( data_locn );
 	wxTextOutputStream* stream = new wxTextOutputStream (output);
 
-	stream->WriteString(_T("#1.2#\n"));
+	stream->WriteString(_T("#1.2#\t")+logbookDescription+_T("\n"));
 	for(int r = 0; r < count; r++)
-	{
+	{	
 		for(int g = 0; g < LOGGRIDS; g++)
 		{
 			for(int c = 0; c < dialog->logGrids[g]->GetNumberCols(); c++)
@@ -1510,7 +1617,8 @@ void Logbook::update()
 					          c == WATERM-sailsCol  || c == WATERMT-sailsCol ||
 							  c == WATERMO-sailsCol || c == BANK1-sailsCol   ||
 							  c == BANK1T-sailsCol  || c == BANK2-sailsCol   ||
-							  c == BANK2T-sailsCol  ))
+							  c == BANK2T-sailsCol  || c == TRACKID-sailsCol ||
+							  c == ROUTEID-sailsCol))
 					continue;
 				if(g == 0 && c == RDATE)
 				{
@@ -1562,10 +1670,17 @@ void Logbook::update()
 			s += _T(" \t");
 		}
 
+		for(int ext = ROUTEID-sailsCol; ext < parent->m_gridMotorSails->GetNumberCols(); ext ++) // extend GUID's
+		{
+			temp = dialog->logGrids[2]->GetCellValue(r,ext);
+			s += dialog->replaceDangerChar(temp);
+			s += _T(" \t");
+		}
+
 		s.RemoveLast();
 		stream->WriteString(s+_T("\n"));
 		s = _T("");
-	}
+	}	
 	output.Close();
 }
 
@@ -2548,7 +2663,7 @@ bool Logbook::checkGPS(bool appendClick)
 	else
 	{
 		sLat = sLon = sDate = sTime = _T("");
-		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = _T("");
+		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = sTemperatureAir = sPressure = sHumidity = _T("");
 		bCOW = false;
 		if(opt->noGPS)
 			sLogText = _("No GPS-Signal !");

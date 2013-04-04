@@ -45,6 +45,7 @@
 #include <wx/gdicmn.h>
 #include <wx/dnd.h>
 
+#include "jsonreader.h"
 ///////////////////////////////////////////////////////////////////////////
 
 #define LOGGRIDS 3
@@ -57,7 +58,7 @@
 #define HIDECOLUMN				506
 #define	MENUTIMER				505
 #define ID_LOGTIMER				510
-#define ID_GPSTIMER				510
+#define ID_GPSTIMER				507
 #define COLDFINGER				511
 #define MENUCREWALL				512
 #define MENUCREWONBOARD			513
@@ -68,9 +69,10 @@
 #define MENUDELROWS				518
 #define MENUFLIP				519
 #define MENUWAKECHANGE			520
+#define SELECT_TRACK			521
 
 #define GPSTIMEOUT 5000
-#define LOGSAVETIME 600000
+#define LOGSAVETIME 900000
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class LogbookDialog
@@ -81,6 +83,7 @@ class logbookkonni_pi;
 class ColdFinger;
 class LogbookTimer;
 class myBitmapButton;
+class wxJSONReader;
 
 class LogbookDialog : public wxDialog 
 {
@@ -637,9 +640,11 @@ enum FORMAT {HTML,ODT};
 		void startNormalTimer();
 		void resetBullets();
 		void deselectAllLogbookGrids();
+		void writeToRouteDlg(wxJSONValue data);
 
 		logbookkonni_pi*	  logbookPlugIn;
 		wxString*			  pHome_Locn;
+		wxString			  basePath;
 		wxString              data;
 		wxString              image_locn;
 		Logbook*			  logbook;
@@ -684,6 +689,16 @@ enum FORMAT {HTML,ODT};
 		// XML-String for Export Excel
 		wxString			xmlHead;
 		wxString			xmlEnd;
+
+		// KML-String for Export
+		wxString			kmlHead;
+		wxString			kmlFolder;
+		wxString			kmlLine;
+		wxString			kmlEndFolder;
+		wxString			kmlBody;
+		wxString			kmlEnd;
+		wxString			kmlPathHeader;
+		wxString			kmlPathFooter;
 
 		wxString			titleExt;
 };
@@ -765,14 +780,18 @@ class SelectLogbook : public wxDialog
 		wxButton* m_sdbSizer4Cancel;
 		
 		 void OnInit( wxInitDialogEvent& event );
+		 void OnCellSelecttion( wxGridEvent& event );
+		 void OnGridCellChange( wxGridEvent& event );
+		 void OnKeyDown( wxKeyEvent& event );
 		
 	
 	public:
-		wxListCtrl* m_listCtrlSelectLogbook;
+		wxGrid* m_grid13;
 		wxArrayString files;
+		int selRow;
 
 #ifdef __WXMSW__		
-		SelectLogbook( wxWindow* parent, wxString path, wxWindowID id = wxID_ANY, const wxString& title = _("Select Logbook"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 297,252), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		SelectLogbook( wxWindow* parent, wxString path, wxWindowID id = wxID_ANY, const wxString& title = _("Select Logbook"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 700,252), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 #else
 		SelectLogbook( wxWindow* parent, wxString path, wxWindowID id = wxID_ANY, const wxString& title = _("Select Logbook"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 297,260), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER  );		
 #endif

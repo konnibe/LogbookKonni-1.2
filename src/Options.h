@@ -135,7 +135,7 @@ public:
 	bool		serviceHTML;
 	bool		repairsHTML;
 	bool		buypartsHTML;
-	bool        overviewAll;
+	int         overviewAll;
 
 	int		navGridLayoutChoice;
 	int		crewGridLayoutChoice;

@@ -47,12 +47,12 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer10->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	wxFlexGridSizer* fgSizer51;
-	fgSizer51 = new wxFlexGridSizer( 0, 6, 0, 0 );
+	fgSizer51 = new wxFlexGridSizer( 0, 5, 0, 0 );
 	fgSizer51->SetFlexibleDirection( wxBOTH );
 	fgSizer51->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	
-	fgSizer51->Add( 10, 0, 1, wxEXPAND, 0 );
+//	fgSizer51->Add( 10, 0, 1, wxEXPAND, 0 );
 	
 	m_staticText132 = new wxStaticText( m_panel15, wxID_ANY, _("Date-Format:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText132->Wrap( -1 );
@@ -109,7 +109,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer51->Add( m_staticTextDate, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 	
 	
-	fgSizer51->Add( 0, 0, 1, wxEXPAND, 5 );
+//	fgSizer51->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText133 = new wxStaticText( m_panel15, wxID_ANY, _("Time-Format:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText133->Wrap( -1 );
@@ -298,21 +298,21 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer10->Add( m_staticText123, 0, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );	
 	
 	wxFlexGridSizer* fgSizer14;
-	fgSizer14 = new wxFlexGridSizer( 2, 3, 0, 0 );
+	fgSizer14 = new wxFlexGridSizer( 2, 2, 0, 0 );
 	fgSizer14->SetFlexibleDirection( wxBOTH );
 	fgSizer14->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 		
-	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
+//	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText56 = new wxStaticText( m_panel15, wxID_ANY, _("Timer"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText56->Wrap( -1 );
 	fgSizer14->Add( m_staticText56, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
 	m_timerText = new wxTextCtrl( m_panel15, wxID_ANY, _("automatic line by timer\nYou can set/unset a timer\n by clicking the bullet\nChange this text in options"), wxDefaultPosition, wxSize( 250,40 ), wxTE_MULTILINE );
-	fgSizer14->Add( m_timerText, 0, 0, 5 );
+	fgSizer14->Add( m_timerText, 0, wxALL|wxEXPAND, 0 );
 	
 	
-	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
+//	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
 
 
 	m_staticText121 = new wxStaticText( m_panel15, wxID_ANY, _("Waypoint"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -323,7 +323,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer14->Add( m_textCtrlWayPoint, 0, wxALL|wxEXPAND, 0 );
 	
 	
-	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+//	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText122 = new wxStaticText( m_panel15, wxID_ANY, _("Watch"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText122->Wrap( -1 );
@@ -333,7 +333,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer14->Add( m_textCtrlGuradChanged, 0, wxALL|wxEXPAND, 0 );
 	
 	
-	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+//	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText1231 = new wxStaticText( m_panel15, wxID_ANY, _("Distance"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText1231->Wrap( -1 );
@@ -343,7 +343,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer14->Add( m_textCtrlEverySMText, 0, wxALL|wxEXPAND, 0 );
 	
 	
-	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
+//	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText124 = new wxStaticText( m_panel15, wxID_ANY, _("Course changes"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText124->Wrap( -1 );
@@ -354,7 +354,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	fgSizer10->Add( fgSizer14, 0, wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+//	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
 	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
 	m_checkBoxPopUp = new wxCheckBox( m_panel15, wxID_ANY, _("Popup logbook on event"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxPopUp->SetValue(true); 

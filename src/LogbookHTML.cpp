@@ -17,6 +17,7 @@
 #include <wx/wfstream.h> 
 #include <wx/txtstrm.h> 
 #include <wx/zipstrm.h> 
+#include "wx/stdpaths.h"
 
 #include <memory>
 #include <map>
@@ -184,8 +185,11 @@ void LogbookHTML::setPlaceholders()
 	placeholdersboat[_T("LLOGBOOK")]     = parent->m_logbook->GetPageText(0);
 	placeholdersboat[_T("LFROM")]        = _("from");
 	placeholdersboat[_T("LTO")]          = _("to");
+	if(parent->logGrids[0]->GetNumberRows() > 0)
+	{
 	placeholdersboat[_T("SDATE")]        = parent->m_gridGlobal->GetCellValue(0,1);
 	placeholdersboat[_T("EDATE")]        = parent->m_gridGlobal->GetCellValue(parent->m_gridGlobal->GetNumberRows()-1,1);
+	}
 	placeholdersboat[_T("TYPE")]         = parent->boatType->GetValue();
 	placeholdersboat[_T("BOATNAME")]     = parent->boatName->GetValue();
 	placeholdersboat[_T("HOMEPORT")]     = parent->homeport->GetValue();
@@ -1017,23 +1021,7 @@ wxString LogbookHTML::toODT(wxString path,wxString layout, bool mode)
 
 void LogbookHTML::toCSV(wxString path)
 {
-	wxString line;
 	wxString s, temp;
-
-	logbook->update();
-
-	wxFileInputStream input( this->fileName );
-	wxTextInputStream* stream = new wxTextInputStream (input);
-
-	if(input.GetSize() == 0)
-	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, Your Logbook has no lines"),_T("Information"),wxID_OK);
-#else
-		wxMessageBox(_("Sorry, Your Logbook has no lines"),_("Information"),wxOK);
-#endif
-		return;
-	}
 
 	if(::wxFileExists(path))
 		::wxRemoveFile(path);
@@ -1044,79 +1032,56 @@ void LogbookHTML::toCSV(wxString path)
 	for(int n = 0; n < parent->numPages; n++)
 	{
 		for(int i = 0; i < parent->logGrids[n]->GetNumberCols(); i++)
-			csvFile << parent->logGrids[n]->GetColLabelValue(i)+_T(",");
+		{
+			wxString str = _T("\"")+parent->logGrids[n]->GetColLabelValue(i)+_T("\",");
+
+			if(i == Logbook::POSITION && n == 0)
+			{
+				csvFile << str;
+				csvFile << str;
+			}
+			else
+				csvFile << str;
+		}
 	}
 	csvFile << _T("\n");
 
-	stream->ReadLine(); // for #1.2#
-	while(wxString line = stream->ReadLine())
-	{
-		if(input.Eof()) break;
-
-		wxStringTokenizer tkz(line, _T("\t"));
-
-		int col = 0;
-		while ( tkz.HasMoreTokens() )
-		{ 
-			temp = tkz.GetNextToken();
-			temp.RemoveLast();
-			if(col == Logbook::RDATE)
-			{   
-				temp += _T("/")+tkz.GetNextToken().RemoveLast();
-				temp += _T("/")+tkz.GetNextToken().RemoveLast();
-				temp = Logbook::makeDateFromFile(temp,parent->logbookPlugIn->opt->sdateformat);
-			}
-
-			if(col == Logbook::RTIME)
+		for(int row = 0; row < parent->m_gridGlobal->GetNumberRows(); row++)
+		{
+			for(int grid = 0; grid < parent->numPages; grid++)
 			{
-				int hour = wxAtoi(temp);
-				int min  = wxAtoi(tkz.GetNextToken());
-				int sec  = wxAtoi(tkz.GetNextToken());
-				wxDateTime dt;
-				dt.Set(hour,min,sec);
-				temp = dt.Format(parent->logbookPlugIn->opt->stimeformat);
+				for(int col = 0; col < parent->logGrids[grid]->GetNumberCols(); col++)
+				{
+					temp = parent->logGrids[grid]->GetCellValue(row,col);
+					if(col == Logbook::POSITION && grid == 0)
+					{			
+						wxStringTokenizer p(temp,_T("\n"));
+						wxString lat = p.GetNextToken();
+						wxString lon = p.GetNextToken();
+						temp =  lat+_T("\",\"")+lon;
+					}
+					s +=  _T("\"")+temp+_T("\",");
+				}
 			}
 
-			temp.Replace(_T("\""),_T("\"\""));
-			temp.Replace(_T("\\n"),_T("\n"));
-			temp.Prepend(_T("\""));
-			temp.Append(_T("\","));
-			s += temp;
-			col++;
+				s.RemoveLast();
+				csvFile << s + _T("\n");
+				s = wxEmptyString;
 		}
-		s.RemoveLast();
-		csvFile << s+_T("\n");
-		s = _T("");
-	}
+
 	output.Close();
 }
 
 void LogbookHTML::toXML(wxString path)
 {
 	wxString s = _T("");
-	wxString line;
 	wxString temp;
-	int count = 0;
-
-	logbook->update();
-
-	wxFileInputStream input( this->fileName );
-	wxTextInputStream* stream = new wxTextInputStream (input);
-	if(input.GetSize() == 0)
-	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, Your Logbook has no lines"),_T("Information"),wxID_OK);
-#else
-		wxMessageBox(_("Sorry, Your Logbook has no lines"),_("Information"),wxOK);
-#endif
-		return;
-	}
-
-	wxFileOutputStream output( path );
-	wxTextOutputStream xmlFile(output);
 
 	if(::wxFileExists(path))
 		::wxRemoveFile(path);
+
+	wxFileOutputStream output( path );
+	wxTextOutputStream xmlFile(output);
 
 	xmlFile << parent->xmlHead;
 
@@ -1134,55 +1099,31 @@ void LogbookHTML::toXML(wxString path)
 	s += _T("</Row>>");
 	xmlFile << s;
 
-	stream->ReadLine(); // for #1.2#
-	while(wxString line = stream->ReadLine())
+	for(int row = 0; row < parent->m_gridGlobal->GetNumberRows(); row++)
 	{
-		if(input.Eof()) break;
-		wxStringTokenizer tkz(line, _T("\t"));
-		s = wxString::Format(_T("<Row ss:Height=\"%u\">"),parent->m_gridGlobal->GetRowHeight(count++));
-
-		int col = 0;
-		while ( tkz.HasMoreTokens() )
-		{ 
-			s += _T("<Cell>\n");
-			s += _T("<Data ss:Type=\"String\">#DATA#</Data>\n");
-			temp = tkz.GetNextToken();
-
-			if(col == Logbook::RDATE)
-			{   
-				temp = temp.RemoveLast();
-				temp += _T("/")+tkz.GetNextToken().RemoveLast();
-				temp += _T("/")+tkz.GetNextToken().RemoveLast();
-				temp = Logbook::makeDateFromFile(temp,parent->logbookPlugIn->opt->sdateformat);
-			}
-
-			if(col == Logbook::RTIME)
+		xmlFile << wxString::Format(_T("<Row ss:Height=\"%u\">"),parent->m_gridGlobal->GetRowHeight(row));
+		for(int grid = 0; grid < parent->numPages; grid++)
+		{
+			for(int col = 0; col < parent->logGrids[grid]->GetNumberCols(); col++)
 			{
-				int hour = wxAtoi(temp);
-				int min  = wxAtoi(tkz.GetNextToken());
-				int sec  = wxAtoi(tkz.GetNextToken());
-				wxDateTime dt;
-				dt.Set(hour,min,sec);
-				temp = dt.Format(parent->logbookPlugIn->opt->stimeformat);
+				s = _T("<Cell>\n");
+				s += _T("<Data ss:Type=\"String\">#DATA#</Data>\n");
+				temp = parent->logGrids[grid]->GetCellValue(row,col);
+				temp.Replace(_T("&"),_T("&amp;"));
+				temp.Replace(_T("\\n"),_T("&#xA;"));
+				temp.Replace(_T("\""),_T("&quot;"));
+				temp.Replace(_T("<"),_T("&lt;"));
+				temp.Replace(_T(">"),_T("&gt;"));
+				temp.Replace(_T("'"),_T("&apos;"));
+				s.Replace(_T("#DATA#"),temp);
+				s += _T("</Cell>");
+				xmlFile << s;
 			}
-
-			temp.Replace(_T("&"),_T("&amp;"));
-			temp.Replace(_T("\\n"),_T("&#xA;"));
-			temp.Replace(_T("\""),_T("&quot;"));
-			temp.Replace(_T("<"),_T("&lt;"));
-			temp.Replace(_T(">"),_T("&gt;"));
-			temp.Replace(_T("'"),_T("&apos;"));
-			s.Replace(_T("#DATA#"),temp);
-			s += _T("</Cell>");
-			col++;
 		}
-		s += _T("</Row>>");
-		xmlFile << s;
+		xmlFile << _T("</Row>>");;
 	}
-
 	xmlFile << parent->xmlEnd;
 	output.Close();
-
 }
 
 
@@ -1191,11 +1132,6 @@ void LogbookHTML::toODS(wxString path)
 	wxString s = _T("");
 	wxString line;
 	wxString temp;
-
-	wxFileInputStream input( this->fileName );
-	wxTextInputStream* stream = new wxTextInputStream (input);
-
-	logbook->update();
 
 	wxFFileOutputStream out(path);
 	wxZipOutputStream zip(out);
@@ -1222,45 +1158,30 @@ void LogbookHTML::toODS(wxString path)
 	}
 	txt << _T("</table:table-row>");
 
-	while(wxString line = stream->ReadLine())
+	for(int row = 0; row < parent->m_gridGlobal->GetNumberRows(); row++)
 	{
-		if(input.Eof()) break;
 		txt << _T("<table:table-row table:style-name=\"ro2\">");
-		wxStringTokenizer tkz(line, _T("\t"));
-
-		while ( tkz.HasMoreTokens() )
-		{ 
-			wxString s = parent->restoreDangerChar(tkz.GetNextToken());
-			s.RemoveLast();
-
-			if(s == _T(""))
+		for(int grid = 0; grid < parent->numPages; grid++)
+		{
+			for(int col = 0; col < parent->logGrids[grid]->GetNumberCols(); col++)
 			{
-				txt <<  _T("<table:table-cell />");
-				emptyCol++;
-				continue;
-			}
+				wxString s = parent->logGrids[grid]->GetCellValue(row,col);
+				s.Replace(_T("&"),_T("&amp;"));
+				s.Replace(_T("\""),_T("&quot;"));
+				s.Replace(_T("<"),_T("&lt;"));
+				s.Replace(_T(">"),_T("&gt;"));
+				s.Replace(_T("'"),_T("&apos;"));
 
-			txt << _T("<table:table-cell office:value-type=\"string\">");
-
-			wxStringTokenizer str(s, _T("\t"));
-			while(str.HasMoreTokens())
-			{
-				wxString e = str.GetNextToken();
-				e.Replace(_T("&"),_T("&amp;"));
-				e.Replace(_T("\""),_T("&quot;"));
-				e.Replace(_T("<"),_T("&lt;"));
-				e.Replace(_T(">"),_T("&gt;"));
-				e.Replace(_T("'"),_T("&apos;"));
+				txt << _T("<table:table-cell office:value-type=\"string\">");
 				txt << _T("<text:p>");
-				txt << e;
+				txt << s;
 				txt << _T("</text:p>");
+				txt << _T("</table:table-cell>");
 			}
-			txt << _T("</table:table-cell>");
 		}
 		txt << _T("</table:table-row>");
-
 	}
-	txt << parent->contentEnd;
+		txt << parent->contentEnd;
 
 	zip.PutNextEntry(wxT("mimetype"));
 	txt << wxT("application/vnd.oasis.opendocument.spreadsheet");
@@ -1284,12 +1205,480 @@ void LogbookHTML::toODS(wxString path)
 	zip.PutNextEntry(wxT("Configurations2") + sep + wxT("toolbar"));
 	zip.PutNextEntry(wxT("Configurations2") + sep + wxT("images") + sep + wxT("Bitmaps"));
 
-
 	zip.Close();
 	out.Close();
 }
 
 void LogbookHTML::backup(wxString path)
 {
+	logbook->update();
 	wxCopyFile(data_locn+parent->backupFile,path);
+}
+
+void LogbookHTML::toKML(wxString path)
+{
+	wxString datetime, position, description, temp, folder, t, header, logpointName,
+			 route = _T("nil") , oldroute, remarks, fRemarks, label, pathXML;
+	wxString nil = _T("---");
+	wxString trackID = wxEmptyString, trackOldID = wxEmptyString;
+	wxString routeID = wxEmptyString, routeOldID = wxEmptyString;
+
+	bool error = false, first = true, rfirst = true, newFolder=true;
+	wxDateTime dt;
+	int maxRow = parent->m_gridGlobal->GetNumberRows(), row = 0;
+
+	if(::wxFileExists(path))
+		::wxRemoveFile(path);
+	
+	wxFileOutputStream output( path );
+	wxTextOutputStream kmlFile1(output);
+
+	kmlFile = &kmlFile1 ;
+
+	wxString h = parent->kmlHead;
+	h.Replace(_T("#TITLE#"),logbook->title);
+	*kmlFile << h;
+	*kmlFile << parent->kmlLine;
+
+
+	for(; row < parent->m_gridGlobal->GetNumberRows(); row++)
+	{
+		temp = parent->kmlBody;
+		folder = parent->kmlFolder;
+		error = false;
+		remarks = wxEmptyString;
+		for(int grid = 0; grid < parent->numPages; grid++)
+		{
+			for(int col = 0; col < parent->logGrids[grid]->GetNumberCols(); col++)
+			{
+				wxString e = parent->logGrids[grid]->GetCellValue(row,col);
+				if(grid == 0)
+				{
+					switch(col)
+					{
+					case Logbook::ROUTE:
+						//temp.Replace(_T("#ROW#"),wxString::Format(_("Row: %i"),row));
+						if(e != route )
+						{
+							if(!first)
+								(*kmlFile) << parent->kmlEndFolder;
+								first = false;
+
+							e = replaceKMLCharacters(e);
+							folder.Replace(_T("#NAME#"),e);
+							(*kmlFile) << folder;
+	
+							route = e;
+							rfirst = true;
+							routeID = wxEmptyString;
+
+							bool closeFolder = false;
+							if(!parent->logGrids[2]->GetCellValue(row,ROUTEID).IsEmpty())
+							{
+								wxJSONWriter w;
+								wxString out;
+								wxJSONValue v;
+								v[_T("Route_ID")] =   parent->logGrids[2]->GetCellValue(row,ROUTEID);
+								w.Write(v, out);
+								SendPluginMessage(wxString(_T("OCPN_ROUTE_REQUEST")),out);
+
+								::wxSafeYield();	
+							}
+						}
+						else
+						{
+							first = false;
+							rfirst = false;
+							newFolder = true;
+						}
+						break;
+					case Logbook::RDATE:
+					    logpointName = e +_T(" ");
+						break;
+					case Logbook::RTIME:
+						//logpointName = description;
+						logpointName += e;
+					//	description += e +_T("\n");
+						break;
+					case Logbook::POSITION:
+						if(e.IsEmpty()) 
+						{
+							error = true;
+							break;
+						}
+						position = e;
+						e = replaceKMLCharacters(e);
+						description += position+_T("\n") ;
+						position = convertPositionToDecimalDegrees(position);
+						temp.Replace(_T("#POSITION#"),position,false);
+						break;
+					case Logbook::COG:
+						label = parent->m_gridGlobal->GetColLabelValue(Logbook::COG);
+						label.Replace(_T("\n"),_T(" "));
+						if(e.IsEmpty()) e = nil;
+						e = replaceKMLCharacters(e);
+						description += label + _T(" ") + e +_T("  ") ;
+						break;
+					case Logbook::SOG:
+						label = parent->m_gridGlobal->GetColLabelValue(Logbook::SOG);
+						label.Replace(_T("\n"),_T(" "));
+						if(e.IsEmpty()) e = nil;
+						e = replaceKMLCharacters(e);
+						description += label + _T(" ") + e +_T("\n") ;
+						break;
+					case Logbook::DEPTH:
+						label = parent->m_gridGlobal->GetColLabelValue(Logbook::DEPTH);
+						label.Replace(_T("\n"),_T(" "));
+						if(e.IsEmpty()) e = nil;
+						e = replaceKMLCharacters(e);
+						description += label + _T(" ") + e +_T("\n") ;
+						break;
+					case Logbook::REMARKS:
+						e = replaceKMLCharacters(e);
+						fRemarks = e;
+						//description += e;
+						if(rfirst)
+						{
+							remarks = wxEmptyString; //e.SubString(0,50)+_T("...");
+							folder.Replace(_T("#CREATED#"),remarks,false);
+							//(*kmlFile) << folder;
+							rfirst = false;
+						}
+						break;
+					}
+				}
+				else if(grid == 1)
+				{
+					switch(col)
+					{
+					case WIND:
+						label = parent->m_gridWeather->GetColLabelValue(WIND);
+						label.Replace(_T("\n"),_T(" "));
+						if(e.IsEmpty()) e = nil;
+						e = replaceKMLCharacters(e);
+						description += label + _T(" ") + e +_T("  ") ;
+						break;
+					case WSPD:
+						label = parent->m_gridWeather->GetColLabelValue(WSPD);
+						label.Replace(_T("\n"),_T(" "));
+						if(e.IsEmpty()) e = nil;
+						e = replaceKMLCharacters(e);
+						description += label + _T(" ") + e +_T("\n") ;
+						break;
+					}
+				}
+				else if(grid == 2)
+				{
+					switch(col)
+					{
+				case MREMARKS:
+					e = replaceKMLCharacters(e);
+					temp.Replace(_T("#NAME#"),logpointName);
+					temp.Replace(_T("#DESCRIPTION#"),description+_T("\n")+fRemarks+e,false);
+					break;
+				case ROUTEID:
+					routeOldID = routeID;
+					routeID = e;
+					break;
+				case TRACKID:
+					trackOldID = trackID;
+					trackID = e;
+							//if(!parent->logGrids[2]->GetCellValue(row,TRACKID).IsEmpty())
+					if(trackID != trackOldID || routeID != routeOldID)
+					{
+						wxJSONWriter w;
+						wxString out;
+						wxJSONValue v;
+						v[_T("Track_ID")] =   parent->logGrids[2]->GetCellValue(row,TRACKID);
+						w.Write(v, out);
+						SendPluginMessage(wxString(_T("OCPN_TRACK_REQUEST")),out);	
+
+						::wxSafeYield();
+					}
+					break;
+					}
+				}
+			}
+		}
+		if(!error)
+		{
+			temp.Replace(_T("#icon#"),_T("http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png"));
+			(*kmlFile) << temp;
+		}
+		description = wxEmptyString;
+	}
+	if(row == maxRow-1) *kmlFile << parent->kmlEndFolder;
+	(*kmlFile) << parent->kmlEnd;
+	output.Close();
+
+	wxFileType *filetype = wxTheMimeTypesManager->GetFileTypeFromExtension(_T("kml"));
+	wxString cmd = filetype->GetOpenCommand(path);
+	wxExecute(cmd);
+}
+
+void LogbookHTML::writeTrackToKML(wxJSONValue data)
+{
+	wxString trkLine = parent->kmlPathHeader;
+	trkLine.Replace(_T("#NAME#"),_("Trackline"));
+	*kmlFile << trkLine;
+	for(int i = 0; i < data.Size(); i++)
+		(*kmlFile) << wxString::Format(_T("%.13f,%.13f\n"),data[i][1].AsDouble(),data[i][0].AsDouble());
+
+	(*kmlFile) << parent->kmlPathFooter;
+}
+
+void LogbookHTML::writeRouteToKML(wxJSONValue data)
+{
+	wxString routeLine = parent->kmlPathHeader;
+	routeLine.Replace(_T("#NAME#"),_("Routeline"));
+	*kmlFile << routeLine;
+
+	for(int i = 0; i < data.Size(); i++)
+		(*kmlFile) << wxString::Format(_T("%f,%f\n"),data[i][_T("lon")].AsDouble(),data[i][_T("lat")].AsDouble());
+
+	(*kmlFile) << parent->kmlPathFooter;
+
+	wxString n = parent->kmlFolder;
+	n.Replace(_T("#NAME#"),_("Routepoints"));	
+	*kmlFile << n;
+
+	for(int i = 0; i < data.Size(); i++)
+	{
+		wxString routeWP = parent->kmlBody;
+		routeWP.Replace(_T("#icon#"),_T("http://maps.google.com/mapfiles/kml/pal4/icon48.png"));
+		routeWP.Replace(_T("#NAME#"),data[i][_T("WPName")].AsString());
+		wxString description = data[i][_T("WPDescription")].AsString()+_T("<br>");
+
+		int li = 1; wxString links = wxEmptyString; wxString desc = wxEmptyString;
+
+		while(true)
+		{
+			wxString count = wxString::Format(_T("%d"),li);
+
+			if(data[i].HasMember(_T("WPLink")+count))
+				links = data[i][_T("WPLink")+count].AsString();
+			else
+				break;
+
+			if(data[i].HasMember(_T("WPLinkDesciption")+count))
+			{
+				desc = data[i][_T("WPLinkDesciption")+count].AsString();
+				description += _T("<a href=\"")+links+_T("\">")+desc+_T("</a><br>");
+			}
+			else
+
+				break;
+			li++;
+		}
+		routeWP.Replace(_T("#DESCRIPTION#"),_T(" <![CDATA[\n")+description+_T("\n]]>"));
+		routeWP.Replace(_T("#POSITION#"),wxString::Format(_T("%f,%f\n"),data[i][_T("lon")].AsDouble(),data[i][_T("lat")].AsDouble()));
+		(*kmlFile) << routeWP;
+
+	}
+	*kmlFile << parent->kmlEndFolder;
+}
+/*
+void LogbookHTML::createJumpTable()
+{
+	wxString path  = parent->basePath+_T("navobj.xml");
+	wxString patho = parent->basePath+_T("navobj.xml.changes");
+
+	offsetChanges.clear();
+	offsetNavobj.clear();
+
+	if(wxFile::Exists(patho))
+		insertTracks(patho,&offsetChanges,&offsetChangesGuid);		
+	else
+		insertTracks(path,&offsetNavobj,&offsetNavobjGuid);
+	
+}
+
+void LogbookHTML::insertTracks(wxString file, std::map<wxString,long> *navobj, std::map<wxString,long> *navobjgui )
+{
+	wxString temp;
+
+	wxFileInputStream in(file);
+	wxTextInputStream xml(in);
+
+	long i = -1, n = 0;
+	while(!in.Eof())
+	{
+		temp = xml.ReadLine();
+		i++;
+		if(temp.Contains(_T("<trk>")))
+		{
+			n = i;
+			temp = xml.ReadLine();
+			i++;
+			if(temp.Contains(_T("<name>")))
+			{
+				temp.Trim(false);
+				temp.Replace(_T("<name>"),_T(""));
+				temp.Replace(_T("</name>"),_T(""));
+				navobj->insert(pair(temp,n));			
+			}
+
+			do{
+				temp = xml.ReadLine();
+				i++;
+			}while(!temp.Contains(_T("<opencpn:guid>")));
+
+			temp.Trim(false);
+			temp = temp.AfterFirst('>'); 
+			temp = temp.BeforeFirst('<');
+			navobjgui->insert(pair(temp,n));
+		}
+	}
+}
+*/
+wxString LogbookHTML::replaceKMLCharacters(wxString e)
+{
+	e.Replace(_T("\""),_T("&quot;"));
+	e.Replace(_T("<"),_T("&lt;"));
+	e.Replace(_T(">"),_T("&gt;"));
+	e.Replace(_T("'"),_T("&apos;"));
+	e.Replace(_T("&"),_T("&amp;"));
+
+	return e;
+}
+/*
+wxString LogbookHTML::findTrackInXML(wxDateTime dt, wxString file, wxString *name, wxString route, wxString trackguid, long offset, bool f, bool mode)
+{
+	wxString temp,lat,lon,track = wxEmptyString, trkguid = wxEmptyString;
+	bool first = true;
+
+	wxString path = parent->basePath + file;
+	if(f ==	0)
+			if(!wxFile::Exists(path)) return wxEmptyString;
+
+		wxTextFile in(path);
+		in.Open();
+		in.GoToLine(offset);
+			while(!in.Eof())
+			{
+				temp = in.GetLine(offset);
+				if(temp.Contains(_T("<trk>")))
+				{
+					temp = in.GetNextLine();
+					if(mode)
+					{
+					if(temp.Contains(_T("<name>")))
+						{
+							temp.Trim(false);
+							temp = temp.AfterFirst('>'); 
+							temp = temp.BeforeFirst('<');	
+							*name = temp;
+						}
+					}
+					else
+					{
+						do{
+							temp = in.GetNextLine();
+						}while(!temp.Contains(_T("<opencpn:guid>")));
+						temp.Trim(false);
+						temp = temp.AfterFirst('>'); 
+						trkguid = temp.BeforeFirst('<');	
+					}
+
+					do
+					{
+						temp = in.GetNextLine();
+						if(temp.Contains(_T("</trk>"))) return track;
+
+						if(temp.Contains(_T("<trkpt")))
+						{
+							temp.Trim(false);
+							temp.Replace(_T("<trkpt lat="),_T(""));
+							temp.Replace(_T("lon="),_T(""));
+							temp.Replace(_T("\""),_T(""));
+							wxStringTokenizer tkz(temp,_T(" "));
+							lon = tkz.GetNextToken();
+							lat = tkz.GetNextToken().RemoveLast();
+						}
+
+						if(temp.Contains(_T("<time>")))
+						{
+							temp.Trim(false);
+							temp = temp.AfterFirst('>'); 
+							temp = temp.BeforeFirst('<');
+							temp.Replace(_T("T"),_T(" "));
+
+							wxDateTime dtt;
+							dtt.ParseDateTime(temp.RemoveLast());
+							//wxMessageBox(dtt.FormatDate()+_T(" ")+dtt.FormatTime());
+						}
+
+							if(*name == route || trkguid == trackguid)
+								track += lat+_T(",")+lon+_T("\n");
+					}while(!in.Eof());
+				}
+			}
+	in.Close();
+	return track;
+}
+
+wxString LogbookHTML::getPathFromTrack(wxDateTime dt, wxString route, wxString trackguid, long offset, bool ind, bool mode)
+{
+	wxString name = wxEmptyString;
+	wxString kmlData = wxEmptyString;
+	wxString header = parent->kmlPathHeader;
+
+	if(!ind)
+		kmlData = findTrackInXML(dt, _T("navobj.xml.changes"), &name, route, trackguid, offset, ind, mode);
+	else
+		kmlData = findTrackInXML(dt, _T("navobj.xml"), &name, route, trackguid, offset, ind, mode);
+
+	name = route;
+	if(!kmlData.IsEmpty())
+	{
+		header.Replace(_T("#NAME#"),name);
+		return header+kmlData+parent->kmlPathFooter;
+	}
+	else
+		return wxEmptyString;
+}
+*/
+wxString LogbookHTML::convertPositionToDecimalDegrees(wxString str)
+{
+	wxString pos;
+
+	wxStringTokenizer tkz(str,_T("\n"));
+	pos = positionToDecimalDegrees(tkz.GetNextToken());
+	pos.Prepend(positionToDecimalDegrees(tkz.GetNextToken())+_T(","));
+
+	return pos;
+}
+wxString LogbookHTML::positionToDecimalDegrees(wxString str)
+{
+	double deg, min, sec = 0;
+	wxString ind;
+
+	wxStringTokenizer tkz(str,_T(" "));
+
+	if(tkz.CountTokens() == 4)
+	{
+		deg = wxAtof(tkz.GetNextToken());
+		min = wxAtof(tkz.GetNextToken());
+		wxString t = tkz.GetNextToken();
+		t.Replace(_T(","),_T("."));
+		sec = wxAtof(t);
+
+		sec = min*60+sec;
+		deg = deg+(sec/3600);
+	}
+	else
+	{
+		deg = wxAtof(tkz.GetNextToken());
+		wxString t = tkz.GetNextToken();
+		t.Replace(_T(","),_T("."));
+		min = wxAtof(t);
+		min = min / 60;
+		deg += min;
+	}
+
+	ind = tkz.GetNextToken();
+	if(ind == 'W' || ind == 'S')
+		deg = -deg;
+
+	return wxString::Format(_T("%f"),deg);
 }

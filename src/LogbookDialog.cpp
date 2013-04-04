@@ -341,7 +341,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMotorSails = new wxGrid( m_panel71, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxALWAYS_SHOW_SB );
 	
 	// Grid
-	m_gridMotorSails->CreateGrid( 0, 20 );
+	m_gridMotorSails->CreateGrid( 0, 22 );
 	m_gridMotorSails->EnableEditing( true );
 	m_gridMotorSails->EnableGridLines( true );
 	m_gridMotorSails->EnableDragGridSize( false );
@@ -368,6 +368,8 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMotorSails->SetColSize( 17, 56 );
 	m_gridMotorSails->SetColSize( 18, 80 );
 	m_gridMotorSails->SetColSize( 19, 298 );
+	m_gridMotorSails->SetColSize( 20, 60 );
+	m_gridMotorSails->SetColSize( 21, 60 );
 	m_gridMotorSails->EnableDragColMove( false );
 	m_gridMotorSails->EnableDragColSize( true );
 	m_gridMotorSails->SetColLabelSize( 30 );
@@ -391,6 +393,8 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMotorSails->SetColLabelValue( 17, _("Water") );
 	m_gridMotorSails->SetColLabelValue( 18, _("WaterTotal") );
 	m_gridMotorSails->SetColLabelValue( 19, _("Remarks") );
+	m_gridMotorSails->SetColLabelValue( 20, _("RouteID") );
+	m_gridMotorSails->SetColLabelValue( 21, _("TrackID") );
 	m_gridMotorSails->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
@@ -3485,7 +3489,8 @@ Backup Logbook(*.txt)|*.txt");
 	wxString stdPath  = std_path.GetUserConfigDir();   // should be ~/Library/Preferences	
 #endif
 
-
+	basePath = stdPath;
+	appendOSDirSlash(&basePath);
 	pHome_Locn = new wxString();
 	pHome_Locn->Append(stdPath);
 	appendOSDirSlash(pHome_Locn) ;
@@ -3522,6 +3527,16 @@ Backup Logbook(*.txt)|*.txt");
 	lastRowSelectedBuyParts = 0;
 
 	logbook     = new Logbook    (this,data,layoutHTML,layoutODT);
+
+	m_gridGlobal->SetColMinimalAcceptableWidth(0);
+	m_gridWeather->SetColMinimalAcceptableWidth(0);
+	m_gridMotorSails->SetColMinimalAcceptableWidth(0);
+	m_gridOverview->SetColMinimalAcceptableWidth(0);
+	m_gridCrew->SetColMinimalAcceptableWidth(0);
+	m_gridCrew->SetRowMinimalAcceptableHeight(0);
+	m_gridOverview->SetColMinimalWidth(OverView::FPATH,0);
+	m_gridOverview->SetColSize(OverView::FPATH,0);
+
 	getIniValues();
 
 	logbookPlugIn->opt->setDateFormat();
@@ -3539,25 +3554,15 @@ Backup Logbook(*.txt)|*.txt");
 	maintenance->loadData();
 	logbook->setPlaceholders();
 
-	m_gridGlobal->SetColMinimalAcceptableWidth(0);
-	m_gridWeather->SetColMinimalAcceptableWidth(0);
-	m_gridMotorSails->SetColMinimalAcceptableWidth(0);
+	if(logGrids[0]->GetNumberRows() > 0)
+	{
+		m_logbook->SetSelection(0);
+		m_notebook8->SetSelection(0);
 
-	m_gridOverview->SetColMinimalAcceptableWidth(0);
-
-	m_gridCrew->SetColMinimalAcceptableWidth(0);
-
-	m_gridCrew->SetRowMinimalAcceptableHeight(0);
-
-	m_gridOverview->SetColMinimalWidth(OverView::FPATH,0);
-	m_gridOverview->SetColSize(OverView::FPATH,0);
-
-	m_logbook->SetSelection(0);
-	m_notebook8->SetSelection(0);
-
-	m_gridGlobal->SetGridCursor(0,0);
-	m_gridWeather->SetGridCursor(0,0);
-	m_gridMotorSails->SetGridCursor(0,0);
+		m_gridGlobal->SetGridCursor(0,0);
+		m_gridWeather->SetGridCursor(0,0);
+		m_gridMotorSails->SetGridCursor(0,0);
+	}
 
 	loadTimerEx();
 
@@ -3586,6 +3591,9 @@ Backup Logbook(*.txt)|*.txt");
 	coldfinger->Show(false);
 
 	crewList->filterCrewMembers();
+
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,200);
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,200);
 
 #ifdef PBVE_DEBUG
 	if(PBVE_DEBUG)
@@ -3712,81 +3720,32 @@ void LogbookDialog::m_menuItem1OnMenuSelection( wxCommandEvent& ev )
 		}
 		
 	}
-	else if(ev.GetId() == SELECT_ROUTE)
+	else if(ev.GetId() == SELECT_ROUTE || ev.GetId() == SELECT_TRACK)
 	{
-		RouteDialog *dlg = new RouteDialog(this);
+		wxString search;
 		wxListItem itemCol;
-		itemCol.SetText(_("Route"));
-		itemCol.SetImage(-1);
-		itemCol.SetWidth(225);
-		dlg->m_listCtrlRoute->InsertColumn(0, itemCol);
 
-		wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
-#ifdef __WXMSW__
-	wxString stdPath  = std_path.GetConfigDir();
-#elif defined __WXGTK__
-	wxString stdPath  = std_path.GetUserDataDir();	
-#elif defined __WXOSX__
-	wxString stdPath  = std_path.GetUserConfigDir();
-#endif
-		wxString path = stdPath + wxFileName::GetPathSeparator() + _T("navobj.xml");
-
-		wxString g,temp;
-		int n = 0;
-
-		for(int i = 0; i < 2; i++)
+		if(ev.GetId() == SELECT_ROUTE)
 		{
-			if(i == 1)
-			{
-				path = stdPath + wxFileName::GetPathSeparator() + _T("navobj.xml.changes");
-				if(!wxFile::Exists(path)) break;
-			}
-			wxFileInputStream in(path);
-			wxTextInputStream xml(in);
-			while(!in.Eof())
-			{
-				temp = xml.ReadLine();
-				if(temp.Contains(_T("<rte>")))
-				{
-					temp = xml.ReadLine();
-					if(temp.Contains(_T("<name>")))
-					{
-						temp = temp.AfterFirst('>');
-						g = temp.BeforeFirst('<');
-						if(i == 1)
-						{
-							for(int z = 0; z < 6; z++)
-								temp = xml.ReadLine();
-							if(temp.Contains(_T("<opencpn:action>delete")))
-								dlg->m_listCtrlRoute->DeleteItem(dlg->m_listCtrlRoute->FindItem(0,g));
-							else
-								dlg->m_listCtrlRoute->InsertItem(n++,g);
 
-						}
-						else
-							dlg->m_listCtrlRoute->InsertItem(n++,g);
-					}
-				}
-			}
+			wxJSONWriter w;
+			wxString out;
+			wxJSONValue v;
+			v[_T("mode")] =  _T("Route");
+			w.Write(v, out);
+			SendPluginMessage(wxString(_T("OCPN_ROUTELIST_REQUEST")),out);
 		}
-
-		if(dlg->ShowModal() == wxID_OK)
+		else
 		{
-			int selIndex = -1;
-			for(;;)
-			{
-				selIndex = dlg->m_listCtrlRoute->GetNextItem(selIndex,wxLIST_NEXT_ALL,wxLIST_STATE_SELECTED);
-				if(selIndex != -1) break;
-				else
-				{
-					delete dlg;
-					return;
-				}
-			}
-			m_gridGlobal->SetCellValue(selGridRow,0,dlg->m_listCtrlRoute->GetItemText(selIndex));
-			logbook->modified = true;
+			wxJSONWriter w;
+			wxString out;
+			wxJSONValue v;
+			v[_T("mode")] =  _T("Track");
+			w.Write(v, out);
+			SendPluginMessage(wxString(_T("OCPN_ROUTELIST_REQUEST")),out);
+			search = _T("<rte>");
+			itemCol.SetText(_("Track"));
 		}
-		delete dlg;
 	}
 	else if(selGridCol == Logbook::WAKE && this->m_notebook8->GetSelection() == 0)
 	{
@@ -3808,17 +3767,98 @@ void LogbookDialog::m_menuItem1OnMenuSelection( wxCommandEvent& ev )
 			(selGridCol == Logbook::MREMARKS-  logbook->sailsCol   && m_notebook8->GetSelection() == 2) )
 	{
 		wxString s = logGrids[m_notebook8->GetSelection()]->GetCellValue(selGridRow,selGridCol);
+		if(s.Length() == 1 && s.GetChar(0) == ' ')
+			s = wxEmptyString;
 		wxTreeItemId id = FindMenuItem(m_notebook8->GetSelection(), selGridCol, m_menu1->GetLabelText(ev.GetId()));
 		wxString text = ((myTreeItem*)coldfinger->m_treeCtrl3->GetItemData(id))->text;
 		int grid = ((myTreeItem*)coldfinger->m_treeCtrl3->GetItemData(id))->grid;
 
-		logGrids[grid]->SetCellValue(selGridRow,selGridCol,s+((s.Length() == 0)?_T(""):_T("\n"))+text);
+		logGrids[grid]->SetCellValue(selGridRow,selGridCol,s+((s.Length() == 0 )?_T(""):_T("\n"))+text);
 		logGrids[grid]->SetGridCursor(selGridRow,selGridCol);
 	}
 	else if(selGridCol == Logbook::CLOUDS-logbook->weatherCol && m_notebook8->GetSelection() == 1)
 	{
 		logGrids[1]->SetCellValue(selGridRow,Logbook::CLOUDS-logbook->weatherCol,m_menu1->GetLabelText(ev.GetId()));
 	}
+}
+
+void LogbookDialog::writeToRouteDlg(wxJSONValue data)
+{
+	wxListItem itemCol;
+	int n = 1;
+	bool isTrack = false;
+
+	if(data[0].HasMember(_T("isTrack")))
+		isTrack = data[0][_T("isTrack")].AsBool();
+
+	RouteDialog *dlg = new RouteDialog(this);
+	if(isTrack)
+	{
+		dlg->SetTitle(_("Select Track"));
+		itemCol.SetText(_("Track"));
+	}
+	else
+	{
+		dlg->SetTitle(_("Select Route"));
+		itemCol.SetText(_("Route"));
+	}
+	itemCol.SetImage(-1);
+	itemCol.SetWidth(225);
+	wxListItem itemCol1;
+	itemCol1.SetText(_("GUID"));
+	itemCol1.SetImage(-1);
+	itemCol1.SetWidth(225);
+
+	dlg->m_listCtrlRoute->InsertColumn(0, itemCol);
+	dlg->m_listCtrlRoute->InsertColumn(1, itemCol1);
+
+	while(data[n].HasMember(_T("error")) && !data[n][_T("error")].AsBool())
+	{
+		int ind = dlg->m_listCtrlRoute->InsertItem(n,data[n][_T("name")].AsString());
+		dlg->m_listCtrlRoute->SetItem(ind,1,data[n][_T("GUID")].AsString());
+		if(data[n][_T("active")].AsBool())
+		{
+			wxFont font = dlg->m_listCtrlRoute->GetItemFont(ind);
+			font.SetWeight(wxBOLD);
+			dlg->m_listCtrlRoute->SetItemFont(ind, font );
+		}
+		n++;
+	}
+
+	if(dlg->ShowModal() == wxID_OK)
+	{
+		int selIndex = -1;
+		for(;;)
+		{
+			selIndex = dlg->m_listCtrlRoute->GetNextItem(selIndex,wxLIST_NEXT_ALL,wxLIST_STATE_SELECTED);
+			if(selIndex != -1) break;
+			else
+			{
+				delete dlg;
+				return;
+			}
+		}
+
+		wxListItem     row_info;  
+		wxString       s, guid;
+
+		row_info.m_itemId = selIndex;
+		row_info.m_col = 0;
+		row_info.m_mask = wxLIST_MASK_TEXT;
+		dlg->m_listCtrlRoute->GetItem( row_info );
+		s = row_info.m_text; 
+		row_info.m_col = 1;
+		dlg->m_listCtrlRoute->GetItem( row_info );
+		guid = row_info.m_text;
+
+		m_gridGlobal->SetCellValue(selGridRow,0,s);
+		if(!isTrack)
+			m_gridMotorSails->SetCellValue(selGridRow,LogbookHTML::ROUTEID,guid);
+		else
+			m_gridMotorSails->SetCellValue(selGridRow,LogbookHTML::TRACKID,guid);
+		logbook->modified = true;
+	}
+	delete dlg;
 }
 
 void LogbookDialog::OnMenuSelectionShowHiddenCols(wxCommandEvent &ev)
@@ -3829,6 +3869,8 @@ void LogbookDialog::OnMenuSelectionShowHiddenCols(wxCommandEvent &ev)
 		if(logGrids[selGrid]->GetColumnWidth(i) == 0)
 			logGrids[selGrid]->AutoSizeColumn(i,false);
 
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
 	logGrids[selGrid]->Refresh();
 }
 
@@ -3886,6 +3928,12 @@ void LogbookDialog::m_gridGlobalOnGridCellRightClick( wxGridEvent& ev )
 	if(ev.GetCol() == 0 && (m_notebook8->GetSelection() == 0))
 	{
 		m_menu1->PrependSeparator();
+
+		wxMenuItem *item1 = new wxMenuItem( m_menu1, SELECT_TRACK, 
+				_("Select Track"), wxEmptyString, wxITEM_NORMAL );
+		m_menu1->Prepend( item1 );
+		this->Connect( item1->GetId(), wxEVT_COMMAND_MENU_SELECTED, 
+				wxCommandEventHandler( LogbookDialog::m_menuItem1OnMenuSelection ) );
 
 		wxMenuItem *item = new wxMenuItem( m_menu1, SELECT_ROUTE, 
 				_("Select Route"), wxEmptyString, wxITEM_NORMAL );
@@ -4059,6 +4107,7 @@ void LogbookDialog::m_gridMotorSailsOnGridCmdCellChange( wxGridEvent& ev )
 void LogbookDialog::logSaveOnButtonClick( wxCommandEvent& ev )
 {
 	wxString filter = saveDialogFilter;
+	filter.Prepend(_T("Google-Format(*.kml)|*.kml|"));
 	if(m_radioBtnHTML->GetValue())
 		filter.Prepend(_T("HTML Format(*.html)|*.html|"));
 	else
@@ -4087,10 +4136,11 @@ void LogbookDialog::logSaveOnButtonClick( wxCommandEvent& ev )
 				logbook->toODT(path,
 				logbookChoice->GetString(logbookChoice->GetSelection()),true); 
 			break;
-	case 1:	logbook->toODS(path); break;
-	case 2: logbook->toXML(path); break;
-	case 3: logbook->toCSV(path); break;
-	case 4: logbook->backup(path); break;
+	case 1: logbook->toKML(path); break;
+	case 2:	logbook->toODS(path); break;
+	case 3: logbook->toXML(path); break;
+	case 4: logbook->toCSV(path); break;
+	case 5: logbook->backup(path); break;
 #ifdef __WXOSX__
     default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
 #else
@@ -4247,20 +4297,21 @@ wxString LogbookDialog::restoreDangerChar(wxString s)
 
 void LogbookDialog::startBrowser(wxString filename)
 {
-  if(wxGetOsVersion() & wxOS_WINDOWS)
-  {
-	filename.Replace(wxT("/"),wxT("\\"));
+	if(!wxLaunchDefaultBrowser(wxString(_T("file://"))+filename))
+	{
+		if(wxGetOsVersion() & wxOS_WINDOWS) // maybe old XP-Versions needs it
+		{
+			filename.Replace(wxT("/"),wxT("\\"));
 
-	wxFileType *filetype = wxTheMimeTypesManager->GetFileTypeFromExtension(_T("html"));
-	wxString cmd = filetype->GetOpenCommand(wxT("file:///")+filename);
+			wxFileType *filetype = wxTheMimeTypesManager->GetFileTypeFromExtension(_T("html"));
+			wxString cmd = filetype->GetOpenCommand(wxT("file:///")+filename);
 
-	if(cmd.Contains(wxT("IEXPLORE")))
-		wxExecute(wxString::Format(wxT("explorer.exe ")+filename));
-	else
-		wxExecute(cmd);
-  }
-  else
-    wxLaunchDefaultBrowser(wxString(_T("file://"))+filename);
+			if(cmd.Contains(wxT("IEXPLORE")))
+				wxExecute(wxString::Format(wxT("explorer.exe ")+filename));
+			else
+				wxExecute(cmd);
+		}
+	}
 }
 
 void LogbookDialog::startApplication(wxString filename, wxString ext)
@@ -4445,10 +4496,18 @@ void LogbookDialog::getIniValues()
 	else	
 	  this->m_radioBtnODTBuyParts->SetValue(true);
 
-	if(!logbookPlugIn->opt->overviewAll)
+	switch(opt->overviewAll)
+	{
+	case 0:
 		this->m_radioBtnActuellLogbook->SetValue(true);
-	else
+		break;
+	case 1:
 		this->m_radioBtnAllLogbooks->SetValue(true);
+		break;
+	case 2:
+		this->m_radioBtnActuellLogbook->SetValue(true); // at startup theres no seleted logbook = crash, set to actuell logbook
+		break;
+	}
 
 	if(logbookPlugIn->opt->statusbarGlobal)
 		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(wxArtProvider::GetBitmap( wxART_GO_UP, wxART_TOOLBAR ));
@@ -6244,11 +6303,62 @@ Seite\
 <ss:Worksheet ss:Name=\"Tabelle1\">\
 <Table ss:StyleID=\"ta1\">\
 <Column ss:Span=\"1\" ss:Width=\"64.2614\"/>");
-	xmlEnd =_T(
+xmlEnd =_T(
 "</Table>\
 <x:WorksheetOptions/>\
 </ss:Worksheet>\
 </Workbook>");
+
+kmlHead =_T("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\
+<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n\
+  <Document>\n\
+  <name>#TITLE#</name>\n");
+
+kmlFolder = _T("	<Folder>\n\
+      <name>#NAME#</name>\n\
+	  <description></description>\n");
+
+kmlEndFolder = _T("		</Folder>\n");
+
+kmlBody =_T("        <Placemark>\n\
+		 <name>#NAME#</name>\n\
+		 <description>#DESCRIPTION#</description>\n\
+          <Style>\n\
+            <IconStyle>\n\
+              <Icon>\n\
+			  <href>#icon#</href>\n\
+              </Icon>\n\
+            </IconStyle>\n\
+          </Style>\n\
+          <Point>\n\
+		  <coordinates>#POSITION#</coordinates>\n\
+          </Point>\n\
+        </Placemark>\n");
+kmlEnd =_T("    </Folder>\n\
+  </Document>\n\
+</kml>");
+
+kmlLine =  _T("\
+        <Style id=\"YellowLine\">\n\
+          <LineStyle>\n\
+            <color>5014F0FF</color>\n\
+            <width>4</width>\n\
+          </LineStyle>\n\
+		  </Style>\n");
+
+kmlPathHeader = _T("\
+        <Placemark>\n\
+		<name>#NAME#</name>\n\
+          <styleUrl>#YellowLine</styleUrl>\n\
+          <LineString>\n\
+            <extrude>0</extrude>\n\
+            <tessellate>0</tessellate>\n\
+            <altitudeMode>relativeToGround</altitudeMode>\n\
+            <coordinates>");
+
+kmlPathFooter=_T("            </coordinates>\n\
+          </LineString>\n\
+        </Placemark>\n");
 }
 
 /////////////////////////////////////////////////////////
@@ -6416,8 +6526,39 @@ SelectLogbook::SelectLogbook( wxWindow* parent, wxString path, wxWindowID id, co
 	wxBoxSizer* bSizer23;
 	bSizer23 = new wxBoxSizer( wxVERTICAL );
 	
-	m_listCtrlSelectLogbook = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING|wxALWAYS_SHOW_SB );
-		bSizer23->Add( m_listCtrlSelectLogbook, 1, wxALL|wxEXPAND, 5 );
+	m_grid13 = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	
+	// Grid
+	m_grid13->CreateGrid( 0, 4 );
+	m_grid13->EnableEditing( true );
+	m_grid13->EnableGridLines( true );
+	m_grid13->EnableDragGridSize( false );
+	m_grid13->SetMargins( 0, 0 );
+	
+	// Columns
+	m_grid13->SetColSize( 0, 193 );
+	m_grid13->SetColSize( 1, 67 );
+	m_grid13->SetColSize( 2, 217 );
+	m_grid13->SetColSize( 3, 380 );
+	m_grid13->EnableDragColMove( false );
+	m_grid13->EnableDragColSize( true );
+	m_grid13->SetColLabelSize( 30 );
+	m_grid13->SetColLabelValue( 0, _("Logbook") );
+	m_grid13->SetColLabelValue( 1, _("First/Last Entry") );
+	m_grid13->SetColLabelValue( 2, _("Description") );
+	m_grid13->SetColLabelValue( 3, _("File") );
+	m_grid13->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+	
+	// Rows
+	m_grid13->EnableDragRowSize( true );
+	m_grid13->SetRowLabelSize( 0 );
+	m_grid13->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+	
+	// Label Appearance
+	
+	// Cell Defaults
+	m_grid13->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
+	bSizer23->Add( m_grid13, 1, wxALL|wxEXPAND, 5 );
 	
 	m_sdbSizer4 = new wxStdDialogButtonSizer();
 	m_sdbSizer4OK = new wxButton( this, wxID_OK );
@@ -6433,10 +6574,86 @@ SelectLogbook::SelectLogbook( wxWindow* parent, wxString path, wxWindowID id, co
 	this->Centre( wxBOTH );
 
 	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( SelectLogbook::OnInit ) );
+	m_grid13->Connect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( SelectLogbook::OnCellSelecttion ), NULL, this );
+	m_grid13->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( SelectLogbook::OnGridCellChange ), NULL, this );
+	m_grid13->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( SelectLogbook::OnKeyDown ), NULL, this );
 }
 
 SelectLogbook::~SelectLogbook()
 {
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( SelectLogbook::OnInit ) );
+	m_grid13->Disconnect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( SelectLogbook::OnCellSelecttion ), NULL, this );
+	m_grid13->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( SelectLogbook::OnGridCellChange ), NULL, this );
+	m_grid13->Disconnect( wxEVT_KEY_DOWN, wxKeyEventHandler( SelectLogbook::OnKeyDown ), NULL, this );
+}
+
+void SelectLogbook::OnKeyDown( wxKeyEvent& event )
+{
+	wxTextCtrl *ctrl = (wxTextCtrl*)event.GetEventObject();
+	if (event.ShiftDown() && event.GetKeyCode() == WXK_RETURN)
+	{	
+		if(event.GetEventObject()->IsKindOf(CLASSINFO(wxTextCtrl)))	
+			ctrl->WriteText( wxT("\n") );
+		return;
+	}
+
+	if (event.GetKeyCode() == WXK_RETURN)
+	{	
+		m_grid13->AutoSize();
+		this->Layout();
+	}
+	event.Skip();
+}
+
+void SelectLogbook::OnCellSelecttion( wxGridEvent& event )
+{
+	static int lastrow = -1;
+	selRow = event.GetRow();
+
+	if(lastrow != -1)
+		m_grid13->AutoSize();
+
+	if(event.GetCol() == 2 && 
+		(m_grid13->GetRowHeight(selRow) < 120 && !m_grid13->GetCellValue(selRow,event.GetCol()).Contains(_("Active Logbook"))))
+	{
+		m_grid13->SetRowHeight(selRow,100);
+		m_grid13->SetColSize(2,250);
+		m_grid13->ForceRefresh();
+		m_grid13->MakeCellVisible(selRow,event.GetCol());
+		this->Layout();
+		lastrow = selRow;
+	}
+	else
+	{
+		this->Layout();
+		lastrow = -1;
+	}
+	event.Skip();
+}
+
+void SelectLogbook::OnGridCellChange( wxGridEvent& event )
+{
+	static bool autosize = false;
+
+	if(!autosize && (event.GetRow() == selRow && event.GetCol() == 2))
+	{	
+		autosize = true;
+		wxString f = m_grid13->GetCellValue(selRow,3);
+		wxTextFile text(f);
+		bool u = text.Open();
+
+		wxString str = _T("#1.2#\t")+m_grid13->GetCellValue(selRow,2);
+		str = parent->replaceDangerChar(str);
+		text.RemoveLine(0);
+		text.InsertLine(str,0);
+		bool h = text.Write();
+//		wxMessageBox(wxString::Format(_T("%i %s %s %i"),u,f,str,h));
+		text.Close();
+
+		m_grid13->AutoSize();
+		autosize = false;
+	}
+	event.Skip();
 }
 
 void SelectLogbook::OnInit(wxInitDialogEvent& ev)
@@ -6444,10 +6661,11 @@ void SelectLogbook::OnInit(wxInitDialogEvent& ev)
 	wxString filename;
 	wxDateTime dtfrom, dtto;
 	wxListItem itemCol;
-	itemCol.SetText(_("Logbook"));
-	itemCol.SetImage(-1);
-	itemCol.SetWidth(255);
-	m_listCtrlSelectLogbook->InsertColumn(0, itemCol);
+	wxString routeFrom, routeTo, description;
+	selRow = -1;
+	bool back = false;
+
+	m_grid13->SetSelectionMode(wxGrid::wxGridSelectRows);
 
 	wxDir::GetAllFiles(path,&files,_T("*logbook.txt"),wxDIR_FILES);
 
@@ -6455,26 +6673,71 @@ void SelectLogbook::OnInit(wxInitDialogEvent& ev)
 	{
 		wxFileName fn(files[i]);
 		filename = fn.GetName();
+
+		description = routeFrom = routeTo = wxEmptyString;
+
+
 		if(filename == _T("logbook"))
-			filename = _("Actuell Logbook");
+			back = true;
 		else
+			back = false;
+
+		wxTextFile text(files[i]);
+		text.Open();
+		if(text.GetLineCount() > 1)
 		{
-			dtto = parent->getDateTo(filename);
-			wxFileInputStream input( files[i]);
-			wxTextInputStream text( input );
-			wxString z = text.ReadLine();
-			wxString t = text.ReadLine();
-			wxStringTokenizer tk(t,_T("\t"));
-			tk.GetNextToken();
-			int month = wxAtoi(tk.GetNextToken());
-			int day = wxAtoi(tk.GetNextToken());
-			int year = wxAtoi(tk.GetNextToken());
-			dtfrom.Set(day,(wxDateTime::Month) month, year);
-			filename = wxString::Format(_("Logbook from %s to %s"),dtfrom.Format(parent->logbookPlugIn->opt->sdateformat).c_str(), 
-				dtto.Format(parent->logbookPlugIn->opt->sdateformat).c_str()); 
+			wxString z = text.GetFirstLine();
+			if(!z.IsEmpty())
+			{
+				wxStringTokenizer header(z,_T("\t"));
+				header.GetNextToken();
+				description = header.GetNextToken();
+				description = parent->restoreDangerChar(description);
+				wxString t = text.GetNextLine();
+				wxStringTokenizer tk(t,_T("\t"));
+				routeFrom = tk.GetNextToken();
+				int month = wxAtoi(tk.GetNextToken());
+				int day = wxAtoi(tk.GetNextToken());
+				int year = wxAtoi(tk.GetNextToken());
+				dtfrom.Set(day,(wxDateTime::Month) month, year);
+			}
+
+			wxString last = text.GetLastLine();
+			if(!last.IsEmpty())
+			{
+				wxStringTokenizer ll(last,_T("\t"));
+				routeTo = ll.GetNextToken();
+				int monthTo = wxAtoi(ll.GetNextToken());
+				int dayTo = wxAtoi(ll.GetNextToken());
+				int yearTo = wxAtoi(ll.GetNextToken());
+				dtto.Set(dayTo,(wxDateTime::Month) monthTo, yearTo);
+			}
 		}
-		m_listCtrlSelectLogbook->InsertItem(i,filename);
+		
+		m_grid13->AppendRows();
+		if(back)
+		{
+			for(int col = 0; col < m_grid13->GetNumberCols(); col++)
+				m_grid13->SetCellBackgroundColour(wxColour(_T("Green")),i,col);
+			description = _("Active Logbook");
+			m_grid13->SetReadOnly(i,2);
+		}
+	    m_grid13->SetReadOnly(i,0);
+		m_grid13->SetReadOnly(i,1);
+		m_grid13->SetReadOnly(i,3);
+		if(text.GetLineCount() > 1)
+		{
+			m_grid13->SetCellValue(i,0,routeFrom+_T(" -> ")+routeTo);
+			m_grid13->SetCellValue(i,1,
+				wxString::Format(_T("%s - %s"),dtfrom.Format(parent->logbookPlugIn->opt->sdateformat).c_str(),dtto.Format(parent->logbookPlugIn->opt->sdateformat).c_str()));
+		}
+		m_grid13->SetCellValue(i,2,description);
+		m_grid13->SetCellEditor(i,2,new wxGridCellAutoWrapStringEditor);
+		m_grid13->SetCellValue(i,3,files[i]);
+
+		text.Close();
 	}
+	m_grid13->AutoSize();
 }
 
 //////////////////////////// myGridStringTable /////////

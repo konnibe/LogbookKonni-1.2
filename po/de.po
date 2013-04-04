@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 21:21+0200\n"
-"PO-Revision-Date: 2012-09-27 21:25+0100\n"
+"POT-Creation-Date: 2012-10-12 17:01+0200\n"
+"PO-Revision-Date: 2012-10-12 17:04+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,8 +15,7 @@ msgstr ""
 "\\Eigene Dateien\\Visual Studio 2008\\Projects\\opencpn\\plugins"
 "\\LogbookKonni_pi\\src\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 #
 #, c-format
@@ -103,7 +102,7 @@ msgid "+ Minutes"
 msgstr "+ Minuten"
 #
 msgid "-Plugin"
-msgstr ""
+msgstr "-Plugin"
 #
 msgid "1. Watch"
 msgstr "1.Wache"
@@ -161,7 +160,7 @@ msgid "Add a new line"
 msgstr "Neue Zeile"
 #
 msgid "Administrator (Sudo) Password:"
-msgstr ""
+msgstr "Administrator (Sudo) Passwort:"
 #
 msgid "Adress"
 msgstr "Adresse"
@@ -599,8 +598,14 @@ msgstr "Faden"
 msgid "Feet"
 msgstr "Fuß"
 #
+msgid "File"
+msgstr "Datei"
+#
 msgid "Filter Layout by"
 msgstr "Filtere Layout nach"
+#
+msgid "First/Last Entry"
+msgstr "Erster/Letzter Eintrag"
 #
 msgid "Firstname"
 msgstr "Vorname"
@@ -950,10 +955,6 @@ msgstr ""
 "http://www.cruisersforum.com/forums/f134/logbook-konni-for-opencpn-68945."
 "html\n"
 "Hilfreiche Videos unter Youtube, suche  LogbookKonni."
-#
-#, c-format
-msgid "Logbook from %s to %s"
-msgstr "Logbuch vom %s bis %s"
 #
 #
 #
@@ -2208,6 +2209,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid ""
 #~ "\n"
 #~ "Name of Waypoint: %s\n"
@@ -2218,6 +2220,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #~ "Wegpunkt-Name: %s\n"
 #~ "Wahre Peilung zum Ziel: %4.1f%s\n"
 #~ "Distanz zum Ziel: %4.2f%s"
+#
 #
 #
 #
@@ -2262,9 +2265,11 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "&Cut"
 #~ msgstr "Ausschneiden"
+#
 #
 #
 #
@@ -2297,6 +2302,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist"
 #~ msgstr "zur Wachliste hinzufügen"
 #
@@ -2314,8 +2320,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "zur Wachliste hinzufügen wie.."
+#
 #
 #
 #
@@ -2418,6 +2426,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Füge Zeile hinzu je Nm"
 #
@@ -2435,8 +2444,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Automatisches Wachinterval"
+#
 #
 #
 #
@@ -2591,8 +2602,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Copy"
 #~ msgstr "Kopieren"
+#
 #
 #
 #
@@ -2736,6 +2749,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Crewmember is not onboard\n"
 #~ "\n"
@@ -2746,6 +2760,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #~ "\n"
 #~ "Bitte setzte das Feld 'an Bord' auf 'Ja'\n"
 #~ "(klicke zweimal in das Feld)"
+#
 #
 #
 #
@@ -2873,8 +2888,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Delete"
 #~ msgstr "Löschen"
+#
 #
 #
 #
@@ -2907,8 +2924,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr "Ende 1. Wache"
+#
 #
 #
 #
@@ -2941,8 +2960,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Ende 3. Wache"
+#
 #
 #
 #
@@ -2975,6 +2996,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr "Ende 5. Wache"
 #
@@ -2992,8 +3014,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr "Ende 6. Wache"
+#
 #
 #
 #
@@ -3139,8 +3163,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "FirstName"
 #~ msgstr "Vorname"
+#
 #
 #
 #
@@ -3174,8 +3200,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Wenn Wegpunkt erreicht"
+#
 #
 #
 #
@@ -3210,8 +3238,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interval:"
+#
 #
 #
 #
@@ -3346,8 +3376,14 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Logbook Konni"
 #~ msgstr "Logbuch Konni"
+#
+#
+#~ msgid "Logbook from %s to %s"
+#~ msgstr "Logbuch vom %s bis %s"
+#
 #
 #
 #
@@ -3377,8 +3413,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Anzahl Wachen"
+#
 #
 #
 #
@@ -3531,8 +3569,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Path to HTML-Editor (optional)"
 #~ msgstr "Pfad zum HTML-Editor (optional)"
+#
 #
 #
 #
@@ -3565,6 +3605,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Persons:"
 #~ msgstr "Personen:"
 #
@@ -3582,8 +3623,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Bitte 4 Zahlen im 24h-Format eingeben z.B. 1545 = 15:45"
+#
 #
 #
 #
@@ -3667,12 +3710,14 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Bitte geben Sie die Zeit im Format:\n"
 #~ "   12:30:00 ein."
+#
 #
 #
 #
@@ -3833,8 +3878,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Save"
 #~ msgstr "Speichern"
+#
 #
 #
 #
@@ -4078,6 +4125,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Select boat-layout to view"
 #~ msgstr "Wähle Route"
@@ -4096,8 +4144,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Sorry, 0 Hrs 0 Min 0 Sec ist nicht möglich"
+#
 #
 #
 #
@@ -4212,8 +4262,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr "Fahrt d.W. max."
+#
 #
 #
 #
@@ -4246,8 +4298,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Start 2.Wache"
+#
 #
 #
 #
@@ -4280,8 +4334,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr "Start 4.Wache"
+#
 #
 #
 #
@@ -4314,8 +4370,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr "Start 6.Wache"
+#
 #
 #
 #
@@ -4355,8 +4413,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer an/aus"
+#
 #
 #
 #
@@ -4401,8 +4461,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Undo"
 #~ msgstr "Rückgängig"
+#
 #
 #
 #

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 21:21+0200\n"
+"POT-Creation-Date: 2012-10-12 17:01+0200\n"
 "PO-Revision-Date: 2012-04-14 17:50+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: rider2@kpnmail.nl <rider2@kpnmail.nl>\n"
@@ -544,8 +544,15 @@ msgstr "vadem"
 msgid "Feet"
 msgstr "voet"
 #
+msgid "File"
+msgstr ""
+#
 msgid "Filter Layout by"
 msgstr "Filter opmaakstijl door"
+#
+#, fuzzy
+msgid "First/Last Entry"
+msgstr "Voornaam"
 #
 msgid "Firstname"
 msgstr "Voornaam"
@@ -828,10 +835,6 @@ msgstr ""
 "http://www.cruisersforum.com/forums/f134/logbook-konni-for-opencpn-68945."
 "html .\n"
 "Gebruikersvideo's zijn beschikbaar op Youtube (zoek naar LogbookKonni)."
-#
-#, c-format
-msgid "Logbook from %s to %s"
-msgstr "Journaal van %s tot %s"
 #
 msgid "Logbook until "
 msgstr "Journaal tot "
@@ -1998,8 +2001,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2129,8 +2134,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "               Koersbericht na (minuten):"
+#
 #
 #
 #
@@ -2217,6 +2224,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
 #
@@ -2250,8 +2258,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1e Wacht van 1e persoon"
+#
 #
 #
 #
@@ -2340,9 +2350,11 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid ":0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2407,6 +2419,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "Toevoegen aan wachtlijst zoals"
 #
@@ -2440,8 +2453,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Regel toevoegen na elke (NM):"
+#
 #
 #
 #
@@ -2522,8 +2537,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Verslepen om de volgorde in de lijst te veranderen."
+#
 #
 #
 #
@@ -2590,10 +2607,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "2e Wacht:\n"
 #~ "eind"
+#
 #
 #
 #
@@ -2660,6 +2679,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "4e Wacht:\n"
@@ -2695,10 +2715,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr ""
 #~ "5e Wacht:\n"
 #~ "eind"
+#
 #
 #
 #
@@ -2813,8 +2835,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "EngineTotal"
 #~ msgstr "Ttl motor"
+#
 #
 #
 #
@@ -2879,8 +2903,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Regel toevoegen bij aankomst routepunt"
+#
 #
 #
 #
@@ -2945,8 +2971,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Tijdinterval:"
+#
 #
 #
 #
@@ -2972,6 +3000,11 @@ msgstr "Maak eigen veldnaam"
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "ExtraVeld"
+#
+#
+#~ msgid "Logbook from %s to %s"
+#~ msgstr "Journaal van %s tot %s"
+#
 #
 #
 #
@@ -3005,6 +3038,7 @@ msgstr "Maak eigen veldnaam"
 #
 #~ msgid "No. Watches"
 #~ msgstr "Aantal wachten"
+#
 #
 #
 #
@@ -3083,8 +3117,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Person:"
 #~ msgstr "Persoon:"
+#
 #
 #
 #
@@ -3149,8 +3185,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Voer 4 cijfers in 24-uur format in, zoals: 1545 = 03:45 PM"
+#
 #
 #
 #
@@ -3269,6 +3307,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
@@ -3306,8 +3345,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Fout: 0 u 0 m 0 s is niet mogelijk!"
+#
 #
 #
 #
@@ -3462,10 +3503,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr ""
 #~ "STW\n"
 #~ "(max.)"
+#
 #
 #
 #
@@ -3532,10 +3575,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "2e Wacht:\n"
 #~ "start"
+#
 #
 #
 #
@@ -3602,6 +3647,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "4e Wacht:\n"
@@ -3637,10 +3683,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Start 5.Watch"
 #~ msgstr ""
 #~ "5e Wacht:\n"
 #~ "start"
+#
 #
 #
 #
@@ -3715,9 +3763,11 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Static Watchtimes"
 #~ msgstr "Pas wachtinstelling toe"
+#
 #
 #
 #
@@ -3782,8 +3832,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Timer Aan/Uit"
+#
 #
 #
 #
@@ -3838,8 +3890,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
 #
 #
 #

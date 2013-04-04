@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 21:21+0200\n"
+"POT-Creation-Date: 2012-10-12 17:01+0200\n"
 "PO-Revision-Date: 2012-06-22 17:26+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: boraxtr (Hasan)\n"
@@ -540,8 +540,15 @@ msgstr "Kulaç"
 msgid "Feet"
 msgstr "Fit"
 #
+msgid "File"
+msgstr ""
+#
 msgid "Filter Layout by"
 msgstr "Sayfa yapısıni filtrele"
+#
+#, fuzzy
+msgid "First/Last Entry"
+msgstr "Soyadı"
 #
 msgid "Firstname"
 msgstr "Soyadı"
@@ -843,10 +850,6 @@ msgstr ""
 "videolara ulaşabilirsiniz.\n"
 "Seyir Defterinin hazırlanması sırasında, son derece yararlı önerileri için "
 "OpenCPN topluluğuna çok teşekkür ederim."
-#
-#, c-format
-msgid "Logbook from %s to %s"
-msgstr "Den %s e kadar %s Seyir Defteri"
 #
 msgid "Logbook until "
 msgstr "Seyir Defterinin son işlendiği tarih"
@@ -2045,6 +2048,7 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
 #
@@ -2078,8 +2082,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "      Dakika sonra yönü bildir"
+#
 #
 #
 #
@@ -2166,6 +2172,7 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
 #
@@ -2199,8 +2206,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1. 1. Tayfanın nöbeti"
+#
 #
 #
 #
@@ -2289,8 +2298,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid ":0"
 #~ msgstr ":0"
+#
 #
 #
 #
@@ -2355,8 +2366,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "Nöbet listesine aynı olarak ekle"
+#
 #
 #
 #
@@ -2421,8 +2434,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Atomatik Nöbet Aralığı"
+#
 #
 #
 #
@@ -2510,6 +2525,7 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Satır sil"
@@ -2544,8 +2560,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Listedeki sıralamayı \"sürükle/bırak\"la değiştirebilirsiniz."
+#
 #
 #
 #
@@ -2612,10 +2630,12 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "2. Nöbet\n"
 #~ "   Sonu"
+#
 #
 #
 #
@@ -2682,10 +2702,12 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "4. Nöbet\n"
 #~ "   Sonu"
+#
 #
 #
 #
@@ -2752,10 +2774,12 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "6. Nöbet\n"
 #~ "   Sonu"
+#
 #
 #
 #
@@ -2820,8 +2844,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Seyir noktasına ulaşıldığında"
+#
 #
 #
 #
@@ -2886,8 +2912,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Aralık: "
+#
 #
 #
 #
@@ -2913,6 +2941,11 @@ msgstr "kendi etiketini yaz"
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "Kullanıcı Kimliği"
+#
+#
+#~ msgid "Logbook from %s to %s"
+#~ msgstr "Den %s e kadar %s Seyir Defteri"
+#
 #
 #
 #
@@ -2946,6 +2979,7 @@ msgstr "kendi etiketini yaz"
 #
 #~ msgid "No. Watches"
 #~ msgstr "Hayır. Nöbetçiler"
+#
 #
 #
 #
@@ -3024,8 +3058,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Person:"
 #~ msgstr "Tayfa :"
+#
 #
 #
 #
@@ -3090,9 +3126,11 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr ""
 #~ "24 saat formatı için, aralıksız 4 rakam yazın. Örneğin: 1545 = 03:45 PM"
+#
 #
 #
 #
@@ -3161,8 +3199,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Afedersiniz, 0 Saat 0 Dakika 0 Saniye mümkün değil"
+#
 #
 #
 #
@@ -3229,10 +3269,12 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "2. Nöbet\n"
 #~ "Başlangıcı"
+#
 #
 #
 #
@@ -3299,6 +3341,7 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "4. Nöbet\n"
@@ -3334,10 +3377,12 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Start 5.Watch"
 #~ msgstr ""
 #~ "5. Nöbet\n"
 #~ "Başlangıcı"
+#
 #
 #
 #
@@ -3412,9 +3457,11 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Static Watchtimes"
 #~ msgstr "Nöbetleri düzenle"
+#
 #
 #
 #
@@ -3479,8 +3526,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Zamanlama Açık/Kapalı"
+#
 #
 #
 #
@@ -3535,8 +3584,10 @@ msgstr "kendi etiketini yaz"
 #
 #
 #
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
 #
 #
 #

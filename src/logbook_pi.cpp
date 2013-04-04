@@ -222,10 +222,25 @@ void logbookkonni_pi::shutdown(bool menu)
 	}
 }
 
-
 void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
-{
-      if(message_id == _T("LOGBOOK_LOG_LASTLINE_REQUEST"))
+{		
+
+      if(message_id == _T("OCPN_MAN_OVERBOARD"))
+      {
+		wxJSONReader reader;
+		wxJSONValue  data;
+		int numErrors = reader.Parse( message_body, &data );
+		if(numErrors != 0) return;
+
+		if(!m_plogbook_window)
+			startLogbook();
+
+		m_plogbook_window->logbook->MOB_GUID = data.Item(_T("GUID")).AsString();
+		m_plogbook_window->logbook->MOBIsActive = true;
+
+		m_plogbook_window->logbook->appendRow(false);
+      }
+      else if(message_id == _T("LOGBOOK_LOG_LASTLINE_REQUEST"))
       {
 		if(!m_plogbook_window)
 			startLogbook();
@@ -365,6 +380,7 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 		m_plogbook_window->logbook->OCPN_Message = false;
 		lastWaypointInRoute = _T("-1");
 		m_plogbook_window->logbook->lastWayPoint = wxEmptyString;
+		m_plogbook_window->logbook->routeIsActive = false;
 	  }
 	  else if(message_id == _T("OCPN_RTE_DEACTIVATED"))
       {
@@ -378,6 +394,10 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 
 		m_plogbook_window->logbook->activeRoute = wxEmptyString;
 		m_plogbook_window->logbook->activeRouteGUID = wxEmptyString;
+		m_plogbook_window->logbook->routeIsActive = false;
+		if(m_plogbook_window->logbook->activeMOB)
+			m_plogbook_window->logbook->MOBIsActive = false;
+
 	  }
 	  else if(message_id == _T("OCPN_RTE_ACTIVATED"))
       {
@@ -391,6 +411,110 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 
 		m_plogbook_window->logbook->activeRoute = data.Item(_T("Route_activated")).AsString();
 		m_plogbook_window->logbook->activeRouteGUID = data.Item(_T("GUID")).AsString();
+		m_plogbook_window->logbook->routeIsActive = true;
+	  }
+	  else if(message_id == _T("OCPN_TRK_ACTIVATED"))
+      {
+		if(!m_plogbook_window)
+			startLogbook();
+
+		wxJSONReader reader;
+		wxJSONValue  data;
+		int numErrors = reader.Parse( message_body, &data );
+		if(numErrors != 0) return;
+
+		m_plogbook_window->logbook->activeTrack = data.Item(_T("Name")).AsString();
+		m_plogbook_window->logbook->activeTrackGUID = data.Item(_T("GUID")).AsString();
+		m_plogbook_window->logbook->trackIsActive = true;
+	  }
+	  else if(message_id == _T("OCPN_TRK_DEACTIVATED"))
+      {
+		wxJSONReader reader;
+		wxJSONValue  data;
+		int numErrors = reader.Parse( message_body, &data );
+		if(numErrors != 0) return;
+
+		if(!m_plogbook_window)
+			startLogbook();
+
+		if(m_plogbook_window)
+		{
+			m_plogbook_window->logbook->activeTrack = wxEmptyString;
+			m_plogbook_window->logbook->activeTrackGUID = wxEmptyString;
+			m_plogbook_window->logbook->trackIsActive = false;
+		}
+
+	  }
+	  else if(message_id == _T("OCPN_TRACKPOINTS_COORDS"))
+      {
+		wxJSONReader reader;
+		wxJSONValue  data;
+		int numErrors = reader.Parse( message_body, &data );
+		if(numErrors != 0) return;
+
+		bool error = data[_T("error")].AsBool();
+
+		if(!error)
+		{
+			double lat = data[_T("lat")].AsDouble();
+			double lon = data[_T("lon")].AsDouble();
+			int total = data[_T("TotalNodes")].AsInt();
+			int i = data[_T("NodeNr")].AsInt();
+			if(i == 1)
+			{
+				wxString ph = m_plogbook_window->kmlPathHeader;
+				ph.Replace(_T("#NAME#"),_T("Trackline"));
+				*m_plogbook_window->logbook->kmlFile << ph;
+			}
+			if(i <= total)
+				*m_plogbook_window->logbook->kmlFile << wxString::Format(_T("%f,%f\n"),lon,lat);
+			if(i == total)
+				*m_plogbook_window->logbook->kmlFile << m_plogbook_window->kmlPathFooter;
+		}
+//		m_plogbook_window->logbook->writeTrackToKML(data);
+	  }
+	  else if(message_id == _T("OCPN_TRACKS_MERGED"))
+	  {     
+		if(!m_plogbook_window)
+			startLogbook();
+
+		wxJSONReader reader;
+		wxJSONValue  data;
+		int numErrors = reader.Parse( message_body, &data );
+		if(numErrors != 0) return;
+
+		unsigned int i = 1;
+		wxString target = data[_T("targetTrack")].AsString();
+		while(true)
+		{
+			if(data.HasMember(_T("mergeTrack")+wxString::Format(_T("%d"),i)))
+				m_plogbook_window->logbook->mergeList.Add(data[_T("mergeTrack")+wxString::Format(_T("%d"),i++)].AsString());
+			else
+				break;
+		
+		}
+		m_plogbook_window->logbook->setTrackToNewID(target);
+	  }
+	  else if(message_id == _T("OCPN_ROUTE_RESPONSE"))
+      {
+		wxJSONReader reader;
+		wxJSONValue  data;
+		int numErrors = reader.Parse( message_body, &data );
+		if(numErrors != 0) return;
+
+		bool error = data[0][_T("error")].AsBool();
+
+		if(!error)
+			m_plogbook_window->logbook->writeRouteToKML(data);
+	  }
+	  else if(message_id == _T("OCPN_ROUTELIST_RESPONSE"))
+      {
+		wxJSONReader reader;
+		wxJSONValue  data;
+		int numErrors = reader.Parse( message_body, &data );
+		if(numErrors != 0) return;
+
+		m_plogbook_window->writeToRouteDlg(data);
 	  }
 }
 
@@ -633,24 +757,24 @@ int logbookkonni_pi::GetToolbarToolCount(void)
 void logbookkonni_pi::ShowPreferencesDialog( wxWindow* parent )
 {
 	dlgShow = false;
-	/*
-#ifdef __WXOSX__
+	
+//#ifdef __WXOSX__
 // Not tested yet
-    	AddLocaleCatalog( _T("opencpn-logbookkonni_pi") );
-#else
+//    	AddLocaleCatalog( _T("opencpn-logbookkonni_pi") );
+//#else
 	if(opt->firstTime)
 	{
-		loadLayouts(parent);
+//		loadLayouts(parent);
 		AddLocaleCatalog( _T("opencpn-logbookkonni_pi") );
-		delete opt;
-		opt = new Options();
-		LoadConfig();
+//		delete opt;
+//		opt = new Options();
+//		LoadConfig();
 		opt->firstTime = false;
 	}
-#endif
-*/
+//#endif
+
 #ifdef __WXMSW__
-	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 692,615  ),
+	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 692,630  ),
 		wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 #elif defined __WXOSX__
     optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 710,660 ) ,
@@ -1401,10 +1525,12 @@ bool LogbookTimer::popUp()
 	wxFrame *frame = (wxFrame*)plogbook_pi->m_parent_window->GetParent();
 	if((frame->IsIconized() || plogbook_pi->m_plogbook_window->IsIconized()) && plogbook_pi->opt->popup)
 	{
-//		if(frame->IsIconized())
-//			frame->Iconize(false);
-//		else
-			plogbook_pi->m_plogbook_window->Iconize(false);
+		if(frame->IsIconized())
+			frame->Iconize(false);
+
+		plogbook_pi->m_plogbook_window->Iconize(false);
+		plogbook_pi->m_parent_window->SetFocus();
+		return true;
 	}
 
 	if(!plogbook_pi->m_plogbook_window->IsShown() && plogbook_pi->opt->popup)
