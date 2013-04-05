@@ -464,6 +464,7 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 			{
 				wxString ph = m_plogbook_window->kmlPathHeader;
 				ph.Replace(_T("#NAME#"),_T("Trackline"));
+				ph.Replace(_T("#LINE#"),_T("#LineTrack"));
 				*m_plogbook_window->logbook->kmlFile << ph;
 			}
 			if(i <= total)

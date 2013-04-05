@@ -1419,7 +1419,8 @@ void LogbookHTML::toKML(wxString path)
 void LogbookHTML::writeTrackToKML(wxJSONValue data)
 {
 	wxString trkLine = parent->kmlPathHeader;
-	trkLine.Replace(_T("#NAME#"),_("Trackline"));
+	trkLine.Replace(_T("#NAME#"),_T("Trackline"));
+
 	*kmlFile << trkLine;
 	for(int i = 0; i < data.Size(); i++)
 		(*kmlFile) << wxString::Format(_T("%.13f,%.13f\n"),data[i][1].AsDouble(),data[i][0].AsDouble());
@@ -1430,7 +1431,8 @@ void LogbookHTML::writeTrackToKML(wxJSONValue data)
 void LogbookHTML::writeRouteToKML(wxJSONValue data)
 {
 	wxString routeLine = parent->kmlPathHeader;
-	routeLine.Replace(_T("#NAME#"),_("Routeline"));
+	routeLine.Replace(_T("#NAME#"),_T("Routeline"));
+	routeLine.Replace(_T("#LINE#"),_T("#LineRoute"));
 	*kmlFile << routeLine;
 
 	for(int i = 0; i < data.Size(); i++)
@@ -1446,6 +1448,7 @@ void LogbookHTML::writeRouteToKML(wxJSONValue data)
 	{
 		wxString routeWP = parent->kmlBody;
 		routeWP.Replace(_T("#icon#"),_T("http://maps.google.com/mapfiles/kml/pal4/icon48.png"));
+
 		routeWP.Replace(_T("#NAME#"),data[i][_T("WPName")].AsString());
 		wxString description = data[i][_T("WPDescription")].AsString()+_T("<br>");
 

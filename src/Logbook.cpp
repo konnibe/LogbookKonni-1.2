@@ -370,14 +370,22 @@ void Logbook::SetSentence(wxString &sentence)
 			}
 	}
 
-	if(sentence.Contains(_("$WIMDA")))
+/*  Propietary NMEA sentences														*/
+/*																					*/
+/*  use function appendRow to add the values to the grid							*/
+/*  For motorhours and/or fuel recalculate the grid with							*/
+/*	changeCellValue(lastRow, 0,0)													*/
+/*	In function checkGPS(bool appendClick) set the strings to emtpy string when GPS */
+/*  is off.																			*/
+
+	wxStringTokenizer tkz(sentence,_T(","));
+	if(tkz.GetNextToken() ==(_T("$WIMDA")))
 	{
 		wimdaSentence = true;
-		wxStringTokenizer tkz(sentence,_T(","));
 
 		double t;
 		long p;
-		tkz.GetNextToken();
+
 		tkz.GetNextToken();
 		tkz.GetNextToken();
 		tkz.GetNextToken().ToLong(&p);

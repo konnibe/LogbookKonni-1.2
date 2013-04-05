@@ -6339,9 +6339,15 @@ kmlEnd =_T("    </Folder>\n\
 </kml>");
 
 kmlLine =  _T("\
-        <Style id=\"YellowLine\">\n\
+        <Style id=\"LineRoute\">\n\
           <LineStyle>\n\
-            <color>5014F0FF</color>\n\
+		  <color>50FFFFFF</color>\n\
+            <width>4</width>\n\
+          </LineStyle>\n\
+		  </Style>\n\
+        <Style id=\"LineTrack\">\n\
+          <LineStyle>\n\
+		  <color>5014F0FF</color>\n\
             <width>4</width>\n\
           </LineStyle>\n\
 		  </Style>\n");
@@ -6349,7 +6355,7 @@ kmlLine =  _T("\
 kmlPathHeader = _T("\
         <Placemark>\n\
 		<name>#NAME#</name>\n\
-          <styleUrl>#YellowLine</styleUrl>\n\
+		<styleUrl>#LINE#</styleUrl>\n\
           <LineString>\n\
             <extrude>0</extrude>\n\
             <tessellate>0</tessellate>\n\
