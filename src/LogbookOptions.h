@@ -72,6 +72,7 @@ class LogbookOptions : public wxDialog
 		wxStaticText* m_staticText122;
 		wxStaticText* m_staticText1231;
 		wxStaticText* m_staticText124;
+		wxCheckBox* m_checkBoxPopUp;
 		wxStaticLine* m_staticline10;
 		wxStaticText* m_staticText731;
 		wxStaticText* m_staticText742;
@@ -128,6 +129,9 @@ class LogbookOptions : public wxDialog
 		wxStaticText* m_staticText50;
 		wxTextCtrl* m_sMotorh;
 		wxStaticText* m_staticText106;
+		wxStaticText* m_staticText135;
+		wxStaticText* m_staticText137;
+		wxStaticText* m_staticText136;
 		wxStaticText* m_staticText70;
 		wxStaticText* m_staticText712;
 		wxStaticText* m_staticText72;
@@ -148,6 +152,14 @@ class LogbookOptions : public wxDialog
 		wxBitmapButton* m_bpButtonMail;
 		wxStaticText* m_staticText79;
 		wxButton* m_buttonResetPath;
+		wxPanel* m_panel24;
+		wxNotebook* m_notebook7;
+		wxPanel* m_panel27;
+		wxStaticText* m_staticText1281;
+		wxStaticText* m_staticText131;
+		wxStaticText* m_staticText129;
+		wxStaticText* m_staticText1291;
+		wxPanel* m_panel28;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;
@@ -160,7 +172,7 @@ class LogbookOptions : public wxDialog
 		wxArrayString sadate;
 		wxString sseplocale;
 		wxString ssepindiv;
-		wxCheckBox* m_checkBoxPopUp;
+//		wxCheckBox* m_checkBoxPopUp;
 		wxDateTime textCtrlDate;
 
 		// Virtual event handlers, overide them in your derived class
@@ -205,28 +217,21 @@ class LogbookOptions : public wxDialog
 		 void OnClose( wxCloseEvent& event );
 	
 	public:
+		wxRadioButton* m_radioBtnLocal;
+		wxChoice* m_choiceTzIndicator;
+		wxChoice* m_choiceTzHours;
+		wxRadioButton* m_radioBtnGPSAuto;
 		wxChoice* m_choicePositionFormat;
 		wxCheckBox* m_checkBoxToolTips;
 		wxCheckBox* m_checkBoxShowAllLayouts;
 		wxTextCtrl* m_textCtrlLayoutPrefix;
 		wxCheckBox* m_checkBoxNoGPS;
 		wxChoice* m_choiceWindTo;
-		wxCheckBox* m_checkBoxWayPoint;
-		wxTextCtrl* m_textCtrlWayPoint;
-		wxCheckBox* m_checkBoxGuardChanged;
-		wxTextCtrl* m_textCtrlGuradChanged;
-		wxCheckBox* m_checkBoxEverySM;
-		wxTextCtrl* m_textCtrlEverySM;
-		wxTextCtrl* m_textCtrlEverySMText;
-		wxCheckBox* m_checkBoxCourseChanged;
-		wxTextCtrl* m_textCtrlCourseCahngedMoreThen;
-		wxTextCtrl* m_textCtrlCourseMessageAfter;
-		wxTextCtrl* m_textCtrlChancedCourse;
 		wxStaticText* m_staticText54;
-		wxRadioButton* m_radioBtnLocal;
-		wxChoice* m_choiceTzIndicator;
-		wxChoice* m_choiceTzHours;
-		wxRadioButton* m_radioBtnGPSAuto;
+		wxTextCtrl* m_textCtrlWayPoint;
+		wxTextCtrl* m_textCtrlGuradChanged;
+		wxTextCtrl* m_textCtrlEverySMText;
+		wxTextCtrl* m_textCtrlChancedCourse;
 		wxTextCtrl* m_textCtrlTankWater;
 		wxTextCtrl* m_textCtrlWatermaker;
 		wxTextCtrl* m_textCtrlTankFuel;
@@ -237,6 +242,9 @@ class LogbookOptions : public wxDialog
 		wxChoice* m_choiceHeading;
 		wxTextCtrl* m_textCtrlTemperature;
 		wxTextCtrl* m_textCtrlAmpere;
+		wxTextCtrl* m_textCtrlEngine;
+		wxTextCtrl* m_textCtrlPropShaft;
+		wxTextCtrl* m_textCtrRPM;
 		wxTextCtrl* m_Days;
 		wxTextCtrl* m_Weeks;
 		wxTextCtrl* m_textMonth;
@@ -245,6 +253,12 @@ class LogbookOptions : public wxDialog
 		wxTextCtrl* m_textCtrlMailClient;
 		wxTextCtrl* m_textCtrlHTMLEditorPath;
 		wxBitmapButton* m_bpButtonHTMLEditor;
+		wxTextCtrl* m_textCtrlKMLLineWidt;
+		wxChoice* m_choiceKMLLineTranparency;
+		wxChoice* m_choiceKMLRouteLineColo;
+		wxChoice* m_choiceKMLTrackLineColor;
+		wxCheckBox* m_checkBoxNMEAUseRPM;
+		wxCheckBox* m_checkBoxNMEAUseWIMDA;
 
 
 		LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi* log_pi, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(652,580), long style = wxDEFAULT_DIALOG_STYLE|wxVSCROLL );

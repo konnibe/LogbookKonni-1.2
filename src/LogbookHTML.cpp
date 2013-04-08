@@ -1238,7 +1238,12 @@ void LogbookHTML::toKML(wxString path)
 	wxString h = parent->kmlHead;
 	h.Replace(_T("#TITLE#"),logbook->title);
 	*kmlFile << h;
-	*kmlFile << parent->kmlLine;
+	h = parent->kmlLine;
+	h.Replace(_T("#LWIDTH#"),logbook->opt->kmlLineWidth);
+	h.Replace(_T("#LTRANS#"),logbook->opt->kmlTrans.Item(logbook->opt->kmlLineTransparancy));
+	h.Replace(_T("#LCOLORR#"),logbook->opt->kmlColor.Item(logbook->opt->kmlRouteColor));
+	h.Replace(_T("#LCOLORT#"),logbook->opt->kmlColor.Item(logbook->opt->kmlTrackColor));
+	*kmlFile << h;
 
 
 	for(; row < parent->m_gridGlobal->GetNumberRows(); row++)

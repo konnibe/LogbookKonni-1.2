@@ -94,6 +94,9 @@ public:
 	// Grid MotorSails
 	wxString	vol;
 	wxString	motorh;
+	wxString    engine;
+	wxString	shaft;
+	wxString	rpm;
 
 	//Maintenance
 	wxString	days;
@@ -119,6 +122,18 @@ public:
 	wxString    bank2;
 	wxString    ampere;
 	wxString    ampereh;
+
+	// KML
+	wxString	kmlLineWidth;
+	int			kmlLineTransparancy;
+	int			kmlRouteColor;
+	int			kmlTrackColor;
+	wxArrayString kmlColor;
+	wxArrayString kmlTrans;
+
+	//NMEA
+	bool		NMEAUseERRPM;
+	bool		NMEAUseWIMDA;
 
 	//wxChoice
 	int		showDepth;

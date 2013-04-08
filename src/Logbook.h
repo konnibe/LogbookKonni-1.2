@@ -10,6 +10,7 @@
 #include "nmea0183/nmea0183.h"
 
 //#define PBVE_DEBUG 1
+#define DEVICE_TIMEOUT 3 // NMEA-Device doesn't send for 3 sec. sets the strings to empty in appendRow()
 
 class Options;
 class LogbookDialog;
@@ -37,20 +38,50 @@ private:
 	wxDateTime			mUTCDateTime;
 	wxString		    sSOG;
 	wxString			sSOW;
+	wxDateTime			dtSOW;
+	bool				bSOW;
 	wxString		    sCOG;
 	wxString		    sCOW;
+	wxDateTime			dtCOW;
 	wxString			sDistance;
 	wxString			sTemperatureWater;
+	wxDateTime			dtTemperatureWater;
+	bool				bTemperatureWater;
 	wxString			sTemperatureAir;
+	bool				bTemperatureAir;
+	wxDateTime			dtWimda;
 	wxString			sPressure;
 	wxString			sHumidity;
 	wxString		    sWind;
+	wxDateTime			dtWind;
+	bool				bWind;
 	wxString			sWindSpeed;
 	wxString			sDepth;
+	wxDateTime			dtDepth;
+	bool				bDepth;
 	wxString			sLogText;
 	wxString			sLinesReminder;
+	bool				rpmSentence;
+	bool				bRPM1;
+	wxString			sRPM1;
+	wxString			sRPM1Shaft;
+	wxString			sRPM1Source;
+	wxDateTime			dtRPM;
+	bool				bRPM2;
+	wxString			sRPM2Shaft;
+	wxString			sRPM2Source;
+	wxString			sRPM2;
+	wxDateTime			dtRPM2;
+	bool				engine1Status; // false = engine off
+	wxDateTime			dtEngine1On;
+	bool				bEngine1Running;
+	wxTimeSpan			dtEngine1Off;
+	bool				engine2Status; // false = engine off
+	wxDateTime			dtEngine2On;
+	wxTimeSpan			dtEngine2Off;
+	bool				bEngine2Running;
+	long				engine;
 
-	Options				*opt;
 	bool				noSentence;
 	bool				bCOW;
 	double				dCOW;
@@ -85,8 +116,9 @@ private:
 public:
 	enum fields{ ROUTE,RDATE,RTIME,SIGN,WAKE,DISTANCE,DTOTAL,POSITION,COG,COW,SOG,SOW,DEPTH,REMARKS,
 				 BARO,HYDRO,TEMPAIR,TEMPWATER,WIND,WSPD,CURRENT,CSPD,WAVE,SWELL,WEATHER,CLOUDS,VISIBILITY,
-				 MOTOR,MOTORT,MOTOR1,MOTOR1T,FUEL,FUELT,SAILS,REEF,GENE,GENET,BANK1,BANK1T,BANK2,BANK2T,WATERM,WATERMT,WATERMO,WATER,WATERT,MREMARKS,ROUTEID,TRACKID};	
+				 MOTOR,MOTORT,RPM1,MOTOR1,MOTOR1T,RPM2,FUEL,FUELT,SAILS,REEF,GENE,GENET,BANK1,BANK1T,BANK2,BANK2T,WATERM,WATERMT,WATERMO,WATER,WATERT,MREMARKS,ROUTEID,TRACKID};	
 
+	Options			*opt;
 	wxArrayString	mergeList;
 	LogbookDialog*	dialog;
 	LogbookHTML*	logbookHTML;
@@ -142,6 +174,7 @@ public:
 	void recalculateLogbook(int row);
 	void deleteRows();
 	void setTrackToNewID(wxString target);
+	void checkNMEADeviceIsOn();
 
 	static wxString makeDateFromFile(wxString date, wxString dateformat);
 	static wxString makeWatchtimeFromFile(wxString time, wxString timeformat);

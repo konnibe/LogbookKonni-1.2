@@ -23,6 +23,12 @@ Options::Options(void)
 	date1 = date2 = date3 = 0;
 	statusbarGlobal = true;
 	statusbarWatch = true;
+	kmlTrans.Add(_T("50"));
+	kmlTrans.Add(_T("FF"));
+	kmlColor.Add(_T("FFFFFF"));
+	kmlColor.Add(_T("000000"));
+	kmlColor.Add(_T("0000FF"));
+	kmlColor.Add(_T("14F0FF"));
 
 	// Global Options
 	traditional = true;
@@ -98,6 +104,9 @@ or change this text in Toolbox/Plugins/Logbook\n\nShift+Enter appends a new line
 	// Grid MotorSails
 	vol = _("gal");
 	motorh = _("h");
+	engine = _("E");
+	shaft = _T("S");
+	rpm = _T("RPM");
 
 	//Maintenance
 	days = _("day(s)");
@@ -150,6 +159,16 @@ or change this text in Toolbox/Plugins/Logbook\n\nShift+Enter appends a new line
 	// Paths
 	htmlEditor  = _T("");
 	htmlEditorReset = htmlEditor;
+
+	// KML
+	kmlLineWidth = _T("4");;
+	kmlLineTransparancy = 0;
+	kmlRouteColor = 0;
+	kmlTrackColor = 3;
+
+	//NMEA
+	NMEAUseERRPM = false;
+	NMEAUseWIMDA = true;
 
 #ifdef __WXMSW__
 	wxFileType *filetype1=wxTheMimeTypesManager->GetFileTypeFromExtension(_T("odt"));

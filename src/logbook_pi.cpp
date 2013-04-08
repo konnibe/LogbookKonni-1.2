@@ -926,6 +926,9 @@ void logbookkonni_pi::SaveConfig()
 
 			pConf->Write ( _T ( "Vol" ), opt->vol );
 			pConf->Write ( _T ( "Motorhours" ), opt->motorh);
+			pConf->Write ( _T ( "Engine" ), opt->engine );
+			pConf->Write ( _T ( "Shaft" ), opt->shaft);
+			pConf->Write ( _T ( "RPM" ), opt->rpm );
 
 			pConf->Write ( _T ( "Days" ), opt->days );
 			pConf->Write ( _T ( "Weeks" ), opt->weeks );
@@ -979,6 +982,14 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "ShowAllLayouts" ), opt->showAllLayouts);
 			pConf->Write ( _T ( "ShowFilteredLayouts" ), opt->filterLayout);
 			pConf->Write ( _T ( "PrefixLayouts" ), opt->layoutPrefix);
+
+			pConf->Write ( _T ( "KMLWidth" ), opt->kmlLineWidth);
+			pConf->Write ( _T ( "KMLTransp" ), opt->kmlLineTransparancy);
+			pConf->Write ( _T ( "KMLRouteColor" ), opt->kmlRouteColor);
+			pConf->Write ( _T ( "KMLTrackColor" ), opt->kmlTrackColor);
+
+			pConf->Write ( _T ( "NMEAUseRPM" ), opt->NMEAUseERRPM);
+			pConf->Write ( _T ( "NMEAUseWIMDA" ), opt->NMEAUseWIMDA);
 
 			for(unsigned int i = 0; i < opt->NavColWidth.Count(); i++)
 				pConf->Write (wxString::Format(_T ( "NavGridColWidth/%i"),i), opt->NavColWidth[i]);
@@ -1077,6 +1088,10 @@ void logbookkonni_pi::LoadConfig()
 
 			pConf->Read ( _T ( "Vol" ), &opt->vol );
 			pConf->Read ( _T ( "Motorhours" ), &opt->motorh);
+			pConf->Read ( _T ( "Engine" ), &opt->engine,_T("E") );
+			pConf->Read ( _T ( "Shaft" ), &opt->shaft,_T("S"));
+			pConf->Read ( _T ( "RPM" ), &opt->rpm,_T("RPM") );
+
 
 			pConf->Read ( _T ( "Windkts" ), &opt->windkts );
 			pConf->Read ( _T ( "WindMeter" ), &opt->windmeter );
@@ -1134,6 +1149,14 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "ShowAllLayouts" ), &opt->showAllLayouts);
 			pConf->Read ( _T ( "ShowFilteredLayouts" ), &opt->filterLayout);
 			pConf->Read ( _T ( "PrefixLayouts" ), &opt->layoutPrefix);
+
+			pConf->Read ( _T ( "KMLWidth" ), &opt->kmlLineWidth,_T("4"));
+			pConf->Read ( _T ( "KMLTransp" ), &opt->kmlLineTransparancy,0);
+			pConf->Read ( _T ( "KMLRouteColor" ), &opt->kmlRouteColor,0);
+			pConf->Read ( _T ( "KMLTrackColor" ), &opt->kmlTrackColor,3);
+
+			pConf->Read ( _T ( "NMEAUseRPM" ), &opt->NMEAUseERRPM,false);
+			pConf->Read ( _T ( "NMEAUseWIMDA" ), &opt->NMEAUseWIMDA,false);
 
 			int val;
 			bool r;

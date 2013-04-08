@@ -93,7 +93,27 @@ Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString
 	routeIsActive = false;
 	trackIsActive = false;
 	wimdaSentence = false;
-
+	rpmSentence = false;
+	bSOW = false;
+	bTemperatureWater = false;
+	bTemperatureAir = false;
+	bWind = false;
+	bDepth = false;
+	engine1Status = false;
+	dtEngine1On = -1;
+	dtEngine1Off = -1;
+	bRPM1 = false;
+	engine1Status = false;
+	dtEngine2On = -1;
+	dtEngine2Off = -1;
+	bRPM2 = false;
+	engine2Status = false;
+	bEngine1Running = false;
+	bEngine2Running = false;
+	sRPM1Shaft = wxEmptyString;
+	sRPM1Source = wxEmptyString;
+	sRPM2Shaft = wxEmptyString;
+	sRPM2Source = wxEmptyString;
 }
 
 Logbook::~Logbook(void)
@@ -163,12 +183,15 @@ void Logbook::SetPosition(PlugIn_Position_Fix &pfix)
 	if(pfix.Sog >= 0.0)
 		sSOG = wxString::Format(_T("%5.2f %s"), pfix.Sog,opt->speed.c_str());
 	if(pfix.Cog >= 0.0)
+	{
 		sCOG = wxString::Format(_T("%5.2f %s"),pfix.Cog, opt->Deg.c_str());
+		SetGPSStatus(true);
+	}
+	else
+		SetGPSStatus(false);
 
 	mUTCDateTime.Set(pfix.FixTime);
-
-	SetGPSStatus(true);
-	dialog->GPSTimer->Start(5000);
+//	dialog->GPSTimer->Start(5000);
 }
 void Logbook::clearNMEAData()
 {
@@ -179,8 +202,6 @@ void Logbook::SetSentence(wxString &sentence)
 {
 	wxDateTime dt;
 	m_NMEA0183 << sentence;
-
-	SetGPSStatus(true);
 
 #ifdef PBVE_DEBUG
 	if(sentence.Contains(_T("$PBVE")))
@@ -203,6 +224,7 @@ void Logbook::SetSentence(wxString &sentence)
                   {
                         if(m_NMEA0183.Gga.GPSQuality > 0)
                         {
+							SetGPSStatus(true);
 							setPositionString(m_NMEA0183.Gga.Position.Latitude.Latitude,
 											m_NMEA0183.Gga.Position.Latitude.Northing,
 											m_NMEA0183.Gga.Position.Longitude.Longitude,
@@ -215,6 +237,7 @@ void Logbook::SetSentence(wxString &sentence)
             {
                   if(m_NMEA0183.Parse())
                   {
+					SetGPSStatus(true);
 					setPositionString(m_NMEA0183.Gll.Position.Latitude.Latitude,
 									m_NMEA0183.Gll.Position.Latitude.Northing,
 									m_NMEA0183.Gll.Position.Longitude.Longitude,
@@ -239,6 +262,7 @@ void Logbook::SetSentence(wxString &sentence)
 						sCOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Hdt.DegreesTrue,opt->Deg.c_str());
 					  dCOW = m_NMEA0183.Hdt.DegreesTrue;
 					  bCOW = true;
+					  dtCOW = wxDateTime::Now();
 				  }
 			}
 			else if(m_NMEA0183.LastSentenceIDReceived == _T("HDM"))
@@ -249,6 +273,7 @@ void Logbook::SetSentence(wxString &sentence)
 						sCOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Hdm.DegreesMagnetic,opt->Deg.c_str());
 					  dCOW = m_NMEA0183.Hdm.DegreesMagnetic;
 					  bCOW = true;
+					  dtCOW = wxDateTime::Now();
 				  }
 			}
 			else if(m_NMEA0183.LastSentenceIDReceived == _T("RMB"))
@@ -271,6 +296,7 @@ void Logbook::SetSentence(wxString &sentence)
             {
                   if(m_NMEA0183.Parse())
                   {
+					SetGPSStatus(true);
 					setPositionString(m_NMEA0183.Rmc.Position.Latitude.Latitude,
 									m_NMEA0183.Rmc.Position.Latitude.Northing,
 									m_NMEA0183.Rmc.Position.Longitude.Longitude,
@@ -302,6 +328,8 @@ void Logbook::SetSentence(wxString &sentence)
                   if(m_NMEA0183.Parse())
                   {
 					  sSOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Vhw.Knots,opt->speed.c_str());
+					  dtSOW = wxDateTime::Now();
+					  bSOW = true;
 				  }
 			}
 			else if(m_NMEA0183.LastSentenceIDReceived == _T("MWV"))
@@ -326,7 +354,10 @@ void Logbook::SetSentence(wxString &sentence)
 						temp = opt->windmeter;
 					else if(m_NMEA0183.Mwv.WindSpeedUnits == 'K')
 						temp = opt->windkmh;
+
 					sWindSpeed = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Mwv.WindSpeed,temp.c_str());
+					dtWind = wxDateTime::Now();
+					bWind = true;
 				  }
 			}
             else if(m_NMEA0183.LastSentenceIDReceived == _T("MTW"))
@@ -339,11 +370,15 @@ void Logbook::SetSentence(wxString &sentence)
 						else
 							t = m_NMEA0183.Mtw.Temperature;
 						sTemperatureWater = wxString::Format(_T("%4.1f %s %s"),t,opt->Deg.c_str(),opt->temperature.c_str());
+						dtTemperatureWater = wxDateTime::Now();
+						bTemperatureWater = true;
 					  }
 			}
             else if(m_NMEA0183.LastSentenceIDReceived == _T("DBT"))
             {			
 					  m_NMEA0183.Parse();
+					  dtDepth = wxDateTime::Now();
+					  bDepth = true;
 					  if(m_NMEA0183.Dbt.ErrorMessage.Contains(_T("Invalid")) ||
 						  (m_NMEA0183.Dbt.DepthMeters == m_NMEA0183.Dbt.DepthFathoms))
 					  {
@@ -379,9 +414,12 @@ void Logbook::SetSentence(wxString &sentence)
 /*  is off.																			*/
 
 	wxStringTokenizer tkz(sentence,_T(","));
-	if(tkz.GetNextToken() ==(_T("$WIMDA")))
+	wxString sentenceInd = tkz.GetNextToken();
+
+	if(sentenceInd == _T("$WIMDA") && opt->NMEAUseWIMDA)
 	{
 		wimdaSentence = true;
+		dtWimda = wxDateTime::Now();
 
 		double t;
 		long p;
@@ -402,7 +440,96 @@ void Logbook::SetSentence(wxString &sentence)
 		tkz.GetNextToken();
 		tkz.GetNextToken();
 		sHumidity = tkz.GetNextToken();
+	}
+	else if(sentenceInd == _T("$ERRPM"))
+	{
+		long Umin1 = 0, Umin2 = 0, en = 0;
 
+		rpmSentence = true;
+		dtRPM = wxDateTime::Now();
+
+		wxString source = tkz.GetNextToken();
+		wxString engineNr = tkz.GetNextToken();
+		wxString speed = tkz.GetNextToken();
+		wxString pitch = tkz.GetNextToken();
+
+		if(engineNr == _T("1"))
+		{
+			engineNr.ToLong(&engine);
+			speed.ToLong(&Umin1);
+			if(source == _T("E"))
+				sRPM1 = speed;
+			sRPM1Source = source;
+
+			if(Umin1 != 0L)
+			{
+				bRPM1 = true;
+				if(!engine1Status && source == _T("E"))
+				{
+					bool temp = engine1Status;
+					dtEngine1On = wxDateTime::Now();
+					engine1Status = true;
+					if(!temp)
+						appendRow(false);
+					bEngine1Running = true;
+				}
+				if(source == _T("S"))
+						sRPM1Shaft = speed;
+			}
+			else
+			{
+				bRPM1 = false;
+				if(engine1Status)
+				{
+					bool temp = engine1Status;
+					dtEngine1Off = wxDateTime::Now().Subtract(dtEngine1On);
+					engine1Status = false;
+					if(temp)
+					{
+						appendRow(false);
+						bEngine1Running = false;
+					}
+				}
+			}
+		}
+		else
+		{
+			speed.ToLong(&Umin2);
+			engineNr.ToLong(&engine);
+			if(source == _T("E"))
+				sRPM2 = speed;
+
+			if(Umin2 != 0L)
+			{
+				bRPM2 = true;
+				if(!engine2Status && source == _T("E"))
+				{
+					bool temp2 = engine2Status;
+					dtEngine2On = wxDateTime::Now();
+					engine2Status = true;
+					if(!temp2)
+						appendRow(false);
+					bEngine2Running = true;
+				}
+				if(source == _T("S"))
+						sRPM2Shaft = speed;
+			}
+			else
+			{
+				bRPM2 = false;
+				if(engine2Status)
+				{
+					bool temp2 = engine2Status;
+					dtEngine2Off = wxDateTime::Now().Subtract(dtEngine2On);
+					engine2Status = false;
+					if(temp2)
+					{
+						appendRow(false);
+						bEngine2Running = false;
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -461,7 +588,7 @@ void Logbook::setPositionString(double dLat, int iNorth, double dLon, int iEast)
 		sLon = this->toSDMMOpenCPN(2,lon, true);
 
 	SetGPSStatus(true);
-	dialog->GPSTimer->Start(5000);
+//	dialog->GPSTimer->Start(5000);
 
 	if(opt->everySM)
 		checkDistance();
@@ -848,6 +975,10 @@ void Logbook::loadData()
 				break;
 			case 52:	dialog->m_gridMotorSails->SetCellValue(row,TRACKID-sailsCol,s);
 				break;
+			case 53:	dialog->m_gridMotorSails->SetCellValue(row,RPM1-sailsCol,s);
+				break;
+			case 54:	dialog->m_gridMotorSails->SetCellValue(row,RPM2-sailsCol,s);
+				break;
 			}			
 			c++;
 		}
@@ -1165,7 +1296,7 @@ void Logbook::appendRow(bool mode)
 	if(fn.GetName() != (_T("logbook")))
 	{
 
-		this->switchToActuellLogbook();
+		switchToActuellLogbook();
 		noAppend = true;
 		NoAppendDialog *x = new NoAppendDialog(dialog);
 		x->Show();
@@ -1301,10 +1432,71 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		dialog->logGrids[1]->SetCellValue(lastRow,HYDRO-weatherCol,sHumidity);
 	}
 
+	if(bRPM1)
+	{
+		if(	!bEngine1Running)
+			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #1 started"));
+		else
+		{
+			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #1 running"));
+			if(opt->NMEAUseERRPM)
+			{
+				dtEngine1Off = wxDateTime::Now().Subtract(dtEngine1On);
+				dtEngine1On = wxDateTime::Now();
+				dialog->logGrids[2]->SetCellValue(lastRow,MOTOR-sailsCol,dtEngine1Off.Format(_T("%H:%M")));
+				//			wxMessageBox(dtEngine1Off.Format(_T("%H:%M:%S")));
+			}
+		}
+		dialog->logGrids[2]->SetCellValue(lastRow,RPM1-sailsCol,sRPM1);
+	}
+	if(!bRPM1 && bEngine1Running)	
+	{
+		if(opt->NMEAUseERRPM)
+			dialog->logGrids[2]->SetCellValue(lastRow,MOTOR-sailsCol,dtEngine1Off.Format(_T("%H:%M")));
+		dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #1 stopped"));
+
+	}
+	if(bRPM2)
+	{
+		if(	!bEngine2Running)
+			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #2 started"));
+		else
+		{
+			if(dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol).IsEmpty())
+				dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #2 running"));
+			else
+				dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol)+_("\nEngine #2 running"));
+			if(opt->NMEAUseERRPM)
+			{
+				dtEngine2Off = wxDateTime::Now().Subtract(dtEngine2On);
+				dtEngine2On = wxDateTime::Now();
+				dialog->logGrids[2]->SetCellValue(lastRow,MOTOR1-sailsCol,dtEngine2Off.Format(_T("%H:%M")));
+//				wxMessageBox(dtEngine2Off.Format(_T("%H:%M:%S")));
+			}
+		}
+	}
+	if(!bRPM2 && bEngine2Running)	
+	{
+		if(opt->NMEAUseERRPM)
+			dialog->logGrids[2]->SetCellValue(lastRow,MOTOR1-sailsCol,dtEngine2Off.Format(_T("%H:%M")));
+		if(dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol).IsEmpty())
+			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #2 stopped"));
+		else
+			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol)+_("\nEngine #2 stopped"));
+	}
+
+	wxString sEngine = _T(" ")+opt->rpm+_T(" (")+opt->engine+_T(")");
+	wxString sShaft =  _T(" ")+opt->rpm+_T(" (")+opt->shaft+_T(")");
+
+	if(!sRPM1.IsEmpty())
+		dialog->logGrids[2]->SetCellValue(lastRow,RPM1-sailsCol,sRPM1+sEngine+
+											((sRPM1Shaft.IsEmpty())? wxEmptyString : _T("\n")+sRPM1Shaft+sShaft));
+	if(!sRPM2.IsEmpty())
+		dialog->logGrids[2]->SetCellValue(lastRow,RPM2-sailsCol,sRPM2+sEngine+
+											((sRPM2Shaft.IsEmpty())? wxEmptyString : _T("\n")+sRPM2Shaft+sShaft));
+
 	if(ActuellWatch::active == true)
 		dialog->logGrids[0]->SetCellValue(lastRow,WAKE,ActuellWatch::member);
-
-
 
 	changeCellValue(lastRow, 0,1);
 	setCellAlign(lastRow);
@@ -1317,6 +1509,66 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		dialog->m_gridGlobal->MakeCellVisible(lastRow,0);
 		dialog->m_gridWeather->MakeCellVisible(lastRow,0);
 		dialog->m_gridMotorSails->MakeCellVisible(lastRow,0);
+	}
+}
+
+void Logbook::checkNMEADeviceIsOn()
+{
+	wxDateTime dtn = wxDateTime::Now();
+	if(bDepth && dtn.Subtract(dtDepth).GetSeconds() > DEVICE_TIMEOUT)						// Sounder
+	{
+		sDepth = wxEmptyString;
+		bDepth = false;
+	}
+	if(bSOW && dtn.Subtract(dtSOW).GetSeconds() > DEVICE_TIMEOUT)							// Speedo
+	{
+		sSOW = wxEmptyString;
+		bSOW = false;
+	}
+	if(bWind && dtn.Subtract(dtWind).GetSeconds() > DEVICE_TIMEOUT)							// Wind
+	{
+		sWind = wxEmptyString;
+		sWindSpeed = wxEmptyString;
+		bWind = false;
+	}
+	if(bCOW && dtn.Subtract(dtCOW).GetSeconds() > DEVICE_TIMEOUT)							// Heading
+	{
+		sCOW = wxEmptyString;
+		bCOW = false;
+	}
+	if(bTemperatureWater && dtn.Subtract(dtTemperatureWater).GetSeconds() > DEVICE_TIMEOUT)  // Watertemperature
+	{
+		sTemperatureWater = wxEmptyString;
+		bTemperatureWater = false;
+	}
+
+	if(wimdaSentence && dtn.Subtract(dtWimda).GetSeconds() > DEVICE_TIMEOUT)				// WeatherStation
+	{
+		sPressure		= wxEmptyString;
+		sTemperatureAir = wxEmptyString;
+		sHumidity		= wxEmptyString;
+		wimdaSentence	= false;
+	}
+	if(rpmSentence && dtn.Subtract(dtRPM).GetSeconds() > DEVICE_TIMEOUT)					// Engine RPM and Engine elapsed time
+	{
+		rpmSentence = false;
+		wxDateTime now = wxDateTime::Now();
+
+		engine1Status = false;
+		bRPM1 = false;
+		dtEngine1Off = now.Subtract(dtEngine1On); 
+		sRPM1 = wxEmptyString;
+		sRPM1Shaft = wxEmptyString;
+
+		engine2Status = false;
+		bRPM2 = false;
+		dtEngine2Off = now.Subtract(dtEngine2On); 
+		sRPM2 = wxEmptyString;
+		sRPM2Shaft = wxEmptyString;
+
+		appendRow(false);
+		bEngine2Running = false;
+		bEngine1Running = false;
 	}
 }
 
@@ -1616,6 +1868,7 @@ void Logbook::update()
 				if(g == 1 && (c == HYDRO-weatherCol || c == TEMPAIR-weatherCol || c == TEMPWATER-weatherCol))
 					continue;
 				if(g == 2 && (c == MOTOR1-sailsCol  || c == MOTOR1T-sailsCol || 
+							  c == RPM1-sailsCol    || c == RPM2-sailsCol    || 
 					          c == GENE-sailsCol    || c == GENET-sailsCol   ||
 					          c == WATERM-sailsCol  || c == WATERMT-sailsCol ||
 							  c == WATERMO-sailsCol || c == BANK1-sailsCol   ||
@@ -1674,6 +1927,20 @@ void Logbook::update()
 		}
 
 		for(int ext = ROUTEID-sailsCol; ext < parent->m_gridMotorSails->GetNumberCols(); ext ++) // extend GUID's
+		{
+			temp = dialog->logGrids[2]->GetCellValue(r,ext);
+			s += dialog->replaceDangerChar(temp);
+			s += _T(" \t");
+		}
+
+		for(int ext = RPM1-sailsCol; ext <= MOTOR1-sailsCol; ext ++) // extend RPM #1
+		{
+			temp = dialog->logGrids[2]->GetCellValue(r,ext);
+			s += dialog->replaceDangerChar(temp);
+			s += _T(" \t");
+		}
+
+		for(int ext = RPM2-sailsCol; ext <= FUEL-sailsCol; ext ++) // extend RPM #2
 		{
 			temp = dialog->logGrids[2]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
@@ -2666,9 +2933,10 @@ bool Logbook::checkGPS(bool appendClick)
 	else
 	{
 		sLat = sLon = sDate = sTime = _T("");
-		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = sTemperatureAir = sPressure = sHumidity = _T("");
+//		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = sTemperatureAir = sPressure = sHumidity = _T("");
+		sCOG = sSOG = _T("");
 		bCOW = false;
-		wimdaSentence = false;
+
 		if(opt->noGPS)
 			sLogText = _("No GPS-Signal !");
 		else

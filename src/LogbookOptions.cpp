@@ -747,6 +747,29 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	m_textCtrlAmpere = new wxTextCtrl( m_panel16, wxID_ANY, _T("A"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	fgSizer91->Add( m_textCtrlAmpere, 0, wxALL, 0 );
+
+	fgSizer91->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_staticText135 = new wxStaticText( m_panel16, wxID_ANY, _("Engine"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText135->Wrap( -1 );
+	fgSizer91->Add( m_staticText135, 0, wxLEFT|wxALIGN_CENTER_VERTICAL, 0 );
+	
+	m_textCtrlEngine = new wxTextCtrl( m_panel16, wxID_ANY, _("E"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	fgSizer91->Add( m_textCtrlEngine, 0, 0, 5 );
+	
+	m_staticText137 = new wxStaticText( m_panel16, wxID_ANY, _("PropShaft"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText137->Wrap( -1 );
+	fgSizer91->Add( m_staticText137, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+	
+	m_textCtrlPropShaft = new wxTextCtrl( m_panel16, wxID_ANY, _("S"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	fgSizer91->Add( m_textCtrlPropShaft, 0, 0, 5 );
+	
+	m_staticText136 = new wxStaticText( m_panel16, wxID_ANY, _("Revolutions"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText136->Wrap( -1 );
+	fgSizer91->Add( m_staticText136, 0, wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_textCtrRPM = new wxTextCtrl( m_panel16, wxID_ANY, _("RPM"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
+	fgSizer91->Add( m_textCtrRPM, 0, 0, 5 );
 	
 	m_staticText70 = new wxStaticText( m_panel16, wxID_ANY, _("Maintenance"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText70->Wrap( -1 );
@@ -899,6 +922,130 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_panel17->Layout();
 	fgSizer322->Fit( m_panel17 );
 	m_notebook4->AddPage( m_panel17, _("Paths"), false );
+	m_panel24 = new wxPanel( m_notebook4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer42;
+	bSizer42 = new wxBoxSizer( wxVERTICAL );
+	
+	m_notebook7 = new wxNotebook( m_panel24, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_notebook7->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_ACTIVEBORDER ) );
+	
+	m_panel27 = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer431;
+	bSizer431 = new wxBoxSizer( wxVERTICAL );
+	
+	wxFlexGridSizer* fgSizer431;
+	fgSizer431 = new wxFlexGridSizer( 0, 3, 0, 0 );
+	fgSizer431->SetFlexibleDirection( wxBOTH );
+	fgSizer431->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	
+	fgSizer431->Add( 150, 50, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_staticText1281 = new wxStaticText( m_panel27, wxID_ANY, _("Set Linewidth to"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1281->Wrap( -1 );
+	fgSizer431->Add( m_staticText1281, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_textCtrlKMLLineWidt = new wxTextCtrl( m_panel27, wxID_ANY, _("4"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	fgSizer431->Add( m_textCtrlKMLLineWidt, 0, wxALL, 5 );
+	
+	
+	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_staticText131 = new wxStaticText( m_panel27, wxID_ANY, _("Set Transparency to"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText131->Wrap( -1 );
+	fgSizer431->Add( m_staticText131, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	wxString m_choiceKMLLineTranparencyChoices[] = { _("transparent"), _("solid") };
+	int m_choiceKMLLineTranparencyNChoices = sizeof( m_choiceKMLLineTranparencyChoices ) / sizeof( wxString );
+	m_choiceKMLLineTranparency = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLLineTranparencyNChoices, m_choiceKMLLineTranparencyChoices, 0 );
+	m_choiceKMLLineTranparency->SetSelection( 0 );
+	fgSizer431->Add( m_choiceKMLLineTranparency, 0, wxALL, 5 );
+	
+	
+	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_staticText129 = new wxStaticText( m_panel27, wxID_ANY, _("Set Route-Linecolor to"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText129->Wrap( -1 );
+	fgSizer431->Add( m_staticText129, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	wxString m_choiceKMLRouteLineColoChoices[] = { _("white"), _("black"), _("red"), _("yellow") };
+	int m_choiceKMLRouteLineColoNChoices = sizeof( m_choiceKMLRouteLineColoChoices ) / sizeof( wxString );
+	m_choiceKMLRouteLineColo = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLRouteLineColoNChoices, m_choiceKMLRouteLineColoChoices, 0 );
+	m_choiceKMLRouteLineColo->SetSelection( 0 );
+	fgSizer431->Add( m_choiceKMLRouteLineColo, 0, wxALL, 5 );
+	
+	
+	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_staticText1291 = new wxStaticText( m_panel27, wxID_ANY, _("Set Track-Linecolor to"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1291->Wrap( -1 );
+	fgSizer431->Add( m_staticText1291, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	wxString m_choiceKMLTrackLineColorChoices[] = { _("white"), _("black"), _("red"), _("yellow") };
+	int m_choiceKMLTrackLineColorNChoices = sizeof( m_choiceKMLTrackLineColorChoices ) / sizeof( wxString );
+	m_choiceKMLTrackLineColor = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLTrackLineColorNChoices, m_choiceKMLTrackLineColorChoices, 0 );
+	m_choiceKMLTrackLineColor->SetSelection( 3 );
+	fgSizer431->Add( m_choiceKMLTrackLineColor, 0, wxALL, 5 );
+	
+	bSizer431->Add( fgSizer431, 1, wxEXPAND, 5 );
+	
+	m_panel27->SetSizer( bSizer431 );
+	m_panel27->Layout();
+	bSizer431->Fit( m_panel27 );
+	m_notebook7->AddPage( m_panel27, _("KML"), true );
+	m_panel28 = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer43;
+	bSizer43 = new wxBoxSizer( wxVERTICAL );
+	
+	wxFlexGridSizer* fgSizer441;
+	fgSizer441 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer441->SetFlexibleDirection( wxBOTH );
+	fgSizer441->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	
+	fgSizer441->Add( 150, 50, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer441->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer441->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_checkBoxNMEAUseRPM = new wxCheckBox( m_panel28, wxID_ANY, _("Use ERRPM-Sentence to calculate the engine-hours"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxNMEAUseRPM->SetValue(true); 
+	fgSizer441->Add( m_checkBoxNMEAUseRPM, 0, wxALL, 5 );
+	
+	
+	fgSizer441->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_checkBoxNMEAUseWIMDA = new wxCheckBox( m_panel28, wxID_ANY, _("Use WIMDA-Sentence from the weatherstation"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxNMEAUseWIMDA->SetValue(true); 
+	m_checkBoxNMEAUseWIMDA->SetToolTip( _("For Barometer, Air Temerature and rel. Humidity") );
+	
+	fgSizer441->Add( m_checkBoxNMEAUseWIMDA, 0, wxALL, 5 );
+	
+	bSizer43->Add( fgSizer441, 1, wxEXPAND, 5 );
+	
+	m_panel28->SetSizer( bSizer43 );
+	m_panel28->Layout();
+	bSizer43->Fit( m_panel28 );
+	m_notebook7->AddPage( m_panel28, _("NMEA"), false );
+	
+	bSizer42->Add( m_notebook7, 1, wxEXPAND | wxALL, 5 );
+	
+	m_panel24->SetSizer( bSizer42 );
+	m_panel24->Layout();
+	bSizer42->Fit( m_panel24 );
+	m_notebook4->AddPage( m_panel24, _("Miscellaneous"), false );
 
 	bSizer29->Add( m_notebook4, 1, wxEXPAND | wxALL, 5 );
 	
@@ -1384,6 +1531,10 @@ void LogbookOptions::setValues()
 
 	m_sLiter->SetValue(opt->vol);
 	m_sMotorh->SetValue(opt->motorh);
+	m_textCtrlEngine->SetValue(opt->engine);
+	m_textCtrlPropShaft->SetValue(opt->shaft);
+	m_textCtrRPM->SetValue(opt->rpm);
+
 	m_textCtrlAmpere->SetValue(opt->ampere);
 
 	m_Days->SetValue(opt->days);
@@ -1428,6 +1579,14 @@ void LogbookOptions::setValues()
 	m_checkBoxShowAllLayouts->SetValue(opt->showAllLayouts);
 	m_checkBoxShowOnlySelectedLayouts->SetValue(opt->filterLayout);
 	m_textCtrlLayoutPrefix->SetValue(opt->layoutPrefix);
+
+	m_textCtrlKMLLineWidt->SetValue(opt->kmlLineWidth);
+	m_choiceKMLLineTranparency->SetSelection(opt->kmlLineTransparancy);
+	m_choiceKMLRouteLineColo->SetSelection(opt->kmlRouteColor);
+	m_choiceKMLTrackLineColor->SetSelection(opt->kmlTrackColor);
+
+	m_checkBoxNMEAUseRPM->SetValue(opt->NMEAUseERRPM);
+	m_checkBoxNMEAUseWIMDA->SetValue(opt->NMEAUseWIMDA);
 	
 }
 
@@ -1485,6 +1644,9 @@ void LogbookOptions::getValues()
 
 	opt->vol    = m_sLiter->GetValue();
 	opt->motorh = m_sMotorh->GetValue();
+	opt->engine = m_textCtrlEngine->GetValue();
+	opt->shaft = m_textCtrlPropShaft->GetValue();
+	opt->rpm = m_textCtrRPM->GetValue();
 	opt->ampere = m_textCtrlAmpere->GetValue();
 
 	opt->days = m_Days->GetValue();
@@ -1526,6 +1688,14 @@ void LogbookOptions::getValues()
 	opt->showAllLayouts = m_checkBoxShowAllLayouts->GetValue();
 	opt->filterLayout = m_checkBoxShowOnlySelectedLayouts->GetValue();
 	opt->layoutPrefix = m_textCtrlLayoutPrefix->GetValue();
+
+	opt->kmlLineWidth = m_textCtrlKMLLineWidt->GetValue();
+	opt->kmlLineTransparancy = m_choiceKMLLineTranparency->GetSelection();
+	opt->kmlRouteColor = m_choiceKMLRouteLineColo->GetSelection();
+	opt->kmlTrackColor = m_choiceKMLTrackLineColor->GetSelection();
+
+	opt->NMEAUseERRPM = m_checkBoxNMEAUseRPM->GetValue();
+	opt->NMEAUseWIMDA = m_checkBoxNMEAUseWIMDA->GetValue();
 }
 
 void LogbookOptions::onRadioBtnUTC( wxCommandEvent& ev )

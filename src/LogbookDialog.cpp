@@ -74,7 +74,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	logbookPlugIn = d;
 	timer = t;
 	logbookTimerWindow = lt;
-	GPSTimer = NULL;
+//	GPSTimer = NULL;
 	wxInitAllImageHandlers();
 
 	this->SetSizeHints( wxSize( -1,-1 ), wxDefaultSize );
@@ -341,7 +341,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMotorSails = new wxGrid( m_panel71, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxALWAYS_SHOW_SB );
 	
 	// Grid
-	m_gridMotorSails->CreateGrid( 0, 22 );
+	m_gridMotorSails->CreateGrid( 0, 24 );
 	m_gridMotorSails->EnableEditing( true );
 	m_gridMotorSails->EnableGridLines( true );
 	m_gridMotorSails->EnableDragGridSize( false );
@@ -352,49 +352,53 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMotorSails->SetColSize( 1, 96 );
 	m_gridMotorSails->SetColSize( 2, 63 );
 	m_gridMotorSails->SetColSize( 3, 101 );
-	m_gridMotorSails->SetColSize( 4, 63 );
+	m_gridMotorSails->SetColSize( 4, 87 );
 	m_gridMotorSails->SetColSize( 5, 70 );
-	m_gridMotorSails->SetColSize( 6, 113 );
-	m_gridMotorSails->SetColSize( 7, 67 );
+	m_gridMotorSails->SetColSize( 6, 82 );
+	m_gridMotorSails->SetColSize( 7, 75 );
 	m_gridMotorSails->SetColSize( 8, 63 );
 	m_gridMotorSails->SetColSize( 9, 66 );
-	m_gridMotorSails->SetColSize( 10, 52 );
+	m_gridMotorSails->SetColSize( 10, 66 );
 	m_gridMotorSails->SetColSize( 11, 75 );
 	m_gridMotorSails->SetColSize( 12, 116 );
-	m_gridMotorSails->SetColSize( 13, 62 );
+	m_gridMotorSails->SetColSize( 13, 76 );
 	m_gridMotorSails->SetColSize( 14, 97 );
 	m_gridMotorSails->SetColSize( 15, 75 );
-	m_gridMotorSails->SetColSize( 16, 61 );
-	m_gridMotorSails->SetColSize( 17, 56 );
+	m_gridMotorSails->SetColSize( 16, 77 );
+	m_gridMotorSails->SetColSize( 17, 62 );
 	m_gridMotorSails->SetColSize( 18, 80 );
-	m_gridMotorSails->SetColSize( 19, 298 );
-	m_gridMotorSails->SetColSize( 20, 60 );
-	m_gridMotorSails->SetColSize( 21, 60 );
+	m_gridMotorSails->SetColSize( 19, 124 );
+	m_gridMotorSails->SetColSize( 20, 80 );
+	m_gridMotorSails->SetColSize( 21, 250 );
+	m_gridMotorSails->SetColSize( 22, 219 );
+	m_gridMotorSails->SetColSize( 23, 219 );
 	m_gridMotorSails->EnableDragColMove( false );
 	m_gridMotorSails->EnableDragColSize( true );
 	m_gridMotorSails->SetColLabelSize( 30 );
 	m_gridMotorSails->SetColLabelValue( 0, _("Engine #1") );
 	m_gridMotorSails->SetColLabelValue( 1, _("#1 Total") );
-	m_gridMotorSails->SetColLabelValue( 2, _("Engine #2") );
-	m_gridMotorSails->SetColLabelValue( 3, _("#2 Total") );
-	m_gridMotorSails->SetColLabelValue( 4, _("Fuel") );
-	m_gridMotorSails->SetColLabelValue( 5, _("FuelTotal") );
-	m_gridMotorSails->SetColLabelValue( 6, _("Sails") );
-	m_gridMotorSails->SetColLabelValue( 7, _("Reef") );
-	m_gridMotorSails->SetColLabelValue( 8, _("Generator") );
-	m_gridMotorSails->SetColLabelValue( 9, _("Gen. total") );
-	m_gridMotorSails->SetColLabelValue( 10, _("Bank #1") );
-	m_gridMotorSails->SetColLabelValue( 11, _("AH #1 Total") );
-	m_gridMotorSails->SetColLabelValue( 12, _("Bank #2") );
-	m_gridMotorSails->SetColLabelValue( 13, _("AH #2 Total") );
-	m_gridMotorSails->SetColLabelValue( 14, _("Watermaker") );
-	m_gridMotorSails->SetColLabelValue( 15, _("W-Total") );
-	m_gridMotorSails->SetColLabelValue( 16, _("W-Output") );
-	m_gridMotorSails->SetColLabelValue( 17, _("Water") );
-	m_gridMotorSails->SetColLabelValue( 18, _("WaterTotal") );
-	m_gridMotorSails->SetColLabelValue( 19, _("Remarks") );
-	m_gridMotorSails->SetColLabelValue( 20, _("RouteID") );
-	m_gridMotorSails->SetColLabelValue( 21, _("TrackID") );
+	m_gridMotorSails->SetColLabelValue( 2, _("RPM #1") );
+	m_gridMotorSails->SetColLabelValue( 3, _("Engine #2") );
+	m_gridMotorSails->SetColLabelValue( 4, _("#2 Total") );
+	m_gridMotorSails->SetColLabelValue( 5, _("RPM #2") );
+	m_gridMotorSails->SetColLabelValue( 6, _("Fuel") );
+	m_gridMotorSails->SetColLabelValue( 7, _("FuelTotal") );
+	m_gridMotorSails->SetColLabelValue( 8, _("Sails") );
+	m_gridMotorSails->SetColLabelValue( 9, _("Reef") );
+	m_gridMotorSails->SetColLabelValue( 10, _("Generator") );
+	m_gridMotorSails->SetColLabelValue( 11, _("Gen. total") );
+	m_gridMotorSails->SetColLabelValue( 12, _("Bank #1") );
+	m_gridMotorSails->SetColLabelValue( 13, _("AH #1 Total") );
+	m_gridMotorSails->SetColLabelValue( 14, _("Bank #2") );
+	m_gridMotorSails->SetColLabelValue( 15, _("AH #2 Total") );
+	m_gridMotorSails->SetColLabelValue( 16, _("Watermaker") );
+	m_gridMotorSails->SetColLabelValue( 17, _("W-Total") );
+	m_gridMotorSails->SetColLabelValue( 18, _("W-Output") );
+	m_gridMotorSails->SetColLabelValue( 19, _("Water") );
+	m_gridMotorSails->SetColLabelValue( 20, _("WaterTotal") );
+	m_gridMotorSails->SetColLabelValue( 21, _("Remarks") );
+	m_gridMotorSails->SetColLabelValue( 22, _("RouteID") );
+	m_gridMotorSails->SetColLabelValue( 23, _("TrackID") );
 	m_gridMotorSails->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
@@ -2143,14 +2147,14 @@ LogbookDialog::~LogbookDialog()
 	if(GPSTimer->IsRunning())
 		GPSTimer->Stop();
 
-	this->Disconnect( wxEVT_TIMER, wxObjectEventFunction( &LogbookDialog::OnTimerGPS ));
+	this->Disconnect( wxEVT_TIMER, wxTimerEventHandler( LogbookDialog::OnTimerGPS ));
     delete GPSTimer;
 	GPSTimer = NULL;
 
 	if(logbookTimer->IsRunning())
 		logbookTimer->Stop();
 
-	this->Disconnect( wxEVT_TIMER, wxObjectEventFunction( &LogbookDialog::OnLogTimer ));
+	this->Disconnect( wxEVT_TIMER, wxTimerEventHandler( LogbookDialog::OnLogTimer ));
     delete logbookTimer;
 	logbookTimer = NULL;
 
@@ -3578,11 +3582,11 @@ Backup Logbook(*.txt)|*.txt");
 
 
 	GPSTimer = new wxTimer(this,ID_GPSTIMER);
-	this->Connect( wxEVT_TIMER, wxObjectEventFunction( &LogbookDialog::OnTimerGPS ));
+	this->Connect( ID_GPSTIMER,wxEVT_TIMER, wxTimerEventHandler(LogbookDialog::OnTimerGPS), NULL, this );
 	GPSTimer->Start(GPSTIMEOUT);
 
 	logbookTimer = new wxTimer(this,ID_LOGTIMER);
-	this->Connect( wxEVT_TIMER, wxObjectEventFunction( &LogbookDialog::OnLogTimer ));
+	this->Connect( wxEVT_TIMER, wxTimerEventHandler( LogbookDialog::OnLogTimer ), NULL, this);
 	logbookTimer->Start(LOGSAVETIME);
 
 	logbookPlugIn->GetOriginalColors();
@@ -3592,8 +3596,8 @@ Backup Logbook(*.txt)|*.txt");
 
 	crewList->filterCrewMembers();
 
-	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,200);
-	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,200);
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
 
 #ifdef PBVE_DEBUG
 	if(PBVE_DEBUG)
@@ -4205,7 +4209,8 @@ void LogbookDialog::startNormalTimer()
 
 void LogbookDialog::OnTimerGPS(wxTimerEvent& ev)
 {
-	logbook->SetGPSStatus(false);
+	logbook->checkNMEADeviceIsOn();
+//	logbook->SetGPSStatus(false);
 	logbook->checkGPS(true);
 }
 
@@ -6341,14 +6346,14 @@ kmlEnd =_T("    </Folder>\n\
 kmlLine =  _T("\
         <Style id=\"LineRoute\">\n\
           <LineStyle>\n\
-		  <color>50FFFFFF</color>\n\
-            <width>4</width>\n\
+		  <color>#LTRANS##LCOLORR#</color>\n\
+		  <width>#LWIDTH#</width>\n\
           </LineStyle>\n\
 		  </Style>\n\
         <Style id=\"LineTrack\">\n\
           <LineStyle>\n\
-		  <color>5014F0FF</color>\n\
-            <width>4</width>\n\
+		  <color>#LTRANS##LCOLORT#</color>\n\
+            <width>#LWIDTH#</width>\n\
           </LineStyle>\n\
 		  </Style>\n");
 
