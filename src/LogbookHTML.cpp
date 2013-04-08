@@ -1175,7 +1175,7 @@ void LogbookHTML::toKML(wxString path)
 				case MREMARKS:
 					e = replaceKMLCharacters(e);
 					temp.Replace(_T("#NAME#"),logpointName);
-					temp.Replace(_T("#DESCRIPTION#"),description+_T("\n")+fRemarks+e,false);
+					temp.Replace(_T("#DESCRIPTION#"),description+((fRemarks.IsEmpty())?_T(""):_T("\n")+fRemarks)+_T("\n")+e,false);
 					break;
 				case ROUTEID:
 					routeOldID = routeID;
