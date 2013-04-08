@@ -1262,7 +1262,8 @@ void CrewList::dayNow(bool mode)
 	wxDateTime dtstart, dtend, now;
 	wxTimeSpan ed(0,0,0,1);
 	long d;
-	unsigned int lineno, col = 0, daylast = 1;
+	int lineno;
+	unsigned int col = 0, daylast = 1 ;
 	
 	if(dialog->logbook->sDate != wxEmptyString)
 		now = dialog->logbook->mCorrectedDateTime;
@@ -1272,7 +1273,7 @@ void CrewList::dayNow(bool mode)
 	if((lineno = getDayOne(1)) == -1) { statusText(DEFAULTWATCH); return; }
 
 	ActuellWatch::active = false;
-	while(lineno < watchListFile->GetLineCount())
+	while(lineno < (int) watchListFile->GetLineCount())
 	{
 		s = watchListFile->GetLine(lineno);
 		wxStringTokenizer tkz(s,_T("\t"));
@@ -1888,10 +1889,10 @@ void CrewList::saveHTML(wxString savePath, wxString layout, bool mode)
 	{	
 		htmlFile << topHTML;
 
-		unsigned int lineno; 
+		int lineno; 
 		wxString s;
 		int col = 1;
-		unsigned int actDay,lastday = 1;
+		unsigned int actDay = 0,lastday = 1;
 		wxString tmp;
 		int colTotal = 0;
 		unsigned int maxDay = dialog->m_choiceWakeDisplay->GetSelection();
@@ -1912,7 +1913,7 @@ void CrewList::saveHTML(wxString savePath, wxString layout, bool mode)
 			int offset = 0; colTotal = 0; col = 1;
 			watch.clear();
 			do{
-				if(lineno >= lineCount) 
+				if(lineno >= (int) lineCount) 
 					break;
 				s = watchListFile->GetLine(lineno);
 				s = dialog->restoreDangerChar(s);
@@ -1971,7 +1972,7 @@ void CrewList::saveHTML(wxString savePath, wxString layout, bool mode)
 			lastday++;
 						
 			if(actDay == maxDay) break;
-		}while(lineno < lineCount);
+		}while(lineno < (int) lineCount);
 		htmlFile << bottomWakeHTML;
 	}
 	
@@ -2283,7 +2284,7 @@ void CrewList::saveODT(wxString savePath,wxString layout, bool mode)
 
 	if(odt.Contains(seperatorWakeTop))
 	{
-		unsigned int lineno;
+		int lineno;
 		unsigned int dDay = dialog->m_choiceWakeDisplay->GetSelection();
 		unsigned int lineCount = watchListFile->GetLineCount();
 		wxString s;
@@ -2313,7 +2314,7 @@ void CrewList::saveODT(wxString savePath,wxString layout, bool mode)
 		do{
 			watch.clear();
 
-				if(lineno >= lineCount) 
+				if(lineno >= (int) lineCount) 
 					break;
 				s = watchListFile->GetLine(lineno);
 				s = dialog->restoreDangerChar(s);

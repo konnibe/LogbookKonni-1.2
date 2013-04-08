@@ -945,8 +945,6 @@ void LogbookHTML::toODS(wxString path)
 	zip.PutNextEntry(wxT("content.xml"));
 	txt << parent->content;
 
-	long emptyCol = 0;
-
 	txt << _T("<table:table-row table:style-name=\"ro2\">");
 
 	for(int n = 0; n < parent->numPages; n++)
@@ -1027,7 +1025,7 @@ void LogbookHTML::toKML(wxString path)
 	wxString trackID = wxEmptyString, trackOldID = wxEmptyString;
 	wxString routeID = wxEmptyString, routeOldID = wxEmptyString;
 
-	bool error = false, first = true, rfirst = true, newFolder=true;
+	bool error = false, first = true, rfirst = true;
 	wxDateTime dt;
 	int maxRow = parent->m_gridGlobal->GetNumberRows(), row = 0;
 
@@ -1081,7 +1079,6 @@ void LogbookHTML::toKML(wxString path)
 							rfirst = true;
 							routeID = wxEmptyString;
 
-							bool closeFolder = false;
 							if(!parent->logGrids[2]->GetCellValue(row,ROUTEID).IsEmpty())
 							{
 								wxJSONWriter w;
@@ -1098,16 +1095,13 @@ void LogbookHTML::toKML(wxString path)
 						{
 							first = false;
 							rfirst = false;
-							newFolder = true;
 						}
 						break;
 					case Logbook::RDATE:
 					    logpointName = e +_T(" ");
 						break;
 					case Logbook::RTIME:
-						//logpointName = description;
 						logpointName += e;
-					//	description += e +_T("\n");
 						break;
 					case Logbook::POSITION:
 						if(e.IsEmpty()) 
