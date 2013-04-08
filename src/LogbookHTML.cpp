@@ -360,8 +360,10 @@ wxString LogbookHTML::toHTML(wxString path, wxString layout, bool mode)
 		if(selection && arrayRows[selCount-1]+1 < count) break;
 
 		newMiddleHTML = middleHTML;
-		
+
+#ifdef __WXMSW__
 		unsigned int first = 0, ofirst = 0;
+#endif
 		for(int grid = 0; grid < 3; grid++)
 		{
 			wxGrid* g = parent->logGrids[grid];
@@ -402,209 +404,12 @@ wxString LogbookHTML::toHTML(wxString path, wxString layout, bool mode)
 
 	return filename;
 }
-/*
-wxString LogbookHTML::toHTML(wxString path, wxString layout, bool mode)
-{
-	wxArrayInt arrayRows;
-	int count = 0, selCount = 0;
-	bool selection = false;
 
-	selCount = parent->m_gridGlobal->GetSelectedRows().Count() ;
-
-	if(selCount > 0)
-	{
-		selection = true;
-		arrayRows = parent->m_gridGlobal->GetSelectedRows();
-	}
-
-	if(layout == _T(""))
-	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, no Layout installed"),_T("Information"),wxID_OK);
-#else
-		wxMessageBox(_("Sorry, no Layout installed"),_("Information"),wxOK);
-#endif
-		return _T("");
-	}
-
-	wxString html = readLayoutFile(layout);
-
-	wxString seperatorTop = _T("<!--Repeat -->");
-	wxString seperatorBottom = _T("<!--Repeat End -->");
-	wxString seperatorHeaderTop = _T("<!--Header -->");
-	wxString seperatorHeaderBottom = _T("<!--Header end -->");
-
-
-	wxString filename = this->fileName;
-
-	if(mode == false)
-	{
-		filename.Replace(wxT("txt"),wxT("html"));
-	}
-	else
-		filename = path;
-
-	if(::wxFileExists(filename))
-		::wxRemoveFile(filename);
-	
-	wxFileOutputStream output( filename );
-	wxTextOutputStream d(output);
-	unsigned int i = 0;
-	wxString str;
-	wxString header;
-	while(i < html.Length())
-	{
-		if(html[i] != '#')
-		{
-			if(html[i] == '<')
-			{
-				if(html[i+1] == '!')
-				{
-					while(html[i] != '>')
-						header << html[i++];
-					header << html[i++];
-					if(header.Contains(seperatorTop))
-					{
-						header = wxEmptyString;
-						while(!header.Contains(_T("<!")))
-								header << html[i++];
-						
-						header.Replace(_T("<!"),_T(""));
-						while(html[i] != '>')
-							i++;
-						i++;int kk =0;
-						for(int row = 0; row < parent->logGrids[0]->GetNumberRows(); row++)
-						{
-							unsigned int n = 0;
-							while(n < header.Len())
-							{
-								while(header[n] != '#' && n < header.Len())
-									d << header[n++];
-							//	wxMessageBox(wxString(header[n])+wxString(header[n+1])+wxString(header[n+2])+wxString(header[n+3]));
-								kk++;
-								if(n >= header.Len())  break;
-								n = setTableValues(mode,n++,row,header,d);
-							}
-						}
-						//d << header;
-
-					//	wxMessageBox(header);
-					}
-					else
-					{
-						d << header;
-						header = wxEmptyString;
-					}
-				}
-				else
-				{
-					//i = t;
-					d << html[i++];
-				}
-			}
-			else
-				d << html[i++];
-		}
-		else
-		{
-			i = setTableValues(mode,i,0,html,d);
-		}
-	}
-	output.Close();
-	return filename;*/
-/*	wxTextOutputStream htmlFile(output);
-
-	wxString newMiddleHTML;
-
-
-	htmlFile << topHTML;
-
-	int rowsMax = parent->m_gridGlobal->GetNumberRows();
-	for(int row = 0; row < rowsMax; row++)
-	{
-		count++;
-		if(selection && arrayRows[0]+1 > count) continue;
-		if(selection && arrayRows[selCount-1]+1 < count) break;
-
-		newMiddleHTML = middleHTML;
-		for(int grid = 0; grid < 3; grid++)
-		{
-			wxGrid* g = parent->logGrids[grid];
-			for(int col = 0; col < g->GetNumberCols(); col++)
-				newMiddleHTML = replacePlaceholder(newMiddleHTML,headerHTML,grid,row,col,0);
-		}
-		htmlFile << newMiddleHTML;
-	}
-	htmlFile << bottomHTML;
-
-	if(count <= 0)
-	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, Logbook has no lines"),_T("Information"),wxID_OK);
-#else
-		wxMessageBox(_("Sorry, Logbook has no lines"),_("Information"),wxOK);
-#endif
-		return _T("");
-	}
-
-	output.Close();
-
-	return filename;
-	*/
-//}
-/*
-int LogbookHTML::setTableValues(bool mode, int index, int row, wxString html, wxTextOutputStream &d)
-{
-	wxString str;
-	unsigned int i = index;
-			int n = 0, t = i;
-			i++;
-			while(i < html.Len() && (html[i] != '#' && n < 20))
-			{
-				str << html[i++];
-				n++;
-			}
-			if(n >= 20)
-			{
-				str = wxEmptyString;
-				d << html[t];
-			    i = t+1;
-				n = 0;
-			}
-			else
-			{
-				its = placeholders.find(str);
-				if(its == placeholders.end())
-				{
-					it = placeholdersboat.find(str);
-					if(it != placeholdersboat.end())
-						str.Replace(str,Export::replaceNewLine(mode,(*it).second,false));
-					else if(str == _T("NO."))
-						str.Replace(str,wxString::Format(_T("%i"),row));
-				}
-				else if(its != placeholders.end())
-				{
-					if(str[0] != 'L')
-						str.Replace(str,Export::replaceNewLine(mode,parent->logGrids[(*its).second.grid]->GetCellValue(row,(*its).second.col),false));
-					else
-						str.Replace(str,Export::replaceNewLine(mode,parent->logGrids[(*its).second.grid]->GetColLabelValue((*its).second.col),true));
-				}
-				wxString str1(str, wxConvUTF8);
-				d << str1;
-				str = wxEmptyString;
-				i++;
-			}
-	return i;
-}
-*/
 wxString LogbookHTML::replacePlaceholder(wxString html,wxString htmlHeader,int grid, int row, int col, bool mode, wxTextOutputStream &htmlFile)
 {
 
 		wxString s;
 		wxGrid* g = parent->logGrids[grid];
-
-//		if(row == 0 && col == 0 && grid == 0)  
-//			route = _T(""); 
 
 			switch(grid)
 			{
@@ -614,7 +419,6 @@ wxString LogbookHTML::replacePlaceholder(wxString html,wxString htmlHeader,int g
 						case ROUTE:	if(route != Export::replaceNewLine(mode,g->GetCellValue(row,col),false))
 									{
 										htmlHeader.Replace(wxT("#ROUTE#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false));
-										//html.Prepend(htmlHeader);
 										htmlHeader.Replace(wxT("#LROUTE#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
 										htmlFile << htmlHeader;
 									}
@@ -1341,12 +1145,10 @@ void LogbookHTML::toKML(wxString path)
 					case Logbook::REMARKS:
 						e = replaceKMLCharacters(e);
 						fRemarks = e;
-						//description += e;
 						if(rfirst)
 						{
 							remarks = wxEmptyString; //e.SubString(0,50)+_T("...");
 							folder.Replace(_T("#CREATED#"),remarks,false);
-							//(*kmlFile) << folder;
 							rfirst = false;
 						}
 						break;

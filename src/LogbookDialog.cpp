@@ -6651,13 +6651,13 @@ void SelectLogbook::OnGridCellChange( wxGridEvent& event )
 		autosize = true;
 		wxString f = m_grid13->GetCellValue(selRow,3);
 		wxTextFile text(f);
-		bool u = text.Open();
+		text.Open();
 
 		wxString str = _T("#1.2#\t")+m_grid13->GetCellValue(selRow,2);
 		str = parent->replaceDangerChar(str);
 		text.RemoveLine(0);
 		text.InsertLine(str,0);
-		bool h = text.Write();
+		text.Write();
 //		wxMessageBox(wxString::Format(_T("%i %s %s %i"),u,f,str,h));
 		text.Close();
 

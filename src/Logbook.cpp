@@ -443,7 +443,7 @@ void Logbook::SetSentence(wxString &sentence)
 	}
 	else if(sentenceInd == _T("$ERRPM"))
 	{
-		long Umin1 = 0, Umin2 = 0, en = 0;
+		long Umin1 = 0, Umin2 = 0;
 
 		rpmSentence = true;
 		dtRPM = wxDateTime::Now();
@@ -696,7 +696,6 @@ void Logbook::newLogbook()
 
 void Logbook::selectLogbook()
 {
-	int selIndex = -1;
 	wxString path(*dialog->pHome_Locn);
 	path = path + _T("data");
 
@@ -1490,10 +1489,10 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 
 	if(!sRPM1.IsEmpty())
 		dialog->logGrids[2]->SetCellValue(lastRow,RPM1-sailsCol,sRPM1+sEngine+
-											((sRPM1Shaft.IsEmpty())? wxEmptyString : _T("\n")+sRPM1Shaft+sShaft));
+											((sRPM1Shaft.IsEmpty())? _T("") : _T("\n")+sRPM1Shaft+sShaft));
 	if(!sRPM2.IsEmpty())
 		dialog->logGrids[2]->SetCellValue(lastRow,RPM2-sailsCol,sRPM2+sEngine+
-											((sRPM2Shaft.IsEmpty())? wxEmptyString : _T("\n")+sRPM2Shaft+sShaft));
+											((sRPM2Shaft.IsEmpty())? _T("") : _T("\n")+sRPM2Shaft+sShaft));
 
 	if(ActuellWatch::active == true)
 		dialog->logGrids[0]->SetCellValue(lastRow,WAKE,ActuellWatch::member);
