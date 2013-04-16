@@ -9,6 +9,7 @@
 #include "LogbookHTML.h"
 #include "logbook_pi.h"
 #include "Options.h"
+#include "LogbookOptions.h"
 #include "MessageBoxOSX.h"
 
 #include "nmea0183/nmea0183.h"
@@ -93,27 +94,20 @@ Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString
 	routeIsActive = false;
 	trackIsActive = false;
 	wimdaSentence = false;
-	rpmSentence = false;
 	bSOW = false;
 	bTemperatureWater = false;
 	bTemperatureAir = false;
 	bWind = false;
 	bDepth = false;
-	engine1Status = false;
-	dtEngine1On = -1;
 	dtEngine1Off = -1;
 	bRPM1 = false;
-	engine1Status = false;
-	dtEngine2On = -1;
 	dtEngine2Off = -1;
 	bRPM2 = false;
-	engine2Status = false;
-	bEngine1Running = false;
-	bEngine2Running = false;
 	sRPM1Shaft = wxEmptyString;
 	sRPM1Source = wxEmptyString;
 	sRPM2Shaft = wxEmptyString;
 	sRPM2Source = wxEmptyString;
+	rpmSentence = false;
 }
 
 Logbook::~Logbook(void)
@@ -125,18 +119,12 @@ void Logbook::setTrackToNewID(wxString target)
 {
 	if(mergeList.Count() == 0) return;
 
-/*	for(unsigned int i = 0; i < mergeList.GetCount(); i++)
-		for(int row = 0; row < parent->logGrids[2]->GetRows(); row++)
-			if(parent->logGrids[2]->GetCellValue(row,LogbookHTML::TRACKID) == mergeList.Item(i))
-				parent->logGrids[2]->SetCellValue(row,LogbookHTML::TRACKID,target);
-*/
 	wxDir dir;
 	wxArrayString files;
 	dir.GetAllFiles(parent->data,&files,_T("until*.txt"),wxDIR_FILES);
 
 		for(unsigned int i = 0; i < files.Count(); i++)
 		{
-		//	if(files[i].Contains(wxString(wxFileName::GetPathSeparator())+_T("logbook.txt"))) continue;
 			wxFileInputStream file(files[i]);
 			wxTextInputStream txt(file);
 
@@ -441,11 +429,13 @@ void Logbook::SetSentence(wxString &sentence)
 		tkz.GetNextToken();
 		sHumidity = tkz.GetNextToken();
 	}
-	else if(sentenceInd == _T("$ERRPM"))
+	else if(opt->bRPMIsChecked && sentenceInd == _T("$ERRPM"))
 	{
+		rpmSentence = true;
+		if(opt->bRPMCheck)
+			parent->logbookPlugIn->optionsDialog->setRPMSentence(sentence);
 		long Umin1 = 0, Umin2 = 0;
 
-		rpmSentence = true;
 		dtRPM = wxDateTime::Now();
 
 		wxString source = tkz.GetNextToken();
@@ -453,9 +443,8 @@ void Logbook::SetSentence(wxString &sentence)
 		wxString speed = tkz.GetNextToken();
 		wxString pitch = tkz.GetNextToken();
 
-		if(engineNr == _T("1"))
+		if(engineNr == opt->engine1)
 		{
-			engineNr.ToLong(&engine);
 			speed.ToLong(&Umin1);
 			if(source == _T("E"))
 				sRPM1 = speed;
@@ -464,14 +453,14 @@ void Logbook::SetSentence(wxString &sentence)
 			if(Umin1 != 0L)
 			{
 				bRPM1 = true;
-				if(!engine1Status && source == _T("E"))
+				if(source == _T("E"))
 				{
-					bool temp = engine1Status;
-					dtEngine1On = wxDateTime::Now();
-					engine1Status = true;
-					if(!temp)
+					if(!opt->engine1Running)
+					{
+						opt->dtEngine1On = wxDateTime::Now();
 						appendRow(false);
-					bEngine1Running = true;
+					}
+					opt->engine1Running = true;
 				}
 				if(source == _T("S"))
 						sRPM1Shaft = speed;
@@ -479,37 +468,32 @@ void Logbook::SetSentence(wxString &sentence)
 			else
 			{
 				bRPM1 = false;
-				if(engine1Status)
+				if(opt->engine1Running)
 				{
-					bool temp = engine1Status;
-					dtEngine1Off = wxDateTime::Now().Subtract(dtEngine1On);
-					engine1Status = false;
-					if(temp)
-					{
-						appendRow(false);
-						bEngine1Running = false;
-					}
+					dtEngine1Off = wxDateTime::Now().Subtract(opt->dtEngine1On);
+					opt->dtEngine1On = -1;
+					appendRow(false);
+					opt->engine1Running = false;
 				}
 			}
 		}
 		else
 		{
 			speed.ToLong(&Umin2);
-			engineNr.ToLong(&engine);
 			if(source == _T("E"))
 				sRPM2 = speed;
 
 			if(Umin2 != 0L)
 			{
 				bRPM2 = true;
-				if(!engine2Status && source == _T("E"))
+				if(source == _T("E"))
 				{
-					bool temp2 = engine2Status;
-					dtEngine2On = wxDateTime::Now();
-					engine2Status = true;
-					if(!temp2)
+					if(!opt->engine2Running)
+					{
+						opt->dtEngine2On = wxDateTime::Now();
 						appendRow(false);
-					bEngine2Running = true;
+					}
+					opt->engine2Running = true;
 				}
 				if(source == _T("S"))
 						sRPM2Shaft = speed;
@@ -517,16 +501,12 @@ void Logbook::SetSentence(wxString &sentence)
 			else
 			{
 				bRPM2 = false;
-				if(engine2Status)
+				if(opt->engine2Running)
 				{
-					bool temp2 = engine2Status;
-					dtEngine2Off = wxDateTime::Now().Subtract(dtEngine2On);
-					engine2Status = false;
-					if(temp2)
-					{
-						appendRow(false);
-						bEngine2Running = false;
-					}
+					dtEngine2Off = wxDateTime::Now().Subtract(opt->dtEngine2On);
+					opt->dtEngine2On = -1;
+					appendRow(false);
+					opt->engine2Running = false;
 				}
 			}
 		}
@@ -1433,69 +1413,96 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 
 	if(bRPM1)
 	{
-		if(	!bEngine1Running)
-			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #1 started"));
+		if(	!opt->engine1Running)
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #1 started"));
 		else
 		{
-			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #1 running"));
-			if(opt->NMEAUseERRPM)
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #1 running"));
+			if(opt->NMEAUseERRPM || opt->toggleEngine1)
 			{
-				dtEngine1Off = wxDateTime::Now().Subtract(dtEngine1On);
-				dtEngine1On = wxDateTime::Now();
-				dialog->logGrids[2]->SetCellValue(lastRow,MOTOR-sailsCol,dtEngine1Off.Format(_T("%H:%M")));
+				dtEngine1Off = wxDateTime::Now().Subtract(opt->dtEngine1On);
+				opt->dtEngine1On = wxDateTime::Now();
+				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR,dtEngine1Off.Format(_T("%H:%M")));
 				//			wxMessageBox(dtEngine1Off.Format(_T("%H:%M:%S")));
 			}
 		}
-		dialog->logGrids[2]->SetCellValue(lastRow,RPM1-sailsCol,sRPM1);
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::RPM1,sRPM1);
 	}
-	if(!bRPM1 && bEngine1Running)	
-	{
-		if(opt->NMEAUseERRPM)
-			dialog->logGrids[2]->SetCellValue(lastRow,MOTOR-sailsCol,dtEngine1Off.Format(_T("%H:%M")));
-		dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #1 stopped"));
 
+	if(!bRPM1 && opt->engine1Running)	
+	{
+		if(opt->NMEAUseERRPM || !opt->toggleEngine1)
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR,dtEngine1Off.Format(_T("%H:%M")));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #1 stopped"));
 	}
+
 	if(bRPM2)
 	{
-		if(	!bEngine2Running)
-			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #2 started"));
+		if(	!opt->engine2Running)
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #2 started"));
 		else
 		{
-			if(dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol).IsEmpty())
-				dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #2 running"));
+			if(dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS).IsEmpty())
+				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #2 running"));
 			else
-				dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol)+_("\nEngine #2 running"));
-			if(opt->NMEAUseERRPM)
+				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS)+_("\nEngine #2 running"));
+			if(opt->NMEAUseERRPM || engine2Manual)
 			{
-				dtEngine2Off = wxDateTime::Now().Subtract(dtEngine2On);
-				dtEngine2On = wxDateTime::Now();
-				dialog->logGrids[2]->SetCellValue(lastRow,MOTOR1-sailsCol,dtEngine2Off.Format(_T("%H:%M")));
+				dtEngine2Off = wxDateTime::Now().Subtract(opt->dtEngine2On);
+				opt->dtEngine2On = wxDateTime::Now();
+				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1,dtEngine2Off.Format(_T("%H:%M")));
 //				wxMessageBox(dtEngine2Off.Format(_T("%H:%M:%S")));
 			}
 		}
 	}
-	if(!bRPM2 && bEngine2Running)	
+	if(!bRPM2 && opt->engine2Running)	
 	{
-		if(opt->NMEAUseERRPM)
-			dialog->logGrids[2]->SetCellValue(lastRow,MOTOR1-sailsCol,dtEngine2Off.Format(_T("%H:%M")));
-		if(dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol).IsEmpty())
-			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_("Engine #2 stopped"));
+		if(opt->NMEAUseERRPM || !opt->toggleEngine2)
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1,dtEngine2Off.Format(_T("%H:%M")));
+		if(dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS).IsEmpty() || dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS).GetChar(0) == ' ')
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #2 stopped"));
 		else
-			dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow,MREMARKS-sailsCol)+_("\nEngine #2 stopped"));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS)+_("\nEngine #2 stopped"));
 	}
 
 	wxString sEngine = _T(" ")+opt->rpm+_T(" (")+opt->engine+_T(")");
 	wxString sShaft =  _T(" ")+opt->rpm+_T(" (")+opt->shaft+_T(")");
 
 	if(!sRPM1.IsEmpty())
-		dialog->logGrids[2]->SetCellValue(lastRow,RPM1-sailsCol,sRPM1+sEngine+
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::RPM1,sRPM1+sEngine+
 											((sRPM1Shaft.IsEmpty())? _T("") : _T("\n")+sRPM1Shaft+sShaft));
 	if(!sRPM2.IsEmpty())
-		dialog->logGrids[2]->SetCellValue(lastRow,RPM2-sailsCol,sRPM2+sEngine+
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::RPM2,sRPM2+sEngine+
 											((sRPM2Shaft.IsEmpty())? _T("") : _T("\n")+sRPM2Shaft+sShaft));
 
 	if(ActuellWatch::active == true)
 		dialog->logGrids[0]->SetCellValue(lastRow,WAKE,ActuellWatch::member);
+
+	wxString sails = wxEmptyString;  unsigned int n = 0;
+	for(unsigned i = 0; i < 14; i++)
+	{
+		if(dialog->checkboxSails[i]->IsChecked())
+		{
+			sails += opt->sailsName.Item(i);
+			if(n == 1)
+			{
+				sails += _T("\n");
+				n = 0;
+			}
+			else
+			{
+				sails += _T(", ");
+				n++;
+			}
+		}
+	}
+
+	if(!sails.IsEmpty() && n == 1)
+		sails.RemoveLast(2);
+	else if(!sails.IsEmpty())
+		sails.RemoveLast(1);
+
+	dialog->m_gridMotorSails->SetCellValue(lastRow,LogbookHTML::SAILS,sails);
 
 	changeCellValue(lastRow, 0,1);
 	setCellAlign(lastRow);
@@ -1509,6 +1516,32 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		dialog->m_gridWeather->MakeCellVisible(lastRow,0);
 		dialog->m_gridMotorSails->MakeCellVisible(lastRow,0);
 	}
+}
+
+void Logbook::resetEngineManuallMode()
+{
+	bool t = opt->bRPMCheck;
+	parent->m_toggleBtnEngine1->SetValue(false);
+	opt->toggleEngine1 = false;
+	bRPM1 = false;
+	dtEngine1Off = wxDateTime::Now().Subtract(opt->dtEngine1On);
+
+	parent->m_toggleBtnEngine2->SetValue(false);
+	opt->toggleEngine2 = false;
+	bRPM2 = false;
+	dtEngine2Off = wxDateTime::Now().Subtract(opt->dtEngine2On);
+
+	appendRow(false);
+
+	opt->dtEngine1On = -1;
+	opt->dtEngine2On = -1;
+
+	engine1Manual = false;
+	opt->engine1Running = false;
+	engine2Manual = false;
+	opt->engine2Running = false;
+	opt->bRPMCheck = t;
+
 }
 
 void Logbook::checkNMEADeviceIsOn()
@@ -1553,21 +1586,22 @@ void Logbook::checkNMEADeviceIsOn()
 		rpmSentence = false;
 		wxDateTime now = wxDateTime::Now();
 
-		engine1Status = false;
 		bRPM1 = false;
-		dtEngine1Off = now.Subtract(dtEngine1On); 
+		dtEngine1Off = now.Subtract(opt->dtEngine1On); 
+		opt->dtEngine1On = -1;
 		sRPM1 = wxEmptyString;
 		sRPM1Shaft = wxEmptyString;
 
-		engine2Status = false;
 		bRPM2 = false;
-		dtEngine2Off = now.Subtract(dtEngine2On); 
+		dtEngine2Off = now.Subtract(opt->dtEngine2On); 
+		opt->dtEngine2On = -1;
 		sRPM2 = wxEmptyString;
 		sRPM2Shaft = wxEmptyString;
 
 		appendRow(false);
-		bEngine2Running = false;
-		bEngine1Running = false;
+
+		opt->engine1Running = false;
+		opt->engine2Running = false;
 	}
 }
 
@@ -1961,14 +1995,22 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 
 	s = dialog->logGrids[grid]->GetCellValue(row,col);
 
-	if((grid == 0 && (col == ROUTE || col == WAKE || col == REMARKS)) ||
+	if((grid == 0 && (col == WAKE || col == REMARKS)) ||
 		(grid == 1 && (col == WEATHER-weatherCol || col == CLOUDS-weatherCol || col == VISIBILITY-weatherCol)) ||
 		(grid == 2 && (col == SAILS-sailsCol || col == REEF-sailsCol || col == MREMARKS-sailsCol)))
 	{
 		return;
 	}
 
-	if(grid == 0 && col == RDATE )
+	if(grid == 0 && col == ROUTE )	
+	{
+		if(s.Last() == '\n')
+		{
+			s.RemoveLast();
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 0 && col == RDATE )
 					{
 						wxDateTime dt;
 
@@ -2502,7 +2544,7 @@ void Logbook::deleteRows()
 
 	rows = dialog->logGrids[tab]->GetSelectedRows();
 	rowsCount = rows.GetCount();
-	if(rowsCount == 0)
+	if(rowsCount == 0) // complete grid
 	{
 		wxGridCellCoordsArray art = dialog->logGrids[tab]->GetSelectionBlockTopLeft();
 		wxGridCellCoordsArray arb = dialog->logGrids[tab]->GetSelectionBlockBottomRight();
@@ -2510,11 +2552,11 @@ void Logbook::deleteRows()
 		int end = arb[0].GetRow();
 		for(int grid = 0; grid < LOGGRIDS; grid++)
 		{
-			dialog->logGrids[grid]->DeleteRows(art[0].GetRow(),(end-start)+1);
+			dialog->logGrids[grid]->DeleteRows(start,(end-start)+1);
 			dialog->logGrids[grid]->ForceRefresh();
 		}
 
-		if(start == dialog->m_gridGlobal->GetNumberRows())
+		if(start == dialog->m_gridGlobal->GetNumberRows()-1)
 			start--;
 
 		if(dialog->logGrids[tab]->GetNumberRows() != 0)
@@ -2550,18 +2592,19 @@ void Logbook::deleteRows()
 		}
 	}
 
+
 	for(int grid = 0; grid < LOGGRIDS; grid++)
 	{
 		for(unsigned int i = 0; i < rowsCount; i++)
 			dialog->logGrids[grid]->DeleteRows(rows[i]);
-
-		if(dialog->logGrids[grid]->GetNumberRows() > 0) 
-			dialog->logGrids[grid]->SetGridCursor(0,0);
 	}
-	dialog->selGridRow = 0;
+	dialog->selGridRow = rows[rowsCount-1]-1;
+		if(dialog->logGrids[tab]->GetNumberRows() > 0) 
+			dialog->logGrids[tab]->SetGridCursor(rows[rowsCount-1]-1,0);
+
 	modified = true;
 	if(dialog->logGrids[0]->GetNumberRows() > 0)
-		recalculateLogbook(rows[rows.GetCount()-1]);
+		recalculateLogbook(rows[rows.GetCount()-1]-1);
 }
 
 wxString  Logbook::decimalToHours(double res,bool b)

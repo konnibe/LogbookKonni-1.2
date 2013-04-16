@@ -178,44 +178,18 @@ void logbookkonni_pi::shutdown(bool menu)
 	{
 		if(m_plogbook_window->IsIconized()) m_plogbook_window->Iconize(false);
 		m_plogbook_window->setIniValues();
+
+		if((opt->engine2Running && opt->toggleEngine1) 
+			|| (opt->engine1Running && opt->toggleEngine2))
+		{
+			int a = wxMessageBox(_("Your engine(s) are still running\n\nStop engine(s) ?"),_T(""),wxYES_NO | wxICON_QUESTION, NULL);
+
+			if( a == wxYES)
+				m_plogbook_window->logbook->resetEngineManuallMode();
+		}
+
 		SaveConfig();
 
-			/* Preview only */
-		/*
-#ifdef __WXOSX__
-		int ret = MessageBoxOSX(NULL,_T("*** Preview only ***\n\nRestore all files from version 1.1 ?"),_T("Information"),wxID_YES|wxID_NO);
-		if(ret == wxID_YES)
-#else
-		int ret = wxMessageBox(_T("*** Preview only ***\n\nRestore all files from version 1.1 ?"),_T(""),wxYES|wxNO);
-		if(ret == wxYES)
-#endif
-		{
-			wxArrayString files;
-			wxDir dir;
-			wxString path = m_plogbook_window->data;
-			wxString dest = path+_T("Backup_1_1");
-			wxDir destDir(dest);
-			wxDir org(path);
-
-			org.GetAllFiles(path,&files,_T("*.txt"),wxDIR_FILES);
-			for(unsigned int i = 0; i < files.Count(); i++)
-			{   
-				wxFileName fn(files[i]);
-				::wxRemoveFile(path+fn.GetFullName());
-			}
-
-			files.clear();
-
-			dir.GetAllFiles(dest,&files,_T("*.txt"),wxDIR_FILES);
-			for(unsigned int i = 0; i < files.Count(); i++)
-			{   
-				wxFileName fn(files[i]);
-				wxCopyFile(dest+fn.GetPathSeparator()+fn.GetFullName(),path+fn.GetFullName());
-			}
-			wxMessageBox(_T("*** Preview only ***\n\nRestored all files from version 1.1\n\nYou can now work with version 1.1 again.\nAll changes made to files in this preview are overwritten."));
-
-		}
-		*/
 		m_plogbook_window->Close();
 		m_plogbook_window->Destroy();
 		m_plogbook_window = NULL;
@@ -881,6 +855,7 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "Date1" ), opt->date1);
 			pConf->Write ( _T ( "Date2" ), opt->date2);
 			pConf->Write ( _T ( "Date3" ), opt->date3 );
+			pConf->Write ( _T ( "NoEngines" ), opt->engines );
 
 			pConf->Write ( _T ( "TimeFormat" ), opt->timeformat );
 			pConf->Write ( _T ( "NoSeconds" ), opt->noseconds );
@@ -983,13 +958,43 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "ShowFilteredLayouts" ), opt->filterLayout);
 			pConf->Write ( _T ( "PrefixLayouts" ), opt->layoutPrefix);
 
+			wxString kmlRouteTrack = wxString::Format(_T("%i,%i"),opt->kmlRoute,opt->kmlTrack);
+			pConf->Write ( _T ( "KMLRouteTrack" ), kmlRouteTrack);
 			pConf->Write ( _T ( "KMLWidth" ), opt->kmlLineWidth);
 			pConf->Write ( _T ( "KMLTransp" ), opt->kmlLineTransparancy);
 			pConf->Write ( _T ( "KMLRouteColor" ), opt->kmlRouteColor);
 			pConf->Write ( _T ( "KMLTrackColor" ), opt->kmlTrackColor);
 
+			pConf->Write ( _T ( "RPMIsChecked" ), opt->bRPMIsChecked);
 			pConf->Write ( _T ( "NMEAUseRPM" ), opt->NMEAUseERRPM);
 			pConf->Write ( _T ( "NMEAUseWIMDA" ), opt->NMEAUseWIMDA);
+			pConf->Write ( _T ( "Engine1" ), opt->engine1);
+			pConf->Write ( _T ( "Engine2" ), opt->engine2);
+			pConf->Write ( _T ( "Engine1Runs" ), opt->engine1Running);
+			pConf->Write ( _T ( "Engine2Runs" ), opt->engine2Running);
+
+			pConf->Write ( _T ( "ShowLayoutP" ), opt->layoutShow);
+
+			pConf->Write ( _T ( "toggleEngine1" ), opt->toggleEngine1);
+			pConf->Write ( _T ( "toggleEngine2" ), opt->toggleEngine2);
+
+			wxString sails = wxEmptyString;
+			for(int i = 0; i < 14; i++)
+				sails += wxString::Format(_T("%s,%s,%i,"),opt->abrSails.Item(i),opt->sailsName.Item(i),opt->bSailIsChecked[i]);
+			sails.RemoveLast();
+			pConf->Write ( _T ( "Sails" ), sails);
+
+			if(opt->dtEngine1On.IsValid())
+				pConf->Write ( _T ( "Engine1TimeStart" ), opt->dtEngine1On.FormatISODate()+_T(" ")+
+														  opt->dtEngine1On.FormatISOTime());
+			else
+				pConf->Write ( _T ( "Engine1TimeStart" ),wxEmptyString);
+
+			if(opt->dtEngine2On.IsValid())
+				pConf->Write ( _T ( "Engine2TimeStart" ), opt->dtEngine2On.FormatISODate()+_T(" ")+
+														  opt->dtEngine2On.FormatISOTime());
+			else
+				pConf->Write ( _T ( "Engine2TimeStart" ),wxEmptyString);
 
 			for(unsigned int i = 0; i < opt->NavColWidth.Count(); i++)
 				pConf->Write (wxString::Format(_T ( "NavGridColWidth/%i"),i), opt->NavColWidth[i]);
@@ -1041,6 +1046,7 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "Date1" ), &opt->date1,0 );
 			pConf->Read ( _T ( "Date2" ), &opt->date2,1 );
 			pConf->Read ( _T ( "Date3" ), &opt->date3,2 );
+			pConf->Read ( _T ( "NoEngines" ), &opt->engines,0 );
 
 			pConf->Read ( _T ( "TimeFormat" ), &opt->timeformat, -1 );
 			pConf->Read ( _T ( "NoSeconds" ), &opt->noseconds );
@@ -1150,13 +1156,73 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "ShowFilteredLayouts" ), &opt->filterLayout);
 			pConf->Read ( _T ( "PrefixLayouts" ), &opt->layoutPrefix);
 
+			wxString kmlRouteTrack = wxEmptyString;
+			pConf->Read ( _T ( "KMLRouteTrack" ), &kmlRouteTrack,_T("1,1"));
+			wxStringTokenizer tkz(kmlRouteTrack,_T(","));
+			opt->kmlRoute = wxAtoi(tkz.GetNextToken());
+			opt->kmlTrack = wxAtoi(tkz.GetNextToken());
 			pConf->Read ( _T ( "KMLWidth" ), &opt->kmlLineWidth,_T("4"));
 			pConf->Read ( _T ( "KMLTransp" ), &opt->kmlLineTransparancy,0);
 			pConf->Read ( _T ( "KMLRouteColor" ), &opt->kmlRouteColor,0);
 			pConf->Read ( _T ( "KMLTrackColor" ), &opt->kmlTrackColor,3);
 
+			pConf->Read ( _T ( "RPMIsChecked" ), &opt->bRPMIsChecked,false);
 			pConf->Read ( _T ( "NMEAUseRPM" ), &opt->NMEAUseERRPM,false);
 			pConf->Read ( _T ( "NMEAUseWIMDA" ), &opt->NMEAUseWIMDA,false);
+			pConf->Read ( _T ( "Engine1" ), &opt->engine1,_T(""));
+			pConf->Read ( _T ( "Engine2" ), &opt->engine2,_T(""));
+			pConf->Read ( _T ( "Engine1Runs" ), &opt->engine1Running);
+			pConf->Read ( _T ( "Engine2Runs" ), &opt->engine2Running);
+
+			pConf->Read ( _T ( "ShowLayoutP" ), &opt->layoutShow,true);
+
+			pConf->Read ( _T ( "toggleEngine1" ), &opt->toggleEngine1);
+			pConf->Read ( _T ( "toggleEngine2" ), &opt->toggleEngine2);
+
+			wxString sails = wxEmptyString;
+			pConf->Read ( _T ( "Sails" ), &sails);
+			if(!sails.IsEmpty())
+			{
+				wxStringTokenizer tkz(sails,_T(","));
+				for(int i = 0; i < 14; i++)
+				{
+					opt->abrSails.Item(i) = tkz.GetNextToken();
+					opt->sailsName.Item(i) = tkz.GetNextToken();
+					opt->bSailIsChecked[i] = (wxAtoi(tkz.GetNextToken())?true:false);
+				}
+			}
+
+			wxString engine1 = wxEmptyString, engine2 = wxEmptyString;
+			pConf->Read ( _T ( "Engine1TimeStart" ), &engine1);
+			pConf->Read ( _T ( "Engine2TimeStart" ), &engine2);
+
+			if(!engine1.IsEmpty())
+			{
+				wxStringTokenizer tkz(engine1,_T(" "));
+				wxString date = tkz.GetNextToken();
+				wxString time = tkz.GetNextToken();
+
+				wxDateTime dt;
+				dt.ParseDate(date);
+				dt.ParseTime(time);
+
+				if(dt.GetYear() != 1970)
+					opt->dtEngine1On = dt;
+			}
+
+			if(!engine2.IsEmpty())
+			{
+				wxStringTokenizer tkz(engine2,_T(" "));
+				wxString date = tkz.GetNextToken();
+				wxString time = tkz.GetNextToken();
+
+				wxDateTime dt;
+				dt.ParseDate(date);
+				dt.ParseTime(time);
+
+				if(dt.GetYear() != 1970)
+					opt->dtEngine2On = dt;
+			}
 
 			int val;
 			bool r;

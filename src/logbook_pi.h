@@ -36,7 +36,7 @@
 #endif //precompiled headers
 
 #define     PLUGIN_VERSION_MAJOR    1
-#define     PLUGIN_VERSION_MINOR    1950
+#define     PLUGIN_VERSION_MINOR    1951
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    7	
@@ -81,6 +81,7 @@ public:
 	  LogbookTimer		*timer;
       wxWindow          *m_parent_window;
       LogbookDialog     *m_plogbook_window;
+	  LogbookOptions    *optionsDialog;
 	  wxFileConfig		*m_pconfig;
 	  Options			*opt;
       wxTimer 		    *m_timer;
@@ -140,7 +141,6 @@ private:
 	  void dialogDimmer(PI_ColorScheme cs,wxWindow* ctrl,wxColour col,wxColour col1, wxColour back_color,wxColour text_color,
 						wxColour uitext, wxColour udkrd);
 
-	  LogbookOptions    *optionsDialog;
       wxAuiManager     *m_pauimgr;
 
       int               m_show_id;

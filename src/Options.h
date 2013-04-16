@@ -39,7 +39,16 @@ public:
 	bool		popup;
 	bool		hourFormat;
 	bool		statusbarGlobal;
+	bool		layoutShow;
 	bool		statusbarWatch;
+	int			engines;
+	bool		toggleEngine1;
+	bool		toggleEngine2;
+	wxArrayString abrSails;
+	wxArrayString sailsName;
+	bool		bSailIsChecked[14];
+	wxDateTime	dtEngine1On;
+	wxDateTime	dtEngine2On;
 
 	wxString    layoutPrefix;
 	bool		filterLayout;
@@ -124,6 +133,8 @@ public:
 	wxString    ampereh;
 
 	// KML
+	int			kmlRoute;
+	int			kmlTrack;
 	wxString	kmlLineWidth;
 	int			kmlLineTransparancy;
 	int			kmlRouteColor;
@@ -132,6 +143,13 @@ public:
 	wxArrayString kmlTrans;
 
 	//NMEA
+	bool		bRPMIsChecked;
+	wxString	sentence;
+	wxString	engine1;
+	wxString	engine2;
+	bool		engine1Running;
+	bool		engine2Running;
+	bool		bRPMCheck;
 	bool		NMEAUseERRPM;
 	bool		NMEAUseWIMDA;
 

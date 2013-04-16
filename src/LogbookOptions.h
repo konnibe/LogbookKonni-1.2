@@ -24,9 +24,11 @@
 #include <wx/statline.h>
 #include <wx/checkbox.h>
 #include <wx/textctrl.h>
+#include <wx/generic/grid.h>
 #include <wx/choice.h>
 #include <wx/button.h>
 #include <wx/dialog.h>
+#include <wx/tglbtn.h>
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -61,6 +63,7 @@ class LogbookOptions : public wxDialog
 		wxStaticLine* m_staticline44;
 		wxCheckBox* m_checkBoxShowLogbook;
 		wxStaticText* m_staticText76;
+		wxStaticText* m_staticText1361;
 		wxCheckBox* m_checkBoxShowOnlySelectedLayouts;
 		wxStaticText* m_staticText741;
 		wxStaticLine* m_staticline25;
@@ -155,11 +158,23 @@ class LogbookOptions : public wxDialog
 		wxPanel* m_panel24;
 		wxNotebook* m_notebook7;
 		wxPanel* m_panel27;
+		wxStaticText* m_staticText1381;
+		wxCheckBox* m_checkBoxKMLRoute;
+		wxCheckBox* m_checkBoxKMLTrack;
 		wxStaticText* m_staticText1281;
 		wxStaticText* m_staticText131;
 		wxStaticText* m_staticText129;
 		wxStaticText* m_staticText1291;
 		wxPanel* m_panel28;
+		wxCheckBox* m_checkBoxUseRPMOnOff;
+		wxStaticText* m_staticTextRPMSentence;
+		wxToggleButton* m_toggleBtnRPMCheck;
+		wxStaticText* m_staticText138;
+		wxTextCtrl* m_textCtrlEngine1;
+		wxStaticText* m_staticText139;
+		wxTextCtrl* m_textCtrlEngine2;
+		wxPanel* m_panel29;
+		wxStaticText* m_staticText1351;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;
@@ -183,6 +198,7 @@ class LogbookOptions : public wxDialog
 		 void onCheckBoxShowOnlySelectedLayouts( wxCommandEvent& event );
 		 void OnTextEnterLayoutPrefix( wxCommandEvent& event );
 		 void OnCheckBoxMaintenanceRowColoured( wxCommandEvent& event );
+		 void OnChoiceNoEngines( wxCommandEvent& event );
 		 void onCheckBoNoGPS( wxCommandEvent& event );
 //		 void onCheckBoxGuardChanged( wxCommandEvent& event );
 //		 void m_checkBoxTimerOnCheckBox( wxCommandEvent& event );
@@ -213,6 +229,8 @@ class LogbookOptions : public wxDialog
 		 void OnChoiceDate3( wxCommandEvent& event );
 		 void OnChoiceDateFormat( wxCommandEvent& event );
 		 void OnTextDateSeparator( wxCommandEvent& event );
+		 void OnCheckBoxUseRPM( wxCommandEvent& event );
+		 void OnToggleButtonRPMCheck( wxCommandEvent& event );
 		 void OnCancel( wxCommandEvent& event );
 		 void OnClose( wxCloseEvent& event );
 	
@@ -223,6 +241,7 @@ class LogbookOptions : public wxDialog
 		wxRadioButton* m_radioBtnGPSAuto;
 		wxChoice* m_choicePositionFormat;
 		wxCheckBox* m_checkBoxToolTips;
+		wxChoice* m_choiceNoEngines;
 		wxCheckBox* m_checkBoxShowAllLayouts;
 		wxTextCtrl* m_textCtrlLayoutPrefix;
 		wxCheckBox* m_checkBoxNoGPS;
@@ -259,6 +278,7 @@ class LogbookOptions : public wxDialog
 		wxChoice* m_choiceKMLTrackLineColor;
 		wxCheckBox* m_checkBoxNMEAUseRPM;
 		wxCheckBox* m_checkBoxNMEAUseWIMDA;
+		wxGrid* m_gridSailNames;
 
 
 		LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi* log_pi, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(652,580), long style = wxDEFAULT_DIALOG_STYLE|wxVSCROLL );
@@ -267,6 +287,7 @@ class LogbookOptions : public wxDialog
 		void getValues();
 		void setTimeFormat(int i);
 		void setDateFormat();
+		void setRPMSentence(wxString sentence);
 
 	private:
 		Options			 *opt;
@@ -292,6 +313,6 @@ class LogbookOptions : public wxDialog
 		void updateChoiceBoxes();
 		void setDateEnabled(int i);
 		void resetToOldDateTimeFormat();
-	
+		void setUseRPM(bool bIsChecked);
 };
 #endif

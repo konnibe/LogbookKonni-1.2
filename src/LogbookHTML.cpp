@@ -1078,18 +1078,6 @@ void LogbookHTML::toKML(wxString path)
 							route = e;
 							rfirst = true;
 							routeID = wxEmptyString;
-
-							if(!parent->logGrids[2]->GetCellValue(row,ROUTEID).IsEmpty())
-							{
-								wxJSONWriter w;
-								wxString out;
-								wxJSONValue v;
-								v[_T("Route_ID")] =   parent->logGrids[2]->GetCellValue(row,ROUTEID);
-								w.Write(v, out);
-								SendPluginMessage(wxString(_T("OCPN_ROUTE_REQUEST")),out);
-
-								::wxSafeYield();	
-							}
 						}
 						else
 						{
@@ -1180,12 +1168,22 @@ void LogbookHTML::toKML(wxString path)
 				case ROUTEID:
 					routeOldID = routeID;
 					routeID = e;
+							if((logbook->opt->kmlRoute && !routeID.IsEmpty()) && (routeID != routeOldID))
+							{
+								wxJSONWriter w;
+								wxString out;
+								wxJSONValue v;
+								v[_T("Route_ID")] =   parent->logGrids[2]->GetCellValue(row,ROUTEID);
+								w.Write(v, out);
+								SendPluginMessage(wxString(_T("OCPN_ROUTE_REQUEST")),out);
+
+								::wxSafeYield();	
+							}
 					break;
 				case TRACKID:
 					trackOldID = trackID;
 					trackID = e;
-							//if(!parent->logGrids[2]->GetCellValue(row,TRACKID).IsEmpty())
-					if(trackID != trackOldID || routeID != routeOldID)
+					if((logbook->opt->kmlTrack && !trackID.IsEmpty()) && (trackID != trackOldID))
 					{
 						wxJSONWriter w;
 						wxString out;

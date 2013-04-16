@@ -10,7 +10,7 @@
 #include "nmea0183/nmea0183.h"
 
 //#define PBVE_DEBUG 1
-#define DEVICE_TIMEOUT 3 // NMEA-Device doesn't send for 3 sec. sets the strings to empty in appendRow()
+#define DEVICE_TIMEOUT 4 // NMEA-Device doesn't send for 4 sec. sets the strings to empty in appendRow()
 
 class Options;
 class LogbookDialog;
@@ -61,25 +61,13 @@ private:
 	bool				bDepth;
 	wxString			sLogText;
 	wxString			sLinesReminder;
-	bool				rpmSentence;
-	bool				bRPM1;
 	wxString			sRPM1;
 	wxString			sRPM1Shaft;
 	wxString			sRPM1Source;
-	wxDateTime			dtRPM;
-	bool				bRPM2;
 	wxString			sRPM2Shaft;
 	wxString			sRPM2Source;
 	wxString			sRPM2;
 	wxDateTime			dtRPM2;
-	bool				engine1Status; // false = engine off
-	wxDateTime			dtEngine1On;
-	bool				bEngine1Running;
-	wxTimeSpan			dtEngine1Off;
-	bool				engine2Status; // false = engine off
-	wxDateTime			dtEngine2On;
-	wxTimeSpan			dtEngine2Off;
-	bool				bEngine2Running;
 	long				engine;
 
 	bool				noSentence;
@@ -146,6 +134,14 @@ public:
 	wxString		sDate;
 	wxString		sTime;
 	bool			guardChange;
+	bool			rpmSentence;
+	wxDateTime		dtRPM;
+	bool			engine1Manual;
+	bool			engine2Manual;
+	wxTimeSpan		dtEngine1Off;
+	wxTimeSpan		dtEngine2Off;
+	bool			bRPM2;
+	bool			bRPM1;
 
 public:
 	Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString layoutODT);
@@ -175,6 +171,7 @@ public:
 	void deleteRows();
 	void setTrackToNewID(wxString target);
 	void checkNMEADeviceIsOn();
+	void resetEngineManuallMode();
 
 	static wxString makeDateFromFile(wxString date, wxString dateformat);
 	static wxString makeWatchtimeFromFile(wxString time, wxString timeformat);

@@ -224,31 +224,35 @@ For a quick start, please follow these steps:</P>
 Options
 </H3>
 <P><A name=OptBehavoir></A>
-Please click in the fields to get an explanation / the tabs brings you to the next iamge <BR>
+Please click in the fields to get an explanation / The tabs brings you to the next image <BR>
 <IMG border=0 src="Images/Behavoir.PNG" useMap=#Map>
 <MAP name=Map>
-<AREA href="#showpositionformat" shape=rect coords=196,137,415,162>
-<AREA href="#showalllayouts" shape=rect coords=28,174,146,191>
-<AREA href="#layoutswithprefix" shape=rect coords=161,169,395,200>
-<AREA href="#NoGPS" shape=rect coords=26,191,150,207>
-<AREA href="#winddirectionset" shape=rect coords=19,207,271,227>
-<AREA href="#opttextwaypoint" shape=rect coords=193,322,462,365>
-<AREA href="#opttextwatchchanges" shape=rect coords=193,366,459,400>
-<AREA href="#opttextappendlinenm" shape=rect coords=195,403,460,437>
-<AREA href="#opttextcoursechanged" shape=rect  coords=193,438,459,483>
-<AREA href="#optinstalllayouts" shape=rect coords=148,513,230,562>
-<AREA href="#optinstalllanguages" shape=rect coords=236,513,323,563>
-<AREA href="#optuninstalllagbook" shape=rect coords=333,513,416,562>
+<AREA href="#showpositionformat" shape=rect coords=190,136,409,161>
+<AREA href="#showalllayouts" shape=rect coords=25,183,143,200>
+<AREA href="#layoutswithprefix" shape=rect coords=159,179,393,210>
+<AREA href="#NoGPS" shape=rect coords=28,201,152,217>
+<AREA href="#winddirectionset" shape=rect coords=20,217,272,237>
+<AREA href="#opttextwaypoint" shape=rect coords=201,328,458,373>
+<AREA href="#opttextwatchchanges" shape=rect coords=202,373,455,407>
+<AREA href="#opttextappendlinenm" shape=rect coords=203,410,456,446>
+<AREA href="#opttextcoursechanged" shape=rect  coords=204,447,458,492>
+<AREA href="#optinstalllayouts" shape=rect coords=148,522,230,571>
+<AREA href="#optinstalllanguages" shape=rect coords=236,519,323,569>
+<AREA href="#optuninstalllagbook" shape=rect coords=335,520,418,569>
 <AREA href="#OptCapacity" shape=rect coords=74,42,127,64>
-<AREA href="#showlogbookicon" shape=rect coords=25,143,142,160>
-<AREA href="#showtooltips" shape=rect coords=27,161,143,175>
-<AREA href="#OptAbbreviations" shape=rect coords=131,45,199,64>
+<AREA href="#showlogbookicon" shape=rect coords=25,139,142,156>
+<AREA href="#showtooltips" shape=rect coords=27,162,143,176>
+<AREA href="#OptAbbreviations" shape=rect coords=131,43,199,62>
 <AREA href="#OptPaths" shape=rect coords=205,42,248,62>
-<area shape="rect" coords="118,112,460,134" href="#optsettimeto">
-<area shape="rect" coords="72,69,232,89" href="#dateformat">
-<area shape="rect" coords="244,69,426,93" href="#dateformatselector">
-<area shape="rect" coords="429,69,567,90" href="#dateseparator"><area shape="rect" coords="243,93,318,110" href="#noseconds">
-<area shape="rect" coords="70,90,243,112" href="#timeformat"><area shape="rect" coords="200,279,461,321" href="#opttexttimer">
+<area shape="rect" coords="118,109,460,131" href="#optsettimeto">
+<area shape="rect" coords="68,68,228,88" href="#dateformat">
+<area shape="rect" coords="240,67,422,91" href="#dateformatselector">
+<area shape="rect" coords="424,69,562,90" href="#dateseparator">
+<area shape="rect" coords="241,92,316,109" href="#noseconds">
+<area shape="rect" coords="68,89,241,111" href="#timeformat">
+<area shape="rect" coords="200,284,461,326" href="#opttexttimer">
+<area shape="rect" coords="183,161,352,180" href="#NoEngines">
+<area shape="rect" coords="248,44,321,62" href="#OptMiscellaneous">
 </MAP></P>
 <TABLE border=0 width=789>
   <TBODY>
@@ -299,6 +303,12 @@ e.g. for  users without a translation of OpenCPN in their language and english l
       Show Tooltips</TD>
     <TD class=dashedCell vAlign=top>shows the little help texts</TD>
     </TR>
+  <TR>
+    <TD class=dashedCell vAlign=top><a name="NoEngines"></a>No. of inboard Engines </TD>
+    <TD class=dashedCell vAlign=top><p>Select how many engines your boat has.</p>
+      <p>It sets the Engine/Sails-Grid to one or two engines, selects the correct HTML/ODT-layout and disables the 
+         second engine in NMEA-Options by selecting one engine. </p></TD>
+  </TR>
   <TR>
     <TD class=dashedCell vAlign=top><A name=showalllayouts></A>
       Show alle Layout</TD>
@@ -380,8 +390,7 @@ e.g. for  users without a translation of OpenCPN in their language and english l
       Install Layouts</TD>
     <TD class=dashedCell vAlign=top><P>Search in the filedialog for the file 'LogbookKonni_Layouts.zip'</P>
       <P>Windows needs this button only to install layout-updates.<br>
-        All layouts are copied with the exe-installer.</P>
-      </TD>
+        All layouts are copied with the exe-installer.</P>      </TD>
     </TR>
   <TR>
     <TD class=dashedCell vAlign=top><A name=optinstalllanguages></A>
@@ -400,8 +409,7 @@ run as administrator the command  <br>
 unzip -o path_to_LogbookKonni_Languages.zip -d your_language-installpath<br>
 <br>
         Example:<br>
-        unzip -o ~/Downloads/LogbookKonni_Languages.zip -d /usr/local/share/local </p>
-      </TD>
+        unzip -o ~/Downloads/LogbookKonni_Languages.zip -d /usr/local/share/local </p>      </TD>
     </TR>
   <TR>
     <TD class=dashedCell vAlign=top><A name=optuninstalllagbook></A>
@@ -414,17 +422,18 @@ unzip -o path_to_LogbookKonni_Languages.zip -d your_language-installpath<br>
   </TABLE>
 <P align=center>
 <A name=OptCapacity></A>
-Please click in the fields to get an explanation / the tabs brings you to the next iamge
-<IMG border=0 src="Images/Capacity.PNG" width=652 height=590 useMap=#Map2>
+Please click in the fields to get an explanation / The tabs brings you to the next image
+<IMG border=0 src="Images/Capacity.PNG" width=691 height=629 useMap=#Map2>
 <MAP name=Map2>
 <AREA href="#optWatertank" shape=rect coords=271,148,534,173>
-<AREA href="#optWatermaker" shape=rect coords=273,176,544,204>
-<AREA href="#optFueltank" shape=rect coords=276,231,534,258>
+<AREA href="#optWatermaker" shape=rect coords=270,175,541,203>
+<AREA href="#optFueltank" shape=rect coords=279,232,537,259>
 <AREA href="#optBank1" shape=rect coords=276,292,536,314>
-<AREA href="#optBank2" shape=rect coords=277,321,534,345>
+<AREA href="#optBank2" shape=rect coords=279,321,536,345>
 <AREA href="#OptBehavoir" shape=rect coords=17,43,72,60>
 <AREA href="#OptAbbreviations" shape=rect coords=127,43,204,62>
 <AREA href="#OptPaths" shape=rect coords=206,40,250,64>
+<area shape="rect" coords="250,42,322,61" href="#OptMiscellaneous">
 </MAP></P>
 <TABLE border=0 width=645>
   <TBODY>
@@ -466,14 +475,15 @@ Please click in the fields to get an explanation / the tabs brings you to the ne
   </TABLE>
 <P align=center>
 <A name=OptAbbreviations></A>
-Please click in the fields to get an explanation / the tabs brings you to the next iamge
-<IMG border=0 src="Images/Abbreviations.PNG" width=652 height=589 useMap=#Map3>
+Please click in the fields to get an explanation / The tabs brings you to the next image
+<IMG border=0 src="Images/Abbreviations.PNG" width=691 height=628 useMap=#Map3>
 <MAP name=Map3>
-<AREA href="#optAbbreviations" shape=rect coords=21,60,628,390>
-<AREA href="#optWindspeedDir" shape=rect coords=211,444,442,477>
-<AREA href="#OptBehavoir" shape=rect coords=17,42,73,58>
-<AREA href="#OptCapacity" shape=rect coords=74,43,124,60>
-<AREA href="#OptPaths" shape=rect coords=205,44,243,57>
+<AREA href="#optAbbreviations" shape=rect coords=23,85,630,415>
+<AREA href="#optWindspeedDir" shape=rect coords=212,472,443,505>
+<AREA href="#OptBehavoir" shape=rect coords=17,44,73,60>
+<AREA href="#OptCapacity" shape=rect coords=75,44,125,61>
+<AREA href="#OptPaths" shape=rect coords=210,42,248,62>
+<area shape="rect" coords="251,41,324,63" href="#OptMiscellaneous">
 </MAP></P>
 <TABLE border=0 width=724>
   <TBODY>
@@ -493,18 +503,18 @@ Please click in the fields to get an explanation / the tabs brings you to the ne
   </TABLE>
 <P align=center>
 <A name=OptPaths></A>
-Please click in the fields to get an explanation / the tabs brings you to the next iamge
-<IMG border=0 src="Images/Paths.PNG" width=654 height=584 useMap=#Map4>
+Please click in the fields to get an explanation / The tabs brings you to the next image
+<IMG border=0 src="Images/Paths.PNG" width=690 height=632 useMap=#Map4>
 <MAP name=Map4>
 <AREA href="#optPathODT" shape=rect coords=23,107,562,130>
 <AREA href="#optPathDatamager" shape=rect coords=22,137,563,164>
 <AREA href="#optPathMail" shape=rect coords=19,170,562,190>
-<AREA href="#optPathHTMLEditor" shape=rect coords=20,196,561,225>
-<AREA href="#optPathFiledialog" shape=rect coords=564,105,588,223>
+<AREA href="#optPathHTMLEditor" shape=rect coords=19,199,560,228>
+<AREA href="#optPathFiledialog" shape=rect coords=565,105,589,223>
 <AREA href="#optPathReset" shape=rect coords=251,235,368,261>
 <AREA href="#OptBehavoir" shape=rect coords=14,42,74,61>
-<AREA href="#OptCapacity" shape=rect coords=74,44,129,61>
-<AREA href="#OptAbbreviations" shape=rect coords=128,44,196,60>
+<AREA href="#OptCapacity" shape=rect coords=75,43,130,60>
+<AREA href="#OptAbbreviations" shape=rect coords=131,44,203,60><area shape="rect" coords="251,43,323,62" href="#OptMiscellaneous">
 </MAP></P>
 <TABLE border=0 width=716>
   <TBODY>
@@ -551,6 +561,65 @@ Please click in the fields to get an explanation / the tabs brings you to the ne
     </TR>
   </TBODY>
   </TABLE>
+<p>&nbsp;</p>
+<p><A name=OptMiscellaneous id="OptMiscellaneous"></A> Please click in the fields to get an explanation / The tabs brings you to the next image
+<img src="Images/Miscellaneous.PNG" width="688" height="628" border="0" usemap="#Map4Map">
+<MAP name=Map4Map>
+  <AREA href="#OptBehavoir" shape=rect coords=14,42,74,61>
+  <AREA href="#OptCapacity" shape=rect coords=75,43,130,60>
+  <AREA href="#OptAbbreviations" shape=rect coords=131,44,203,60>
+<area shape="rect" coords="206,43,243,62" href="#OptPaths">
+<area shape="rect" coords="69,70,111,90" href="#OptNMEA">
+<area shape="rect" coords="111,72,148,89" href="#OptSails">
+<area shape="rect" coords="178,141,401,164" href="#OptRouteTrack">
+<area shape="rect" coords="177,167,351,192" href="#OptLineWidt">
+<area shape="rect" coords="180,195,389,222" href="#OptTransparence">
+<area shape="rect" coords="181,225,363,256" href="#OptRouteLineColor">
+<area shape="rect" coords="182,258,365,285" href="#OptTrackLineColor">
+</MAP>
+</p>
+<p>To display the KML-files you need <a href="http://www.google.com/earth/index.html">Google-Earth.</a> </p>
+<TABLE border=0 width=716>
+  <TBODY>
+    <TR>
+      <TD class=dashedCell vAlign=top width=190><A name=OptRouteTrack id="OptRouteTrack"></A> Show Route/Track </TD>
+      <TD class=dashedCell vAlign=top width=516><P>. </P>
+          </TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><a name="OptLineWidth"></a></TD>
+      <TD class=dashedCell vAlign=top>&nbsp;</TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=OptTransparency id="OptTransparency"></A> Path to the datamanager </TD>
+      <TD class=dashedCell vAlign=top><p>For Windows the Explorer is predefiend<BR>
+        For Linux Dolphin (KDE) is predefiend<br>
+        For Apple the Finder is predefined </p></TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=OptRouteLineColor id="OptRouteLineColor"></A> Path to the mail-program</TD>
+      <TD class=dashedCell vAlign=top>*Optional*<BR>
+          <BR>
+        Only used when you like to send a layout via email to a friend. <BR></TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=OptTrackLineColor id="OptTrackLineColor"></A> Path to the HTML-Editor </TD>
+      <TD class=dashedCell vAlign=top>*Optional*<BR>
+          <BR>
+        if you want to alter a HTML-layout, please set the path to the editor here<BR>
+        This option is used only if you like to alter/create a layout. To display your data the browser is used. </TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=optPathFiledialog></A> Filedialog</TD>
+      <TD class=dashedCell vAlign=top>Opens a filedialog </TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=optPathReset></A> Reset Paths </TD>
+      <TD class=dashedCell vAlign=top>Resets the paths to the predefiend values </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <hr>
 <P align=center>&nbsp;</P>
