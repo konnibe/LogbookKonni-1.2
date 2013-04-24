@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-12 17:01+0200\n"
+"POT-Creation-Date: 2013-04-24 18:11+0200\n"
 "PO-Revision-Date: 2012-04-14 17:50+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: rider2@kpnmail.nl <rider2@kpnmail.nl>\n"
@@ -16,6 +16,18 @@ msgstr ""
 "X-Poedit-Language: Dutch\n"
 "X-Poedit-Country: NETHERLANDS\n"
 "X-Poedit-SearchPath-0: .\n"
+#
+#, fuzzy
+msgid ""
+"\n"
+"Engine #2 running"
+msgstr "Motor"
+#
+#, fuzzy
+msgid ""
+"\n"
+"Engine #2 stopped"
+msgstr "Motor"
 #
 #, fuzzy, c-format
 msgid ""
@@ -49,6 +61,12 @@ msgstr "- Timer Aan - Tijdinterval:"
 msgid " Direction "
 msgstr "Indicatie"
 #
+msgid " off"
+msgstr ""
+#
+msgid " on"
+msgstr ""
+#
 msgid ""
 "!\n"
 "\n"
@@ -61,6 +79,9 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
+msgid "#1 RPM"
+msgstr ""
+#
 #
 #
 #
@@ -68,6 +89,9 @@ msgstr "\""
 #, fuzzy
 msgid "#1 Total"
 msgstr "Ttl water"
+#
+msgid "#2 RPM"
+msgstr ""
 #
 #
 #
@@ -87,7 +111,7 @@ msgstr ""
 msgid "'"
 msgstr "'"
 #
-msgid "(Unnamed Route)"
+msgid "*** MAN OVERBOARD ***\n"
 msgstr ""
 #
 msgid ""
@@ -102,6 +126,49 @@ msgstr "Minuten:"
 msgid "-Plugin"
 msgstr "-PlugIn"
 #
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "1"
+msgstr "0"
+#
 #, fuzzy
 msgid "1. Watch"
 msgstr "Wacht"
@@ -109,7 +176,19 @@ msgstr "Wacht"
 msgid "12 Hour Format"
 msgstr ""
 #
+msgid "2"
+msgstr ""
+#
 msgid "24 Hour Format"
+msgstr ""
+#
+msgid "4"
+msgstr ""
+#
+msgid "<<  Back"
+msgstr ""
+#
+msgid "?"
 msgstr ""
 #
 msgid "AH #1 Total"
@@ -126,6 +205,11 @@ msgstr ""
 #
 msgid "Abbreviations"
 msgstr "Eenheden en afkortingen"
+#
+msgid ""
+"Abbreviations are shown in the Sails-Checkboxes\n"
+"The Name is used for the column \"Sails\" when added a new entry"
+msgstr ""
 #
 msgid "Active"
 msgstr "Actief"
@@ -205,6 +289,9 @@ msgstr ""
 "U kunt dit Aan en Uit zetten en de instellingen ervan aanpassen in Toolbox/"
 "Plugins/Logbook. SHIFTt+ENTER voegt een nieuwe regel toe."
 #
+msgid "Back to Sailnames"
+msgstr ""
+#
 msgid "Bank #1"
 msgstr ""
 #
@@ -283,6 +370,12 @@ msgstr "Voorraad"
 msgid "Category"
 msgstr "Categorie"
 #
+msgid "Check"
+msgstr ""
+#
+msgid "Checkbox Space  >>"
+msgstr ""
+#
 msgid "Clear"
 msgstr ""
 #
@@ -310,6 +403,14 @@ msgstr ""
 #
 msgid "Clouds"
 msgstr "Bewolking"
+#
+#, fuzzy
+msgid "Column +"
+msgstr "In kolom"
+#
+#, fuzzy
+msgid "Column -"
+msgstr "In kolom"
 #
 msgid "Confirm"
 msgstr "Accepteer"
@@ -491,6 +592,10 @@ msgid "End"
 msgstr "Einde"
 #
 #, fuzzy
+msgid "Engine"
+msgstr "Motor"
+#
+#, fuzzy
 msgid "Engine "
 msgstr "Motor"
 #
@@ -499,13 +604,46 @@ msgid "Engine #1"
 msgstr "Motor"
 #
 #, fuzzy
+msgid "Engine #1 running"
+msgstr "Motor"
+#
+#, fuzzy
+msgid "Engine #1 started"
+msgstr "Motor"
+#
+#, fuzzy
+msgid "Engine #1 stopped"
+msgstr "Motor"
+#
+#, fuzzy
 msgid "Engine #2"
 msgstr "Motor"
+#
+#, fuzzy
+msgid "Engine #2 running"
+msgstr "Motor"
+#
+#, fuzzy
+msgid "Engine #2 started"
+msgstr "Motor"
+#
+#, fuzzy
+msgid "Engine #2 stopped"
+msgstr "Motor"
+#
+msgid "Engine start/stop sails message"
+msgstr ""
 #
 msgid ""
 "Engine stopped\n"
 "\n"
 "Demo - Rightclick-Menu 'use Testextblocks' for help"
+msgstr ""
+#
+msgid "Engine-No. corresponds with column Engine #1"
+msgstr ""
+#
+msgid "Engine-No. corresponds with column Engine #2"
 msgstr ""
 #
 msgid ""
@@ -567,6 +705,27 @@ msgstr "Stel datum in"
 msgid "Flip Day<->Month"
 msgstr ""
 #
+msgid "Fo1"
+msgstr ""
+#
+msgid "Fo2"
+msgstr ""
+#
+msgid "Fo3"
+msgstr ""
+#
+msgid "Fock 1"
+msgstr ""
+#
+msgid "Fock 2"
+msgstr ""
+#
+msgid "Fock 3"
+msgstr ""
+#
+msgid "For Barometer, Air Temerature and rel. Humidity"
+msgstr ""
+#
 msgid "Fuel"
 msgstr "Brandstof"
 #
@@ -586,12 +745,33 @@ msgstr ""
 msgid "GPS Auto"
 msgstr "GPS automatisch"
 #
+msgid "GUID"
+msgstr ""
+#
+msgid "Ge1"
+msgstr ""
+#
+msgid "Ge2"
+msgstr ""
+#
+msgid "Ge3"
+msgstr ""
+#
 msgid "Gen. total"
 msgstr ""
 #
 #, fuzzy
 msgid "Generator"
 msgstr "Temperatuur"
+#
+msgid "Genoa 1"
+msgstr ""
+#
+msgid "Genoa 2"
+msgstr ""
+#
+msgid "Genoa 3"
+msgstr ""
 #
 msgid "Go to date/time now"
 msgstr ""
@@ -673,22 +853,6 @@ msgstr "Als"
 msgid "If GPS off use for manual entry"
 msgstr "Als de GPS niet functioneert, onderstaande velden met de hand invullen."
 #
-msgid ""
-"If You have created Your own Layouts\n"
-"prepend them with e.g. My_ \n"
-"The _ is important"
-msgstr ""
-"Als u uw eigen opmaakstijl maakt, laat\n"
-"dan de naam ervan starten met bijv. :  Mijn_ .\n"
-"Het teken \" _\" is noodzakelijk!"
-#
-msgid ""
-"If You have created Your own layouts\n"
-"with prefix e.g. My_"
-msgstr ""
-"Aanvinken als u uw eigen opmaakstijl heeft gemaakt,\n"
-"waarvan de naam start met bijv. Mijn_."
-#
 msgid "In Column"
 msgstr "In kolom"
 #
@@ -732,6 +896,15 @@ msgid ""
 msgstr ""
 "Het is niet toegestaan om gegevens toe te voegen aan een oud journaal\n"
 "OpenCPN kiest nu het actuele journaal."
+#
+msgid "Ji"
+msgstr ""
+#
+msgid "Jib"
+msgstr ""
+#
+msgid "KML"
+msgstr ""
 #
 msgid "LOA"
 msgstr "LOA"
@@ -842,8 +1015,14 @@ msgstr "Journaal tot "
 msgid "MMSI"
 msgstr "MMSI"
 #
+msgid "Ma"
+msgstr ""
+#
 msgid "Magnetic"
 msgstr "magnetisch"
+#
+msgid "Main"
+msgstr ""
 #
 msgid "Maintenance"
 msgstr "Onderhoud"
@@ -863,11 +1042,23 @@ msgstr "meter"
 msgid "Meter"
 msgstr "meter"
 #
+msgid "Mi"
+msgstr ""
+#
 msgid "Minutes"
 msgstr "Minuten:"
 #
 msgid "Minutes greater than 59"
 msgstr "Aantal minuten meer dan 59"
+#
+msgid "Miscellaneous"
+msgstr ""
+#
+msgid "Mizzen"
+msgstr ""
+#
+msgid "Mizzen Storm"
+msgstr ""
 #
 #
 #
@@ -888,8 +1079,14 @@ msgstr "Draaiuren motor"
 msgid "Motor/Sails"
 msgstr "Voortstuwing"
 #
+msgid "Mt"
+msgstr ""
+#
 msgid "NM"
 msgstr "NM"
+#
+msgid "NMEA"
+msgstr ""
 #
 msgid "Name"
 msgstr "Naam"
@@ -955,6 +1152,9 @@ msgstr ""
 msgid "No Seconds"
 msgstr "Seconden:"
 #
+msgid "No. of Inboard Engines"
+msgstr ""
+#
 #, fuzzy
 msgid "Normal Timer"
 msgstr "Ttl tijd"
@@ -994,9 +1194,6 @@ msgstr "Oud journaal tot %s"
 #
 msgid "Onboard"
 msgstr ""
-#
-msgid "Only Layouts with prefix:"
-msgstr "alleen opmaak startend met:"
 #
 msgid ""
 "Only used when you enter 1/2, 1/4 ... in a total-field, or to calculate the "
@@ -1097,8 +1294,14 @@ msgstr "Positie"
 msgid "Priority"
 msgstr "Prio"
 #
+msgid "PropShaft"
+msgstr ""
+#
 msgid "R"
 msgstr "H"
+#
+msgid "RPM"
+msgstr ""
 #
 #
 #
@@ -1155,8 +1358,28 @@ msgstr "Alle waarden instellen op nul?"
 msgid "Reset data to edit-level"
 msgstr ""
 #
+msgid "Revolutions"
+msgstr ""
+#
 msgid "Route"
 msgstr "Route"
+#
+#, fuzzy
+msgid "RouteID"
+msgstr "Route"
+#
+#, fuzzy
+msgid "Routepoints"
+msgstr "Route"
+#
+msgid "Row +"
+msgstr ""
+#
+msgid "Row -"
+msgstr ""
+#
+msgid "S"
+msgstr ""
 #
 msgid "SOG"
 msgstr "SOG"
@@ -1173,6 +1396,55 @@ msgstr "Zeilnr."
 #
 msgid "Sails"
 msgstr "Zeilvoering"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails changed"
+msgstr "Regel toevoegen bij wisseling van de wacht"
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails down"
+msgstr "Zeilvoering"
+#
+#, fuzzy
+msgid "Sails hoisted"
+msgstr ""
+"Zeilvoering\n"
+"(meest gebruikt)"
 #
 msgid ""
 "Sails up\n"
@@ -1241,6 +1513,12 @@ msgstr "Selecteer route"
 # Me semble plus approprié que le terme :
 # Sélectionner la route du fait du contexte d'affichage
 #, fuzzy
+msgid "Select Track"
+msgstr "Selecteer datum"
+#
+# Me semble plus approprié que le terme :
+# Sélectionner la route du fait du contexte d'affichage
+#, fuzzy
 msgid "Select a date"
 msgstr "Selecteer route"
 #
@@ -1288,6 +1566,9 @@ msgstr "Uit te voeren onderhoud"
 msgid "Service done"
 msgstr "Onderhoud uitgevoerd"
 #
+msgid "Set Linewidth to"
+msgstr ""
+#
 msgid "Set Path to DataManager"
 msgstr "Geef pad aan naar browser applicatie"
 #
@@ -1300,6 +1581,9 @@ msgstr "Geef pad aan naar e-mail applicatie"
 msgid "Set Path to ODT-Editor"
 msgstr "Geef pad aan naar tekstbewerker (ODT)"
 #
+msgid "Set Route-Linecolor to"
+msgstr ""
+#
 #, fuzzy
 msgid "Set Timer"
 msgstr "Timerinstellingen"
@@ -1307,6 +1591,12 @@ msgstr "Timerinstellingen"
 #, fuzzy
 msgid "Set Timer Interval"
 msgstr "- Timer Aan - Tijdinterval:"
+#
+msgid "Set Track-Linecolor to"
+msgstr ""
+#
+msgid "Set Transparency to"
+msgstr ""
 #
 #, fuzzy
 msgid "Set Watchtimes"
@@ -1345,11 +1635,20 @@ msgstr ""
 msgid "Set the starttime of your sailing trip"
 msgstr ""
 #
+msgid "Show"
+msgstr ""
+#
 msgid "Show Depth in"
 msgstr "Toon dieptes in:"
 #
+msgid "Show Engines/Sails Mode"
+msgstr ""
+#
 msgid "Show Equipment"
 msgstr "Toon apparatuur"
+#
+msgid "Show Layout Selection Mode"
+msgstr ""
 #
 msgid "Show Logbook Icon"
 msgstr "Toon Logbook icoon"
@@ -1367,9 +1666,6 @@ msgstr "Toon ToolTips"
 #
 msgid "Show Wave/Swell in"
 msgstr "Toon golfhoogtes in:"
-#
-msgid "Show all Layouts"
-msgstr "Toon alle opmaakstijlen"
 #
 #, fuzzy
 msgid "Show all entries"
@@ -1403,9 +1699,6 @@ msgstr "Paraaf"
 msgid "Sorry, Logbook has no lines"
 msgstr "Fout: het journaal bevat geen regel(s)!"
 #
-msgid "Sorry, Your Logbook has no lines"
-msgstr "Fout: het journaal bevat geen regel(s)!"
-#
 msgid "Sorry, no Layout installed"
 msgstr "Fout: geen opmaakstijlen geïnstalleerd!"
 #
@@ -1414,6 +1707,12 @@ msgstr ""
 #
 msgid "Sort descending"
 msgstr ""
+#
+# means
+# Logbook from date to date
+#, fuzzy
+msgid "Sp"
+msgstr "tot"
 #
 msgid "Speed"
 msgstr "Vaart"
@@ -1428,9 +1727,18 @@ msgstr ""
 "Vaart\n"
 "(max.)"
 #
+msgid "Spinnacker"
+msgstr ""
+#
 #, fuzzy
 msgid "Split Watch"
 msgstr "Pas wachtinstelling toe"
+#
+# means
+# Logbook from date to date
+#, fuzzy
+msgid "St"
+msgstr "tot"
 #
 msgid "Start"
 msgstr "Start"
@@ -1443,8 +1751,17 @@ msgid ""
 "%s"
 msgstr ""
 #
+msgid ""
+"Start your engine(s) and hit the button.\n"
+"You should see the ERRPM-Sentence\n"
+"left to the button"
+msgstr ""
+#
 msgid "Startvalue"
 msgstr "Startwaarde"
+#
+msgid "Staysail"
+msgstr ""
 #
 # means
 # Logbook from date to date
@@ -1533,6 +1850,19 @@ msgstr "Ttl tijd"
 msgid "Town"
 msgstr "Woonplaats"
 #
+#, fuzzy
+msgid "Tr"
+msgstr "waar"
+#
+msgid "Track"
+msgstr ""
+#
+msgid "Track "
+msgstr ""
+#
+msgid "TrackID"
+msgstr ""
+#
 #, c-format
 msgid ""
 "Tried to install Languages at\n"
@@ -1551,11 +1881,26 @@ msgstr ""
 msgid "True"
 msgstr "waar"
 #
+msgid "Try"
+msgstr ""
+#
 msgid "Type"
 msgstr "Type"
 #
 msgid "UTC"
 msgstr "UTC"
+#
+msgid ""
+"Uncheck for Motorboats\n"
+"\n"
+"Engine(s) started, sets Sails to none and appends \"Sails down\" \n"
+"\"Sails hoisted\" when Engine stoped\n"
+"\n"
+"Set checkmarks in the sail-checkboxes BEFORE you stop the engine !"
+msgstr ""
+#
+msgid "Uncheck for Motorboats."
+msgstr ""
 #
 msgid ""
 "Uncheck if You have no GPS\n"
@@ -1590,9 +1935,21 @@ msgstr ""
 msgid "Urgentvalue"
 msgstr "Urgentiewaarde"
 #
+msgid "Use ERRPM-Sentence (see help)"
+msgstr ""
+#
+msgid "Use ERRPM-Sentence to calculate the engine-hours"
+msgstr ""
+#
+msgid "Use WIMDA-Sentence from the weatherstation"
+msgstr ""
+#
 msgid ""
 "Used for ODT/Browser-program\n"
 "One Row for the day + selected days = Days displayed"
+msgstr ""
+#
+msgid "Usefull for Tablet-PC's"
 msgstr ""
 #
 # Textfield for userlabel in boat
@@ -1722,6 +2079,9 @@ msgstr "Windsnelheid"
 msgid "Windspeed "
 msgstr "Windsnelheid"
 #
+msgid "Write message \"Engine runnung\""
+msgstr ""
+#
 msgid "Write warning \"No GPS\""
 msgstr "Toon waarschuwing \"Geen GPS\""
 #
@@ -1749,6 +2109,11 @@ msgstr ""
 msgid "Yes"
 msgstr "Ja"
 #
+msgid ""
+"You can change the abreviations and the names of the sails\n"
+"in Options/Miscellaneous/Sails"
+msgstr ""
+#
 #, c-format
 msgid ""
 "You cannot set this dateformat.\n"
@@ -1763,6 +2128,12 @@ msgid ""
 "In this case the OS doen't serve AM/PM-Strings.\n"
 msgstr ""
 #
+msgid ""
+"Your Engine(s) running in manually mode.\n"
+"\n"
+"Engine(s) stopped now."
+msgstr ""
+#
 #, fuzzy, c-format
 msgid ""
 "Your Logbook has %i lines\n"
@@ -1775,6 +2146,12 @@ msgstr ""
 #
 msgid "Your Logbook has no lines ?"
 msgstr "Journaal bevat geen regels!"
+#
+msgid ""
+"Your engine(s) are still running\n"
+"\n"
+"Stop engine(s) ?"
+msgstr ""
 #
 msgid "Zip"
 msgstr "Postcode"
@@ -1836,6 +2213,9 @@ msgstr ""
 "Automatische regel per tijdinterval:\n"
 "U kunt dit Aan en Uit zetten en de instellingen ervan aanpasen in Toolbox/"
 "Plugins/Logbook"
+#
+msgid "black"
+msgstr ""
 #
 msgid "day(s)"
 msgstr "dag(en)"
@@ -1944,6 +2324,12 @@ msgstr ""
 msgid "none"
 msgstr "niets"
 #
+msgid "red"
+msgstr ""
+#
+msgid "solid"
+msgstr ""
+#
 msgid "this day"
 msgstr ""
 #
@@ -1958,14 +2344,28 @@ msgid ""
 "\"C:\\yourPathToWinword\\WINWORD.EXE\" %s"
 msgstr ""
 #
+msgid "transparent"
+msgstr ""
+#
+#, fuzzy
+msgid "unnamed Route"
+msgstr "Hernoem opmaakstijl"
+#
 msgid "use Textblocks..."
 msgstr ""
 #
 msgid "week(s)"
 msgstr "week(en)"
 #
+msgid "white"
+msgstr ""
+#
 msgid "write your own label"
 msgstr "Maak eigen veldnaam"
+#
+msgid "yellow"
+msgstr ""
+#
 #
 #
 #
@@ -2004,6 +2404,7 @@ msgstr "Maak eigen veldnaam"
 #
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2135,8 +2536,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "               Koersbericht na (minuten):"
+#
 #
 #
 #
@@ -2225,8 +2628,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2262,48 +2667,6 @@ msgstr "Maak eigen veldnaam"
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1e Wacht van 1e persoon"
 #
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#, fuzzy
-#~ msgid "10"
-#~ msgstr "0"
 #
 #
 #
@@ -2386,8 +2749,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist"
 #~ msgstr "Toevoegen aan wachtlijst"
+#
 #
 #
 #
@@ -2454,8 +2819,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Regel toevoegen na elke (NM):"
+#
 #
 #
 #
@@ -2538,8 +2905,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Verslepen om de volgorde in de lijst te veranderen."
+#
 #
 #
 #
@@ -2608,10 +2977,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "2e Wacht:\n"
 #~ "eind"
+#
 #
 #
 #
@@ -2680,6 +3051,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "4e Wacht:\n"
@@ -2716,10 +3088,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr ""
 #~ "5e Wacht:\n"
 #~ "eind"
+#
 #
 #
 #
@@ -2836,6 +3210,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "EngineTotal"
 #~ msgstr "Ttl motor"
 #
@@ -2870,42 +3245,28 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
-#~ msgid "If Watch changed"
-#~ msgstr "Regel toevoegen bij wisseling van de wacht"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 #
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Regel toevoegen bij aankomst routepunt"
+#
+#
+#~ msgid ""
+#~ "If You have created Your own Layouts\n"
+#~ "prepend them with e.g. My_ \n"
+#~ "The _ is important"
+#~ msgstr ""
+#~ "Als u uw eigen opmaakstijl maakt, laat\n"
+#~ "dan de naam ervan starten met bijv. :  Mijn_ .\n"
+#~ "Het teken \" _\" is noodzakelijk!"
+#
+#
+#~ msgid ""
+#~ "If You have created Your own layouts\n"
+#~ "with prefix e.g. My_"
+#~ msgstr ""
+#~ "Aanvinken als u uw eigen opmaakstijl heeft gemaakt,\n"
+#~ "waarvan de naam start met bijv. Mijn_."
+#
 #
 #
 #
@@ -2972,8 +3333,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Tijdinterval:"
+#
 #
 #
 #
@@ -3000,6 +3363,7 @@ msgstr "Maak eigen veldnaam"
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "ExtraVeld"
+#
 #
 #
 #~ msgid "Logbook from %s to %s"
@@ -3036,8 +3400,14 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Aantal wachten"
+#
+#
+#~ msgid "Only Layouts with prefix:"
+#~ msgstr "alleen opmaak startend met:"
+#
 #
 #
 #
@@ -3118,8 +3488,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Person:"
 #~ msgstr "Persoon:"
+#
 #
 #
 #
@@ -3186,8 +3558,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Voer 4 cijfers in 24-uur format in, zoals: 1545 = 03:45 PM"
+#
 #
 #
 #
@@ -3308,12 +3682,18 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Voer tijd in met format:\n"
 #~ "    12:30:00PM"
+#
+#
+#~ msgid "Show all Layouts"
+#~ msgstr "Toon alle opmaakstijlen"
+#
 #
 #
 #
@@ -3348,6 +3728,11 @@ msgstr "Maak eigen veldnaam"
 #
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Fout: 0 u 0 m 0 s is niet mogelijk!"
+#
+#
+#~ msgid "Sorry, Your Logbook has no lines"
+#~ msgstr "Fout: het journaal bevat geen regel(s)!"
+#
 #
 #
 #
@@ -3504,10 +3889,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr ""
 #~ "STW\n"
 #~ "(max.)"
+#
 #
 #
 #
@@ -3576,10 +3963,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "2e Wacht:\n"
 #~ "start"
+#
 #
 #
 #
@@ -3648,6 +4037,7 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "4e Wacht:\n"
@@ -3684,10 +4074,12 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Start 5.Watch"
 #~ msgstr ""
 #~ "5e Wacht:\n"
 #~ "start"
+#
 #
 #
 #
@@ -3764,9 +4156,11 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Static Watchtimes"
 #~ msgstr "Pas wachtinstelling toe"
+#
 #
 #
 #
@@ -3833,8 +4227,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Timer Aan/Uit"
+#
 #
 #
 #
@@ -3891,8 +4287,10 @@ msgstr "Maak eigen veldnaam"
 #
 #
 #
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
 #
 #
 #

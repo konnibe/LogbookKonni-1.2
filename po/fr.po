@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-12 17:01+0200\n"
-"PO-Revision-Date: 2012-10-07 23:38+0100\n"
-"Last-Translator: Gilletarom/Laverge <contact@gilletarom.fr>\n"
+"POT-Creation-Date: 2013-04-24 18:53+0200\n"
+"PO-Revision-Date: 2013-04-24 18:27+0100\n"
+"Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -13,8 +13,22 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.3\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
+#
+msgid ""
+"\n"
+"Engine #2 running"
+msgstr ""
+"\n"
+"Moteur #2 en marche"
+#
+msgid ""
+"\n"
+"Engine #2 stopped"
+msgstr ""
+"\n"
+"Arrêt du Moteur #2"
 #
 #, c-format
 msgid ""
@@ -46,7 +60,13 @@ msgid " - Normal Timer - Interval: "
 msgstr "- Minuterie par défaut - Interval :"
 #
 msgid " Direction "
-msgstr "Direction"
+msgstr "  Afichage du vent "
+#
+msgid " off"
+msgstr " OFF"
+#
+msgid " on"
+msgstr " ON"
 #
 msgid ""
 "!\n"
@@ -60,8 +80,14 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
+msgid "#1 RPM"
+msgstr "1 RPM"
+#
 msgid "#1 Total"
 msgstr "Total 1"
+#
+msgid "#2 RPM"
+msgstr "2 RPM"
 #
 msgid "#2 Total"
 msgstr "Total 2"
@@ -76,8 +102,8 @@ msgstr "%i Année(s) %i Mois %i Jour(s)"
 msgid "'"
 msgstr "'"
 #
-msgid "(Unnamed Route)"
-msgstr "(Route sans nom)"
+msgid "*** MAN OVERBOARD ***\n"
+msgstr "*** HOMME A LA MER ***\n"
 #
 msgid ""
 "*Optional* Prepend a * to a member to make this member static to a watch / "
@@ -90,7 +116,47 @@ msgid "+ Minutes"
 msgstr "+ Minutes"
 #
 msgid "-Plugin"
-msgstr "-Complément"
+msgstr "- Plugin"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+msgid "1"
+msgstr "1"
 #
 msgid "1. Watch"
 msgstr "1. Quart"
@@ -98,8 +164,20 @@ msgstr "1. Quart"
 msgid "12 Hour Format"
 msgstr "Format 12H"
 #
+msgid "2"
+msgstr "2"
+#
 msgid "24 Hour Format"
 msgstr "Format 24H"
+#
+msgid "4"
+msgstr "4"
+#
+msgid "<<  Back"
+msgstr ""
+#
+msgid "?"
+msgstr "?"
 #
 msgid "AH #1 Total"
 msgstr ""
@@ -119,6 +197,14 @@ msgstr "AM/PM"
 #
 msgid "Abbreviations"
 msgstr "Abréviations"
+#
+msgid ""
+"Abbreviations are shown in the Sails-Checkboxes\n"
+"The Name is used for the column \"Sails\" when added a new entry"
+msgstr ""
+"Les abréviations sont affichées dans les cases à cocher\n"
+"L'intitulé est utilisé pour renseigner la colonne \"Voiles\" pour l'ajout "
+"d'une ligne"
 #
 msgid "Active"
 msgstr "Actif"
@@ -200,6 +286,9 @@ msgstr ""
 "\n"
 "Shift+Entre ouvre une nouvelle ligne"
 #
+msgid "Back to Sailnames"
+msgstr ""
+#
 msgid "Bank #1"
 msgstr "Batterie 1"
 #
@@ -207,7 +296,7 @@ msgid "Bank #1 gen."
 msgstr "Batterie #1 gen."
 #
 msgid "Bank #1 used"
-msgstr "Batterie #1 utilisé"
+msgstr "Batterie #1 utilisée"
 #
 msgid "Bank #2"
 msgstr "Batterie 2"
@@ -216,7 +305,7 @@ msgid "Bank #2 gen."
 msgstr "Batterie #2 gen."
 #
 msgid "Bank #2 used"
-msgstr "batterie #2 utilisé"
+msgstr "Batterie #2 utilisée"
 #
 msgid "Barometer"
 msgstr "Baromètre"
@@ -285,6 +374,12 @@ msgstr "Capacité"
 msgid "Category"
 msgstr "Catégories"
 #
+msgid "Check"
+msgstr "vérifier"
+#
+msgid "Checkbox Space  >>"
+msgstr ""
+#
 msgid "Clear"
 msgstr "Effacer tout"
 #
@@ -311,6 +406,14 @@ msgstr "Effacer tout"
 #
 msgid "Clouds"
 msgstr "Nuages"
+#
+#, fuzzy
+msgid "Column +"
+msgstr "Cacher la colonne"
+#
+#, fuzzy
+msgid "Column -"
+msgstr "Cacher la colonne"
 #
 msgid "Confirm"
 msgstr "Confirmez"
@@ -476,9 +579,7 @@ msgstr ""
 "d'eau"
 #
 msgid "E"
-msgstr ""
-"E\n"
-" "
+msgstr "E"
 #
 msgid "Edit Layout"
 msgstr "Editer la mise en page"
@@ -492,14 +593,38 @@ msgstr "Editer les mises en page"
 msgid "End"
 msgstr "Fin"
 #
+msgid "Engine"
+msgstr "Moteur"
+#
 msgid "Engine "
 msgstr "Moteur"
 #
 msgid "Engine #1"
-msgstr "Moteur1"
+msgstr "Moteur #1"
+#
+msgid "Engine #1 running"
+msgstr "Moteur #1 en marche"
+#
+msgid "Engine #1 started"
+msgstr "Démarrage Moteur #1"
+#
+msgid "Engine #1 stopped"
+msgstr "Arrêt du Moteur #1"
 #
 msgid "Engine #2"
-msgstr "Moteur2"
+msgstr "Moteur #2"
+#
+msgid "Engine #2 running"
+msgstr "Moteur #2 en marche"
+#
+msgid "Engine #2 started"
+msgstr "Démarrage Moteur #2"
+#
+msgid "Engine #2 stopped"
+msgstr "Arrêt du Moteur #2"
+#
+msgid "Engine start/stop sails message"
+msgstr ""
 #
 msgid ""
 "Engine stopped\n"
@@ -509,6 +634,12 @@ msgstr ""
 "Moteur arrêté\n"
 "\n"
 "Démonstaration : Clic droit \"Utilisez Tester bloc de texte\" pour l'aide."
+#
+msgid "Engine-No. corresponds with column Engine #1"
+msgstr "Le moteur n°. correspond à la colonne Moteur #1"
+#
+msgid "Engine-No. corresponds with column Engine #2"
+msgstr "Le moteur n° correspond à la colonne Moteur #2"
 #
 msgid ""
 "Enter default watchtime e.g. 3.30 / available formats are 3.30, 3,30, 3:30, "
@@ -544,7 +675,7 @@ msgid "Export"
 msgstr "Exporter"
 #
 msgid "F"
-msgstr "F"
+msgstr "C"
 #
 msgid "Fathom"
 msgstr "Brasse"
@@ -553,14 +684,13 @@ msgid "Feet"
 msgstr "Pieds"
 #
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 #
 msgid "Filter Layout by"
 msgstr "Trier les mises en page par "
 #
-#, fuzzy
 msgid "First/Last Entry"
-msgstr "Prénom uniquement"
+msgstr "Première/dernière entrée"
 #
 msgid "Firstname"
 msgstr "Prénom"
@@ -573,6 +703,27 @@ msgstr "Fixer une date"
 #
 msgid "Flip Day<->Month"
 msgstr "Permuter Jour<->Mois"
+#
+msgid "Fo1"
+msgstr "Fo1"
+#
+msgid "Fo2"
+msgstr "Fo2"
+#
+msgid "Fo3"
+msgstr "Fo3"
+#
+msgid "Fock 1"
+msgstr "Foc 1"
+#
+msgid "Fock 2"
+msgstr "Foc 2"
+#
+msgid "Fock 3"
+msgstr "Foc 3"
+#
+msgid "For Barometer, Air Temerature and rel. Humidity"
+msgstr "Baromètre, Température de l'air et l'humidité relative"
 #
 msgid "Fuel"
 msgstr "Carburant"
@@ -591,11 +742,32 @@ msgstr "Format horaire complet"
 msgid "GPS Auto"
 msgstr "GPS automatique"
 #
+msgid "GUID"
+msgstr "Guid"
+#
+msgid "Ge1"
+msgstr "Ge1"
+#
+msgid "Ge2"
+msgstr "Ge2"
+#
+msgid "Ge3"
+msgstr "Ge3"
+#
 msgid "Gen. total"
 msgstr "Gen. total"
 #
 msgid "Generator"
 msgstr "Alternateur"
+#
+msgid "Genoa 1"
+msgstr "Genois 1"
+#
+msgid "Genoa 2"
+msgstr "Genois 2"
+#
+msgid "Genoa 3"
+msgstr "Genois 3"
 #
 msgid "Go to date/time now"
 msgstr "Aller au jour et heure actuel"
@@ -704,22 +876,6 @@ msgstr "Si"
 msgid "If GPS off use for manual entry"
 msgstr "Si le GPS est hors service, entrez les données manuellement"
 #
-msgid ""
-"If You have created Your own Layouts\n"
-"prepend them with e.g. My_ \n"
-"The _ is important"
-msgstr ""
-"Si vous avez créé vos propres mises en page\n"
-"vous devez les préfixer. Par exemple avec :  My_ \n"
-"Le caractère \" _\" est important"
-#
-msgid ""
-"If You have created Your own layouts\n"
-"with prefix e.g. My_"
-msgstr ""
-"Si vous avez créé vos propres mises en page\n"
-"avec le préfixe par exemple My_"
-#
 msgid "In Column"
 msgstr "Cacher la colonne"
 #
@@ -742,7 +898,7 @@ msgid "Install Layouts"
 msgstr "Installer les mises en page"
 #
 msgid "Install OpenCPN_Logbook_Languages.zip"
-msgstr "Installer les mises en page possibles (OpenCPN_Logbook_Layouts.zip)"
+msgstr "Installer les fichiers de langues (OpenCPN_Logbook_Languages.zip)"
 #
 msgid "Install OpenCPN_Logbook_Layouts.zip"
 msgstr "Installer les mises en page possibles (OpenCPN_Logbook_Layouts.zip)"
@@ -764,6 +920,15 @@ msgstr ""
 "Il n'est pas autorisé d'ajouter des données à un ancien livre de bord\n"
 "\n"
 "OpenCPN passe au livre de bord actuel."
+#
+msgid "Ji"
+msgstr "Ji"
+#
+msgid "Jib"
+msgstr "Foc"
+#
+msgid "KML"
+msgstr "KML"
 #
 msgid "LOA"
 msgstr ""
@@ -887,8 +1052,14 @@ msgstr "Livre de bord depuis "
 msgid "MMSI"
 msgstr "MMSI"
 #
+msgid "Ma"
+msgstr "GV"
+#
 msgid "Magnetic"
 msgstr "Magnétique"
+#
+msgid "Main"
+msgstr "Grand-voile"
 #
 msgid "Maintenance"
 msgstr "Maintenance"
@@ -905,11 +1076,23 @@ msgstr "Météo"
 msgid "Meter"
 msgstr "Mètre"
 #
+msgid "Mi"
+msgstr "Ar"
+#
 msgid "Minutes"
 msgstr "Minutes"
 #
 msgid "Minutes greater than 59"
 msgstr "Supérieur à 59 minutes"
+#
+msgid "Miscellaneous"
+msgstr "Divers"
+#
+msgid "Mizzen"
+msgstr "Artimon"
+#
+msgid "Mizzen Storm"
+msgstr "Artimon lourd"
 #
 #
 #
@@ -929,8 +1112,14 @@ msgstr "Heures moteur"
 msgid "Motor/Sails"
 msgstr "Moteur/Voile"
 #
+msgid "Mt"
+msgstr "Arl"
+#
 msgid "NM"
 msgstr "NM"
+#
+msgid "NMEA"
+msgstr "NMEA"
 #
 msgid "Name"
 msgstr "Nom"
@@ -997,6 +1186,9 @@ msgstr ""
 msgid "No Seconds"
 msgstr "pas de secondes"
 #
+msgid "No. of Inboard Engines"
+msgstr "Nombre de moteur(s)"
+#
 msgid "Normal Timer"
 msgstr "Minuterie par défaut"
 #
@@ -1032,9 +1224,6 @@ msgstr "Ancien livre de bord depuis %s"
 #
 msgid "Onboard"
 msgstr "A bord"
-#
-msgid "Only Layouts with prefix:"
-msgstr "Seulement avec le préfixe de la mise en page :"
 #
 msgid ""
 "Only used when you enter 1/2, 1/4 ... in a total-field, or to calculate the "
@@ -1141,10 +1330,14 @@ msgstr "Position"
 msgid "Priority"
 msgstr "Priorité"
 #
+msgid "PropShaft"
+msgstr "Arbre d'hélice"
+#
 msgid "R"
-msgstr ""
-"R\n"
-" "
+msgstr "R"
+#
+msgid "RPM"
+msgstr "RPM"
 #
 msgid "Reef"
 msgstr ""
@@ -1155,7 +1348,7 @@ msgid "Registration"
 msgstr "Inscription"
 #
 msgid "Relative"
-msgstr "Relative"
+msgstr "Apparent"
 #
 msgid "Reload Layouts"
 msgstr "Recharger les mises en page"
@@ -1196,8 +1389,26 @@ msgstr "Réinitialiser toutes les valeurs à zéro ?"
 msgid "Reset data to edit-level"
 msgstr "Effacer les données pour éditer les niveaux"
 #
+msgid "Revolutions"
+msgstr "Révolutions"
+#
 msgid "Route"
 msgstr "Route"
+#
+msgid "RouteID"
+msgstr "Route ID"
+#
+msgid "Routepoints"
+msgstr "Route"
+#
+msgid "Row +"
+msgstr ""
+#
+msgid "Row -"
+msgstr ""
+#
+msgid "S"
+msgstr "S"
 #
 msgid "SOG"
 msgstr ""
@@ -1216,6 +1427,49 @@ msgstr ""
 #
 msgid "Sails"
 msgstr "Voiles"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails changed"
+msgstr "Si la montre a changé"
+#
+#, fuzzy
+msgid "Sails down"
+msgstr "Voiles"
+#
+#, fuzzy
+msgid "Sails hoisted"
+msgstr ""
+"Voile utilisée\n"
+"principalement"
 #
 msgid ""
 "Sails up\n"
@@ -1294,6 +1548,11 @@ msgstr "Sélectionner une route"
 #
 # Me semble plus approprié que le terme :
 # Sélectionner la route du fait du contexte d'affichage
+msgid "Select Track"
+msgstr "Sélectionner une trace"
+#
+# Me semble plus approprié que le terme :
+# Sélectionner la route du fait du contexte d'affichage
 msgid "Select a date"
 msgstr "Sélectionner une date"
 #
@@ -1340,6 +1599,9 @@ msgstr "Action à réaliser"
 msgid "Service done"
 msgstr "Action effectuée"
 #
+msgid "Set Linewidth to"
+msgstr "Largeur du trait  à : "
+#
 msgid "Set Path to DataManager"
 msgstr "Activer le chemin du gestionnaire de données"
 #
@@ -1352,11 +1614,20 @@ msgstr "Activer le chemin du logiciel Clientmail"
 msgid "Set Path to ODT-Editor"
 msgstr "Activer le chemin de l'éditeur Odt"
 #
+msgid "Set Route-Linecolor to"
+msgstr "Définir la couleur du trait de route à "
+#
 msgid "Set Timer"
 msgstr "Paramétrer la minuterie"
 #
 msgid "Set Timer Interval"
 msgstr "Choisir l'intervalle de temps"
+#
+msgid "Set Track-Linecolor to"
+msgstr "Définir la couleur de la trace à "
+#
+msgid "Set Transparency to"
+msgstr "Définir la transparance à : "
 #
 msgid "Set Watchtimes"
 msgstr "Paramétrer les quarts"
@@ -1400,14 +1671,23 @@ msgstr "Date de début de navigation"
 msgid "Set the starttime of your sailing trip"
 msgstr "Heure de début de navigation"
 #
+msgid "Show"
+msgstr "Afficher"
+#
 msgid "Show Depth in"
 msgstr "Profondeur en"
+#
+msgid "Show Engines/Sails Mode"
+msgstr "Afficher les moteurs/Voiles"
 #
 msgid "Show Equipment"
 msgstr "Voir l'équipement"
 #
+msgid "Show Layout Selection Mode"
+msgstr "Afficher la mise en page sélectionnée"
+#
 msgid "Show Logbook Icon"
-msgstr "Montrer l'icône de LogBook"
+msgstr "Afficher l'icône Livre de bord"
 #
 # Used in Options
 msgid "Show Position Fomat"
@@ -1418,9 +1698,6 @@ msgstr "Montrer les info-bulles"
 #
 msgid "Show Wave/Swell in"
 msgstr "Vague/houle en"
-#
-msgid "Show all Layouts"
-msgstr "Montrer les mises en page"
 #
 msgid "Show all entries"
 msgstr "Montrer toutes les entrées"
@@ -1455,9 +1732,6 @@ msgstr "Signature"
 msgid "Sorry, Logbook has no lines"
 msgstr "Désolé, le livre de bord ne contient aucune ligne"
 #
-msgid "Sorry, Your Logbook has no lines"
-msgstr "Désolé, votre livre de bord est vide"
-#
 msgid "Sorry, no Layout installed"
 msgstr "Désolé, aucune mise en page installée"
 #
@@ -1466,6 +1740,9 @@ msgstr "Tri croissant"
 #
 msgid "Sort descending"
 msgstr "Tri décroissant"
+#
+msgid "Sp"
+msgstr "Spi"
 #
 msgid "Speed"
 msgstr "Vitesse"
@@ -1480,8 +1757,14 @@ msgstr ""
 "Vitesse\n"
 "maximale"
 #
+msgid "Spinnacker"
+msgstr "Spi"
+#
 msgid "Split Watch"
 msgstr "Séparer les quarts"
+#
+msgid "St"
+msgstr "Tri"
 #
 msgid "Start"
 msgstr "Début"
@@ -1498,8 +1781,20 @@ msgstr ""
 "\n"
 "%s"
 #
+msgid ""
+"Start your engine(s) and hit the button.\n"
+"You should see the ERRPM-Sentence\n"
+"left to the button"
+msgstr ""
+"Démarrer le(s) moteur(s) et cliquer sur le bouton. \n"
+"Vous devriez voir la trame ERRPM\n"
+"à gauche du bouton"
+#
 msgid "Startvalue"
 msgstr "Valeur initiale"
+#
+msgid "Staysail"
+msgstr "Trinquette"
 #
 # means
 # Logbook from date to date
@@ -1596,6 +1891,18 @@ msgstr ""
 msgid "Town"
 msgstr "Ville"
 #
+msgid "Tr"
+msgstr "Tr"
+#
+msgid "Track"
+msgstr "Trace"
+#
+msgid "Track "
+msgstr "Trace"
+#
+msgid "TrackID"
+msgstr "Trace ID"
+#
 #, c-format
 msgid ""
 "Tried to install Languages at\n"
@@ -1622,13 +1929,28 @@ msgstr ""
 "La fenêtre de dialogue 'Préférences de LogBook' est maintenant fermée. "
 #
 msgid "True"
-msgstr "Vraie"
+msgstr "Vrai"
+#
+msgid "Try"
+msgstr "Essayer"
 #
 msgid "Type"
 msgstr "Type"
 #
 msgid "UTC"
 msgstr "UTC"
+#
+msgid ""
+"Uncheck for Motorboats\n"
+"\n"
+"Engine(s) started, sets Sails to none and appends \"Sails down\" \n"
+"\"Sails hoisted\" when Engine stoped\n"
+"\n"
+"Set checkmarks in the sail-checkboxes BEFORE you stop the engine !"
+msgstr ""
+#
+msgid "Uncheck for Motorboats."
+msgstr ""
 #
 msgid ""
 "Uncheck if You have no GPS\n"
@@ -1663,12 +1985,27 @@ msgstr ""
 msgid "Urgentvalue"
 msgstr "Valeur urgente"
 #
+msgid "Use ERRPM-Sentence (see help)"
+msgstr ""
+"Utiliser la trame nmea0183 ERRPM  pour une gestion automatique des moteurs "
+"(voir l'aide)"
+#
+msgid "Use ERRPM-Sentence to calculate the engine-hours"
+msgstr "Utiliser la trame ERPRM, pour calculer le temps d'utilisation moteur"
+#
+msgid "Use WIMDA-Sentence from the weatherstation"
+msgstr ""
+"Activer la reconnaissance de la trame WIMDA pour renseigner les infos météos"
+#
 msgid ""
 "Used for ODT/Browser-program\n"
 "One Row for the day + selected days = Days displayed"
 msgstr ""
 "Utilser dans l'Editeur/Navigateur Web\n"
 "Une ligne par jour + jour sélectionné = Jours à afficher"
+#
+msgid "Usefull for Tablet-PC's"
+msgstr ""
 #
 # Textfield for userlabel in boat
 msgid "UserLabel"
@@ -1795,6 +2132,9 @@ msgstr "Vitesse du vent"
 msgid "Windspeed "
 msgstr "Vitesse du vent"
 #
+msgid "Write message \"Engine runnung\""
+msgstr ""
+#
 msgid "Write warning \"No GPS\""
 msgstr "Afficher une alerte \"Pas de GPS\""
 #
@@ -1824,6 +2164,13 @@ msgstr "Année"
 msgid "Yes"
 msgstr "Oui"
 #
+msgid ""
+"You can change the abreviations and the names of the sails\n"
+"in Options/Miscellaneous/Sails"
+msgstr ""
+"Vous pouvez modifier les abréviations et le nom des voiles\n"
+"dans Options/Divers/Voiles"
+#
 #, c-format
 msgid ""
 "You cannot set this dateformat.\n"
@@ -1845,6 +2192,15 @@ msgstr ""
 "Votre région utilise un format 24 heures\n"
 "Dans ce cas le systèm n'utilisera pas le texte AM/PM.\n"
 #
+msgid ""
+"Your Engine(s) running in manually mode.\n"
+"\n"
+"Engine(s) stopped now."
+msgstr ""
+"Les moteurs sont gérés manuellement.\n"
+"\n"
+"Les moteurs sont actuellement arrêtés."
+#
 #, c-format
 msgid ""
 "Your Logbook has %i lines\n"
@@ -1858,6 +2214,15 @@ msgstr ""
 #
 msgid "Your Logbook has no lines ?"
 msgstr "Votre livre de bord ne contient aucune ligne"
+#
+msgid ""
+"Your engine(s) are still running\n"
+"\n"
+"Stop engine(s) ?"
+msgstr ""
+"Le(s) moteur(s) sont déja démarré(s)\n"
+"\n"
+"Arreter le(s) moteur(s) ?"
 #
 msgid "Zip"
 msgstr ""
@@ -1916,6 +2281,9 @@ msgstr ""
 "Ligne automatique par minuterie\n"
 "Vous pouvez activer/désactiver la minuterie\n"
 "ou modifier ce choix dans les options"
+#
+msgid "black"
+msgstr "Noir"
 #
 msgid "day(s)"
 msgstr "jour(s)"
@@ -1986,7 +2354,7 @@ msgstr "fth"
 #
 # Sur une version FR l'utilisateur souhaitera plus saisir des Litres.
 msgid "gal"
-msgstr "Gal"
+msgstr "L"
 #
 msgid ""
 "green = Event is running\n"
@@ -2028,6 +2396,12 @@ msgstr ""
 msgid "none"
 msgstr "Rien"
 #
+msgid "red"
+msgstr "Rouge"
+#
+msgid "solid"
+msgstr "solide"
+#
 msgid "this day"
 msgstr "Ce jour"
 #
@@ -2044,15 +2418,26 @@ msgstr ""
 "Pour utiliser MS-Word, ouvrir %s comme ceci :\n"
 "\"C:\\Votre_Chemin_pour_Winword\\WINWORD.EXE\" %s"
 #
+msgid "transparent"
+msgstr "transparance"
+#
+msgid "unnamed Route"
+msgstr "(Route sans nom)"
+#
 msgid "use Textblocks..."
 msgstr "Utiliser les blocs de texte ..."
 #
 msgid "week(s)"
 msgstr "semaine(s)"
 #
+msgid "white"
+msgstr "Blanc"
+#
 msgid "write your own label"
 msgstr "Ecrire votre  propre \"étiquette\" "
 #
+msgid "yellow"
+msgstr "Jaune"
 #
 #
 #
@@ -2121,10 +2506,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "      Course- Message toute les x minutes"
-#
 #
 #
 #
@@ -2211,10 +2594,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "0"
 #~ msgstr "0"
-#
 #
 #
 #
@@ -2283,53 +2664,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
-#
-#
-#
-#
-#, fuzzy
-#~ msgid "10"
-#~ msgstr "0"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 #~ msgid ":0"
 #~ msgstr ":0"
-#
 #
 #
 #
@@ -2394,10 +2730,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "Ajouter à la liste des quarts comme avec"
-#
 #
 #
 #
@@ -2462,10 +2796,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Durée automatique de quart"
-#
 #
 #
 #
@@ -2552,7 +2884,6 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Supprimer la ligne"
@@ -2587,10 +2918,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Glisser-déposer pour changer l'ordre dans la liste"
-#
 #
 #
 #
@@ -2657,12 +2986,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Fin"
-#
 #
 #
 #
@@ -2729,12 +3056,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
 #~ "Fin"
-#
 #
 #
 #
@@ -2801,7 +3126,6 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "Quart 6 :\n"
@@ -2837,44 +3161,26 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
-#~ msgid "If Watch changed"
-#~ msgstr "Si la montre a changé"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Si waypoint d'arrivé"
 #
+#
+#~ msgid ""
+#~ "If You have created Your own Layouts\n"
+#~ "prepend them with e.g. My_ \n"
+#~ "The _ is important"
+#~ msgstr ""
+#~ "Si vous avez créé vos propres mises en page\n"
+#~ "vous devez les préfixer. Par exemple avec :  My_ \n"
+#~ "Le caractère \" _\" est important"
+#
+#
+#~ msgid ""
+#~ "If You have created Your own layouts\n"
+#~ "with prefix e.g. My_"
+#~ msgstr ""
+#~ "Si vous avez créé vos propres mises en page\n"
+#~ "avec le préfixe par exemple My_"
 #
 #
 #
@@ -2939,10 +3245,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Interval:"
 #~ msgstr "Délai : "
-#
 #
 #
 #
@@ -3003,10 +3307,12 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "No. Watches"
 #~ msgstr "Numéro du quart"
 #
+#
+#~ msgid "Only Layouts with prefix:"
+#~ msgstr "Seulement avec le préfixe de la mise en page :"
 #
 #
 #
@@ -3085,10 +3391,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Person:"
 #~ msgstr "Personne :"
-#
 #
 #
 #
@@ -3153,10 +3457,8 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Veuillez entrer 4 chiffres au format 24h ex : 1545 = 03:45 PM"
-#
 #
 #
 #
@@ -3196,6 +3498,9 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #~ "    12:30:00PM"
 #
 #
+#~ msgid "Show all Layouts"
+#~ msgstr "Montrer les mises en page"
+#
 #
 #
 #
@@ -3229,6 +3534,9 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Désolé, 0 Hrs 0 Min 0 Sec est impossible"
 #
+#
+#~ msgid "Sorry, Your Logbook has no lines"
+#~ msgstr "Désolé, votre livre de bord est vide"
 #
 #
 #
@@ -3295,12 +3603,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Début"
-#
 #
 #
 #
@@ -3367,12 +3673,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
 #~ "Début"
-#
 #
 #
 #
@@ -3439,12 +3743,10 @@ msgstr "Ecrire votre  propre \"étiquette\" "
 #
 #
 #
-#
 #~ msgid "Start 6.Watch"
 #~ msgstr ""
 #~ "Quart 6 :\n"
 #~ "Début"
-#
 #
 #
 #

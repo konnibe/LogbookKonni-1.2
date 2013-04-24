@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-12 17:01+0200\n"
+"POT-Creation-Date: 2013-04-24 18:11+0200\n"
 "PO-Revision-Date: 2012-10-12 17:04+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -17,6 +17,18 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
+#
+#, fuzzy
+msgid ""
+"\n"
+"Engine #2 running"
+msgstr "Maschine #2"
+#
+#, fuzzy
+msgid ""
+"\n"
+"Engine #2 stopped"
+msgstr "Demo Maschine gestartet"
 #
 #, c-format
 msgid ""
@@ -51,6 +63,12 @@ msgstr "- Normaler Timer - Intervall:"
 msgid " Direction "
 msgstr "Richtung"
 #
+msgid " off"
+msgstr ""
+#
+msgid " on"
+msgstr ""
+#
 msgid ""
 "!\n"
 "\n"
@@ -63,12 +81,18 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
+msgid "#1 RPM"
+msgstr ""
+#
 #
 #
 #
 #
 msgid "#1 Total"
 msgstr "#1 gesamt"
+#
+msgid "#2 RPM"
+msgstr ""
 #
 #
 #
@@ -87,8 +111,8 @@ msgstr "%i Jahr(e) %i Monat(e) %i Tage(s)"
 msgid "'"
 msgstr "'"
 #
-msgid "(Unnamed Route)"
-msgstr "(unbenannte Route)"
+msgid "*** MAN OVERBOARD ***\n"
+msgstr ""
 #
 msgid ""
 "*Optional* Prepend a * to a member to make this member static to a watch / "
@@ -104,14 +128,29 @@ msgstr "+ Minuten"
 msgid "-Plugin"
 msgstr "-Plugin"
 #
+msgid "1"
+msgstr ""
+#
 msgid "1. Watch"
 msgstr "1.Wache"
 #
 msgid "12 Hour Format"
 msgstr "12 Stunden Format"
 #
+msgid "2"
+msgstr ""
+#
 msgid "24 Hour Format"
 msgstr "24 Stunden Format"
+#
+msgid "4"
+msgstr ""
+#
+msgid "<<  Back"
+msgstr ""
+#
+msgid "?"
+msgstr ""
 #
 msgid "AH #1 Total"
 msgstr "Ah #1 gesamt"
@@ -128,6 +167,11 @@ msgstr ""
 #
 msgid "Abbreviations"
 msgstr "Abkürzungen"
+#
+msgid ""
+"Abbreviations are shown in the Sails-Checkboxes\n"
+"The Name is used for the column \"Sails\" when added a new entry"
+msgstr ""
 #
 msgid "Active"
 msgstr "Aktiv"
@@ -202,6 +246,9 @@ msgstr ""
 "oder diesen Text ändern unter Toolbox/Plugins/Logbook\n"
 "\n"
 "Shift+Enter = Zeilenumbruch"
+#
+msgid "Back to Sailnames"
+msgstr ""
 #
 msgid "Bank #1"
 msgstr ""
@@ -278,6 +325,12 @@ msgstr "Kapazität"
 msgid "Category"
 msgstr "Kategory"
 #
+msgid "Check"
+msgstr ""
+#
+msgid "Checkbox Space  >>"
+msgstr ""
+#
 msgid "Clear"
 msgstr "Löschen"
 #
@@ -300,6 +353,14 @@ msgstr "Löscht alle Daten"
 #
 msgid "Clouds"
 msgstr "Wolken"
+#
+#, fuzzy
+msgid "Column +"
+msgstr "In Spalte"
+#
+#, fuzzy
+msgid "Column -"
+msgstr "In Spalte"
 #
 msgid "Confirm"
 msgstr "Bestätige"
@@ -536,14 +597,45 @@ msgstr "Layout editieren"
 msgid "End"
 msgstr "Ende"
 #
+#, fuzzy
+msgid "Engine"
+msgstr "Maschine"
+#
 msgid "Engine "
 msgstr "Maschine"
 #
 msgid "Engine #1"
 msgstr "Maschine #1"
 #
+#, fuzzy
+msgid "Engine #1 running"
+msgstr "Maschine #1"
+#
+#, fuzzy
+msgid "Engine #1 started"
+msgstr "Maschine #1"
+#
+#, fuzzy
+msgid "Engine #1 stopped"
+msgstr "Demo Maschine gestartet"
+#
 msgid "Engine #2"
 msgstr "Maschine #2"
+#
+#, fuzzy
+msgid "Engine #2 running"
+msgstr "Maschine #2"
+#
+#, fuzzy
+msgid "Engine #2 started"
+msgstr "Maschine #2"
+#
+#, fuzzy
+msgid "Engine #2 stopped"
+msgstr "Demo Maschine gestartet"
+#
+msgid "Engine start/stop sails message"
+msgstr ""
 #
 msgid ""
 "Engine stopped\n"
@@ -553,6 +645,12 @@ msgstr ""
 "Maschine gestoppt\n"
 "\n"
 "Demo - klicke im Rechtsklickmenu 'nutze Textblocks für Hilfe'"
+#
+msgid "Engine-No. corresponds with column Engine #1"
+msgstr ""
+#
+msgid "Engine-No. corresponds with column Engine #2"
+msgstr ""
 #
 msgid ""
 "Enter default watchtime e.g. 3.30 / available formats are 3.30, 3,30, 3:30, "
@@ -638,6 +736,27 @@ msgstr "fixes Datum"
 msgid "Flip Day<->Month"
 msgstr "Tausche Tag<->Monat"
 #
+msgid "Fo1"
+msgstr ""
+#
+msgid "Fo2"
+msgstr ""
+#
+msgid "Fo3"
+msgstr ""
+#
+msgid "Fock 1"
+msgstr ""
+#
+msgid "Fock 2"
+msgstr ""
+#
+msgid "Fock 3"
+msgstr ""
+#
+msgid "For Barometer, Air Temerature and rel. Humidity"
+msgstr ""
+#
 msgid "Fuel"
 msgstr "Treibstoff"
 #
@@ -658,11 +777,32 @@ msgstr "Stunden Timer"
 msgid "GPS Auto"
 msgstr ""
 #
+msgid "GUID"
+msgstr ""
+#
+msgid "Ge1"
+msgstr ""
+#
+msgid "Ge2"
+msgstr ""
+#
+msgid "Ge3"
+msgstr ""
+#
 msgid "Gen. total"
 msgstr "Gen. gesamt"
 #
 msgid "Generator"
 msgstr "Generator"
+#
+msgid "Genoa 1"
+msgstr ""
+#
+msgid "Genoa 2"
+msgstr ""
+#
+msgid "Genoa 3"
+msgstr ""
 #
 msgid "Go to date/time now"
 msgstr "Springe zur jetzigen Wache"
@@ -761,22 +901,6 @@ msgstr "Wenn"
 msgid "If GPS off use for manual entry"
 msgstr "Wenn GPS nicht eingeschaltet ist benutze"
 #
-msgid ""
-"If You have created Your own Layouts\n"
-"prepend them with e.g. My_ \n"
-"The _ is important"
-msgstr ""
-"Wenn Sie ein eigenes Layout erstellt haben\n"
-"stellen Sie bitte z,b. Mein_ voran\n"
-"Der Unterstrich _ ist wichtig !"
-#
-msgid ""
-"If You have created Your own layouts\n"
-"with prefix e.g. My_"
-msgstr ""
-"Wen Sie ein Layout mit dem Prefix\n"
-"z.B. Mein_ erstellt haben"
-#
 msgid "In Column"
 msgstr "In Spalte"
 #
@@ -826,6 +950,15 @@ msgstr ""
 "Daten hinzuzufügen\n"
 "\n"
 "Aktuelles Logbuch wird benutzt ! "
+#
+msgid "Ji"
+msgstr ""
+#
+msgid "Jib"
+msgstr ""
+#
+msgid "KML"
+msgstr ""
 #
 msgid "LOA"
 msgstr ""
@@ -981,9 +1114,15 @@ msgstr "Altes Logbuch bis "
 msgid "MMSI"
 msgstr ""
 #
+msgid "Ma"
+msgstr ""
+#
 #
 msgid "Magnetic"
 msgstr "Magnet"
+#
+msgid "Main"
+msgstr ""
 #
 msgid "Maintenance"
 msgstr "Instandhaltung"
@@ -1000,12 +1139,24 @@ msgstr "Wetter"
 msgid "Meter"
 msgstr "Meter"
 #
+msgid "Mi"
+msgstr ""
+#
 #
 msgid "Minutes"
 msgstr "Minuten"
 #
 msgid "Minutes greater than 59"
 msgstr "Minuten sind größer als 59"
+#
+msgid "Miscellaneous"
+msgstr ""
+#
+msgid "Mizzen"
+msgstr ""
+#
+msgid "Mizzen Storm"
+msgstr ""
 #
 #
 msgid "Month"
@@ -1024,7 +1175,13 @@ msgstr "Motor Stunden"
 msgid "Motor/Sails"
 msgstr "Maschine/Segel"
 #
+msgid "Mt"
+msgstr ""
+#
 msgid "NM"
+msgstr ""
+#
+msgid "NMEA"
 msgstr ""
 #
 msgid "Name"
@@ -1099,6 +1256,9 @@ msgstr ""
 msgid "No Seconds"
 msgstr "keine Sekunden"
 #
+msgid "No. of Inboard Engines"
+msgstr ""
+#
 msgid "Normal Timer"
 msgstr "Normaler Timer"
 #
@@ -1142,10 +1302,6 @@ msgstr "Altes Logbuch bis %s"
 #
 msgid "Onboard"
 msgstr "an Bord"
-#
-#
-msgid "Only Layouts with prefix:"
-msgstr "nur Layouts mit Prefix:"
 #
 msgid ""
 "Only used when you enter 1/2, 1/4 ... in a total-field, or to calculate the "
@@ -1250,8 +1406,14 @@ msgstr ""
 msgid "Priority"
 msgstr "Priorität"
 #
+msgid "PropShaft"
+msgstr ""
+#
 msgid "R"
 msgstr "R"
+#
+msgid "RPM"
+msgstr ""
 #
 #
 #
@@ -1304,7 +1466,25 @@ msgstr "alle Werte zurücksetzen ?"
 msgid "Reset data to edit-level"
 msgstr "Zurücksetzen der Daten"
 #
+msgid "Revolutions"
+msgstr ""
+#
 msgid "Route"
+msgstr ""
+#
+msgid "RouteID"
+msgstr ""
+#
+msgid "Routepoints"
+msgstr ""
+#
+msgid "Row +"
+msgstr ""
+#
+msgid "Row -"
+msgstr ""
+#
+msgid "S"
 msgstr ""
 #
 msgid "SOG"
@@ -1322,6 +1502,38 @@ msgstr "Segel-Nr."
 #
 msgid "Sails"
 msgstr "Segel"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails changed"
+msgstr "Wenn Wachwechsel"
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails down"
+msgstr "Segel"
+#
+#, fuzzy
+msgid "Sails hoisted"
+msgstr "Segel meistens"
 #
 msgid ""
 "Sails up\n"
@@ -1386,6 +1598,10 @@ msgstr "Wähle Logbuch"
 msgid "Select Route"
 msgstr "Wähle Route"
 #
+#, fuzzy
+msgid "Select Track"
+msgstr "Wähle"
+#
 msgid "Select a date"
 msgstr "Wähle ein Datum"
 #
@@ -1432,6 +1648,9 @@ msgstr "Service zu erledigen"
 msgid "Service done"
 msgstr "Service erledigt"
 #
+msgid "Set Linewidth to"
+msgstr ""
+#
 msgid "Set Path to DataManager"
 msgstr "Pfad zum Dateimanager"
 #
@@ -1444,11 +1663,20 @@ msgstr "Pfad zum Mail-Program"
 msgid "Set Path to ODT-Editor"
 msgstr "Pfad zum ODT-Editor"
 #
+msgid "Set Route-Linecolor to"
+msgstr ""
+#
 msgid "Set Timer"
 msgstr "Timerintervall"
 #
 msgid "Set Timer Interval"
 msgstr "Setze das Timer-Intervall"
+#
+msgid "Set Track-Linecolor to"
+msgstr ""
+#
+msgid "Set Transparency to"
+msgstr ""
 #
 msgid "Set Watchtimes"
 msgstr "Wachzeiten setzen"
@@ -1493,12 +1721,21 @@ msgstr "Setze das Startdatum des Törns ein"
 msgid "Set the starttime of your sailing trip"
 msgstr "Setze die Startzeit des Törns ein"
 #
+msgid "Show"
+msgstr ""
+#
 #
 msgid "Show Depth in"
 msgstr "Tiefe in"
 #
+msgid "Show Engines/Sails Mode"
+msgstr ""
+#
 msgid "Show Equipment"
 msgstr "Zeige Zubehör"
+#
+msgid "Show Layout Selection Mode"
+msgstr ""
 #
 #
 msgid "Show Logbook Icon"
@@ -1517,10 +1754,6 @@ msgstr "Zeige Tooltips"
 #
 msgid "Show Wave/Swell in"
 msgstr "Welle/Swell in"
-#
-#
-msgid "Show all Layouts"
-msgstr "zeige alle Layouts"
 #
 msgid "Show all entries"
 msgstr "Zeige alle Einträge"
@@ -1555,9 +1788,6 @@ msgstr "Zeichen"
 msgid "Sorry, Logbook has no lines"
 msgstr "Sorry, Logbuch hat keine Einträge"
 #
-msgid "Sorry, Your Logbook has no lines"
-msgstr "Sorry, Ihr Logbuch hat keine Zeilen"
-#
 msgid "Sorry, no Layout installed"
 msgstr "Sorry, kein Layout installiert"
 #
@@ -1566,6 +1796,10 @@ msgstr "Sortierung aufsteigend"
 #
 msgid "Sort descending"
 msgstr "Sortierung absteigend"
+#
+#, fuzzy
+msgid "Sp"
+msgstr "Stop"
 #
 msgid "Speed"
 msgstr "Fahrt"
@@ -1576,8 +1810,15 @@ msgstr "Fahrt durchsch."
 msgid "Speed Max."
 msgstr "Fahrt max."
 #
+msgid "Spinnacker"
+msgstr ""
+#
 msgid "Split Watch"
 msgstr "Teile Wachzeiten"
+#
+#, fuzzy
+msgid "St"
+msgstr "Stop"
 #
 msgid "Start"
 msgstr "Start"
@@ -1594,8 +1835,17 @@ msgstr ""
 "\n"
 "%s"
 #
+msgid ""
+"Start your engine(s) and hit the button.\n"
+"You should see the ERRPM-Sentence\n"
+"left to the button"
+msgstr ""
+#
 msgid "Startvalue"
 msgstr "Startbetrag"
+#
+msgid "Staysail"
+msgstr ""
 #
 msgid "Stop"
 msgstr "Stop"
@@ -1687,6 +1937,20 @@ msgstr "Reisezeit"
 msgid "Town"
 msgstr "Stadt"
 #
+#
+#, fuzzy
+msgid "Tr"
+msgstr "Wahr"
+#
+msgid "Track"
+msgstr ""
+#
+msgid "Track "
+msgstr ""
+#
+msgid "TrackID"
+msgstr ""
+#
 #, c-format
 msgid ""
 "Tried to install Languages at\n"
@@ -1718,10 +1982,25 @@ msgstr ""
 msgid "True"
 msgstr "Wahr"
 #
+msgid "Try"
+msgstr ""
+#
 msgid "Type"
 msgstr "Typ"
 #
 msgid "UTC"
+msgstr ""
+#
+msgid ""
+"Uncheck for Motorboats\n"
+"\n"
+"Engine(s) started, sets Sails to none and appends \"Sails down\" \n"
+"\"Sails hoisted\" when Engine stoped\n"
+"\n"
+"Set checkmarks in the sail-checkboxes BEFORE you stop the engine !"
+msgstr ""
+#
+msgid "Uncheck for Motorboats."
 msgstr ""
 #
 msgid ""
@@ -1757,12 +2036,24 @@ msgstr ""
 msgid "Urgentvalue"
 msgstr "Dringendbetrag"
 #
+msgid "Use ERRPM-Sentence (see help)"
+msgstr ""
+#
+msgid "Use ERRPM-Sentence to calculate the engine-hours"
+msgstr ""
+#
+msgid "Use WIMDA-Sentence from the weatherstation"
+msgstr ""
+#
 msgid ""
 "Used for ODT/Browser-program\n"
 "One Row for the day + selected days = Days displayed"
 msgstr ""
 "Zeigt im ODT/Browser-Programm die Daten ab dem im Textfeld\n"
 "eingegeben Tag an plus der gewählten Tage"
+#
+msgid "Usefull for Tablet-PC's"
+msgstr ""
 #
 # Textfield for userlabel in boat
 msgid "UserLabel"
@@ -1878,6 +2169,9 @@ msgstr "Windstärke"
 msgid "Windspeed "
 msgstr "Windstärke"
 #
+msgid "Write message \"Engine runnung\""
+msgstr ""
+#
 #
 msgid "Write warning \"No GPS\""
 msgstr "schreibe Warnung  \"No GPS\""
@@ -1916,6 +2210,11 @@ msgstr "Jahr"
 msgid "Yes"
 msgstr "Ja"
 #
+msgid ""
+"You can change the abreviations and the names of the sails\n"
+"in Options/Miscellaneous/Sails"
+msgstr ""
+#
 #, c-format
 msgid ""
 "You cannot set this dateformat.\n"
@@ -1937,6 +2236,12 @@ msgstr ""
 "In Ihrem Land wird das 24 Stunden Format verwendet.\n"
 "In diesem Fall stellt das Betriebssytem keine AM/PM-Strings zur Verfügung. \n"
 #
+msgid ""
+"Your Engine(s) running in manually mode.\n"
+"\n"
+"Engine(s) stopped now."
+msgstr ""
+#
 #, c-format
 msgid ""
 "Your Logbook has %i lines\n"
@@ -1949,6 +2254,12 @@ msgstr ""
 #
 msgid "Your Logbook has no lines ?"
 msgstr "Ihr Logbuch hat keine Zeilen ?"
+#
+msgid ""
+"Your engine(s) are still running\n"
+"\n"
+"Stop engine(s) ?"
+msgstr ""
 #
 msgid "Zip"
 msgstr "PLZ"
@@ -2006,6 +2317,9 @@ msgstr ""
 "Sie können einen Timer ein- oder ausschalten\n"
 "durch klicken auf den Timer-Bullet.\n"
 "Ändere diesen Text in Options"
+#
+msgid "black"
+msgstr ""
 #
 msgid "day(s)"
 msgstr "Tag(e)"
@@ -2119,6 +2433,12 @@ msgstr ""
 msgid "none"
 msgstr "kein"
 #
+msgid "red"
+msgstr ""
+#
+msgid "solid"
+msgstr ""
+#
 msgid "this day"
 msgstr "dieser Tag"
 #
@@ -2133,14 +2453,28 @@ msgstr ""
 "damit MS-Word richtig started, bitte ein %s anhängen:\n"
 "\"C:\\DeinPfadzuWinword\\WINWORD.EXE\" %s"
 #
+msgid "transparent"
+msgstr ""
+#
+#, fuzzy
+msgid "unnamed Route"
+msgstr "(unbenannte Route)"
+#
 msgid "use Textblocks..."
 msgstr "nutze Textblöcke..."
 #
 msgid "week(s)"
 msgstr "Woche(n)"
 #
+msgid "white"
+msgstr ""
+#
 msgid "write your own label"
 msgstr "schreiben Sie Ihr eigenes Label"
+#
+msgid "yellow"
+msgstr ""
+#
 #
 #
 #
@@ -2237,8 +2571,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "     Kurs-Mitteilung nach Minuten"
+#
 #
 #
 #
@@ -2285,8 +2621,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1. Wache der 1. Person"
+#
 #
 #
 #
@@ -2321,8 +2659,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "zur Wachliste hinzufügen wie.."
+#
 #
 #
 #
@@ -2427,6 +2767,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Füge Zeile hinzu je Nm"
 #
@@ -2445,8 +2786,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Automatisches Wachinterval"
+#
 #
 #
 #
@@ -2603,8 +2946,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Copy"
 #~ msgstr "Kopieren"
+#
 #
 #
 #
@@ -2750,6 +3095,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Crewmember is not onboard\n"
 #~ "\n"
@@ -2760,6 +3106,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #~ "\n"
 #~ "Bitte setzte das Feld 'an Bord' auf 'Ja'\n"
 #~ "(klicke zweimal in das Feld)"
+#
 #
 #
 #
@@ -2889,8 +3236,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Delete"
 #~ msgstr "Löschen"
+#
 #
 #
 #
@@ -2925,8 +3274,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr "Ende 1. Wache"
+#
 #
 #
 #
@@ -2961,8 +3312,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Ende 3. Wache"
+#
 #
 #
 #
@@ -2997,6 +3350,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr "Ende 5. Wache"
 #
@@ -3015,8 +3369,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr "Ende 6. Wache"
+#
 #
 #
 #
@@ -3164,6 +3520,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "FirstName"
 #~ msgstr "Vorname"
 #
@@ -3183,26 +3540,27 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
-#~ msgid "If Watch changed"
-#~ msgstr "Wenn Wachwechsel"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Wenn Wegpunkt erreicht"
+#
+#
+#~ msgid ""
+#~ "If You have created Your own Layouts\n"
+#~ "prepend them with e.g. My_ \n"
+#~ "The _ is important"
+#~ msgstr ""
+#~ "Wenn Sie ein eigenes Layout erstellt haben\n"
+#~ "stellen Sie bitte z,b. Mein_ voran\n"
+#~ "Der Unterstrich _ ist wichtig !"
+#
+#
+#~ msgid ""
+#~ "If You have created Your own layouts\n"
+#~ "with prefix e.g. My_"
+#~ msgstr ""
+#~ "Wen Sie ein Layout mit dem Prefix\n"
+#~ "z.B. Mein_ erstellt haben"
+#
 #
 #
 #
@@ -3239,8 +3597,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interval:"
+#
 #
 #
 #
@@ -3377,12 +3737,15 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Logbook Konni"
 #~ msgstr "Logbuch Konni"
 #
 #
+#
 #~ msgid "Logbook from %s to %s"
 #~ msgstr "Logbuch vom %s bis %s"
+#
 #
 #
 #
@@ -3414,8 +3777,15 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Anzahl Wachen"
+#
+#
+#
+#~ msgid "Only Layouts with prefix:"
+#~ msgstr "nur Layouts mit Prefix:"
+#
 #
 #
 #
@@ -3570,8 +3940,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Path to HTML-Editor (optional)"
 #~ msgstr "Pfad zum HTML-Editor (optional)"
+#
 #
 #
 #
@@ -3606,6 +3978,7 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Persons:"
 #~ msgstr "Personen:"
 #
@@ -3624,8 +3997,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Bitte 4 Zahlen im 24h-Format eingeben z.B. 1545 = 15:45"
+#
 #
 #
 #
@@ -3711,12 +4086,14 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Bitte geben Sie die Zeit im Format:\n"
 #~ "   12:30:00 ein."
+#
 #
 #
 #
@@ -3879,8 +4256,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Save"
 #~ msgstr "Speichern"
+#
 #
 #
 #
@@ -4126,9 +4505,16 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Select boat-layout to view"
 #~ msgstr "Wähle Route"
+#
+#
+#
+#~ msgid "Show all Layouts"
+#~ msgstr "zeige alle Layouts"
+#
 #
 #
 #
@@ -4147,6 +4533,11 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Sorry, 0 Hrs 0 Min 0 Sec ist nicht möglich"
+#
+#
+#~ msgid "Sorry, Your Logbook has no lines"
+#~ msgstr "Sorry, Ihr Logbuch hat keine Zeilen"
+#
 #
 #
 #
@@ -4263,8 +4654,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr "Fahrt d.W. max."
+#
 #
 #
 #
@@ -4299,8 +4692,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Start 2.Wache"
+#
 #
 #
 #
@@ -4335,8 +4730,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr "Start 4.Wache"
+#
 #
 #
 #
@@ -4371,8 +4768,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr "Start 6.Wache"
+#
 #
 #
 #
@@ -4414,8 +4813,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer an/aus"
+#
 #
 #
 #
@@ -4462,8 +4863,10 @@ msgstr "schreiben Sie Ihr eigenes Label"
 #
 #
 #
+#
 #~ msgid "Undo"
 #~ msgstr "Rückgängig"
+#
 #
 #
 #

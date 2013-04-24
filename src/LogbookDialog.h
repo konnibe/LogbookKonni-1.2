@@ -126,7 +126,6 @@ enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 		wxImageList *imageList;
 		
 		wxNotebook* m_logbook;
-		wxPanel* m_panel2;
 		wxButton* m_button4;
 		wxButton* logSave;
 		wxStaticLine* m_staticline8;
@@ -302,6 +301,9 @@ enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 		wxStaticLine* m_staticline1411;
 		wxMenu* m_menu711;
 		wxPanel* m_panel22;
+		wxBoxSizer* bSizer6;
+		wxSizer* bSizer2;
+		wxPanel* m_panel2;
 		
 		// Virtual event handlers, overide them in your derived class
 		 void LogbookDialogOnClose( wxCloseEvent& event ) ;

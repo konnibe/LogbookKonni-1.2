@@ -79,7 +79,6 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 
 	this->SetSizeHints( wxSize( -1,-1 ), wxDefaultSize );
 	
-	wxBoxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
 	
 	m_logbook = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_TOP );
@@ -87,7 +86,6 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	wxBoxSizer* bSizer361;
 	bSizer361 = new wxBoxSizer( wxVERTICAL );
 	
-	wxBoxSizer* bSizer6;
 	bSizer6 = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_button4 = new wxButton( m_panel2, wxID_ANY, _("Add Line"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -123,7 +121,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	bSizer46->Add( logbookChoice, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_buttonReloadLayout = new wxButton( m_panelLayout, wxID_ANY, _("R"), wxPoint( -1,-1 ), wxSize( -1,-1 ), wxBU_EXACTFIT );
+	m_buttonReloadLayout = new wxButton( m_panelLayout, wxID_ANY, _("R"), wxDefaultPosition, wxSize( -1,-1 ), wxBU_EXACTFIT );
 	m_buttonReloadLayout->SetToolTip( _("Reload Layouts") );
 	
 	bSizer46->Add( m_buttonReloadLayout, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
@@ -2603,6 +2601,8 @@ void LogbookDialog::OnButtomClickShowHideLayout(wxCommandEvent& event)
 	}
 	m_bpButtonShowHideLayout->SetToolTip(panelOnOff[!logbookPlugIn->opt->layoutShow]);
 	m_panel2->Layout();
+	bSizer6->Layout();
+	m_panel2->Refresh();
 }
 
 void LogbookDialog::OnButtomClickStatusbarGlobal( wxCommandEvent& event )
