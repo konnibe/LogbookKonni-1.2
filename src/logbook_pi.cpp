@@ -958,7 +958,7 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "WriteEngineRun" ), opt->engineMessageRunning);
 			wxString str = wxEmptyString;
 			for(int i = 0; i < 7; i++)
-				str += wxString::Format(_T("%i,%s,"),opt->filterLayout[i],opt->layoutPrefix[i]);
+				str += wxString::Format(_T("%i,%s,"),opt->filterLayout[i],opt->layoutPrefix[i].c_str());
 			str.RemoveLast();
 			pConf->Write ( _T ( "PrefixLayouts" ), str);
 
@@ -1344,7 +1344,7 @@ ArrayOfGridColWidth logbookkonni_pi::readColsOld(wxFileConfig *pConf, ArrayOfGri
 		if(!r) break;
 		ar.Add(val);
 	}
-	bool z = pConf->DeleteGroup(_T("/PlugIns/Logbook/"+entry));
+	pConf->DeleteGroup(_T("/PlugIns/Logbook/"+entry));
 
 	return ar;
 }

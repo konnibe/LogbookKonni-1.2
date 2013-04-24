@@ -964,7 +964,7 @@ void Logbook::loadData()
 			case 53:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::RPM1,s);
 				break;
 			case 54:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::RPM2,s);
-				int in =  0;
+			//	int in =  0;
 				break;
 			}			
 			c++;

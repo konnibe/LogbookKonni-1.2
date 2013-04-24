@@ -828,7 +828,7 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 	wxTimeSpan time;
 	if(journey.GetDays() > 0)
 	{
-	int m = journey.GetMinutes();
+		journey.GetMinutes();
 		wxTimeSpan t(0,journey.GetMinutes()-(journey.GetDays()*24*60)); 
 		time = t;
 	}

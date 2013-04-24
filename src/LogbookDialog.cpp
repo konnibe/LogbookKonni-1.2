@@ -3419,7 +3419,7 @@ int LogbookDialog::showLayoutDialog(int grid, wxChoice *choice, wxString locatio
 		wxString t = dlg->m_textCtrlRename->GetValue();
 		if(m_logbook->GetSelection() == 0 && (t.GetChar(0) !=  '1' && t.GetChar(0) != '2'))
 			t.Prepend(logbookPlugIn->opt->engineStr[logbookPlugIn->opt->engines]);
-		bool z = ::wxRenameFile(layout,location+t+fmt);
+		wxRenameFile(layout,location+t+fmt);
 		loadLayoutChoice(grid,location,choice,logbookPlugIn->opt->layoutPrefix[grid]);
 		return 2;
 	}
@@ -4212,7 +4212,7 @@ void LogbookDialog::OnMenuSelectionShowHiddenCols(wxCommandEvent &ev)
 
 	for(int i = 0; i < logGrids[selGrid]->GetNumberCols(); i++)
 		if(logGrids[selGrid]->GetColumnWidth(i) == 0)
-			if((selGrid == 2 && logbookPlugIn->opt->engines == 0) && (i == LogbookHTML::MOTOR1 || i == LogbookHTML::MOTOR1T || i == LogbookHTML::RPM2) )
+			if((selGrid == 2 && logbookPlugIn->opt->engines == 0) && ((i == LogbookHTML::MOTOR1 || i == LogbookHTML::MOTOR1T) || i == LogbookHTML::RPM2) )
 				continue;
 			else
 				logGrids[selGrid]->AutoSizeColumn(i);
