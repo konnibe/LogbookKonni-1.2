@@ -4212,10 +4212,12 @@ void LogbookDialog::OnMenuSelectionShowHiddenCols(wxCommandEvent &ev)
 
 	for(int i = 0; i < logGrids[selGrid]->GetNumberCols(); i++)
 		if(logGrids[selGrid]->GetColumnWidth(i) == 0)
+		{
 			if((selGrid == 2 && logbookPlugIn->opt->engines == 0) && ((i == LogbookHTML::MOTOR1 || i == LogbookHTML::MOTOR1T) || i == LogbookHTML::RPM2) )
 				continue;
 			else
 				logGrids[selGrid]->AutoSizeColumn(i);
+		}
 
 	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
 	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
