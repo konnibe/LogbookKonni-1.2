@@ -38,147 +38,147 @@ LogbookHTML::~LogbookHTML(void)
 
 void LogbookHTML::setPlaceholders()
 {
-	gridc gridcols = { 0,Logbook::ROUTE};
+	gridc gridcols = { 0,LogbookHTML::ROUTE};
 	placeholders[_T("ROUTE")]=gridcols;
 	placeholders[_T("LROUTE")]=gridcols;
-	gridc gridcols1 = { 0,Logbook::RDATE};
+	gridc gridcols1 = { 0,LogbookHTML::RDATE};
 	placeholders[_T("DATE")]=gridcols1;
 	placeholders[_T("LDATE")]=gridcols1;
-	gridc gridcols2 = { 0,Logbook::RTIME};
+	gridc gridcols2 = { 0,LogbookHTML::RTIME};
 	placeholders[_T("TIME")]=gridcols2;
 	placeholders[_T("LTIME")]=gridcols2;
-	gridc gridcols3 = { 0,Logbook::SIGN};
+	gridc gridcols3 = { 0,LogbookHTML::SIGN};
 	placeholders[_T("SIGN")]=gridcols3;
 	placeholders[_T("LSIGN")]=gridcols3;
-	gridc gridcols4 = { 0,Logbook::WAKE};
+	gridc gridcols4 = { 0,LogbookHTML::WAKE};
 	placeholders[_T("WAKE")]=gridcols4;
 	placeholders[_T("LWAKE")]=gridcols4;
-	gridc gridcols5 = { 0,Logbook::DISTANCE};
+	gridc gridcols5 = { 0,LogbookHTML::DISTANCE};
 	placeholders[_T("DISTANCE")]=gridcols5;
 	placeholders[_T("LDISTANCE")]=gridcols5;
-	gridc gridcols6 = { 0,Logbook::DTOTAL};
+	gridc gridcols6 = { 0,LogbookHTML::DTOTAL};
 	placeholders[_T("DTOTAL")]=gridcols6;
 	placeholders[_T("LDTOTAL")]=gridcols6;
-	gridc gridcols7 = { 0,Logbook::POSITION};
+	gridc gridcols7 = { 0,LogbookHTML::POSITION};
 	placeholders[_T("POSITION")]=gridcols7;
 	placeholders[_T("LPOSITION")]=gridcols7;
-	gridc gridcols8 = { 0,Logbook::COG};
+	gridc gridcols8 = { 0,LogbookHTML::COG};
 	placeholders[_T("COG")]=gridcols8;
 	placeholders[_T("LCOG")]=gridcols8;
-	gridc gridcols9 = { 0,Logbook::RTIME};
+	gridc gridcols9 = { 0,LogbookHTML::RTIME};
 	placeholders[_T("COW")]=gridcols9;
 	placeholders[_T("LCOW")]=gridcols9;
-	gridc gridcols10 = { 0,Logbook::COW};
+	gridc gridcols10 = { 0,LogbookHTML::COW};
 	placeholders[_T("SOG")]=gridcols10;
 	placeholders[_T("LSOG")]=gridcols10;
-	gridc gridcols11 = { 0,Logbook::SOW};
+	gridc gridcols11 = { 0,LogbookHTML::SOW};
 	placeholders[_T("SOW")]=gridcols11;
 	placeholders[_T("LSOW")]=gridcols11;
-	gridc gridcols12 = { 0,Logbook::DEPTH};
+	gridc gridcols12 = { 0,LogbookHTML::DEPTH};
 	placeholders[_T("DEPTH")]=gridcols12;
 	placeholders[_T("LDEPTH")]=gridcols12;
-	gridc gridcols13 = { 0,Logbook::REMARKS};
+	gridc gridcols13 = { 0,LogbookHTML::REMARKS};
 	placeholders[_T("REMARKS")]=gridcols13;
 	placeholders[_T("LREMARKS")]=gridcols13;
 	
-	gridc gridcols14 = { 1,Logbook::BARO-logbook->weatherCol};
+	gridc gridcols14 = { 1,LogbookHTML::BARO};
 	placeholders[_T("BARO")]=gridcols14;
 	placeholders[_T("LBARO")]=gridcols14;
-	gridc gridcols15 = { 1,Logbook::HYDRO-logbook->weatherCol };
+	gridc gridcols15 = { 1,LogbookHTML::HYDRO };
 	placeholders[_T("HYDRO")]=gridcols15;
 	placeholders[_T("LHYDRO")]=gridcols15;
-	gridc gridcols16 = { 1,Logbook::TEMPAIR-logbook->weatherCol};
+	gridc gridcols16 = { 1,LogbookHTML::AIRTE};
 	placeholders[_T("AIRTE")]=gridcols16;
 	placeholders[_T("LAIRTE")]=gridcols16;
-	gridc gridcols17 = { 1,Logbook::TEMPWATER-logbook->weatherCol};
+	gridc gridcols17 = { 1,LogbookHTML::WATERTE};
 	placeholders[_T("WTE")]=gridcols17;
 	placeholders[_T("LWTE")]=gridcols17;
-	gridc gridcols18 = { 1,Logbook::WIND-logbook->weatherCol};
+	gridc gridcols18 = { 1,LogbookHTML::WIND};
 	placeholders[_T("WIND")]=gridcols18;
 	placeholders[_T("LWIND")]=gridcols18;
-	gridc gridcols19 = { 1,Logbook::WSPD-logbook->weatherCol};
+	gridc gridcols19 = { 1,LogbookHTML::WSPD};
 	placeholders[_T("WSPD")]=gridcols19;
 	placeholders[_T("LWSPD")]=gridcols19;
-	gridc gridcols20 = { 1,Logbook::CURRENT-logbook->weatherCol};
+	gridc gridcols20 = { 1,LogbookHTML::CURRENT};
 	placeholders[_T("CUR")]=gridcols20;
 	placeholders[_T("LCUR")]=gridcols20;
-	gridc gridcols21 = { 1,Logbook::CSPD-logbook->weatherCol};
+	gridc gridcols21 = { 1,LogbookHTML::CSPD};
 	placeholders[_T("CSPD")]=gridcols21;
 	placeholders[_T("LCSPD")]=gridcols21;
-	gridc gridcols22 = { 1,Logbook::WAVE-logbook->weatherCol };
+	gridc gridcols22 = { 1,LogbookHTML::WAVE };
 	placeholders[_T("WAVE")]=gridcols22;
 	placeholders[_T("LWAVE")]=gridcols22;
-	gridc gridcols23 = { 1,Logbook::SWELL-logbook->weatherCol };
+	gridc gridcols23 = { 1,LogbookHTML::SWELL };
 	placeholders[_T("SWELL")]=gridcols23;
 	placeholders[_T("LSWELL")]=gridcols23;
-	gridc gridcols24 = { 1,Logbook::WEATHER-logbook->weatherCol };
+	gridc gridcols24 = { 1,LogbookHTML::WEATHER };
 	placeholders[_T("WEATHER")]=gridcols24;
 	placeholders[_T("LWEATHER")]=gridcols24;
-	gridc gridcols25 = { 1,Logbook::CLOUDS-logbook->weatherCol };
+	gridc gridcols25 = { 1,LogbookHTML::CLOUDS };
 	placeholders[_T("CLOUDS")]=gridcols25;
 	placeholders[_T("LCLOUDS")]=gridcols25;
-	gridc gridcols26 = { 1,Logbook::VISIBILITY-logbook->weatherCol };
+	gridc gridcols26 = { 1,LogbookHTML::VISIBILITY };
 	placeholders[_T("VISIBILITY")]=gridcols26;
 	placeholders[_T("LVISIBILITY")]=gridcols26;
 
-	gridc gridcols27 = { 2,Logbook::MOTOR-logbook->sailsCol};
+	gridc gridcols27 = { 2,LogbookHTML::MOTOR};
 	placeholders[_T("MOTOR")]=gridcols27;
 	placeholders[_T("LMOTOR")]=gridcols27;
-	gridc gridcols28 = { 2,Logbook::MOTORT-logbook->sailsCol };
+	gridc gridcols28 = { 2,LogbookHTML::MOTORT };
 	placeholders[_T("MOTORT")]=gridcols28;
 	placeholders[_T("LMOTORT")]=gridcols28;
-	gridc gridcols29 = { 2,Logbook::MOTOR1-logbook->sailsCol};
+	gridc gridcols29 = { 2,LogbookHTML::MOTOR1};
 	placeholders[_T("MOTOR1")]=gridcols29;
 	placeholders[_T("LMOTOR1")]=gridcols29;
-	gridc gridcols30 = { 2,Logbook::MOTOR1T-logbook->sailsCol};
+	gridc gridcols30 = { 2,LogbookHTML::MOTOR1T};
 	placeholders[_T("MOTOR1T")]=gridcols30;
 	placeholders[_T("LMOTOR1T")]=gridcols30;
-	gridc gridcols31 = { 2,Logbook::FUEL-logbook->sailsCol};
+	gridc gridcols31 = { 2,LogbookHTML::FUEL};
 	placeholders[_T("FUEL")]=gridcols31;
 	placeholders[_T("LFUEL")]=gridcols31;
-	gridc gridcols32 = { 2,Logbook::FUELT-logbook->sailsCol};
+	gridc gridcols32 = { 2,LogbookHTML::FUELT};
 	placeholders[_T("FUELT")]=gridcols32;
 	placeholders[_T("LFUELT")]=gridcols32;
-	gridc gridcols33 = { 2,Logbook::GENE-logbook->sailsCol};
+	gridc gridcols33 = { 2,LogbookHTML::GENE};
 	placeholders[_T("GENE")]=gridcols33;
 	placeholders[_T("LGENE")]=gridcols33;
-	gridc gridcols34 = { 2,Logbook::GENET-logbook->sailsCol};
+	gridc gridcols34 = { 2,LogbookHTML::GENET};
 	placeholders[_T("GENET")]=gridcols34;
 	placeholders[_T("LGENET")]=gridcols34;
-	gridc gridcols35 = { 2,Logbook::BANK1-logbook->sailsCol };
+	gridc gridcols35 = { 2,LogbookHTML::BANK1 };
 	placeholders[_T("BANK1")]=gridcols35;
 	placeholders[_T("LBANK1")]=gridcols35;
-	gridc gridcols36 = { 2,Logbook::BANK1T-logbook->sailsCol };
+	gridc gridcols36 = { 2,LogbookHTML::BANK1T };
 	placeholders[_T("BANK1T")]=gridcols36;
 	placeholders[_T("LBANK1T")]=gridcols36;
-	gridc gridcols37 = { 2,Logbook::BANK2-logbook->sailsCol };
+	gridc gridcols37 = { 2,LogbookHTML::BANK2 };
 	placeholders[_T("BANK2")]=gridcols37;
 	placeholders[_T("LBANK2")]=gridcols37;
-	gridc gridcols38 = { 2,Logbook::BANK2T-logbook->sailsCol };
+	gridc gridcols38 = { 2,LogbookHTML::BANK2T };
 	placeholders[_T("BANK2T")]=gridcols38;
 	placeholders[_T("LBANK2T")]=gridcols38;
-	gridc gridcols39 = { 2,Logbook::SAILS-logbook->sailsCol };
+	gridc gridcols39 = { 2,LogbookHTML::SAILS };
 	placeholders[_T("SAILS")]=gridcols39;
 	placeholders[_T("LSAILS")]=gridcols39;
-	gridc gridcols40 = { 2,Logbook::REEF-logbook->sailsCol };
+	gridc gridcols40 = { 2,LogbookHTML::REEF };
 	placeholders[_T("REEF")]=gridcols40;
 	placeholders[_T("LREEF")]=gridcols40;
-	gridc gridcols41 = { 2,Logbook::WATERM-logbook->sailsCol };
+	gridc gridcols41 = { 2,LogbookHTML::WATERM };
 	placeholders[_T("WATERM")]=gridcols41;
 	placeholders[_T("LWATERM")]=gridcols41;
-	gridc gridcols42 = { 2,Logbook::WATERMT-logbook->sailsCol };
+	gridc gridcols42 = { 2,LogbookHTML::WATERMT };
 	placeholders[_T("WATERMT")]=gridcols42;
 	placeholders[_T("LWATERMT")]=gridcols42;
-	gridc gridcols43 = { 2,Logbook::WATERMO-logbook->sailsCol };
+	gridc gridcols43 = { 2,LogbookHTML::WATERMO };
 	placeholders[_T("WATERMO")]=gridcols43;
 	placeholders[_T("LWATERMO")]=gridcols43;
-	gridc gridcols44 = { 2,Logbook::WATER-logbook->sailsCol };
+	gridc gridcols44 = { 2,LogbookHTML::WATER };
 	placeholders[_T("WATER")]=gridcols44;
 	placeholders[_T("LWATER")]=gridcols44;
-	gridc gridcols45 = { 2,Logbook::WATERT-logbook->sailsCol };
+	gridc gridcols45 = { 2,LogbookHTML::WATERT };
 	placeholders[_T("WATERT")]=gridcols45;
 	placeholders[_T("LWATERT")]=gridcols45;
-	gridc gridcols46 = { 2,Logbook::MREMARKS-logbook->sailsCol };
+	gridc gridcols46 = { 2,LogbookHTML::MREMARKS };
 	placeholders[_T("MREMARKS")]=gridcols46;
 	placeholders[_T("LMREMARKS")]=gridcols46;
 
@@ -206,8 +206,12 @@ void LogbookHTML::viewHTML(wxString path, wxString layout, bool mode)
 		parent->startBrowser(path);
 		return;
 	}
+
 	setSelection();
 
+	wxString prefix = logbook->opt->engineStr[logbook->opt->engines]+logbook->opt->layoutPrefix[LogbookDialog::LOGBOOK];
+	if(logbook->opt->filterLayout)
+		layout.Prepend(prefix);
 	wxString file = toHTML(path, layout, mode);
 	if(file != wxT(""))
 		parent->startBrowser(file);
@@ -535,11 +539,17 @@ wxString LogbookHTML::replacePlaceholder(wxString html,wxString htmlHeader,int g
 						case MOTORT:	html.Replace(wxT("#MOTORT#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
 										html.Replace(wxT("#LMOTORT#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
 								break;
+						case RPM1:	 	html.Replace(wxT("#RPM1#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
+										html.Replace(wxT("#LRPM1#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
+								break;
 						case MOTOR1:	html.Replace(wxT("#MOTOR1#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
 										html.Replace(wxT("#LMOTOR1#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
 								break;
 						case MOTOR1T:	html.Replace(wxT("#MOTOR1T#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
 										html.Replace(wxT("#LMOTOR1T#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
+								break;
+						case RPM2:		html.Replace(wxT("#RPM2#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
+										html.Replace(wxT("#LRPM2#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
 								break;
 						case FUEL:		html.Replace(wxT("#FUEL#"),Export::replaceNewLine(mode,g->GetCellValue(row,col),false),false);
 										html.Replace(wxT("#LFUEL#"),Export::replaceNewLine(mode,g->GetColLabelValue(col),true),false);
@@ -662,6 +672,10 @@ wxString LogbookHTML::readLayoutFileODT(wxString layout)
 
 void LogbookHTML::viewODT(wxString path, wxString layout, bool mode)
 {
+	wxString prefix = logbook->opt->engineStr[logbook->opt->engines]+logbook->opt->layoutPrefix[LogbookDialog::LOGBOOK];
+	if(logbook->opt->filterLayout)
+		layout.Prepend(prefix);
+
 	setSelection();
 
 	wxString file = toODT(path, layout, mode);
@@ -839,7 +853,7 @@ void LogbookHTML::toCSV(wxString path)
 		{
 			wxString str = _T("\"")+parent->logGrids[n]->GetColLabelValue(i)+_T("\",");
 
-			if(i == Logbook::POSITION && n == 0)
+			if(i == LogbookHTML::POSITION && n == 0)
 			{
 				csvFile << str;
 				csvFile << str;
@@ -857,7 +871,7 @@ void LogbookHTML::toCSV(wxString path)
 				for(int col = 0; col < parent->logGrids[grid]->GetNumberCols(); col++)
 				{
 					temp = parent->logGrids[grid]->GetCellValue(row,col);
-					if(col == Logbook::POSITION && grid == 0)
+					if(col == LogbookHTML::POSITION && grid == 0)
 					{			
 						wxStringTokenizer p(temp,_T("\n"));
 						wxString lat = p.GetNextToken();
@@ -1063,7 +1077,7 @@ void LogbookHTML::toKML(wxString path)
 				{
 					switch(col)
 					{
-					case Logbook::ROUTE:
+					case LogbookHTML::ROUTE:
 						//temp.Replace(_T("#ROW#"),wxString::Format(_("Row: %i"),row));
 						if(e != route )
 						{
@@ -1085,13 +1099,13 @@ void LogbookHTML::toKML(wxString path)
 							rfirst = false;
 						}
 						break;
-					case Logbook::RDATE:
+					case LogbookHTML::RDATE:
 					    logpointName = e +_T(" ");
 						break;
-					case Logbook::RTIME:
+					case LogbookHTML::RTIME:
 						logpointName += e;
 						break;
-					case Logbook::POSITION:
+					case LogbookHTML::POSITION:
 						if(e.IsEmpty()) 
 						{
 							error = true;
@@ -1103,28 +1117,28 @@ void LogbookHTML::toKML(wxString path)
 						position = convertPositionToDecimalDegrees(position);
 						temp.Replace(_T("#POSITION#"),position,false);
 						break;
-					case Logbook::COG:
-						label = parent->m_gridGlobal->GetColLabelValue(Logbook::COG);
+					case LogbookHTML::COG:
+						label = parent->m_gridGlobal->GetColLabelValue(LogbookHTML::COG);
 						label.Replace(_T("\n"),_T(" "));
 						if(e.IsEmpty()) e = nil;
 						e = replaceKMLCharacters(e);
 						description += label + _T(" ") + e +_T("  ") ;
 						break;
-					case Logbook::SOG:
-						label = parent->m_gridGlobal->GetColLabelValue(Logbook::SOG);
+					case LogbookHTML::SOG:
+						label = parent->m_gridGlobal->GetColLabelValue(LogbookHTML::SOG);
 						label.Replace(_T("\n"),_T(" "));
 						if(e.IsEmpty()) e = nil;
 						e = replaceKMLCharacters(e);
 						description += label + _T(" ") + e +_T("\n") ;
 						break;
-					case Logbook::DEPTH:
-						label = parent->m_gridGlobal->GetColLabelValue(Logbook::DEPTH);
+					case LogbookHTML::DEPTH:
+						label = parent->m_gridGlobal->GetColLabelValue(LogbookHTML::DEPTH);
 						label.Replace(_T("\n"),_T(" "));
 						if(e.IsEmpty()) e = nil;
 						e = replaceKMLCharacters(e);
 						description += label + _T(" ") + e +_T("\n") ;
 						break;
-					case Logbook::REMARKS:
+					case LogbookHTML::REMARKS:
 						e = replaceKMLCharacters(e);
 						fRemarks = e;
 						if(rfirst)

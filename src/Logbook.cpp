@@ -73,8 +73,8 @@ Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString
 		logLay = layoutODT;
 	setLayoutLocation(logLay);
 
-	weatherCol = dialog->m_gridGlobal->GetNumberCols();
-	sailsCol   = dialog->m_gridGlobal->GetNumberCols()+weatherCol-1;
+	//weatherCol = dialog->m_gridGlobal->GetNumberCols();
+	//sailsCol   = dialog->m_gridGlobal->GetNumberCols()+weatherCol-1;
 
 	noAppend = false;
 	gpsStatus = false;
@@ -149,7 +149,7 @@ void Logbook::setLayoutLocation(wxString loc)
 	dialog->appendOSDirSlash(&loc);
 	layout_locn = loc;
 	setFileName(data_locn, layout_locn);
-	dialog->loadLayoutChoice(layout_locn,dialog->logbookChoice);
+	dialog->loadLayoutChoice(LogbookDialog::LOGBOOK,layout_locn,dialog->logbookChoice,opt->layoutPrefix[LogbookDialog::LOGBOOK]);
 	if(radio)
 		dialog->logbookChoice->SetSelection(dialog->logbookPlugIn->opt->navGridLayoutChoice);
 	else
@@ -168,10 +168,9 @@ void Logbook::SetPosition(PlugIn_Position_Fix &pfix)
 	else
 		sLon = this->toSDMMOpenCPN(2, pfix.Lon, true);
 
-	if(pfix.Sog >= 0.0)
-		sSOG = wxString::Format(_T("%5.2f %s"), pfix.Sog,opt->speed.c_str());
-	if(pfix.Cog >= 0.0)
+	if(pfix.nSats != 0)
 	{
+		sSOG = wxString::Format(_T("%5.2f %s"), pfix.Sog,opt->speed.c_str());
 		sCOG = wxString::Format(_T("%5.2f %s"),pfix.Cog, opt->Deg.c_str());
 		SetGPSStatus(true);
 	}
@@ -458,6 +457,8 @@ void Logbook::SetSentence(wxString &sentence)
 					if(!opt->engine1Running)
 					{
 						opt->dtEngine1On = wxDateTime::Now();
+						if(opt->engineMessageSails)
+							dialog->resetSails();
 						appendRow(false);
 					}
 					opt->engine1Running = true;
@@ -472,6 +473,8 @@ void Logbook::SetSentence(wxString &sentence)
 				{
 					dtEngine1Off = wxDateTime::Now().Subtract(opt->dtEngine1On);
 					opt->dtEngine1On = -1;
+					if(opt->engineMessageSails)
+						dialog->stateSails();
 					appendRow(false);
 					opt->engine1Running = false;
 				}
@@ -491,6 +494,8 @@ void Logbook::SetSentence(wxString &sentence)
 					if(!opt->engine2Running)
 					{
 						opt->dtEngine2On = wxDateTime::Now();
+						if(opt->engineMessageSails)
+							dialog->resetSails();
 						appendRow(false);
 					}
 					opt->engine2Running = true;
@@ -505,6 +510,8 @@ void Logbook::SetSentence(wxString &sentence)
 				{
 					dtEngine2Off = wxDateTime::Now().Subtract(opt->dtEngine2On);
 					opt->dtEngine2On = -1;
+					if(opt->engineMessageSails)
+						dialog->stateSails();
 					appendRow(false);
 					opt->engine2Running = false;
 				}
@@ -884,79 +891,80 @@ void Logbook::loadData()
 				break;
 			case 17:	dialog->m_gridGlobal->SetCellValue(row,REMARKS,s);
 				break;
-			case 18:	dialog->m_gridWeather->SetCellValue(row,BARO-weatherCol,s);
+			case 18:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::BARO,s);
 				break;
-			case 19:	dialog->m_gridWeather->SetCellValue(row,WIND-weatherCol,s);
+			case 19:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WIND,s);
 				break;
-			case 20:	dialog->m_gridWeather->SetCellValue(row,WSPD-weatherCol,s);
+			case 20:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WSPD,s);
 				break;
-			case 21:	dialog->m_gridWeather->SetCellValue(row,CURRENT-weatherCol,s);
+			case 21:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::CURRENT,s);
 				break;
-			case 22:	dialog->m_gridWeather->SetCellValue(row,CSPD-weatherCol,s);
+			case 22:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::CSPD,s);
 				break;
-			case 23:	dialog->m_gridWeather->SetCellValue(row,WAVE-weatherCol,s);
+			case 23:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WAVE,s);
 				break;
-			case 24:	dialog->m_gridWeather->SetCellValue(row,SWELL-weatherCol,s);
+			case 24:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::SWELL,s);
 				break;
-			case 25:	dialog->m_gridWeather->SetCellValue(row,WEATHER-weatherCol,s);
+			case 25:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WEATHER,s);
 				break;
-			case 26:	dialog->m_gridWeather->SetCellValue(row,CLOUDS-weatherCol,s);
+			case 26:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::CLOUDS,s);
 				break;
-			case 27:	dialog->m_gridWeather->SetCellValue(row,VISIBILITY-weatherCol,s);
+			case 27:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::VISIBILITY,s);
 				break;
-			case 28:	dialog->m_gridMotorSails->SetCellValue(row,MOTOR-sailsCol,s);
+			case 28:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR,s);
 				break;
-			case 29:	dialog->m_gridMotorSails->SetCellValue(row,MOTORT-sailsCol,s);
+			case 29:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTORT,s);
 				break;
-			case 30:	dialog->m_gridMotorSails->SetCellValue(row,FUEL-sailsCol,s);
+			case 30:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::FUEL,s);
 				break;
-			case 31:	dialog->m_gridMotorSails->SetCellValue(row,FUELT-sailsCol,s);
+			case 31:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::FUELT,s);
 				break;
-			case 32:	dialog->m_gridMotorSails->SetCellValue(row,SAILS-sailsCol,s);
+			case 32:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::SAILS,s);
 				break;
-			case 33:	dialog->m_gridMotorSails->SetCellValue(row,REEF-sailsCol,s);
+			case 33:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::REEF,s);
 				break;
-			case 34:	dialog->m_gridMotorSails->SetCellValue(row,WATER-sailsCol,s);
+			case 34:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATER,s);
 				break;
-			case 35:	dialog->m_gridMotorSails->SetCellValue(row,WATERT-sailsCol,s);
+			case 35:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERT,s);
 				break;
-			case 36:	dialog->m_gridMotorSails->SetCellValue(row,MREMARKS-sailsCol,s);
+			case 36:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MREMARKS,s);
 				break;
-			case 37:	dialog->m_gridWeather->SetCellValue(row,HYDRO-weatherCol,s);
+			case 37:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::HYDRO,s);
 				break;
-			case 38:	dialog->m_gridWeather->SetCellValue(row,TEMPAIR-weatherCol,s);
+			case 38:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::AIRTE,s);
 				break;
-			case 39:	dialog->m_gridWeather->SetCellValue(row,TEMPWATER-weatherCol,s);
+			case 39:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WATERTE,s);
 				break;
-			case 40:	dialog->m_gridMotorSails->SetCellValue(row,MOTOR1-sailsCol,s);
+			case 40:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1,s);
 				break;
-			case 41:	dialog->m_gridMotorSails->SetCellValue(row,MOTOR1T-sailsCol,s);
+			case 41:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1T,s);
 				break;
-			case 42:	dialog->m_gridMotorSails->SetCellValue(row,GENE-sailsCol,s);
+			case 42:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENE,s);
 				break;
-			case 43:	dialog->m_gridMotorSails->SetCellValue(row,GENET-sailsCol,s);
+			case 43:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENET,s);
 				break;
-			case 44:	dialog->m_gridMotorSails->SetCellValue(row,BANK1-sailsCol,s);
+			case 44:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1,s);
 				break;
-			case 45:	dialog->m_gridMotorSails->SetCellValue(row,BANK1T-sailsCol,s);
+			case 45:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1T,s);
 				break;
-			case 46:	dialog->m_gridMotorSails->SetCellValue(row,BANK2-sailsCol,s);
+			case 46:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2,s);
 				break;
-			case 47:	dialog->m_gridMotorSails->SetCellValue(row,BANK2T-sailsCol,s);
+			case 47:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2T,s);
 				break;
-			case 48:	dialog->m_gridMotorSails->SetCellValue(row,WATERM-sailsCol,s);
+			case 48:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERM,s);
 				break;
-			case 49:	dialog->m_gridMotorSails->SetCellValue(row,WATERMT-sailsCol,s);
+			case 49:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMT,s);
 				break;
-			case 50:	dialog->m_gridMotorSails->SetCellValue(row,WATERMO-sailsCol,s);
+			case 50:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMO,s);
 				break;
-			case 51:	dialog->m_gridMotorSails->SetCellValue(row,ROUTEID-sailsCol,s);
+			case 51:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::ROUTEID,s);
 				break;
-			case 52:	dialog->m_gridMotorSails->SetCellValue(row,TRACKID-sailsCol,s);
+			case 52:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::TRACKID,s);
 				break;
-			case 53:	dialog->m_gridMotorSails->SetCellValue(row,RPM1-sailsCol,s);
+			case 53:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::RPM1,s);
 				break;
-			case 54:	dialog->m_gridMotorSails->SetCellValue(row,RPM2-sailsCol,s);
+			case 54:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::RPM2,s);
+				int in =  0;
 				break;
 			}			
 			c++;
@@ -970,17 +978,17 @@ void Logbook::loadData()
 
 		if(fields < dialog->totalColumns) // data from 0.910 ? need zero-values to calculate the columns 
 			{
-				dialog->m_gridMotorSails->SetCellValue(row,MOTOR1-sailsCol, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,MOTOR1T-sailsCol,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,GENE-sailsCol,   wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,GENET-sailsCol,  wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,BANK1-sailsCol,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,BANK1T-sailsCol, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,BANK2-sailsCol,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,BANK2T-sailsCol, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,WATERM-sailsCol, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,WATERMT-sailsCol,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,WATERMO-sailsCol,wxString::Format(_T("%2.2f %s"),nullval,opt->vol.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1T,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENE,   wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENET,  wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1T, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2T, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERM, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMT,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMO,wxString::Format(_T("%2.2f %s"),nullval,opt->vol.c_str()));
 			}
 
 		dialog->setEqualRowHeight(row);
@@ -1238,12 +1246,12 @@ void Logbook::setCellAlign(int i)
 		dialog->m_gridGlobal->SetCellAlignment    (i,SIGN,                 wxALIGN_CENTRE, wxALIGN_TOP);
 		dialog->m_gridGlobal->SetCellAlignment    (i,WAKE,                 wxALIGN_LEFT, wxALIGN_TOP);
 		dialog->m_gridGlobal->SetCellAlignment    (i,REMARKS,              wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridWeather->SetCellAlignment   (i,WEATHER-weatherCol,   wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridWeather->SetCellAlignment   (i,CLOUDS-weatherCol,    wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridWeather->SetCellAlignment   (i,VISIBILITY-weatherCol,wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridMotorSails->SetCellAlignment(i,SAILS-sailsCol,       wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridMotorSails->SetCellAlignment(i,REEF-sailsCol,        wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridMotorSails->SetCellAlignment(i,MREMARKS-sailsCol,    wxALIGN_LEFT, wxALIGN_TOP);
+		dialog->m_gridWeather->SetCellAlignment   (i,WEATHER,   wxALIGN_LEFT, wxALIGN_TOP);
+		dialog->m_gridWeather->SetCellAlignment   (i,CLOUDS,    wxALIGN_LEFT, wxALIGN_TOP);
+		dialog->m_gridWeather->SetCellAlignment   (i,VISIBILITY,wxALIGN_LEFT, wxALIGN_TOP);
+		dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::SAILS,       wxALIGN_LEFT, wxALIGN_TOP);
+		dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::REEF,        wxALIGN_LEFT, wxALIGN_TOP);
+		dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::MREMARKS,    wxALIGN_LEFT, wxALIGN_TOP);
 
 		dialog->m_gridGlobal->SetReadOnly(i,POSITION,true);
 }
@@ -1321,32 +1329,32 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 	if(lastRow > 0)
 		{
 			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,dialog->logGrids[0]->GetCellValue(lastRow-1,ROUTE));
-			if(gpsStatus)
+			//if(gpsStatus)
 				dialog->logGrids[0]->SetCellValue(lastRow,POSITION,sLat+sLon);
-			else
-				dialog->logGrids[0]->SetCellValue(lastRow,POSITION,dialog->logGrids[0]->GetCellValue(lastRow-1,POSITION));
+			//else
+			//	dialog->logGrids[0]->SetCellValue(lastRow,POSITION,dialog->logGrids[0]->GetCellValue(lastRow-1,POSITION));
 			changeCellValue(lastRow, 0,0);
 			dialog->logGrids[0]->SetCellValue(lastRow,DTOTAL,dialog->logGrids[0]->GetCellValue(lastRow-1,DTOTAL));
-			dialog->logGrids[2]->SetCellValue(lastRow,MOTORT-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,MOTORT-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,MOTOR1T-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,MOTOR1T-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,GENET-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,GENET-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,FUELT-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,FUELT-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,WATERT-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,WATERT-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,WATERMT-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,WATERMT-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,BANK1T-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,BANK1T-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,BANK2T-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,BANK2T-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,TRACKID-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,TRACKID-sailsCol));
-			dialog->logGrids[2]->SetCellValue(lastRow,ROUTEID-sailsCol,dialog->logGrids[2]->GetCellValue(lastRow-1,ROUTEID-sailsCol));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTORT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::MOTORT));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::MOTOR1T));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::GENET,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::GENET));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::FUELT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::FUELT));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::WATERT));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERMT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::WATERMT));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK1T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::BANK1T));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK2T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::BANK2T));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::TRACKID,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::TRACKID));
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::ROUTEID,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::ROUTEID));
 		}
 	else
 	{
 			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,_("unnamed Route"));
 			if(gpsStatus)
 				dialog->logGrids[0]->SetCellValue(lastRow,POSITION,sLat+sLon);
-			dialog->logGrids[2]->SetCellValue(lastRow,FUELT- sailsCol,opt->fuelTank.c_str());
-			dialog->logGrids[2]->SetCellValue(lastRow,WATERT-sailsCol,opt->waterTank.c_str());
-			dialog->logGrids[2]->SetCellValue(lastRow,BANK1T-sailsCol,opt->bank1.c_str());
-			dialog->logGrids[2]->SetCellValue(lastRow,BANK2T-sailsCol,opt->bank2.c_str());
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::FUELT,opt->fuelTank.c_str());
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERT,opt->waterTank.c_str());
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK1T,opt->bank1.c_str());
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK2T,opt->bank2.c_str());
 	}
 
 	if(sDate != _T(""))
@@ -1374,41 +1382,41 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		if(activeRoute != wxEmptyString)
 			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,activeRoute);
 
-		dialog->logGrids[2]->SetCellValue(lastRow,ROUTEID-sailsCol,activeRouteGUID);
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::ROUTEID,activeRouteGUID);
 	}
 	else
-		dialog->logGrids[2]->SetCellValue(lastRow,ROUTEID-sailsCol,wxEmptyString);
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::ROUTEID,wxEmptyString);
 
 	if(trackIsActive)
 	{
 		if(!routeIsActive)
 			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,_("Track ")+activeTrack);
 
-		dialog->logGrids[2]->SetCellValue(lastRow,TRACKID-sailsCol,activeTrackGUID);
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::TRACKID,activeTrackGUID);
 	}
 	else
-		dialog->logGrids[2]->SetCellValue(lastRow,TRACKID-sailsCol,wxEmptyString);
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::TRACKID,wxEmptyString);
 
 	dialog->logGrids[0]->SetCellValue(lastRow,COG,sCOG);
 	dialog->logGrids[0]->SetCellValue(lastRow,COW,sCOW);
 	dialog->logGrids[0]->SetCellValue(lastRow,SOG,sSOG);
 	dialog->logGrids[0]->SetCellValue(lastRow,SOW,sSOW);
 	dialog->logGrids[0]->SetCellValue(lastRow,DEPTH,sDepth);
-	dialog->logGrids[1]->SetCellValue(lastRow,TEMPWATER-weatherCol,sTemperatureWater);
-	dialog->logGrids[1]->SetCellValue(lastRow,WIND-weatherCol,sWind);
-	dialog->logGrids[1]->SetCellValue(lastRow,WSPD-weatherCol,sWindSpeed);
-	dialog->logGrids[2]->SetCellValue(lastRow,MOTOR-sailsCol,_T("00.00"));
-	dialog->logGrids[2]->SetCellValue(lastRow,MOTOR1-sailsCol,_T("00.00"));
-	dialog->logGrids[2]->SetCellValue(lastRow,GENE-sailsCol,_T("00.00"));
-	dialog->logGrids[2]->SetCellValue(lastRow,WATERM-sailsCol,_T("00.00"));
-	dialog->logGrids[2]->SetCellValue(lastRow,WATERMO-sailsCol,_T("0"));
-	dialog->logGrids[2]->SetCellValue(lastRow,MREMARKS-sailsCol,_T(" "));
+	dialog->logGrids[1]->SetCellValue(lastRow,LogbookHTML::WATERTE,sTemperatureWater);
+	dialog->logGrids[1]->SetCellValue(lastRow,LogbookHTML::WIND,sWind);
+	dialog->logGrids[1]->SetCellValue(lastRow,LogbookHTML::WSPD,sWindSpeed);
+	dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR,_T("00.00"));
+	dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1,_T("00.00"));
+	dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::GENE,_T("00.00"));
+	dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERM,_T("00.00"));
+	dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERMO,_T("0"));
+	dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_T(" "));
 
 	if(wimdaSentence)
 	{
-		dialog->logGrids[1]->SetCellValue(lastRow,TEMPAIR-weatherCol,sTemperatureAir);
-		dialog->logGrids[1]->SetCellValue(lastRow,BARO-weatherCol,sPressure);
-		dialog->logGrids[1]->SetCellValue(lastRow,HYDRO-weatherCol,sHumidity);
+		dialog->logGrids[1]->SetCellValue(lastRow,LogbookHTML::AIRTE,sTemperatureAir);
+		dialog->logGrids[1]->SetCellValue(lastRow,LogbookHTML::BARO,sPressure);
+		dialog->logGrids[1]->SetCellValue(lastRow,LogbookHTML::HYDRO,sHumidity);
 	}
 
 	if(bRPM1)
@@ -1417,7 +1425,8 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #1 started"));
 		else
 		{
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #1 running"));
+			if(opt->engineMessageRunning)
+				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #1 running"));
 			if(opt->NMEAUseERRPM || opt->toggleEngine1)
 			{
 				dtEngine1Off = wxDateTime::Now().Subtract(opt->dtEngine1On);
@@ -1442,10 +1451,13 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #2 started"));
 		else
 		{
-			if(dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS).IsEmpty())
-				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #2 running"));
-			else
-				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS)+_("\nEngine #2 running"));
+			if(opt->engineMessageRunning)
+			{
+				if(dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS).IsEmpty())
+					dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #2 running"));
+				else
+					dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS)+_("\nEngine #2 running"));
+			}
 			if(opt->NMEAUseERRPM || engine2Manual)
 			{
 				dtEngine2Off = wxDateTime::Now().Subtract(opt->dtEngine2On);
@@ -1474,6 +1486,27 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 	if(!sRPM2.IsEmpty())
 		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::RPM2,sRPM2+sEngine+
 											((sRPM2Shaft.IsEmpty())? _T("") : _T("\n")+sRPM2Shaft+sShaft));
+
+	if(sailsMessage && opt->engineMessageSails)
+	{
+		wxString temp = dialog->logGrids[2]->GetCellValue(lastRow,LogbookHTML::MREMARKS);
+		if(temp.Len() == 1 && temp.GetChar(0) == ' ') temp.Remove(0,1);
+
+		if((oldSailsState == 0 || oldSailsState == -1) && sailsState == 1)
+		{
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,temp + ((temp.IsEmpty())?_T(""):_T("\n"))+_("Sails hoisted"));
+			oldSailsState = 1;
+		}
+		else if((oldSailsState == 1 || oldSailsState == -1) && sailsState == 1)
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,temp + ((temp.IsEmpty())?_T(""):_T("\n"))+_("Sails changed"));
+		else if((oldSailsState == 1 || oldSailsState == -1) && sailsState == 0)
+		{
+			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,temp + ((temp.IsEmpty())?_T(""):_T("\n"))+_("Sails down"));
+			oldSailsState = 0;
+		}
+
+		sailsMessage = false;
+	}
 
 	if(ActuellWatch::active == true)
 		dialog->logGrids[0]->SetCellValue(lastRow,WAKE,ActuellWatch::member);
@@ -1607,8 +1640,8 @@ void Logbook::checkNMEADeviceIsOn()
 
 void Logbook::recalculateLogbook(int row)
 {
-	int cells[] = { Logbook::POSITION,Logbook::MOTOR-sailsCol,Logbook::MOTOR1-sailsCol,Logbook::FUEL-sailsCol,
-					Logbook::GENE-sailsCol,Logbook::BANK1-sailsCol,Logbook::BANK2-sailsCol,Logbook::WATERM-sailsCol,Logbook::WATER-sailsCol };
+	int cells[] = { LogbookHTML::POSITION,LogbookHTML::MOTOR,LogbookHTML::MOTOR1,LogbookHTML::FUEL,
+					LogbookHTML::GENE,LogbookHTML::BANK1,LogbookHTML::BANK2,LogbookHTML::WATERM,LogbookHTML::WATER };
 	int grid;
 
 	if(row < 0) return;
@@ -1898,16 +1931,16 @@ void Logbook::update()
 		{
 			for(int c = 0; c < dialog->logGrids[g]->GetNumberCols(); c++)
 			{
-				if(g == 1 && (c == HYDRO-weatherCol || c == TEMPAIR-weatherCol || c == TEMPWATER-weatherCol))
+				if(g == 1 && (c == LogbookHTML::HYDRO || c == LogbookHTML::WATERTE || c == LogbookHTML::AIRTE))
 					continue;
-				if(g == 2 && (c == MOTOR1-sailsCol  || c == MOTOR1T-sailsCol || 
-							  c == RPM1-sailsCol    || c == RPM2-sailsCol    || 
-					          c == GENE-sailsCol    || c == GENET-sailsCol   ||
-					          c == WATERM-sailsCol  || c == WATERMT-sailsCol ||
-							  c == WATERMO-sailsCol || c == BANK1-sailsCol   ||
-							  c == BANK1T-sailsCol  || c == BANK2-sailsCol   ||
-							  c == BANK2T-sailsCol  || c == TRACKID-sailsCol ||
-							  c == ROUTEID-sailsCol))
+				if(g == 2 && (c == LogbookHTML::MOTOR1  || c == LogbookHTML::MOTOR1T || 
+							  c == LogbookHTML::RPM1	|| c == LogbookHTML::RPM2	 || 
+					          c == LogbookHTML::GENE    || c == LogbookHTML::GENET   ||
+					          c == LogbookHTML::WATERM  || c == LogbookHTML::WATERMT ||
+							  c == LogbookHTML::WATERMO || c == LogbookHTML::BANK1   ||
+							  c == LogbookHTML::BANK1T  || c == LogbookHTML::BANK2   ||
+							  c == LogbookHTML::BANK2T  || 
+							  c == LogbookHTML::TRACKID || c == LogbookHTML::ROUTEID))
 					continue;
 				if(g == 0 && c == RDATE)
 				{
@@ -1931,49 +1964,49 @@ void Logbook::update()
 			}
 		}
 
-		for(int ext = HYDRO-weatherCol; ext != WIND-weatherCol; ext ++) // extended 3 columns in weathergrid
+		for(int ext = LogbookHTML::HYDRO; ext != LogbookHTML::WIND; ext ++) // extended 3 columns in weathergrid
 		{
 			temp = dialog->logGrids[1]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
 			s += _T(" \t");
 		}
 
-		for(int ext = MOTOR1-sailsCol; ext <= MOTOR1T-sailsCol; ext ++) // extend MOTOR #1
+		for(int ext = LogbookHTML::MOTOR1; ext <= LogbookHTML::MOTOR1T; ext ++) // extend MOTOR #1
 		{
 			temp = dialog->logGrids[2]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
 			s += _T(" \t");
 		}
 
-		for(int ext = GENE-sailsCol; ext <= BANK2T-sailsCol; ext ++) // extend for GENERATOR and Battery-Banks
+		for(int ext = LogbookHTML::GENE; ext <= LogbookHTML::BANK2T; ext ++) // extend for GENERATOR and Battery-Banks
 		{
 			temp = dialog->logGrids[2]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
 			s += _T(" \t");
 		}
 
-		for(int ext = WATERM-sailsCol; ext <= WATERMO-sailsCol; ext ++) // extend WATERMAKER
+		for(int ext = LogbookHTML::WATERM; ext <= LogbookHTML::WATERMO; ext ++) // extend WATERMAKER
 		{
 			temp = dialog->logGrids[2]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
 			s += _T(" \t");
 		}
 
-		for(int ext = ROUTEID-sailsCol; ext < parent->m_gridMotorSails->GetNumberCols(); ext ++) // extend GUID's
+		for(int ext = LogbookHTML::ROUTEID; ext < parent->m_gridMotorSails->GetNumberCols(); ext ++) // extend GUID's
 		{
 			temp = dialog->logGrids[2]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
 			s += _T(" \t");
 		}
 
-		for(int ext = RPM1-sailsCol; ext <= MOTOR1-sailsCol; ext ++) // extend RPM #1
+		for(int ext = LogbookHTML::RPM1; ext < LogbookHTML::MOTOR1; ext ++) // extend RPM #1
 		{
 			temp = dialog->logGrids[2]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
 			s += _T(" \t");
 		}
 
-		for(int ext = RPM2-sailsCol; ext <= FUEL-sailsCol; ext ++) // extend RPM #2
+		for(int ext = LogbookHTML::RPM2; ext < LogbookHTML::FUEL; ext ++) // extend RPM #2
 		{
 			temp = dialog->logGrids[2]->GetCellValue(r,ext);
 			s += dialog->replaceDangerChar(temp);
@@ -1996,8 +2029,8 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 	s = dialog->logGrids[grid]->GetCellValue(row,col);
 
 	if((grid == 0 && (col == WAKE || col == REMARKS)) ||
-		(grid == 1 && (col == WEATHER-weatherCol || col == CLOUDS-weatherCol || col == VISIBILITY-weatherCol)) ||
-		(grid == 2 && (col == SAILS-sailsCol || col == REEF-sailsCol || col == MREMARKS-sailsCol)))
+		(grid == 1 && (col == LogbookHTML::WEATHER || col == LogbookHTML::CLOUDS || col == LogbookHTML::VISIBILITY)) ||
+		(grid == 2 && (col == LogbookHTML::SAILS || col == LogbookHTML::REEF || col == LogbookHTML::MREMARKS)))
 	{
 		return;
 	}
@@ -2224,7 +2257,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 					
 						}
 					}
-	else if(grid == 1 && col == BARO-weatherCol)
+	else if(grid == 1 && col == LogbookHTML::BARO)
 					{
 						if(s != _T(""))
 						{
@@ -2233,7 +2266,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 1 && col == HYDRO-weatherCol)
+	else if(grid == 1 && col == LogbookHTML::HYDRO)
 					{
 						if(s != _T(""))
 						{
@@ -2243,7 +2276,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 1 && col == TEMPAIR-weatherCol)
+	else if(grid == 1 && col == LogbookHTML::AIRTE)
 					{
 						if(s != _T("") && !s.Contains(opt->Deg))
 						{
@@ -2252,7 +2285,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 1 && col == TEMPWATER-weatherCol)
+	else if(grid == 1 && col == LogbookHTML::WATERTE)
 					{
 						if(s != _T("") && !s.Contains(opt->Deg))
 						{
@@ -2261,7 +2294,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 1 && col == WIND-weatherCol)
+	else if(grid == 1 && col == LogbookHTML::WIND)
 					{
 						if(s != _T("") && !s.Contains(opt->Deg))
 						{
@@ -2270,7 +2303,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 1 && col == WSPD-weatherCol )
+	else if(grid == 1 && col == LogbookHTML::WSPD )
 					{
 						if(s != _T(""))
 						{
@@ -2286,7 +2319,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 1 && col == CURRENT-weatherCol)
+	else if(grid == 1 && col == LogbookHTML::CURRENT)
 					{
 						if(s != _T("") && !s.Contains(opt->Deg))
 						{
@@ -2296,7 +2329,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);						
 						}
 					}				
-	else if(grid == 1 && col == CSPD-weatherCol)
+	else if(grid == 1 && col == LogbookHTML::CSPD)
 					{
 						if(s != _T(""))
 						{
@@ -2306,7 +2339,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 1 && (col == WAVE-weatherCol || col == SWELL-weatherCol))
+	else if(grid == 1 && (col == LogbookHTML::WAVE || col == LogbookHTML::SWELL))
 					{
 						wxString d;
 						switch(opt->showWaveSwell)
@@ -2323,8 +2356,8 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}
-	else if(grid == 2 && ((col == MOTORT-sailsCol || col == MOTOR1T-sailsCol || 
-		                   col == GENET-sailsCol  || col == WATERMT-sailsCol )  && !s.IsEmpty()))
+	else if(grid == 2 && ((col == LogbookHTML::MOTORT || col == LogbookHTML::MOTOR1T || 
+		                   col == LogbookHTML::GENET  || col == LogbookHTML::WATERMT )  && !s.IsEmpty()))
 					{
 						wxString pre, cur;
 						double hp,hc,mp,mc;
@@ -2377,8 +2410,8 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 						if(row == dialog->m_gridGlobal->GetNumberRows()-1)
 									dialog->maintenance->checkService(row);
 					}
-	else if(grid == 2 && ((col == MOTOR-sailsCol || col == MOTOR1-sailsCol || 
-		                   col == GENE-sailsCol  || col == WATERM-sailsCol)  && !s.IsEmpty()))
+	else if(grid == 2 && ((col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
+		                   col == LogbookHTML::GENE  || col == LogbookHTML::WATERM)  && !s.IsEmpty()))
 					{
 						double watermaker;
 						opt->watermaker.ToDouble(&watermaker);
@@ -2426,23 +2459,23 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 								computeCell(grid, row, col,s, true);
 								if(row == dialog->m_gridGlobal->GetNumberRows()-1)
 									dialog->maintenance->checkService(row);
-								if(col == WATERM-sailsCol)
+								if(col == LogbookHTML::WATERM)
 								{
-									wxString t = dialog->m_gridMotorSails->GetCellValue(row,Logbook::WATERM-sailsCol);
+									wxString t = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::WATERM);
 									wxStringTokenizer tkz(t,_T(":"));
 									double h,m;
 									tkz.GetNextToken().ToDouble(&h);
 									tkz.GetNextToken().ToDouble(&m);
 									h = h + (m*(100/60)/100);
 									double output = watermaker * h;
-									dialog->m_gridMotorSails->SetCellValue(row,Logbook::WATERMO-sailsCol,wxString::Format(_T("+%2.2f %s"),output,opt->vol.c_str()));
-									computeCell(grid,row,Logbook::WATERMO-sailsCol, dialog->m_gridMotorSails->GetCellValue(row,Logbook::WATERMO-sailsCol),false);
+									dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMO,wxString::Format(_T("+%2.2f %s"),output,opt->vol.c_str()));
+									computeCell(grid,row,LogbookHTML::WATERMO, dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::WATERMO),false);
 								}
 							}						
 					}
 
-	else if(grid == 2 && ( col == FUELT-sailsCol || col == WATERT-sailsCol ||
-		                   col == BANK1T-sailsCol || col == BANK2T-sailsCol) && !s.IsEmpty())
+	else if(grid == 2 && ( col == LogbookHTML::FUELT || col == LogbookHTML::WATERT ||
+		                   col == LogbookHTML::BANK1T || col == LogbookHTML::BANK2T) && !s.IsEmpty())
 					{
 						double div = 1.0;
 						long capacity;
@@ -2450,7 +2483,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 						double t,c;
 						wxString ind;
 
-						if(col == BANK1T-sailsCol || col == BANK2T-sailsCol)
+						if(col == LogbookHTML::BANK1T || col == LogbookHTML::BANK2T)
 							ap = opt->ampereh;
 						else
 							ap = opt->vol;
@@ -2468,11 +2501,11 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							tkz.GetNextToken().ToDouble(&a);
 							tkz.GetNextToken().ToDouble(&b);
 							div = a/b;
-							if(col == FUELT-sailsCol) 
+							if(col == LogbookHTML::FUELT) 
 								opt->fuelTank.ToLong(&capacity);
-							else if( col == BANK1T-sailsCol)
+							else if( col == LogbookHTML::BANK1T)
 								opt->bank1.ToLong(&capacity);
-							else if(col == BANK2T-sailsCol)
+							else if(col == LogbookHTML::BANK2T)
 								opt->bank2.ToLong(&capacity);
 							else
 								opt->waterTank.ToLong(&capacity);
@@ -2491,7 +2524,7 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 							dialog->m_gridMotorSails->SetCellValue(row,col,wxString::Format(_T("%.2f %s"),c,ap.c_str()));
 						
 						int x;
-						if(col == WATERT-sailsCol)
+						if(col == LogbookHTML::WATERT)
 							x = 2;
 						else
 							x =1;
@@ -2500,19 +2533,19 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 
 						dialog->maintenance->checkService(row);
 					}
-	else if(grid == 2 && ( col == FUEL-sailsCol    || col == WATER-sailsCol || 
-		                   col == WATERMO-sailsCol || col == BANK1-sailsCol || col == BANK2-sailsCol) && !s.IsEmpty())
+	else if(grid == 2 && ( col == LogbookHTML::FUEL    || col == LogbookHTML::WATER || 
+		                   col == LogbookHTML::WATERMO || col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2) && !s.IsEmpty())
 					{
 						wxChar ch;
 						wxString ap;
 
-						if(col == BANK1-sailsCol || col == BANK2-sailsCol)
+						if(col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2)
 							ap = opt->ampereh;
 						else
 							ap = opt->vol;
 
 						s.Replace(_T(","),_T("."));
-						if(col != WATERMO-sailsCol)
+						if(col != LogbookHTML::WATERMO)
 							ch = s.GetChar(0);
 						else 
 							ch = '+';
@@ -2630,13 +2663,13 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 
 	if(col == DISTANCE)
 	   abrev = opt->distance; 
-	else if(col == MOTOR-sailsCol || col == MOTOR1-sailsCol || 
-		    col == GENE-sailsCol || col == WATERM-sailsCol)
+	else if(col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
+		    col == LogbookHTML::GENE || col == LogbookHTML::WATERM)
 	   abrev = opt->motorh; 
-	else if(col == FUEL-sailsCol || col == WATER-sailsCol ||
-		    col == WATERMO-sailsCol)
+	else if(col == LogbookHTML::FUEL || col == LogbookHTML::WATER ||
+		    col == LogbookHTML::WATERMO)
 	   abrev = opt->vol; 
-	else if(col == BANK1-sailsCol || col == BANK2-sailsCol)
+	else if(col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2)
 		abrev = opt->ampereh;
 
 
@@ -2644,14 +2677,14 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 
 	for(int i = row; i < count; i++)
 	{
-		if(col != WATERMO-sailsCol && col != WATER-sailsCol && col != FUEL-sailsCol &&
-		   col != BANK1-sailsCol   && col != BANK2-sailsCol)
+		if(col != LogbookHTML::WATERMO && col != LogbookHTML::WATER && col != LogbookHTML::FUEL &&
+		   col != LogbookHTML::BANK1   && col != LogbookHTML::BANK2)
 		{
 			s = dialog->logGrids[grid]->GetCellValue(i,col);
 			s.Replace(_T(","),_T("."));
 			if(s == _T("0000")) s = _T("00:00");
-			if(grid == 2 && (col == MOTOR-sailsCol || col == MOTOR1-sailsCol || 
-				             col == GENE-sailsCol  || col == WATERM-sailsCol))
+			if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
+				             col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
 			{
 				wxArrayString time = wxStringTokenize(s,_T(":"));
 				time[0].ToLong(&hourCur);
@@ -2670,29 +2703,29 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 			s.Replace(_T(","),_T("."));
 			s.ToDouble(&t);
 
-			if(col == WATERMO-sailsCol)
+			if(col == LogbookHTML::WATERMO)
 			{
-				s = dialog->logGrids[grid]->GetCellValue(i,WATER-sailsCol);
+				s = dialog->logGrids[grid]->GetCellValue(i,LogbookHTML::WATER);
 				s.Replace(_T(","),_T("."));
 				s.ToDouble(&t1);
 
 				if(i == 0)
 				{
-					s = dialog->logGrids[grid]->GetCellValue(i,WATERT-sailsCol);
+					s = dialog->logGrids[grid]->GetCellValue(i,LogbookHTML::WATERT);
 					s.Replace(_T(","),_T("."));
 					s.ToDouble(&t2);
 				}
 				current = t + t1 + t2;
 			}
-			else if(col == WATER-sailsCol)
+			else if(col == LogbookHTML::WATER)
 			{
-				s = dialog->logGrids[grid]->GetCellValue(i,WATERMO-sailsCol);
+				s = dialog->logGrids[grid]->GetCellValue(i,LogbookHTML::WATERMO);
 				s.Replace(_T(","),_T("."));
 				s.ToDouble(&t1);
 
 				if(i == 0)
 				{
-					s = dialog->logGrids[grid]->GetCellValue(i,WATERT-sailsCol);
+					s = dialog->logGrids[grid]->GetCellValue(i,LogbookHTML::WATERT);
 					s.Replace(_T(","),_T("."));
 					s.ToDouble(&t2);
 
@@ -2711,14 +2744,14 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 		if(i > 0)
 		{
 			wxString temp;
-			if(col != WATERMO-sailsCol)
+			if(col != LogbookHTML::WATERMO)
 				 temp = dialog->logGrids[grid]->GetCellValue(i-1,col+1);
 			else
 				 temp = dialog->logGrids[grid]->GetCellValue(i-1,col+2);
 
 			temp.Replace(_T(","),_T("."));
-			if(grid == 2 && (col == MOTOR-sailsCol || col == MOTOR1-sailsCol || 
-				             col == GENE-sailsCol  || col == WATERM-sailsCol))
+			if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
+				             col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
 			{
 				if(temp.Contains(_T(":")))
 				{
@@ -2735,8 +2768,8 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 				last = 0.0f; hourLast = 0; minLast = 0; 			
 			 }
 		
-		if(grid == 2 && (col == MOTOR-sailsCol || col == MOTOR1-sailsCol || 
-			             col == GENE-sailsCol  || col == WATERM-sailsCol))
+		if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
+			             col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
 			{
 				hourLast += hourCur;
 				minLast  += minCur;
@@ -2750,7 +2783,7 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 			{
 				s = wxString::Format(_T("%10.2f %s"),last+current,abrev.c_str());
 				s.Replace(_T("."),dialog->decimalPoint);
-				if(col != WATERMO-sailsCol)
+				if(col != LogbookHTML::WATERMO)
 					dialog->logGrids[grid]->SetCellValue(i,col+1,s);
 				else
 					dialog->logGrids[grid]->SetCellValue(i,col+2,s);
@@ -2974,7 +3007,7 @@ bool Logbook::checkGPS(bool appendClick)
 	}
 	else
 	{
-		sLat = sLon = sDate = sTime = _T("");
+	//	sLat = sLon = sDate = sTime = _T("");
 //		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = sTemperatureAir = sPressure = sHumidity = _T("");
 		sCOG = sSOG = _T("");
 		bCOW = false;
@@ -3255,7 +3288,7 @@ void LogbookSearch::OnButtonClickForward( wxCommandEvent& event )
 
 	for(; searchrow < parent->logGrids[gridNo]->GetNumberRows(); searchrow++)
 	{
-		parent->myParseDate(parent->logGrids[0]->GetCellValue(searchrow,Logbook::RDATE),dt);
+		parent->myParseDate(parent->logGrids[0]->GetCellValue(searchrow,LogbookHTML::RDATE),dt);
 
 		if(m_choiceGreaterEqual->GetSelection() == 0)
 		{
@@ -3293,7 +3326,7 @@ void LogbookSearch::OnButtonClickBack( wxCommandEvent& event )
 
 	for(; searchrow >= 0; searchrow--)
 	{
-		parent->myParseDate(parent->logGrids[0]->GetCellValue(searchrow,Logbook::RDATE),dt);
+		parent->myParseDate(parent->logGrids[0]->GetCellValue(searchrow,LogbookHTML::RDATE),dt);
 		if(m_choiceGreaterEqual->GetSelection() == 0)
 		{
 			if(m_choiceGreaterEqual->GetSelection() == 0)

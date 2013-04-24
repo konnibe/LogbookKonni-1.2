@@ -9,16 +9,7 @@
 
 #include <wx/dynarray.h> 
 
-WX_DEFINE_ARRAY_INT(int, ArrayOfNavGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfWeatherGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfMotorGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfCrewGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfWakeGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfEquipGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfOverviewGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfServiceGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfRepairsGridColWidth);
-WX_DEFINE_ARRAY_INT(int, ArrayOfBuyPartsGridColWidth);
+WX_DEFINE_ARRAY_INT(int, ArrayOfGridColWidth);
 
 class Options
 {
@@ -44,15 +35,14 @@ public:
 	int			engines;
 	bool		toggleEngine1;
 	bool		toggleEngine2;
-	wxArrayString abrSails;
-	wxArrayString sailsName;
-	bool		bSailIsChecked[14];
 	wxDateTime	dtEngine1On;
 	wxDateTime	dtEngine2On;
+	wxString	engineStr[2];
+	bool		engineMessageSails;
+	bool		engineMessageRunning;
 
-	wxString    layoutPrefix;
-	bool		filterLayout;
-	bool		showAllLayouts;
+	wxString    layoutPrefix[7];
+	bool		filterLayout[7];
 	bool		noGPS;
 	bool		colouredMaintenance;
 	bool		guardChange;
@@ -72,6 +62,7 @@ public:
 	bool		traditional;
 	bool		modern;
 	bool		showToolTips;
+
 	// Timer 
 	bool		timer;
 	int         timerType;
@@ -153,6 +144,13 @@ public:
 	bool		NMEAUseERRPM;
 	bool		NMEAUseWIMDA;
 
+	// Sails
+	wxArrayString	abrSails;
+	wxArrayString	sailsName;
+	bool			bSailIsChecked[14];
+	int				rowGap;
+	int				colGap;
+
 	//wxChoice
 	int		showDepth;
 	int		showWaveSwell;
@@ -204,16 +202,16 @@ public:
 	int       date2;
 	int       date3;
 
-	ArrayOfNavGridColWidth		NavColWidth;
-	ArrayOfWeatherGridColWidth	WeatherColWidth;
-	ArrayOfMotorGridColWidth	MotorColWidth;
-	ArrayOfCrewGridColWidth		CrewColWidth;
-	ArrayOfWakeGridColWidth		WakeColWidth;
-	ArrayOfEquipGridColWidth	EquipColWidth;
-	ArrayOfOverviewGridColWidth OverviewColWidth;
-	ArrayOfOverviewGridColWidth ServiceColWidth;
-	ArrayOfOverviewGridColWidth RepairsColWidth;
-	ArrayOfOverviewGridColWidth BuyPartsColWidth;
+	ArrayOfGridColWidth		NavColWidth;
+	ArrayOfGridColWidth		WeatherColWidth;
+	ArrayOfGridColWidth		MotorColWidth;
+	ArrayOfGridColWidth		CrewColWidth;
+	ArrayOfGridColWidth		WakeColWidth;
+	ArrayOfGridColWidth		EquipColWidth;
+	ArrayOfGridColWidth		OverviewColWidth;
+	ArrayOfGridColWidth		ServiceColWidth;
+	ArrayOfGridColWidth		RepairsColWidth;
+	ArrayOfGridColWidth		BuyPartsColWidth;
 
 	int stateEvents;
 };

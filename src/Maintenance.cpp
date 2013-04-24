@@ -137,7 +137,7 @@ void Maintenance::setLayoutLocation()
 	buypartsLay.Append(_T("buyparts"));
 	dialog->appendOSDirSlash(&buypartsLay);
 	layout_locnBuyParts = buypartsLay;
-	dialog->loadLayoutChoice(buypartsLay,dialog->m_choiceSelectLayoutBuyParts);
+	dialog->loadLayoutChoice(LogbookDialog::GBUYPARTS,buypartsLay,dialog->m_choiceSelectLayoutBuyParts,opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 	if(radio)
 		dialog->m_choiceSelectLayoutBuyParts->SetSelection(dialog->logbookPlugIn->opt->buypartsGridLayoutChoice);
 	else
@@ -154,7 +154,7 @@ void Maintenance::setLayoutLocation()
 	serviceLay.Append(_T("service"));
 	dialog->appendOSDirSlash(&serviceLay);
 	layout_locnService = serviceLay;
-	dialog->loadLayoutChoice(serviceLay,dialog->m_choiceSelectLayoutService);
+	dialog->loadLayoutChoice(LogbookDialog::GSERVICE,serviceLay,dialog->m_choiceSelectLayoutService,opt->layoutPrefix[LogbookDialog::GSERVICE]);
 	if(radio)
 		dialog->m_choiceSelectLayoutService->SetSelection(dialog->logbookPlugIn->opt->serviceGridLayoutChoice);
 	else
@@ -171,7 +171,7 @@ void Maintenance::setLayoutLocation()
 	repairsLay.Append(_T("repairs"));
 	dialog->appendOSDirSlash(&repairsLay);
 	layout_locnRepairs = repairsLay;
-	dialog->loadLayoutChoice(repairsLay,dialog->m_choiceSelectLayoutRepairs);
+	dialog->loadLayoutChoice(LogbookDialog::GREPAIRS,repairsLay,dialog->m_choiceSelectLayoutRepairs,opt->layoutPrefix[LogbookDialog::GREPAIRS]);
 	if(radio)
 		dialog->m_choiceSelectLayoutRepairs->SetSelection(dialog->logbookPlugIn->opt->repairsGridLayoutChoice);
 	else
@@ -490,7 +490,7 @@ void Maintenance::checkService(int row)
 	wxString sign, cell;
 	int border = 0;
 	wxColour rowBack;
-	int sailscol = dialog->logbook->sailsCol;
+//	int sailscol = dialog->logbook->sailsCol;
 
 	for(int r = 0; r < grid->GetNumberRows(); r++)
 	{
@@ -508,58 +508,58 @@ void Maintenance::checkService(int row)
 
 		cell = dialog->m_gridGlobal->GetCellValue(row,6);
 		cell.ToDouble(&distanceTotal);
-		cell = dialog->m_gridMotorSails->GetCellValue(row,Logbook::MOTORT-sailscol);
+		cell = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::MOTORT);
 		cell.ToDouble(&motorTotal);
-		cell = dialog->m_gridMotorSails->GetCellValue(row,Logbook::MOTOR1T-sailscol);
+		cell = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::MOTOR1T);
 		cell.ToDouble(&motorTotal2);
-		cell = dialog->m_gridMotorSails->GetCellValue(row,Logbook::GENET-sailscol);
+		cell = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::GENET);
 		cell.ToDouble(&generator);
-		cell = dialog->m_gridMotorSails->GetCellValue(row,Logbook::WATERMT-sailscol);
+		cell = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::WATERMT);
 		cell.ToDouble(&watermaker);
-		cell = dialog->m_gridMotorSails->GetCellValue(row,Logbook::BANK1T-sailscol);
+		cell = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::BANK1T);
 		cell.ToDouble(&bank1);
-		cell = dialog->m_gridMotorSails->GetCellValue(row,Logbook::BANK2T-sailscol);
+		cell = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::BANK2T);
 		cell.ToDouble(&bank2);
 
 		if(g == m_choices[0])
 		{
 			choice = 0;
-			col = Logbook::DTOTAL-sailscol;
+			col = LogbookHTML::DTOTAL;
 		}
 		else if (g == m_choices[1])
 		{
 			choice = 1;
-			col = Logbook::MOTORT-sailscol;
+			col = LogbookHTML::MOTORT;
 		}
 		else if (g == m_choices[2])
 		{
 			choice = 2;
-			col = Logbook::MOTOR1T-sailscol;
+			col = LogbookHTML::MOTOR1T;
 		}
 		else if (g == m_choices[3])
 		{
 			choice = 3;
-			col = Logbook::GENET-sailscol;
+			col = LogbookHTML::GENET;
 		}
 		else if (g == m_choices[4])
 		{
 			choice = 4;
-			col = Logbook::BANK1T-sailscol;
+			col = LogbookHTML::BANK1T;
 		}
 		else if (g == m_choices[5])
 		{
 			choice = 5;
-			col = Logbook::BANK2T-sailscol;
+			col = LogbookHTML::BANK2T;
 		}
 		else if (g == m_choices[6])
 		{
 			choice = 6;
-			col = Logbook::WATERMT-sailscol;
+			col = LogbookHTML::WATERMT;
 		}
 		else if (g == m_choices[7])
 		{
 			choice = 7;
-			col = Logbook::SIGN;
+			col = LogbookHTML::SIGN;
 		}
 		else if (g == m_choices[8])
 			choice = 8;
@@ -735,7 +735,7 @@ void Maintenance::checkService(int row)
 				}
 				break;
 			case 7: //Sign
-				if(grid->GetCellValue(r,URGENT) == dialog->m_gridGlobal->GetCellValue(row,Logbook::SIGN))
+				if(grid->GetCellValue(r,URGENT) == dialog->m_gridGlobal->GetCellValue(row,LogbookHTML::SIGN))
 				{
 					border = 2;
 					rowBack = red;
@@ -977,7 +977,7 @@ void Maintenance::setBuyPartsPriority(wxGrid *grid ,int row, int p, int t)
 
 void Maintenance::setRowDone(int row)
 {
-	int sailscol = dialog->logbook->sailsCol;
+//	int sailscol = dialog->logbook->sailsCol;
 	wxString g = grid->GetCellValue(selectedRow,IF);
 	int choice = -1;
 
@@ -1011,37 +1011,37 @@ void Maintenance::setRowDone(int row)
 	case 0:
 		grid->SetCellValue(selectedRow,START,
 		  			   dialog->m_gridGlobal->GetCellValue(
-					   dialog->m_gridGlobal->GetNumberRows()-1,Logbook::DTOTAL));
+					   dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::DTOTAL));
 		break;
 	case 1:
 		grid->SetCellValue(selectedRow,START,
 			dialog->m_gridMotorSails->GetCellValue(
-			dialog->m_gridGlobal->GetNumberRows()-1,Logbook::MOTORT-sailscol));
+			dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::MOTORT));
 		break;
 	case 2:
 		grid->SetCellValue(selectedRow,START,
 			dialog->m_gridMotorSails->GetCellValue(
-			dialog->m_gridGlobal->GetNumberRows()-1,Logbook::MOTOR1T-sailscol));
+			dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::MOTOR1T));
 		break;
 	case 3:
 		grid->SetCellValue(selectedRow,START,
 			dialog->m_gridMotorSails->GetCellValue(
-			dialog->m_gridGlobal->GetNumberRows()-1,Logbook::GENET-sailscol));
+			dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::GENET));
 		break;
 	case 4:
 		grid->SetCellValue(selectedRow,START,
 			dialog->m_gridMotorSails->GetCellValue(
-			dialog->m_gridGlobal->GetNumberRows()-1,Logbook::BANK1T-sailscol));
+			dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::BANK1T));
 		break;
 	case 5:
 		grid->SetCellValue(selectedRow,START,
 			dialog->m_gridMotorSails->GetCellValue(
-			dialog->m_gridGlobal->GetNumberRows()-1,Logbook::BANK2T-sailscol));
+			dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::BANK2T));
 		break;
 	case 6:
 		grid->SetCellValue(selectedRow,START,
 			dialog->m_gridMotorSails->GetCellValue(
-			dialog->m_gridGlobal->GetNumberRows()-1,Logbook::WATERMT-sailscol));
+			dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::WATERMT));
 		break;
 	case 7:
 		grid->SetCellValue(selectedRow,ACTIVE,_("No"));
@@ -1088,7 +1088,7 @@ void Maintenance::setRowBackgroundBuyParts(int row, wxColour &c)
 
 void Maintenance::cellCollChanged(int col, int row)
 {
-	int sailscol = dialog->logbook->sailsCol;
+//	int sailscol = dialog->logbook->sailsCol;
 	
 	if(dialog->m_gridGlobal->GetNumberRows() == 0) return;
 
@@ -1100,7 +1100,7 @@ void Maintenance::cellCollChanged(int col, int row)
 		{
 					grid->SetCellValue(selectedRow,START,
 							dialog->m_gridGlobal->GetCellValue(
-							dialog->m_gridGlobal->GetNumberRows()-1,Logbook::DTOTAL));
+							dialog->m_gridGlobal->GetNumberRows()-1,LogbookHTML::DTOTAL));
 						grid->SetCellValue(selectedRow,WARN,_T("1"));
 						grid->SetCellValue(selectedRow,URGENT,_T("2"));
 		}
@@ -1108,7 +1108,7 @@ void Maintenance::cellCollChanged(int col, int row)
 		{
 						grid->SetCellValue(selectedRow,START,
 							dialog->m_gridMotorSails->GetCellValue(
-							dialog->m_gridMotorSails->GetNumberRows()-1,Logbook::MOTORT-sailscol));
+							dialog->m_gridMotorSails->GetNumberRows()-1,LogbookHTML::MOTORT));
 						grid->SetCellValue(selectedRow,WARN,_T("1"));
 						grid->SetCellValue(selectedRow,URGENT,_T("2"));
 		}
@@ -1116,7 +1116,7 @@ void Maintenance::cellCollChanged(int col, int row)
 		{
 						grid->SetCellValue(selectedRow,START,
 							dialog->m_gridMotorSails->GetCellValue(
-							dialog->m_gridMotorSails->GetNumberRows()-1,Logbook::MOTOR1T-sailscol));
+							dialog->m_gridMotorSails->GetNumberRows()-1,LogbookHTML::MOTOR1T));
 						grid->SetCellValue(selectedRow,WARN,_T("1"));
 						grid->SetCellValue(selectedRow,URGENT,_T("2"));
 		}
@@ -1124,7 +1124,7 @@ void Maintenance::cellCollChanged(int col, int row)
 		{
 						grid->SetCellValue(selectedRow,START,
 							dialog->m_gridMotorSails->GetCellValue(
-							dialog->m_gridMotorSails->GetNumberRows()-1,Logbook::GENET-sailscol));
+							dialog->m_gridMotorSails->GetNumberRows()-1,LogbookHTML::GENET));
 						grid->SetCellValue(selectedRow,WARN,_T("1"));
 						grid->SetCellValue(selectedRow,URGENT,_T("2"));
 		}
@@ -1144,7 +1144,7 @@ void Maintenance::cellCollChanged(int col, int row)
 		{
 						grid->SetCellValue(selectedRow,START,
 							dialog->m_gridMotorSails->GetCellValue(
-							dialog->m_gridMotorSails->GetNumberRows()-1,Logbook::WATERMT-sailscol));
+							dialog->m_gridMotorSails->GetNumberRows()-1,LogbookHTML::WATERMT));
 						grid->SetCellValue(selectedRow,WARN,_T("1"));
 						grid->SetCellValue(selectedRow,URGENT,_T("2"));
 		}
@@ -1376,16 +1376,22 @@ void Maintenance::viewODT(int tab,wxString path,wxString layout,int mode)
 	  {
 	    locn = layout_locnService;
 	    fn = data_locn;
+		if(opt->filterLayout)
+			layout.Prepend(opt->layoutPrefix[LogbookDialog::GSERVICE]);
 	  }
 	else if(tab == dialog->REPAIRS)
 	{
 	    locn = layout_locnRepairs;
 	    fn = data_locnRepairs;
+		if(opt->filterLayout)
+			layout.Prepend(opt->layoutPrefix[LogbookDialog::GREPAIRS]);
 	}
 	else if(tab == dialog->BUYPARTS)
 	{
 	    locn = this->layout_locnBuyParts;
 	    fn = data_locnBuyParts;
+		if(opt->filterLayout)
+			layout.Prepend(opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 	}
 
 	toODT(tab,locn, layout, mode);
@@ -1405,16 +1411,22 @@ void Maintenance::viewHTML(int tab,wxString path,wxString layout,int mode)
 	  {
 	    locn = layout_locnService;
 	    fn = data_locn;
+		if(opt->filterLayout)
+			layout.Prepend(opt->layoutPrefix[LogbookDialog::GSERVICE]);
 	  }
 	else if(tab == dialog->REPAIRS)
 	{
 	    locn = layout_locnRepairs;
 	    fn = data_locnRepairs;
+		if(opt->filterLayout)
+			layout.Prepend(opt->layoutPrefix[LogbookDialog::GREPAIRS]);
 	}
 	else if(tab == dialog->BUYPARTS)
 	{
 	    locn = this->layout_locnBuyParts;
 	    fn = data_locnBuyParts;
+		if(opt->filterLayout)
+			layout.Prepend(opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 	}
 
 	toHTML(tab,locn, layout, mode);

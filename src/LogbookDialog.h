@@ -55,10 +55,11 @@
 #define MENUSAILS				502
 #define SHOWHIDDENCOL			503
 #define HIDDENCOLSEP			504
-#define HIDECOLUMN				506
 #define	MENUTIMER				505
-#define ID_LOGTIMER				510
+#define HIDECOLUMN				506
 #define ID_GPSTIMER				507
+#define ID_SAILSTIMER			508
+#define ID_LOGTIMER				510
 #define COLDFINGER				511
 #define MENUCREWALL				512
 #define MENUCREWONBOARD			513
@@ -115,6 +116,7 @@ enum fields{ ROWHIGHT,ROUTE,RDATE,RTIME,WAKE,DISTANCE,POSITION,COG,SOG,REMARKS,
 			 BARO,WIND,WSPD,CURRENT,CSPD,WEATHER,CLOUDS,VISIBILITY,
 			 MOTOR,FUEL,SAILS,REEF,MREMARKS };
 enum status {STOP,SUSPEND,RUN};
+enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 
 		Boat*			boat;
 		CrewList*		crewList;
@@ -500,6 +502,7 @@ enum status {STOP,SUSPEND,RUN};
 		 void OnButtonClickResetSails( wxCommandEvent& event );
 		 void OnCheckboxSails( wxCommandEvent& event );
 		 void setCheckboxSails();
+		 void stateSails();
 
 		 void m_menu1Highlighted(wxMenuEvent& event);
 
@@ -635,12 +638,13 @@ enum FORMAT {HTML,ODT};
 		wxString restoreDangerChar(wxString s);
 		void startBrowser(wxString filename);
 		void startApplication(wxString filename, wxString ext);
-		void loadLayoutChoice(wxString path, wxChoice* choice);
+		void loadLayoutChoice(int grid, wxString path, wxChoice* choice, wxString filter);
 		void setEqualRowHeight(int row);
 		void init();
 		void OnTimerGPS(wxTimerEvent& ev);
 		void OnLogTimer(wxTimerEvent& ev);
-		int  showLayoutDialog(wxChoice *choice, wxString location, int format);
+		void OnTimerSails(wxTimerEvent& ev);
+		int  showLayoutDialog(int grid, wxChoice *choice, wxString location, int format);
 		bool isInArrayString(wxArrayString ar, wxString s);
 		wxDateTime getDateTo(wxString filename);
 		void loadTimerEx();
@@ -654,6 +658,7 @@ enum FORMAT {HTML,ODT};
 		void setToNumberEngine();
 		void resetSails();
 		void setCheckboxLabels();
+		void setSailsGap();
 
 		logbookkonni_pi*	  logbookPlugIn;
 		wxString*			  pHome_Locn;
@@ -676,6 +681,7 @@ enum FORMAT {HTML,ODT};
 		LogbookTimer*		logbookTimerWindow;
 		wxTimer*            timer;
 		wxTimer*			GPSTimer;
+		wxTimer*			SailsTimer;
 		bool				statusGPS;
 		wxTimer*			logbookTimer;
 		int					fullHourPlus;
@@ -757,6 +763,9 @@ class LayoutDialog : public wxDialog
 		
 		// Virtual event handlers, overide them in your derived class
 		 void OnButtonClickLoadLayout( wxCommandEvent& event );
+		 void OnChoice( wxCommandEvent& event );
+		 void OnText( wxCommandEvent& event );
+
 		
 	
 	public:

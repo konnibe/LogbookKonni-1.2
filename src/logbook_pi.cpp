@@ -954,9 +954,13 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "MailClient" ), opt->mailClient);
 
 			pConf->Write ( _T ( "GPSWarning" ), opt->noGPS);
-			pConf->Write ( _T ( "ShowAllLayouts" ), opt->showAllLayouts);
-			pConf->Write ( _T ( "ShowFilteredLayouts" ), opt->filterLayout);
-			pConf->Write ( _T ( "PrefixLayouts" ), opt->layoutPrefix);
+			pConf->Write ( _T ( "EngineMessageSails" ), opt->engineMessageSails);
+			pConf->Write ( _T ( "WriteEngineRun" ), opt->engineMessageRunning);
+			wxString str = wxEmptyString;
+			for(int i = 0; i < 7; i++)
+				str += wxString::Format(_T("%i,%s,"),opt->filterLayout[i],opt->layoutPrefix[i]);
+			str.RemoveLast();
+			pConf->Write ( _T ( "PrefixLayouts" ), str);
 
 			wxString kmlRouteTrack = wxString::Format(_T("%i,%i"),opt->kmlRoute,opt->kmlTrack);
 			pConf->Write ( _T ( "KMLRouteTrack" ), kmlRouteTrack);
@@ -979,8 +983,9 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "toggleEngine2" ), opt->toggleEngine2);
 
 			wxString sails = wxEmptyString;
+			sails = wxString::Format(_T("%i,%i,"),opt->rowGap,opt->colGap);
 			for(int i = 0; i < 14; i++)
-				sails += wxString::Format(_T("%s,%s,%i,"),opt->abrSails.Item(i),opt->sailsName.Item(i),opt->bSailIsChecked[i]);
+				sails += wxString::Format(_T("%s,%s,%i,"),opt->abrSails.Item(i).c_str(),opt->sailsName.Item(i).c_str(),opt->bSailIsChecked[i]);
 			sails.RemoveLast();
 			pConf->Write ( _T ( "Sails" ), sails);
 
@@ -996,27 +1001,26 @@ void logbookkonni_pi::SaveConfig()
 			else
 				pConf->Write ( _T ( "Engine2TimeStart" ),wxEmptyString);
 
-			for(unsigned int i = 0; i < opt->NavColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "NavGridColWidth/%i"),i), opt->NavColWidth[i]);
-			for(unsigned int i = 0; i < opt->WeatherColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "WeatherGridColWidth/%i"),i), opt->WeatherColWidth[i]);
-			for(unsigned int i = 0; i < opt->MotorColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "MotorGridColWidth/%i"),i), opt->MotorColWidth[i]);
-			for(unsigned int i = 0; i < opt->CrewColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "CrewGridColWidth/%i"),i), opt->CrewColWidth[i]);
-			for(unsigned int i = 0; i < opt->WakeColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "WakeGridColWidth/%i"),i), opt->WakeColWidth[i]);
-			for(unsigned int i = 0; i < opt->EquipColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "EquipGridColWidth/%i"),i), opt->EquipColWidth[i]);	
-			for(unsigned int i = 0; i < opt->OverviewColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "OverviewGridColWidth/%i"),i), opt->OverviewColWidth[i]);	
-			for(unsigned int i = 0; i < opt->ServiceColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "ServiceGridColWidth/%i"),i), opt->ServiceColWidth[i]);
-			for(unsigned int i = 0; i < opt->RepairsColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "RepairsGridColWidth/%i"),i), opt->RepairsColWidth[i]);
-			for(unsigned int i = 0; i < opt->BuyPartsColWidth.Count(); i++)
-				pConf->Write (wxString::Format(_T ( "BuyPartsGridColWidth/%i"),i), opt->BuyPartsColWidth[i]);
+			writeCols(pConf,opt->NavColWidth,		_T("NavGridColWidth"));
+			writeCols(pConf,opt->WeatherColWidth,	_T("WeatherGridColWidth"));
+			writeCols(pConf,opt->MotorColWidth,		_T("MotorGridColWidth"));
+			writeCols(pConf,opt->CrewColWidth,		_T("CrewGridColWidth"));
+			writeCols(pConf,opt->WakeColWidth,		_T("WakeGridColWidth"));
+			writeCols(pConf,opt->EquipColWidth,		_T("EquipGridColWidth"));
+			writeCols(pConf,opt->OverviewColWidth,	_T("OverviewGridColWidth"));
+			writeCols(pConf,opt->ServiceColWidth,	_T("ServiceGridColWidth"));	
+			writeCols(pConf,opt->RepairsColWidth,	_T("RepairsGridColWidth"));	
+			writeCols(pConf,opt->BuyPartsColWidth,	_T("BuyPartsGridColWidth"));	
 	  }
+}
+
+void logbookkonni_pi::writeCols(wxFileConfig *pConf, ArrayOfGridColWidth ar, wxString entry)
+{
+			wxString str = wxEmptyString;
+			for(unsigned int i = 0; i < ar.Count(); i++)
+				str += wxString::Format(_T("%i,"),ar[i]);
+			str.RemoveLast();
+			pConf->Write(entry,str);
 }
 
 void logbookkonni_pi::LoadConfig()
@@ -1152,9 +1156,20 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "MailClient" ), &opt->mailClient);
 
 			pConf->Read ( _T ( "GPSWarning" ), &opt->noGPS);
-			pConf->Read ( _T ( "ShowAllLayouts" ), &opt->showAllLayouts);
-			pConf->Read ( _T ( "ShowFilteredLayouts" ), &opt->filterLayout);
-			pConf->Read ( _T ( "PrefixLayouts" ), &opt->layoutPrefix);
+			pConf->Read ( _T ( "EngineMessageSails" ), &opt->engineMessageSails);
+			pConf->Read ( _T ( "WriteEngineRun" ), &opt->engineMessageRunning);
+
+			wxString str = wxEmptyString;
+			pConf->Read ( _T ( "PrefixLayouts" ), &str);
+			if(str.Contains(_T(",")))
+			{
+				wxStringTokenizer tkz(str,_T(","));
+				for(int i = 0; i < 7; i++)
+				{
+					opt->filterLayout[i] = (wxAtoi(tkz.GetNextToken()))?true:false;
+					opt->layoutPrefix[i] = tkz.GetNextToken();
+				}
+			}
 
 			wxString kmlRouteTrack = wxEmptyString;
 			pConf->Read ( _T ( "KMLRouteTrack" ), &kmlRouteTrack,_T("1,1"));
@@ -1184,6 +1199,12 @@ void logbookkonni_pi::LoadConfig()
 			if(!sails.IsEmpty())
 			{
 				wxStringTokenizer tkz(sails,_T(","));
+				if(wxString(sails.GetChar(0)).IsNumber())
+				{
+					opt->rowGap = wxAtoi(tkz.GetNextToken());
+					opt->colGap = wxAtoi(tkz.GetNextToken());
+				}
+				
 				for(int i = 0; i < 14; i++)
 				{
 					opt->abrSails.Item(i) = tkz.GetNextToken();
@@ -1224,107 +1245,70 @@ void logbookkonni_pi::LoadConfig()
 					opt->dtEngine2On = dt;
 			}
 
-			int val;
 			bool r;
-			int i = 0;
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "NavGridColWidth/%i"),i++), &val);
-				if(!r) break;
-			    opt->NavColWidth.Add(val);
-			}
-			i = 0;
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "WeatherGridColWidth/%i"),i++), &val);
-				if(!r) break;
-				opt->WeatherColWidth.Add(val);
-			}
-			i = 0; 
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "MotorGridColWidth/%i"),i++), &val);
-				if(!r) break;
-				opt->MotorColWidth.Add(val);
-			}
-			i = 0; 
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "CrewGridColWidth/%i"),i++), &val);
-				if(!r) break;
-				opt->CrewColWidth.Add(val);
-			}
-			i = 0; 
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "WakeGridColWidth/%i"),i++), &val);
-				if(!r) break;
-				opt->WakeColWidth.Add(val);
-			}
-			i = 0; 
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "EquipGridColWidth/%i"),i++), &val);	
-				if(!r) break;
-				opt->EquipColWidth.Add(val);
-			}	
-			i = 0; 
-			while(true)
-#ifdef __WXOSX__
-            {
-				r = pConf->Read (wxString::Format(_T ( "OverviewGridColWidth/%i"),i++), &val);	
-				opt->OverviewColWidth.Add(val);
-				if(!r) break;
-			}
-          i = 0;
-          while(true)
-          {
-              r = pConf->Read (wxString::Format(_T ( "ServiceGridColWidth/%i"),i++), &val);	
-              opt->ServiceColWidth.Add(val);
-              if(!r) break;
-          }
-          i = 0;
-          while(true)
-          {
-              r = pConf->Read (wxString::Format(_T ( "RepairsGridColWidth/%i"),i++), &val);	
-              opt->RepairsColWidth.Add(val);
-              if(!r) break;
-          }
-          i = 0;
-          while(true)
-          {
-              r = pConf->Read (wxString::Format(_T ( "BuyPartsGridColWidth/%i"),i++), &val);	
-              opt->BuyPartsColWidth.Add(val);
-              if(!r) break;
-          }    
-#else
-			{
-				r = pConf->Read (wxString::Format(_T ( "OverviewGridColWidth/%i"),i++), &val, -1);	
-				opt->OverviewColWidth.Add(val);
-				if(!r) break;
-			}
-			i = 0;
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "ServiceGridColWidth/%i"),i++), &val, -1);	
-				opt->ServiceColWidth.Add(val);
-				if(!r) break;
-			}
-			i = 0;
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "RepairsGridColWidth/%i"),i++), &val, -1);	
-				opt->RepairsColWidth.Add(val);
-				if(!r) break;
-			}
-			i = 0;
-			while(true)
-			{
-				r = pConf->Read (wxString::Format(_T ( "BuyPartsGridColWidth/%i"),i++), &val, -1);	
-				opt->BuyPartsColWidth.Add(val);
-				if(!r) break;
-			}
-#endif
+			r = pConf->Read (_T ( "NavGridColWidth"),&str);
+			if(r)
+				opt->NavColWidth = readCols(opt->NavColWidth,str);
+			else
+				opt->NavColWidth = readColsOld(pConf,opt->NavColWidth,_T ("NavGridColWidth"));
+
+			r = pConf->Read (_T ( "WeatherGridColWidth"),&str);
+			if(r)
+				opt->WeatherColWidth = readCols(opt->WeatherColWidth,str);
+			else
+				opt->WeatherColWidth = readColsOld(pConf,opt->WeatherColWidth,_T ("WeatherGridColWidth"));
+
+			r = pConf->Read (_T ( "MotorGridColWidth"),&str);
+			if(r)
+				opt->MotorColWidth = readCols(opt->MotorColWidth,str);
+			else
+				opt->MotorColWidth = readColsOld(pConf,opt->MotorColWidth,_T ("MotorGridColWidth"));
+
+			r = pConf->Read (_T ( "CrewGridColWidth"),&str);
+			if(r)
+				opt->CrewColWidth = readCols(opt->CrewColWidth,str);
+			else
+				opt->CrewColWidth = readColsOld(pConf,opt->CrewColWidth,_T ("CrewGridColWidth"));
+
+			r = pConf->Read (_T ( "WakeGridColWidth"),&str);
+			if(r)
+				opt->WakeColWidth = readCols(opt->WakeColWidth,str);
+			else
+				opt->WakeColWidth = readColsOld(pConf,opt->WakeColWidth,_T ("WakeGridColWidth"));
+
+			r = pConf->Read (_T ( "EquipGridColWidth"),&str);
+			if(r)
+				opt->EquipColWidth = readCols(opt->EquipColWidth,str);
+			else
+				opt->EquipColWidth = readColsOld(pConf,opt->EquipColWidth,_T ("EquipGridColWidth"));
+
+			r = pConf->Read (_T ( "OverviewGridColWidth"),&str);
+			if(r)
+				opt->OverviewColWidth = readCols(opt->OverviewColWidth,str);
+			else
+				opt->OverviewColWidth = readColsOld(pConf,opt->OverviewColWidth,_T ("OverviewGridColWidth"));
+
+			r = pConf->Read (_T ( "ServiceGridColWidth"),&str);
+			if(r)
+				opt->ServiceColWidth = readCols(opt->ServiceColWidth,str);
+			else
+				opt->ServiceColWidth = readColsOld(pConf,opt->ServiceColWidth,_T ("ServiceGridColWidth"));
+
+			r = pConf->Read (_T ( "RepairsGridColWidth"),&str);
+			if(r)
+				opt->RepairsColWidth = readCols(opt->RepairsColWidth,str);
+			else
+				opt->RepairsColWidth = readColsOld(pConf,opt->RepairsColWidth,_T ("RepairsGridColWidth"));
+
+			r = pConf->Read (_T ( "BuyPartsGridColWidth"),&str);
+			if(r)
+				opt->BuyPartsColWidth = readCols(opt->BuyPartsColWidth,str);
+			else
+				opt->BuyPartsColWidth = readColsOld(pConf,opt->BuyPartsColWidth,_T ("BuyPartsGridColWidth"));
+
+			pConf->DeleteEntry ( _T ( "ShowAllLayout" ));
+			pConf->DeleteEntry ( _T ( "ShowFilteredLayout" ));
+
 			opt->ampereh = opt->ampere+opt->motorh;
 	  }
 
@@ -1337,6 +1321,32 @@ void logbookkonni_pi::LoadConfig()
 		else
 			opt->timeformat = 1;
 	}
+}
+
+ArrayOfGridColWidth logbookkonni_pi::readCols(ArrayOfGridColWidth ar, wxString str)
+{
+	wxStringTokenizer tkz(str,_T(","));
+	while(tkz.HasMoreTokens())
+		ar.Add(wxAtoi(tkz.GetNextToken()));
+
+	return ar;
+}
+
+ArrayOfGridColWidth logbookkonni_pi::readColsOld(wxFileConfig *pConf, ArrayOfGridColWidth ar, wxString entry)
+{
+	int val;
+	bool r;
+	int i = 0;
+
+	while(true)
+	{
+		r = pConf->Read (wxString::Format(entry+_T ( "/%i"),i++), &val);
+		if(!r) break;
+		ar.Add(val);
+	}
+	bool z = pConf->DeleteGroup(_T("/PlugIns/Logbook/"+entry));
+
+	return ar;
 }
 
 
@@ -1464,12 +1474,20 @@ void logbookkonni_pi::loadLayouts(wxWindow *parent)
 		}
 		if(m_plogbook_window != NULL)
 		{
-		m_plogbook_window->loadLayoutChoice(
-			m_plogbook_window->logbook->layout_locn,m_plogbook_window->logbookChoice);
-		m_plogbook_window->loadLayoutChoice(
-			m_plogbook_window->crewList->layout_locn,m_plogbook_window->crewChoice);
-		m_plogbook_window->loadLayoutChoice(
-			m_plogbook_window->boat->layout_locn,m_plogbook_window->boatChoice);
+		m_plogbook_window->loadLayoutChoice(LogbookDialog::LOGBOOK,
+			m_plogbook_window->logbook->layout_locn,m_plogbook_window->logbookChoice,opt->layoutPrefix[LogbookDialog::LOGBOOK]);
+		m_plogbook_window->loadLayoutChoice(LogbookDialog::CREW,
+			m_plogbook_window->crewList->layout_locn,m_plogbook_window->crewChoice,opt->layoutPrefix[LogbookDialog::CREW]);
+		m_plogbook_window->loadLayoutChoice(LogbookDialog::BOAT,
+			m_plogbook_window->boat->layout_locn,m_plogbook_window->boatChoice,opt->layoutPrefix[LogbookDialog::BOAT]);
+		m_plogbook_window->loadLayoutChoice(LogbookDialog::OVERVIEW,
+			m_plogbook_window->logbook->layout_locn,m_plogbook_window->overviewChoice,opt->layoutPrefix[LogbookDialog::OVERVIEW]);
+		m_plogbook_window->loadLayoutChoice(LogbookDialog::GSERVICE,
+			m_plogbook_window->maintenance->layout_locnService,m_plogbook_window->m_choiceSelectLayoutService,opt->layoutPrefix[LogbookDialog::GSERVICE]);
+		m_plogbook_window->loadLayoutChoice(LogbookDialog::GREPAIRS,
+			m_plogbook_window->maintenance->layout_locnRepairs,m_plogbook_window->m_choiceSelectLayoutRepairs,opt->layoutPrefix[LogbookDialog::GREPAIRS]);
+		m_plogbook_window->loadLayoutChoice(LogbookDialog::GBUYPARTS,
+			m_plogbook_window->maintenance->layout_locnBuyParts,m_plogbook_window->m_choiceSelectLayoutBuyParts,opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 		}
 	wxString ok = wxString::Format(_("Layouts %sinstalled at\n\n%s\n%s\n%s\n%s"),
 				       (!ret)?n.c_str():wxEmptyString,data.c_str(),data1.c_str(),data2.c_str(),data3.c_str());

@@ -55,7 +55,10 @@ void OverView::refresh()
 
 void OverView::viewODT(wxString path,wxString layout,int mode)
 {
-	wxString fn;// = data_locn;
+	wxString fn;
+
+	if(opt->filterLayout)
+		layout.Prepend(opt->layoutPrefix[LogbookDialog::OVERVIEW]);
 
 	fn = toODT(path, layout, mode);
 
@@ -68,7 +71,10 @@ void OverView::viewODT(wxString path,wxString layout,int mode)
 
 void OverView::viewHTML(wxString path,wxString layout,int mode)
 {
-	wxString fn;// = data_locn;
+	wxString fn;
+
+	if(opt->filterLayout)
+		layout.Prepend(opt->layoutPrefix[LogbookDialog::OVERVIEW]);
 
 	fn = toHTML(path, layout, mode);
 
@@ -1091,13 +1097,13 @@ void OverView::setLayoutLocation()
 	this->layout_locn = layout_locn;
 
 	this->layout_locn.Append(_T("overview"));
-	parent->appendOSDirSlash(&this->layout_locn);
+	parent->appendOSDirSlash(&layout_locn);
 
-	parent->loadLayoutChoice(this->layout_locn,parent->overviewChoice);
+	parent->loadLayoutChoice(LogbookDialog::OVERVIEW,layout_locn,parent->overviewChoice,opt->layoutPrefix[LogbookDialog::OVERVIEW]);
 	if(radio)
-		parent->overviewChoice->SetSelection(parent->logbookPlugIn->opt->overviewGridLayoutChoice);
+		parent->overviewChoice->SetSelection(opt->overviewGridLayoutChoice);
 	else
-		parent->overviewChoice->SetSelection(parent->logbookPlugIn->opt->overviewGridLayoutChoiceODT);
+		parent->overviewChoice->SetSelection(opt->overviewGridLayoutChoiceODT);
 }
 
 void OverView::setSelectedRow(int row)

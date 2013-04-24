@@ -42,6 +42,10 @@ Options::Options(void)
 	engine1Running = false;
 	engine2Running = false;
 	bRPMCheck = false;
+	engineStr[0] = _T("1");
+	engineStr[1] = _T("2");
+	engineMessageSails = false;
+	engineMessageRunning = false;
 
 	abrSails.Add(_("Ma"));
 	abrSails.Add(_("Tr"));
@@ -73,6 +77,9 @@ Options::Options(void)
 	sailsName.Add(_("Spinnacker"));
 	sailsName.Add(_("You can change the abreviations and the names of the sails\nin Options/Miscellaneous/Sails"));
 
+	rowGap = 0;
+	colGap = 0;
+
 	for(int i = 0; i < 14; i++)
 		bSailIsChecked[i] = false;
 
@@ -93,9 +100,11 @@ Options::Options(void)
 	dlgWidth = 1010;
 	dlgHeight = 535;
 	popup = true;
-	layoutPrefix = _T("Label_");
-	filterLayout = false;
-	showAllLayouts = true;
+	for(int i = 0; i < 7; i++)
+	{
+		layoutPrefix[i] =  _T("Label_");
+		filterLayout[i] =  true;
+	}
 	noGPS = true;
 	colouredMaintenance = true;
 	waypointArrived = false;

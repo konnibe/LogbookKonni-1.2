@@ -33,6 +33,7 @@ wxArrayString ActuellWatch::menuMembers	= wxArrayString();
 CrewList::CrewList(LogbookDialog* d, wxString data, wxString layout, wxString layoutODT)
 {	
 	dialog = d;
+	opt = d->logbookPlugIn->opt;
 	gridCrew = d->m_gridCrew;
 	gridWake = d->m_gridCrewWake;
 	rowHeight = gridCrew->GetRowHeight(0);
@@ -150,7 +151,7 @@ void CrewList::setLayoutLocation(wxString loc)
 	crewLay.Append(_T("crew"));
 	dialog->appendOSDirSlash(&crewLay);
 	layout_locn = crewLay;
-	dialog->loadLayoutChoice(crewLay,dialog->crewChoice);
+	dialog->loadLayoutChoice(LogbookDialog::CREW,crewLay,dialog->crewChoice,opt->layoutPrefix[LogbookDialog::CREW]);
 	if(radio)
 		dialog->crewChoice->SetSelection(dialog->logbookPlugIn->opt->crewGridLayoutChoice);
 	else
@@ -2085,6 +2086,9 @@ wxString CrewList::readLayout(wxString layoutFileName)
 
 void CrewList::viewHTML(wxString path, wxString layout)
 {
+	if(opt->filterLayout)
+		layout.Prepend(opt->layoutPrefix[LogbookDialog::CREW]);
+
 	saveHTML(path, layout, true);
 
 	if(layout != _T("") && wxFile::Exists(html_locn))
@@ -2093,6 +2097,9 @@ void CrewList::viewHTML(wxString path, wxString layout)
 
 void CrewList::viewODT(wxString path, wxString layout)
 {
+	if(opt->filterLayout)
+		layout.Prepend(opt->layoutPrefix[LogbookDialog::CREW]);
+
 	saveODT(path, layout, true);
 	
 	if(layout != _T("") && wxFile::Exists(ODT_locn))

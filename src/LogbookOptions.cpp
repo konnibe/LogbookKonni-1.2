@@ -235,21 +235,21 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
-	m_checkBoxShowAllLayouts = new wxCheckBox( m_panel15, wxID_ANY, _("Show all Layouts"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxShowAllLayouts->SetValue(true); 
-	fgSizer29->Add( m_checkBoxShowAllLayouts, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
+	m_checkBoxEngine = new wxCheckBox( m_panel15, wxID_ANY, _("Engine start/stop sails message"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxEngine->SetValue(true); 
+	m_checkBoxEngine->SetToolTip( _("Uncheck for Motorboats\n\nEngine(s) started, sets Sails to none and appends \"Sails down\" \n\"Sails hoisted\" when Engine stoped\n\nSet checkmarks in the sail-checkboxes BEFORE you stop the engine !") );
 	
-	m_checkBoxShowOnlySelectedLayouts = new wxCheckBox( m_panel15, wxID_ANY, _("Only Layouts with prefix:"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxShowOnlySelectedLayouts->SetToolTip( _("If You have created Your own layouts\nwith prefix e.g. My_") );
-	
-	fgSizer29->Add( m_checkBoxShowOnlySelectedLayouts, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
-	
-	m_textCtrlLayoutPrefix = new wxTextCtrl( m_panel15, wxID_ANY, _T("Label_"), wxDefaultPosition, wxSize( 90,-1 ), wxTE_PROCESS_ENTER );
-	m_textCtrlLayoutPrefix->SetToolTip( _("If You have created Your own Layouts\nprepend them with e.g. My_ \nThe _ is important") );
-	
-	fgSizer29->Add( m_textCtrlLayoutPrefix, 0, wxALL, 0 );
+	fgSizer29->Add( m_checkBoxEngine, 0, wxALIGN_CENTER_VERTICAL, 0 );
 	
 	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_checkBoxEngineRunning = new wxCheckBox( m_panel15, wxID_ANY, _("Write message \"Engine runnung\""), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxEngineRunning->SetValue(true); 
+	m_checkBoxEngineRunning->SetToolTip( _("Uncheck for Motorboats.") );
+	
+	fgSizer29->Add( m_checkBoxEngineRunning, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
+
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_checkBoxNoGPS = new wxCheckBox( m_panel15, wxID_ANY, _("Write warning \"No GPS\""), wxDefaultPosition, wxDefaultSize, 0 );
@@ -1112,18 +1112,27 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer48->Fit( m_panel28 );
 	m_notebook7->AddPage( m_panel28, _("NMEA"), true );
 	
-
-	m_panel29 = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_panelSails = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer46;
 	bSizer46 = new wxBoxSizer( wxVERTICAL );
 
-	bSizer46->Add( 1, 20, 0, 0, 5 );
+	m_panelSailNames = new wxPanel( m_panelSails, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	
-	m_staticText1351 = new wxStaticText( m_panel29, wxID_ANY, _("Abbreviations are shown in the Sails-Checkboxes\nThe Name is used for the column \"Sails\" when added a new entry"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+	wxBoxSizer* bSizer461;
+	bSizer461 = new wxBoxSizer( wxVERTICAL );
+	
+	bSizer461->Add( 0, 20, 0, wxEXPAND|wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	m_buttonToSailsSpace = new wxButton( m_panelSailNames, wxID_ANY, _("Checkbox Space  >>"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_buttonToSailsSpace->SetToolTip( _("Usefull for Tablet-PC's") );
+	
+	bSizer461->Add( m_buttonToSailsSpace, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	m_staticText1351 = new wxStaticText( m_panelSailNames, wxID_ANY, _("Abbreviations are shown in the Sails-Checkboxes\nThe Name is used for the column \"Sails\" when added a new entry"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
 	m_staticText1351->Wrap( -1 );
-	bSizer46->Add( m_staticText1351, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer461->Add( m_staticText1351, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
-	m_gridSailNames = new wxGrid( m_panel29, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+	m_gridSailNames = new wxGrid( m_panelSailNames, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
 	m_gridSailNames->CreateGrid( 14, 2 );
@@ -1151,12 +1160,65 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	// Cell Defaults
 	m_gridSailNames->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer46->Add( m_gridSailNames, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer461->Add( m_gridSailNames, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
-	m_panel29->SetSizer( bSizer46 );
-	m_panel29->Layout();
-	bSizer46->Fit( m_panel29 );
-	m_notebook7->AddPage( m_panel29, _("Sails"), false );
+	m_panelSailNames->SetSizer( bSizer461 );
+	m_panelSailNames->Layout();
+	bSizer461->Fit( m_panelSailNames );
+	bSizer46->Add( m_panelSailNames, 1, wxEXPAND | wxALL, 5 );
+	
+	m_panelSailsCheckbox = new wxPanel( m_panelSails, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_panelSailsCheckbox->Hide();
+	wxBoxSizer* bSizer47;
+	bSizer47 = new wxBoxSizer( wxVERTICAL );
+	
+	
+	bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	m_buttonBackToSails = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("<<  Back"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_buttonBackToSails->SetToolTip( _("Back to Sailnames") );
+	
+	bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer47->Add( m_buttonBackToSails, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	fgSizerSailsCheckboxes = new wxFlexGridSizer( 0, 5, 0, 0 );
+	fgSizerSailsCheckboxes->SetFlexibleDirection( wxBOTH );
+	fgSizerSailsCheckboxes->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	bSizer47->Add( fgSizerSailsCheckboxes, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	wxFlexGridSizer* fgSizer49;
+	fgSizer49 = new wxFlexGridSizer( 0, 5, 0, 0 );
+	fgSizer49->SetFlexibleDirection( wxBOTH );
+	fgSizer49->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_buttonSpaceRPlus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Row +"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer49->Add( m_buttonSpaceRPlus, 0, wxALL, 5 );
+	
+	m_buttonSpaceRMinus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Row -"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer49->Add( m_buttonSpaceRMinus, 0, wxALL, 5 );
+	
+	m_buttonSpaceCPlus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Column +"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer49->Add( m_buttonSpaceCPlus, 0, wxALL, 5 );
+	
+	m_buttonSpaceCMinus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Column -"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer49->Add( m_buttonSpaceCMinus, 0, wxALL, 5 );
+	
+	m_buttonSpaceReset = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Reset"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer49->Add( m_buttonSpaceReset, 0, wxALL, 5 );
+	
+	bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer47->Add( fgSizer49, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	m_panelSailsCheckbox->SetSizer( bSizer47 );
+	m_panelSailsCheckbox->Layout();
+	bSizer47->Fit( m_panelSailsCheckbox );
+	bSizer46->Add( m_panelSailsCheckbox, 1, wxEXPAND | wxALL, 5 );
+	
+	m_panelSails->SetSizer( bSizer46 );
+	m_panelSails->Layout();
+	bSizer46->Fit( m_panelSails );
+	m_notebook7->AddPage( m_panelSails, _("Sails"), false );
 
 
 	bSizer42->Add( m_notebook7, 1, wxEXPAND | wxALL, 5 );
@@ -1188,10 +1250,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 
 	// Connect Events
 	m_choicePositionFormat->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::onChoicePositionFormat ), NULL, this );
-	m_checkBoxShowAllLayouts->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCeckBoxShowAllLayouts ), NULL, this );
 	m_checkBoxToolTips->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCheckBoxToolTips ), NULL, this );
-	m_checkBoxShowOnlySelectedLayouts->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCheckBoxShowOnlySelectedLayouts ), NULL, this );
-	m_textCtrlLayoutPrefix->Connect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( LogbookOptions::OnTextEnterLayoutPrefix ), NULL, this );
 	m_checkBoxNoGPS->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCheckBoNoGPS ), NULL, this );
 	m_radioBtnUTC->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( LogbookOptions::onRadioBtnUTC ), NULL, this );
 	m_radioBtnLocal->Connect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( LogbookOptions::onRadioBtnLocal ), NULL, this );
@@ -1225,6 +1284,17 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_choiceNoEngines->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceNoEngines ), NULL, this );
 	m_toggleBtnRPMCheck->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnToggleButtonRPMCheck ), NULL, this );
 	m_checkBoxUseRPMOnOff->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxUseRPM ), NULL, this );
+	m_buttonToSailsSpace->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonToSailsSpace ), NULL, this );
+	m_buttonBackToSails->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::onButtonBackToSails ), NULL, this );
+	m_buttonSpaceRPlus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRPlus ), NULL, this );
+	m_buttonSpaceRMinus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRMinus ), NULL, this );
+	m_buttonSpaceCPlus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCPlus ), NULL, this );
+	m_buttonSpaceCMinus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCMinus ), NULL, this );
+	m_buttonSpaceReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceReset ), NULL, this );
+	m_checkBoxEngine->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineMessage ), NULL, this );
+	m_checkBoxEngineRunning->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineRunning ), NULL, this );
+
+
 
 	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( LogbookOptions::OnClose ) );
 
@@ -1240,10 +1310,7 @@ LogbookOptions::~LogbookOptions()
 
 	// Disconnect Events
 	m_choicePositionFormat->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::onChoicePositionFormat ), NULL, this );
-	m_checkBoxShowAllLayouts->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCeckBoxShowAllLayouts ), NULL, this );
 	m_checkBoxToolTips->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCheckBoxToolTips ), NULL, this );
-	m_checkBoxShowOnlySelectedLayouts->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCheckBoxShowOnlySelectedLayouts ), NULL, this );
-	m_textCtrlLayoutPrefix->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( LogbookOptions::OnTextEnterLayoutPrefix ), NULL, this );
 	m_checkBoxNoGPS->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::onCheckBoNoGPS ), NULL, this );
 	m_radioBtnUTC->Disconnect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( LogbookOptions::onRadioBtnUTC ), NULL, this );
 	m_radioBtnLocal->Disconnect( wxEVT_COMMAND_RADIOBUTTON_SELECTED, wxCommandEventHandler( LogbookOptions::onRadioBtnLocal ), NULL, this );
@@ -1277,6 +1344,17 @@ LogbookOptions::~LogbookOptions()
 	m_choiceNoEngines->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceNoEngines ), NULL, this );
 	m_toggleBtnRPMCheck->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnToggleButtonRPMCheck ), NULL, this );
 	m_checkBoxUseRPMOnOff->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxUseRPM ), NULL, this );
+	m_buttonToSailsSpace->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonToSailsSpace ), NULL, this );
+	m_buttonBackToSails->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::onButtonBackToSails ), NULL, this );
+	m_buttonSpaceRPlus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRPlus ), NULL, this );
+	m_buttonSpaceRMinus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRMinus ), NULL, this );
+	m_buttonSpaceCPlus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCPlus ), NULL, this );
+	m_buttonSpaceCMinus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCMinus ), NULL, this );
+	m_buttonSpaceReset->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceReset ), NULL, this );
+	m_checkBoxEngine->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineMessage ), NULL, this );
+	m_checkBoxEngineRunning->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineRunning ), NULL, this );
+
+
 
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( LogbookOptions::OnClose ) );
 }
@@ -1372,6 +1450,96 @@ void LogbookOptions::resetToOldDateTimeFormat()
 
 	opt->setDateFormat();
 	opt->setTimeFormat(opt->timeformat);
+}
+
+void LogbookOptions::OnCheckBoxEngineRunning( wxCommandEvent& event )
+{
+
+}
+
+void LogbookOptions::OnCheckBoxEngineMessage( wxCommandEvent& event )
+{
+
+}
+
+void LogbookOptions::OnButtonToSailsSpace( wxCommandEvent& event )
+{
+	m_panelSailNames->Hide();
+	wxCheckBox* checkboxSails[14];
+	fgSizerSailsCheckboxes->Clear(true);
+	m_panelSails->Layout();
+	m_panelSailsCheckbox->Show();
+	for(unsigned int i = 0; i < 14; i++)
+	{
+		checkboxSails[i] = new wxCheckBox( m_panelSailsCheckbox, wxID_ANY,opt->abrSails.Item(i) , wxDefaultPosition, wxDefaultSize, 0 );
+		checkboxSails[i]->SetValue( opt->bSailIsChecked[i] );
+		checkboxSails[i]->SetToolTip( opt->sailsName.Item(i) );
+
+		fgSizerSailsCheckboxes->Add( checkboxSails[i] , 0, 0, 5 );
+
+		//log_pi->m_plogbook_window->checkboxSails[i]->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookDialog::OnCheckboxSails ), NULL, this );
+	}
+	wxButton* m_buttonSailsReset = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("none"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_buttonSailsReset->SetToolTip(_("Reset"));
+	m_buttonSailsReset->SetMinSize( wxSize( 40,15 ) );
+//	m_buttonSailsReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickResetSails ), NULL, this );
+	fgSizerSailsCheckboxes->Add( m_buttonSailsReset, 0, 0, 5 );
+
+	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+	fgSizerSailsCheckboxes->SetHGap(opt->colGap);
+	m_panelSailsCheckbox->Fit();
+	m_panelSails->Layout();
+}
+
+void LogbookOptions::onButtonBackToSails( wxCommandEvent& event )
+{
+	this->m_panelSailsCheckbox->Hide();
+	this->m_panelSailNames->Show();
+}
+
+void LogbookOptions::OnButtonSpaceRPlus( wxCommandEvent& event )
+{
+	opt->rowGap +=5;
+	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+	m_panelSailsCheckbox->Fit();
+	m_panelSails->Layout();
+}
+
+void LogbookOptions::OnButtonSpaceRMinus( wxCommandEvent& event )
+{
+	opt->rowGap -=5;
+	if(opt->rowGap <= 0) opt->rowGap = 0;
+	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+	m_panelSailsCheckbox->Fit();
+	m_panelSails->Layout();
+}
+
+void LogbookOptions::OnButtonSpaceCPlus( wxCommandEvent& event )
+{
+	opt->colGap +=5;
+	fgSizerSailsCheckboxes->SetHGap(opt->colGap);
+	m_panelSailsCheckbox->Fit();
+	m_panelSails->Layout();
+}
+
+void LogbookOptions::OnButtonSpaceCMinus( wxCommandEvent& event )
+{
+	opt->colGap -=5;
+	if(opt->colGap <= 0) opt->colGap = 0;
+	fgSizerSailsCheckboxes->SetHGap(opt->colGap);
+	m_panelSailsCheckbox->Fit();
+	m_panelSails->Layout();
+}
+
+void LogbookOptions::OnButtonSpaceReset( wxCommandEvent& event )
+{
+	opt->rowGap = 0;
+	opt->colGap = 0;
+	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+	fgSizerSailsCheckboxes->SetHGap(opt->rowGap);
+	m_panelSailsCheckbox->Fit();
+	m_panelSails->Layout();
+
 }
 
 void LogbookOptions::OnCheckBoxUseRPM( wxCommandEvent& event )
@@ -1635,9 +1803,11 @@ void LogbookOptions::OnButtonOKClick(wxCommandEvent &ev)
 	LogbookDialog* dlg = log_pi->m_plogbook_window;
 
 	if(dlg)
+	{
+		dlg->setSailsGap();
 		dlg->setToNumberEngine();
-	if(dlg)
 		dlg->setCheckboxLabels();
+	}
 
 	setUseRPM(opt->bRPMIsChecked);
 
@@ -1815,9 +1985,8 @@ void LogbookOptions::setValues()
 	m_choiceTzHours->SetSelection(opt->tzHour);
 
 	m_checkBoxNoGPS->SetValue(opt->noGPS);
-	m_checkBoxShowAllLayouts->SetValue(opt->showAllLayouts);
-	m_checkBoxShowOnlySelectedLayouts->SetValue(opt->filterLayout);
-	m_textCtrlLayoutPrefix->SetValue(opt->layoutPrefix);
+	m_checkBoxEngine->SetValue(opt->engineMessageSails);
+	m_checkBoxEngineRunning->SetValue(opt->engineMessageRunning);
 
 	m_checkBoxKMLRoute->SetValue((opt->kmlRoute)?true:false);
 	m_checkBoxKMLTrack->SetValue((opt->kmlTrack)?true:false);
@@ -1942,9 +2111,8 @@ void LogbookOptions::getValues()
 	opt->tzIndicator = m_choiceTzIndicator->GetSelection();
 	opt->tzHour = m_choiceTzHours->GetSelection();
 	opt->noGPS = m_checkBoxNoGPS->GetValue();
-	opt->showAllLayouts = m_checkBoxShowAllLayouts->GetValue();
-	opt->filterLayout = m_checkBoxShowOnlySelectedLayouts->GetValue();
-	opt->layoutPrefix = m_textCtrlLayoutPrefix->GetValue();
+	opt->engineMessageSails = m_checkBoxEngine->GetValue();
+	opt->engineMessageRunning = m_checkBoxEngineRunning->GetValue();
 
 	opt->kmlRoute = m_checkBoxKMLRoute->GetValue();
 	opt->kmlTrack = m_checkBoxKMLTrack->GetValue();
@@ -2173,48 +2341,11 @@ void LogbookOptions::onTextEnterBank2( wxCommandEvent& event )
 	m_textCtrlTankWater->SetFocus();
 }
 
-void LogbookOptions::onCeckBoxShowAllLayouts( wxCommandEvent& event )
-{
-	if(!m_checkBoxShowAllLayouts->IsChecked() && !m_checkBoxShowOnlySelectedLayouts->IsChecked())
-	{
-		m_checkBoxShowAllLayouts->SetValue(true);
-		return;
-	}
-	opt->filterLayout = false;
-	m_checkBoxShowOnlySelectedLayouts->SetValue(false);
-	updateChoiceBoxes();
-	event.Skip();
-}
-void LogbookOptions::onCheckBoxShowOnlySelectedLayouts( wxCommandEvent& event )
-{
-	if(!m_checkBoxShowAllLayouts->IsChecked() && !m_checkBoxShowOnlySelectedLayouts->IsChecked())
-	{
-		m_checkBoxShowOnlySelectedLayouts->SetValue(true);
-		return;
-	}
-	opt->filterLayout = true;
-	opt->layoutPrefix = m_textCtrlLayoutPrefix->GetValue();
-	m_checkBoxShowAllLayouts->SetValue(false);
-	updateChoiceBoxes();
-	event.Skip();
-}
-
-void LogbookOptions::OnCheckBoxMaintenanceRowColoured( wxCommandEvent& event )
-{
-
-}
-
 void LogbookOptions::onCheckBoNoGPS( wxCommandEvent& event )
 {
 	opt->noGPS = m_checkBoxNoGPS->GetValue();
 }
 
-void LogbookOptions::OnTextEnterLayoutPrefix( wxCommandEvent& event )
-{
-	opt->layoutPrefix = m_textCtrlLayoutPrefix->GetValue();
-	if(m_checkBoxShowOnlySelectedLayouts->GetValue())
-		updateChoiceBoxes();
-}
 
 void LogbookOptions::updateChoiceBoxes()
 {
@@ -2222,13 +2353,13 @@ void LogbookOptions::updateChoiceBoxes()
 
 	if(dialog != NULL)
 	{
-		dialog->loadLayoutChoice(dialog->logbook->layout_locn, dialog->logbookChoice);
-		dialog->loadLayoutChoice(dialog->overview->layout_locn, dialog->overviewChoice);
-		dialog->loadLayoutChoice(dialog->crewList->layout_locn, dialog->crewChoice);
-		dialog->loadLayoutChoice(dialog->boat->layout_locn, dialog->boatChoice);
-		dialog->loadLayoutChoice(dialog->maintenance->layout_locnService, dialog->m_choiceSelectLayoutService);
-		dialog->loadLayoutChoice(dialog->maintenance->layout_locnRepairs, dialog->m_choiceSelectLayoutService);
-		dialog->loadLayoutChoice(dialog->maintenance->layout_locnBuyParts, dialog->m_choiceSelectLayoutService);
+		dialog->loadLayoutChoice(LogbookDialog::LOGBOOK,dialog->logbook->layout_locn, dialog->logbookChoice,opt->layoutPrefix[LogbookDialog::LOGBOOK]);
+		dialog->loadLayoutChoice(LogbookDialog::OVERVIEW,dialog->overview->layout_locn, dialog->overviewChoice,opt->layoutPrefix[LogbookDialog::OVERVIEW]);
+		dialog->loadLayoutChoice(LogbookDialog::CREW,dialog->crewList->layout_locn, dialog->crewChoice,opt->layoutPrefix[LogbookDialog::CREW]);
+		dialog->loadLayoutChoice(LogbookDialog::BOAT,dialog->boat->layout_locn, dialog->boatChoice,opt->layoutPrefix[LogbookDialog::BOAT]);
+		dialog->loadLayoutChoice(LogbookDialog::GSERVICE,dialog->maintenance->layout_locnService, dialog->m_choiceSelectLayoutService,opt->layoutPrefix[LogbookDialog::GSERVICE]);
+		dialog->loadLayoutChoice(LogbookDialog::GREPAIRS,dialog->maintenance->layout_locnRepairs, dialog->m_choiceSelectLayoutRepairs,opt->layoutPrefix[LogbookDialog::GREPAIRS]);
+		dialog->loadLayoutChoice(LogbookDialog::GBUYPARTS,dialog->maintenance->layout_locnBuyParts, dialog->m_choiceSelectLayoutBuyParts,opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 	}
 }
 

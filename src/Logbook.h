@@ -129,8 +129,8 @@ public:
 	bool			MOBIsActive;
 	wxString		activeTrack;
 	wxString		activeTrackGUID;
-	int				weatherCol;
-	int				sailsCol;
+//	int				weatherCol;
+//	int				sailsCol;
 	wxString		sDate;
 	wxString		sTime;
 	bool			guardChange;
@@ -142,6 +142,9 @@ public:
 	wxTimeSpan		dtEngine2Off;
 	bool			bRPM2;
 	bool			bRPM1;
+	bool			sailsMessage;
+	int				sailsState;
+	int				oldSailsState;
 
 public:
 	Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString layoutODT);

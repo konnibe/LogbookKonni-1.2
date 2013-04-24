@@ -36,13 +36,14 @@
 #endif //precompiled headers
 
 #define     PLUGIN_VERSION_MAJOR    1
-#define     PLUGIN_VERSION_MINOR    1951
+#define     PLUGIN_VERSION_MINOR    1952
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    7	
 
 
 #include "../../../include/ocpn_plugin.h"
+#include "Options.h"
 #include "nmea0183/nmea0183.h"
 #include "MessageBoxOSX.h"
 
@@ -55,6 +56,8 @@
 #include <wx/dialog.h>
 #include <wx/splitter.h>
 #include <wx/fileconf.h>
+#include <wx/dynarray.h> 
+
 
 #include "jsonwriter.h"
 //----------------------------------------------------------------------------------------------------------
@@ -135,11 +138,14 @@ public:
 	  void shutdown(bool menu);
 
 private:
-	  void OnTimer(wxTimerEvent& ev);
-	  void SaveConfig();
-	  void LoadConfig();
-	  void dialogDimmer(PI_ColorScheme cs,wxWindow* ctrl,wxColour col,wxColour col1, wxColour back_color,wxColour text_color,
-						wxColour uitext, wxColour udkrd);
+	  void					OnTimer(wxTimerEvent& ev);
+	  void					SaveConfig();
+	  void					LoadConfig();
+	  ArrayOfGridColWidth	readCols(ArrayOfGridColWidth ar, wxString str);
+	  void					writeCols(wxFileConfig *pConf, ArrayOfGridColWidth ar, wxString entry);
+	  ArrayOfGridColWidth	readColsOld(wxFileConfig *pConf, ArrayOfGridColWidth ar, wxString entry);
+	  void					dialogDimmer(PI_ColorScheme cs,wxWindow* ctrl,wxColour col,wxColour col1, wxColour back_color,wxColour text_color,
+										wxColour uitext, wxColour udkrd);
 
       wxAuiManager     *m_pauimgr;
 

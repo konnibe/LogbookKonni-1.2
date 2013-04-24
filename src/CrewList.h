@@ -9,6 +9,7 @@
 #include <wx/arrstr.h>
 #include "wx/dnd.h"
 #include <wx/tokenzr.h>
+#include "Options.h"
 
 #define CREWFIELDS 13 
 
@@ -127,6 +128,7 @@ private:
 	wxString	statustext[4];
 
 private:
+	Options*		opt;
 	wxArrayString	crewFields;
 	wxString		data_locn;
 	wxString 		html_locn;

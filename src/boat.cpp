@@ -61,7 +61,7 @@ void Boat::setLayoutLocation(wxString loc)
 	layout_locn.Append(_T("boat"));
 	parent->appendOSDirSlash(&layout_locn);
 
-	parent->loadLayoutChoice(layout_locn,parent->boatChoice);
+	parent->loadLayoutChoice(LogbookDialog::BOAT,layout_locn,parent->boatChoice,parent->logbookPlugIn->opt->layoutPrefix[LogbookDialog::BOAT]);
 	if(radio)
 		parent->boatChoice->SetSelection(parent->logbookPlugIn->opt->boatGridLayoutChoice);
 	else
@@ -245,6 +245,9 @@ wxString Boat::readLayoutFileODT(wxString layout)
 
 void Boat::viewODT(wxString path,wxString layout,bool mode)
 {
+	if(parent->logbookPlugIn->opt->filterLayout)
+		layout.Prepend(parent->logbookPlugIn->opt->layoutPrefix[LogbookDialog::BOAT]);
+
 	toODT(path, layout, mode);
 	if(layout != _T(""))
 	{
@@ -757,6 +760,9 @@ wxString Boat::repeatArea(wxString html)
 
 void Boat::viewHTML(wxString path, wxString layout, bool mode)
 {
+	if(parent->logbookPlugIn->opt->filterLayout)
+		layout.Prepend(parent->logbookPlugIn->opt->layoutPrefix[LogbookDialog::BOAT]);
+
 	toHTML(path, layout, mode);
 	if(layout != _T(""))
 	{
