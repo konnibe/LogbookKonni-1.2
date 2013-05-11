@@ -956,6 +956,7 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "GPSWarning" ), opt->noGPS);
 			pConf->Write ( _T ( "EngineMessageSails" ), opt->engineMessageSails);
 			pConf->Write ( _T ( "WriteEngineRun" ), opt->engineMessageRunning);
+			pConf->Write ( _T ( "SailsDown" ), opt->engineAllwaysSailsDown);
 			wxString str = wxEmptyString;
 			for(int i = 0; i < 7; i++)
 				str += wxString::Format(_T("%i,%s,"),opt->filterLayout[i],opt->layoutPrefix[i].c_str());
@@ -1158,6 +1159,7 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "GPSWarning" ), &opt->noGPS);
 			pConf->Read ( _T ( "EngineMessageSails" ), &opt->engineMessageSails);
 			pConf->Read ( _T ( "WriteEngineRun" ), &opt->engineMessageRunning);
+			pConf->Read ( _T ( "SailsDown" ), &opt->engineAllwaysSailsDown);
 
 			wxString str = wxEmptyString;
 			pConf->Read ( _T ( "PrefixLayouts" ), &str);

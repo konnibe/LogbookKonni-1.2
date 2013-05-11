@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 18:11+0200\n"
+"POT-Creation-Date: 2013-04-26 17:14+0200\n"
 "PO-Revision-Date: 2012-10-12 17:04+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -81,18 +81,12 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
-msgid "#1 RPM"
-msgstr ""
-#
 #
 #
 #
 #
 msgid "#1 Total"
 msgstr "#1 gesamt"
-#
-msgid "#2 RPM"
-msgstr ""
 #
 #
 #
@@ -381,6 +375,9 @@ msgstr "Kurs"
 msgid "Course changes"
 msgstr "Kursänderung"
 #
+msgid "Create"
+msgstr ""
+#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -394,6 +391,10 @@ msgid "Crewlist"
 msgstr "Crewliste"
 #
 msgid "Current"
+msgstr "Strom"
+#
+#, fuzzy
+msgid "Current <"
 msgstr "Strom"
 #
 msgid "Current Avg."
@@ -819,6 +820,10 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 #
+#, fuzzy
+msgid "HardWeather"
+msgstr "Wetter"
+#
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
 " or Data with {{ and }} ?"
@@ -1032,6 +1037,10 @@ msgstr "Länge über Deck"
 #
 msgid "Length over all"
 msgstr "Länge über alles"
+#
+#, fuzzy
+msgid "LightWeather"
+msgstr "Wetter"
 #
 msgid "Local = UTC"
 msgstr ""
@@ -1271,6 +1280,9 @@ msgstr ""
 "\n"
 "Bitte ändern Sie die Werte"
 #
+msgid "Nothing done at the moment"
+msgstr ""
+#
 #
 #
 #
@@ -1300,6 +1312,9 @@ msgstr ""
 msgid "Old Logbook until %s"
 msgstr "Altes Logbuch bis %s"
 #
+msgid "On engine start set always all sails down"
+msgstr ""
+#
 msgid "Onboard"
 msgstr "an Bord"
 #
@@ -1317,6 +1332,9 @@ msgid ""
 msgstr ""
 "Opendocument Tabellenkalkulation(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|"
 "CSV Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
+#
+msgid "Other filter ?"
+msgstr ""
 #
 msgid "Overview"
 msgstr "Übersicht"
@@ -1394,6 +1412,9 @@ msgstr "Bitte ein Zeichen für Grad, Minuten, Sekunden einfügen"
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr "Bitte ein Zeichen für Grad, Minuten, Sekunden einfügen"
 #
+msgid "Polar"
+msgstr ""
+#
 msgid "Policy"
 msgstr "Police"
 #
@@ -1469,6 +1490,10 @@ msgstr "Zurücksetzen der Daten"
 msgid "Revolutions"
 msgstr ""
 #
+#, fuzzy
+msgid "RoughWeather"
+msgstr "Wetter"
+#
 msgid "Route"
 msgstr ""
 #
@@ -1501,6 +1526,14 @@ msgstr "Segel-Nr."
 #
 #
 msgid "Sails"
+msgstr "Segel"
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails ="
 msgstr "Segel"
 #
 #
@@ -1548,6 +1581,142 @@ msgstr ""
 #
 msgid "Sails used mostly"
 msgstr "Segel meistens"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+msgid "Save"
+msgstr "Speichern"
 #
 msgid "Save Boat File"
 msgstr "Boot Datei speichern"
@@ -2118,6 +2287,9 @@ msgstr "Wellenhöhe durchschn."
 msgid "Wave Max."
 msgstr "Wellen max."
 #
+msgid "Wavehight <"
+msgstr ""
+#
 msgid "WayPoint arrived"
 msgstr "Wegpunkt erreicht"
 #
@@ -2544,6 +2716,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "\n"
 #~ "Name of Waypoint: %s\n"
@@ -2554,6 +2727,7 @@ msgstr ""
 #~ "Wegpunkt-Name: %s\n"
 #~ "Wahre Peilung zum Ziel: %4.1f%s\n"
 #~ "Distanz zum Ziel: %4.2f%s"
+#
 #
 #
 #
@@ -2602,9 +2776,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "&Cut"
 #~ msgstr "Ausschneiden"
+#
 #
 #
 #
@@ -2641,6 +2817,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Add to Watchlist"
 #~ msgstr "zur Wachliste hinzufügen"
 #
@@ -2660,8 +2837,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "zur Wachliste hinzufügen wie.."
+#
 #
 #
 #
@@ -2768,6 +2947,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Füge Zeile hinzu je Nm"
 #
@@ -2787,8 +2967,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Automatisches Wachinterval"
+#
 #
 #
 #
@@ -2947,8 +3129,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Copy"
 #~ msgstr "Kopieren"
+#
 #
 #
 #
@@ -3096,6 +3280,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Crewmember is not onboard\n"
 #~ "\n"
@@ -3106,6 +3291,7 @@ msgstr ""
 #~ "\n"
 #~ "Bitte setzte das Feld 'an Bord' auf 'Ja'\n"
 #~ "(klicke zweimal in das Feld)"
+#
 #
 #
 #
@@ -3237,8 +3423,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Delete"
 #~ msgstr "Löschen"
+#
 #
 #
 #
@@ -3275,8 +3463,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr "Ende 1. Wache"
+#
 #
 #
 #
@@ -3313,8 +3503,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Ende 3. Wache"
+#
 #
 #
 #
@@ -3351,6 +3543,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr "Ende 5. Wache"
 #
@@ -3370,8 +3563,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr "Ende 6. Wache"
+#
 #
 #
 #
@@ -3521,8 +3716,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "FirstName"
 #~ msgstr "Vorname"
+#
 #
 #
 #
@@ -3544,6 +3741,7 @@ msgstr ""
 #~ msgstr "Wenn Wegpunkt erreicht"
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own Layouts\n"
 #~ "prepend them with e.g. My_ \n"
@@ -3554,12 +3752,14 @@ msgstr ""
 #~ "Der Unterstrich _ ist wichtig !"
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own layouts\n"
 #~ "with prefix e.g. My_"
 #~ msgstr ""
 #~ "Wen Sie ein Layout mit dem Prefix\n"
 #~ "z.B. Mein_ erstellt haben"
+#
 #
 #
 #
@@ -3598,8 +3798,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interval:"
+#
 #
 #
 #
@@ -3738,13 +3940,16 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Logbook Konni"
 #~ msgstr "Logbuch Konni"
 #
 #
 #
+#
 #~ msgid "Logbook from %s to %s"
 #~ msgstr "Logbuch vom %s bis %s"
+#
 #
 #
 #
@@ -3778,13 +3983,16 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Anzahl Wachen"
 #
 #
 #
+#
 #~ msgid "Only Layouts with prefix:"
 #~ msgstr "nur Layouts mit Prefix:"
+#
 #
 #
 #
@@ -3941,8 +4149,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Path to HTML-Editor (optional)"
 #~ msgstr "Pfad zum HTML-Editor (optional)"
+#
 #
 #
 #
@@ -3979,6 +4189,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Persons:"
 #~ msgstr "Personen:"
 #
@@ -3998,8 +4209,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Bitte 4 Zahlen im 24h-Format eingeben z.B. 1545 = 15:45"
+#
 #
 #
 #
@@ -4087,6 +4300,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
@@ -4121,144 +4335,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Redo"
 #~ msgstr "Wiederholen"
 #
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#~ msgid "Save"
-#~ msgstr "Speichern"
 #
 #
 #
@@ -4506,9 +4586,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Select boat-layout to view"
 #~ msgstr "Wähle Route"
+#
 #
 #
 #
@@ -4531,12 +4613,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Sorry, 0 Hrs 0 Min 0 Sec ist nicht möglich"
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Sorry, Ihr Logbuch hat keine Zeilen"
+#
 #
 #
 #
@@ -4655,8 +4740,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr "Fahrt d.W. max."
+#
 #
 #
 #
@@ -4693,8 +4780,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Start 2.Wache"
+#
 #
 #
 #
@@ -4731,8 +4820,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr "Start 4.Wache"
+#
 #
 #
 #
@@ -4769,8 +4860,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr "Start 6.Wache"
+#
 #
 #
 #
@@ -4814,8 +4907,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer an/aus"
+#
 #
 #
 #
@@ -4864,8 +4959,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Undo"
 #~ msgstr "Rückgängig"
+#
 #
 #
 #

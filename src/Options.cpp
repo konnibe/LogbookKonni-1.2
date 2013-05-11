@@ -46,6 +46,7 @@ Options::Options(void)
 	engineStr[1] = _T("2");
 	engineMessageSails = false;
 	engineMessageRunning = false;
+	engineAllwaysSailsDown = false;
 
 	abrSails.Add(_("Ma"));
 	abrSails.Add(_("Tr"));

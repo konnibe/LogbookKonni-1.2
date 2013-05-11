@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 2.6.1310\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 18:11+0200\n"
+"POT-Creation-Date: 2013-04-26 17:14+0200\n"
 "PO-Revision-Date: 2012-06-22 17:41+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -85,9 +85,6 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
-msgid "#1 RPM"
-msgstr ""
-#
 #
 #
 #
@@ -95,9 +92,6 @@ msgstr ""
 #, fuzzy
 msgid "#1 Total"
 msgstr "Woda łącznie"
-#
-msgid "#2 RPM"
-msgstr ""
 #
 #
 #
@@ -422,6 +416,9 @@ msgstr "Zachmurzenie"
 msgid "Course changes"
 msgstr "Jeśli kurs zmieni się o więcej niż "
 #
+msgid "Create"
+msgstr ""
+#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -435,6 +432,10 @@ msgid "Crewlist"
 msgstr "Lista załogi"
 #
 msgid "Current"
+msgstr "Prąd"
+#
+#, fuzzy
+msgid "Current <"
 msgstr "Prąd"
 #
 msgid "Current Avg."
@@ -776,6 +777,10 @@ msgstr "Nr HIN"
 msgid "HTML"
 msgstr ""
 #
+#, fuzzy
+msgid "HardWeather"
+msgstr "Pogoda"
+#
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
 " or Data with {{ and }} ?"
@@ -951,6 +956,10 @@ msgstr "Długość po pokładzie"
 #
 msgid "Length over all"
 msgstr "Długość całkowita"
+#
+#, fuzzy
+msgid "LightWeather"
+msgstr "Pogoda"
 #
 msgid "Local = UTC"
 msgstr "Lokalny = UTC"
@@ -1141,6 +1150,9 @@ msgstr ""
 "\n"
 "Zmień ustawienie w Preferencjach "
 #
+msgid "Nothing done at the moment"
+msgstr ""
+#
 #, fuzzy
 msgid "Now"
 msgstr "Nie"
@@ -1152,6 +1164,9 @@ msgstr "Lp"
 #, c-format
 msgid "Old Logbook until %s"
 msgstr "Archiwalny dziennik do %s"
+#
+msgid "On engine start set always all sails down"
+msgstr ""
 #
 msgid "Onboard"
 msgstr ""
@@ -1167,6 +1182,9 @@ msgid ""
 msgstr ""
 "Otwórz dokument Arkusz(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV Format "
 "OpenOffice(*.csv)|*.csv|Kopia zapasowa Dziennika(*.txt)|*.txt"
+#
+msgid "Other filter ?"
+msgstr ""
 #
 msgid "Overview"
 msgstr "Przegląd"
@@ -1240,6 +1258,9 @@ msgstr "Wprowadź jeden znak dla stopni, minut i sekund"
 #
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr "Wprowadź jeden znak dla stopni, minut i sekund"
+#
+msgid "Polar"
+msgstr ""
 #
 msgid "Policy"
 msgstr "Nr polisy"
@@ -1317,6 +1338,10 @@ msgstr ""
 msgid "Revolutions"
 msgstr ""
 #
+#, fuzzy
+msgid "RoughWeather"
+msgstr "Pogoda"
+#
 msgid "Route"
 msgstr "Trasa"
 #
@@ -1351,6 +1376,14 @@ msgstr "Żagiel Nr."
 #
 #
 msgid "Sails"
+msgstr "Żagle"
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails ="
 msgstr "Żagle"
 #
 #
@@ -1413,6 +1446,9 @@ msgid "Sails used mostly"
 msgstr ""
 "Najczęściej\n"
 "używane żagle"
+#
+msgid "Save"
+msgstr ""
 #
 msgid "Save Boat File"
 msgstr "Zapisz plik Opisu Jachtu"
@@ -1979,6 +2015,9 @@ msgstr ""
 "Maksymalny\n"
 "stan morza"
 #
+msgid "Wavehight <"
+msgstr ""
+#
 msgid "WayPoint arrived"
 msgstr "Jeśli osiągnięto Waypoint"
 #
@@ -2343,8 +2382,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2478,8 +2519,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "    Wpis o zmianie kursu po minutach"
+#
 #
 #
 #
@@ -2559,8 +2602,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2634,8 +2679,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Dodawaj Wpis co X mm"
+#
 #
 #
 #
@@ -2720,10 +2767,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "I wachty"
+#
 #
 #
 #
@@ -2794,10 +2843,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "III wachty"
+#
 #
 #
 #
@@ -2868,6 +2919,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
@@ -2905,10 +2957,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "VI wachty"
+#
 #
 #
 #
@@ -3112,9 +3166,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "FirstName"
 #~ msgstr "Imię"
+#
 #
 #
 #
@@ -3152,6 +3208,7 @@ msgstr ""
 #~ msgstr "Jeśli osiągnięto Waypoint"
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own Layouts\n"
 #~ "prepend them with e.g. My_ \n"
@@ -3162,12 +3219,14 @@ msgstr ""
 #~ "Znak _ jest istotny"
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own layouts\n"
 #~ "with prefix e.g. My_"
 #~ msgstr ""
 #~ "Jeśli utworzyłeś własne szablony\n"
 #~ "z prefiksem np.: Mój_ "
+#
 #
 #
 #
@@ -3236,8 +3295,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interwał:"
+#
 #
 #
 #
@@ -3267,8 +3328,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Logbook from %s to %s"
 #~ msgstr "Dziennik od %s do %s"
+#
 #
 #
 #
@@ -3423,9 +3486,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "No. Watches"
 #~ msgstr "Wachta"
+#
 #
 #
 #~ msgid "Only Layouts with prefix:"
@@ -3476,9 +3541,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Paste"
 #~ msgstr "Data"
+#
 #
 #
 #
@@ -3598,12 +3665,14 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter like 1.30 or 1,30 or 1:30\n"
 #~ "for 1:30h"
 #~ msgstr ""
 #~ "Wprowadź 1.30, 1,30 lub 1:30\n"
 #~ "dla 1:30h"
+#
 #
 #
 #
@@ -3751,9 +3820,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Search.."
 #~ msgstr "Wybierz Dziennik"
+#
 #
 #
 #~ msgid "Show all Layouts"
@@ -3791,12 +3862,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Niestety, 0 godz., 0 min, 0 sek. nie jest możliwe"
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Niestety, Twój Dziennik nie zawiera wpisów"
+#
 #
 #
 #
@@ -3867,10 +3941,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "II wachty"
+#
 #
 #
 #
@@ -3941,10 +4017,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "IV wachty"
+#
 #
 #
 #
@@ -4015,10 +4093,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "VI wachty"
+#
 #
 #
 #
@@ -4098,8 +4178,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer"
+#
 #
 #
 #
@@ -4168,8 +4250,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "delay to find the right course to the wind"
 #~ msgstr "czas na ustawienie jachtu odpowiednio do wiatru"
+#
 #
 #
 #

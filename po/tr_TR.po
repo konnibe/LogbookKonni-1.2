@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 18:11+0200\n"
+"POT-Creation-Date: 2013-04-26 17:14+0200\n"
 "PO-Revision-Date: 2012-06-22 17:26+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: boraxtr (Hasan)\n"
@@ -78,14 +78,8 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
-msgid "#1 RPM"
-msgstr ""
-#
 msgid "#1 Total"
 msgstr "Toplam Makine #1"
-#
-msgid "#2 RPM"
-msgstr ""
 #
 msgid "#2 Total"
 msgstr "Toplam Makine #2"
@@ -424,6 +418,9 @@ msgstr "Bulutlar"
 msgid "Course changes"
 msgstr "Eğer rota daha fazla değişirse"
 #
+msgid "Create"
+msgstr ""
+#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -438,6 +435,10 @@ msgid "Crewlist"
 msgstr "Tayfa listesi"
 #
 msgid "Current"
+msgstr "Akıntı"
+#
+#, fuzzy
+msgid "Current <"
 msgstr "Akıntı"
 #
 msgid "Current Avg."
@@ -783,6 +784,10 @@ msgstr "HIN numarası"
 msgid "HTML"
 msgstr ""
 #
+#, fuzzy
+msgid "HardWeather"
+msgstr "Hava"
+#
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
 " or Data with {{ and }} ?"
@@ -977,6 +982,10 @@ msgstr "Güverte uzunluğu"
 #
 msgid "Length over all"
 msgstr "Tam uzunluk"
+#
+#, fuzzy
+msgid "LightWeather"
+msgstr "Hava"
 #
 msgid "Local = UTC"
 msgstr "Yerel saat = UTC"
@@ -1186,6 +1195,9 @@ msgstr ""
 "\n"
 "Lütfen  'Seçenekleri' belirleyiniz"
 #
+msgid "Nothing done at the moment"
+msgstr ""
+#
 #
 #
 #
@@ -1209,6 +1221,9 @@ msgstr "LOD"
 msgid "Old Logbook until %s"
 msgstr "Belirtilen tarihe kadarki eski Seyir Defterlerinin %s "
 #
+msgid "On engine start set always all sails down"
+msgstr ""
+#
 msgid "Onboard"
 msgstr "Güvertede"
 #
@@ -1225,6 +1240,9 @@ msgid ""
 msgstr ""
 "Tabloları açın(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV Format "
 "OpenOffice(*.csv)|*.csv|Backup Seyir Defteri(*.txt)|*.txt"
+#
+msgid "Other filter ?"
+msgstr ""
 #
 msgid "Overview"
 msgstr "Öngörünüm"
@@ -1296,6 +1314,9 @@ msgstr "Lütfen derece, dakika ve saniye yi aynı karakterlerle yazın."
 #
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr "Lütfen Derece, Dakika ve Saniye olarak doldurun."
+#
+msgid "Polar"
+msgstr ""
 #
 msgid "Policy"
 msgstr "Poliçe"
@@ -1377,6 +1398,10 @@ msgstr ""
 msgid "Revolutions"
 msgstr ""
 #
+#, fuzzy
+msgid "RoughWeather"
+msgstr "Hava"
+#
 msgid "Route"
 msgstr "Rota"
 #
@@ -1411,6 +1436,14 @@ msgstr "Yelken numarası"
 #
 #
 msgid "Sails"
+msgstr "Yelken"
+#
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails ="
 msgstr "Yelken"
 #
 #
@@ -1473,6 +1506,9 @@ msgstr ""
 #
 msgid "Sails used mostly"
 msgstr "Genellikle Yelken Kullanıldı"
+#
+msgid "Save"
+msgstr ""
 #
 msgid "Save Boat File"
 msgstr "Tekne dosyasını sakla"
@@ -2062,6 +2098,9 @@ msgstr ""
 " En Uzun\n"
 "Dalga Boyu"
 #
+msgid "Wavehight <"
+msgstr ""
+#
 msgid "WayPoint arrived"
 msgstr "Seyirnoktasına ulaşıldı"
 #
@@ -2447,6 +2486,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
 #
@@ -2482,8 +2522,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "      Dakika sonra yönü bildir"
+#
 #
 #
 #
@@ -2574,8 +2616,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2659,8 +2703,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ":0"
 #~ msgstr ":0"
+#
 #
 #
 #
@@ -2729,8 +2775,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "Nöbet listesine aynı olarak ekle"
+#
 #
 #
 #
@@ -2799,8 +2847,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Atomatik Nöbet Aralığı"
+#
 #
 #
 #
@@ -2892,6 +2942,7 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Satır sil"
@@ -2928,8 +2979,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Listedeki sıralamayı \"sürükle/bırak\"la değiştirebilirsiniz."
+#
 #
 #
 #
@@ -3000,10 +3053,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "2. Nöbet\n"
 #~ "   Sonu"
+#
 #
 #
 #
@@ -3074,10 +3129,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "4. Nöbet\n"
 #~ "   Sonu"
+#
 #
 #
 #
@@ -3148,6 +3205,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "6. Nöbet\n"
@@ -3185,8 +3243,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Seyir noktasına ulaşıldığında"
+#
 #
 #
 #~ msgid ""
@@ -3199,12 +3259,14 @@ msgstr ""
 #~ " "
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own layouts\n"
 #~ "with prefix e.g. My_"
 #~ msgstr ""
 #~ "Kendi sayfa düzeninizi örneğin \n"
 #~ "Benim_  ile başlatarak oluşturduysanız"
+#
 #
 #
 #
@@ -3273,8 +3335,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Aralık: "
+#
 #
 #
 #
@@ -3302,6 +3366,7 @@ msgstr ""
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "Kullanıcı Kimliği"
+#
 #
 #
 #
@@ -3340,12 +3405,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Hayır. Nöbetçiler"
 #
 #
+#
 #~ msgid "Only Layouts with prefix:"
 #~ msgstr "Sadece tanımlanmış sayfa yapıları :"
+#
 #
 #
 #
@@ -3428,6 +3496,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Person:"
 #~ msgstr "Tayfa :"
 #
@@ -3463,8 +3532,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Persons:"
 #~ msgstr "Tayfalar :"
+#
 #
 #
 #
@@ -3534,12 +3605,14 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Lütfen zaman formatını girin :\n"
 #~ "    12:30:00PM"
+#
 #
 #
 #~ msgid "Show all Layouts"
@@ -3577,12 +3650,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Afedersiniz, 0 Saat 0 Dakika 0 Saniye mümkün değil"
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Afedersiniz, Seyir Defterinizde hiç satır yok"
+#
 #
 #
 #
@@ -3653,10 +3729,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "2. Nöbet\n"
 #~ "Başlangıcı"
+#
 #
 #
 #
@@ -3727,6 +3805,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "4. Nöbet\n"
@@ -3764,10 +3843,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 5.Watch"
 #~ msgstr ""
 #~ "5. Nöbet\n"
 #~ "Başlangıcı"
+#
 #
 #
 #
@@ -3846,9 +3927,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Static Watchtimes"
 #~ msgstr "Nöbetleri düzenle"
+#
 #
 #
 #
@@ -3917,8 +4000,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Zamanlama Açık/Kapalı"
+#
 #
 #
 #
@@ -3977,8 +4062,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
 #
 #
 #

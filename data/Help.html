@@ -141,7 +141,7 @@ text-decoration: none;
     <TD colSpan=2>&nbsp;</TD>
     <TD colSpan=2>&nbsp;</TD>
     <TD>&nbsp;</TD>
-    <TD>&nbsp;</TD>
+    <TD><a href="#OptMiscellaneous">Miscellaneous</a></TD>
   </TR>
   </TBODY>
   </TABLE>
@@ -227,33 +227,33 @@ Options
 Please click in the fields to get an explanation / The tabs brings you to the next image <BR>
 <IMG border=0 src="Images/Behavoir.PNG" useMap=#Map>
 <MAP name=Map>
-<AREA href="#showpositionformat" shape=rect coords=190,136,409,161>
-<AREA href="#showalllayouts" shape=rect coords=25,183,143,200>
-<AREA href="#layoutswithprefix" shape=rect coords=159,179,393,210>
-<AREA href="#NoGPS" shape=rect coords=28,201,152,217>
-<AREA href="#winddirectionset" shape=rect coords=20,217,272,237>
-<AREA href="#opttextwaypoint" shape=rect coords=201,328,458,373>
-<AREA href="#opttextwatchchanges" shape=rect coords=202,373,455,407>
-<AREA href="#opttextappendlinenm" shape=rect coords=203,410,456,446>
-<AREA href="#opttextcoursechanged" shape=rect  coords=204,447,458,492>
-<AREA href="#optinstalllayouts" shape=rect coords=148,522,230,571>
-<AREA href="#optinstalllanguages" shape=rect coords=236,519,323,569>
-<AREA href="#optuninstalllagbook" shape=rect coords=335,520,418,569>
-<AREA href="#OptCapacity" shape=rect coords=74,42,127,64>
+<AREA href="#showpositionformat" shape=rect coords=205,136,424,161>
+<AREA href="#sailsMessage" shape=rect coords=25,178,197,195>
+<AREA href="#MessageEngineRunning" shape=rect coords=319,181,502,200>
+<AREA href="#NoGPS" shape=rect coords=24,196,164,207>
+<AREA href="#winddirectionset" shape=rect coords=20,208,311,233>
+<AREA href="#opttextwaypoint" shape=rect coords=211,325,467,360>
+<AREA href="#opttextwatchchanges" shape=rect coords=211,360,464,401>
+<AREA href="#opttextappendlinenm" shape=rect coords=212,403,465,439>
+<AREA href="#opttextcoursechanged" shape=rect  coords=213,441,467,486>
+<AREA href="#optinstalllayouts" shape=rect coords=157,519,239,568>
+<AREA href="#optinstalllanguages" shape=rect coords=246,516,333,566>
+<AREA href="#optuninstalllagbook" shape=rect coords=343,513,426,562>
+<AREA href="#OptCapacity" shape=rect coords=22,40,75,62>
 <AREA href="#showlogbookicon" shape=rect coords=25,139,142,156>
 <AREA href="#showtooltips" shape=rect coords=27,162,143,176>
 <AREA href="#OptAbbreviations" shape=rect coords=131,43,199,62>
 <AREA href="#OptPaths" shape=rect coords=205,42,248,62>
 <area shape="rect" coords="118,109,460,131" href="#optsettimeto">
-<area shape="rect" coords="68,68,228,88" href="#dateformat">
-<area shape="rect" coords="240,67,422,91" href="#dateformatselector">
-<area shape="rect" coords="424,69,562,90" href="#dateseparator">
-<area shape="rect" coords="241,92,316,109" href="#noseconds">
-<area shape="rect" coords="68,89,241,111" href="#timeformat">
-<area shape="rect" coords="200,284,461,326" href="#opttexttimer">
-<area shape="rect" coords="183,161,352,180" href="#NoEngines">
+<area shape="rect" coords="75,67,235,87" href="#dateformat">
+<area shape="rect" coords="246,67,428,91" href="#dateformatselector">
+<area shape="rect" coords="429,69,567,90" href="#dateseparator">
+<area shape="rect" coords="247,92,322,109" href="#noseconds">
+<area shape="rect" coords="74,87,247,109" href="#timeformat">
+<area shape="rect" coords="212,282,473,324" href="#opttexttimer">
+<area shape="rect" coords="201,161,370,180" href="#NoEngines">
 <area shape="rect" coords="248,44,321,62" href="#OptMiscellaneous">
-</MAP></P>
+<area shape="rect" coords="214,487,357,503" href="#"></MAP></P>
 <TABLE border=0 width=789>
   <TBODY>
     <TR>
@@ -310,17 +310,31 @@ e.g. for  users without a translation of OpenCPN in their language and english l
          second engine in NMEA-Options by selecting one engine. </p></TD>
   </TR>
   <TR>
-    <TD class=dashedCell vAlign=top><A name=showalllayouts></A>
-      Show alle Layout</TD>
-    <TD class=dashedCell vAlign=top>With hook all available layouts are displayed in the layout-dropdown-box <BR><BR>
-      Without hook only layouts in 'layout only with prefix' are shown </TD>
+    <TD class=dashedCell vAlign=top><A name=sailsMessage id="sailsMessage"></A>
+      Engine start/stop sails message </TD>
+    <TD class=dashedCell vAlign=top><p>With a checkmark</p>
+      <table width="100%" border="0">
+        <tr>
+          <td width="21%" valign="top">On Engine start:</td>
+          <td width="79%">all sails are unchecked and the message &quot;Sails down&quot; appear in <br>
+            <a href="#logbookmotor">Engine/Sails Remarks </a></td>
+        </tr>
+        <tr>
+          <td valign="top">On Engine stop: </td>
+          <td>all sails with a checkmark appear in <a href="#logbookmotor">Engine/Sails</a> column &quot;Sails&quot; and<br>
+            the message &quot;Sails hoisted&quot; appear in column &quot;Remarks&quot; </td>
+        </tr>
+      </table>
+      <p>For Motorboats always uncheck this option. </p>
+      </TD>
     </TR>
   <TR>
-    <TD class=dashedCell vAlign=top><A name=layoutswithprefix></A>
-      only Layouts with Prefix</TD>
-    <TD class=dashedCell vAlign=top>defines the filter for the layouts<BR><BR>
-      e.g. if you have created your own layouts with the prefix &quot;My_&quot; and you give them a prefix here, only your own layouts are shown in the layout-dropdown-box..<BR>
-      The underscore is important, please do not forget!</TD>
+    <TD class=dashedCell vAlign=top><A name=MessageEngineRunning id="MessageEngineRunning"></A>
+      Write message &quot;Engine running&quot; </TD>
+    <TD class=dashedCell vAlign=top>When the engine is running you can prevent the message &quot;Engine #1 running&quot; <br>
+      <br>
+      Sailboats should allways set a checkmark,<br>
+      Motorboats could uncheck, to not get the message repeatedly. </TD>
     </TR>
   <TR>
     <TD class=dashedCell vAlign=top><A name=NoGPS></A>
@@ -583,42 +597,81 @@ Please click in the fields to get an explanation / The tabs brings you to the ne
   <TBODY>
     <TR>
       <TD class=dashedCell vAlign=top width=190><A name=OptRouteTrack id="OptRouteTrack"></A> Show Route/Track </TD>
-      <TD class=dashedCell vAlign=top width=516><P>. </P>
-          </TD>
+      <TD class=dashedCell vAlign=top width=516><P> select one or both if you want to export Route/Tracks to Google-Earth </P>        </TD>
     </TR>
     <TR>
-      <TD class=dashedCell vAlign=top><a name="OptLineWidth"></a></TD>
-      <TD class=dashedCell vAlign=top>&nbsp;</TD>
+      <TD class=dashedCell vAlign=top><a name="OptLineWidth"></a> Set Linewidth to </TD>
+      <TD class=dashedCell vAlign=top>set the linewith for routes/tracks </TD>
     </TR>
     <TR>
-      <TD class=dashedCell vAlign=top><A name=OptTransparency id="OptTransparency"></A> Path to the datamanager </TD>
-      <TD class=dashedCell vAlign=top><p>For Windows the Explorer is predefiend<BR>
-        For Linux Dolphin (KDE) is predefiend<br>
-        For Apple the Finder is predefined </p></TD>
+      <TD class=dashedCell vAlign=top><A name=OptTransparency id="OptTransparency"></A> Set Transparency to </TD>
+      <TD class=dashedCell vAlign=top><p>set if the line is transparent or solid </p></TD>
     </TR>
     <TR>
-      <TD class=dashedCell vAlign=top><A name=OptRouteLineColor id="OptRouteLineColor"></A> Path to the mail-program</TD>
-      <TD class=dashedCell vAlign=top>*Optional*<BR>
-          <BR>
-        Only used when you like to send a layout via email to a friend. <BR></TD>
+      <TD class=dashedCell vAlign=top><A name=OptRouteLineColor id="OptRouteLineColor"></A> Set Route-Linecolor </TD>
+      <TD class=dashedCell vAlign=top>        set the color for the Routeline </TD>
     </TR>
     <TR>
-      <TD class=dashedCell vAlign=top><A name=OptTrackLineColor id="OptTrackLineColor"></A> Path to the HTML-Editor </TD>
-      <TD class=dashedCell vAlign=top>*Optional*<BR>
-          <BR>
-        if you want to alter a HTML-layout, please set the path to the editor here<BR>
-        This option is used only if you like to alter/create a layout. To display your data the browser is used. </TD>
-    </TR>
-    <TR>
-      <TD class=dashedCell vAlign=top><A name=optPathFiledialog></A> Filedialog</TD>
-      <TD class=dashedCell vAlign=top>Opens a filedialog </TD>
-    </TR>
-    <TR>
-      <TD class=dashedCell vAlign=top><A name=optPathReset></A> Reset Paths </TD>
-      <TD class=dashedCell vAlign=top>Resets the paths to the predefiend values </TD>
+      <TD class=dashedCell vAlign=top><A name=OptTrackLineColor id="OptTrackLineColor"></A> Set Track-Linecolor </TD>
+      <TD class=dashedCell vAlign=top>set the color for the Trackline </TD>
     </TR>
   </TBODY>
 </TABLE>
+<p><A name=OptNMEA id="OptNMEA"></A> Please click in the fields to get an explanation / The tabs brings you to the next image <img src="Images/NMEA.PNG" width="688" height="632" border="0" usemap="#Map4MapMap">
+  <MAP name=Map4MapMap>
+    <AREA href="#OptBehavoir" shape=rect coords=14,42,74,61>
+    <AREA href="#OptCapacity" shape=rect coords=75,43,130,60>
+    <AREA href="#OptAbbreviations" shape=rect coords=131,44,203,60>
+    <area shape="rect" coords="206,43,243,62" href="#OptPaths">
+  <area shape="rect" coords="28,69,70,87" href="#OptMiscellaneous">
+  <area shape="rect" coords="113,69,152,88" href="#OptSails">
+  </MAP>
+</p>
+<TABLE border=0 width=716>
+  <TBODY>
+    <TR>
+      <TD class=dashedCell vAlign=top width=190><A name=OptRouteTrack id="OptRouteTrack"></A> Show Route/Track </TD>
+      <TD class=dashedCell vAlign=top width=516><P> select one or both if you want to export Route/Tracks to Google-Earth </P></TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><a name="OptLineWidth"></a> Set Linewidth to </TD>
+      <TD class=dashedCell vAlign=top>set the linewith for routes/tracks </TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=OptTransparency id="OptTransparency"></A> Set Transparency to </TD>
+      <TD class=dashedCell vAlign=top><p>set if the line is transparent or solid </p></TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=OptRouteLineColor id="OptRouteLineColor"></A> Set Route-Linecolor </TD>
+      <TD class=dashedCell vAlign=top> set the color for the Routeline </TD>
+    </TR>
+    <TR>
+      <TD class=dashedCell vAlign=top><A name=OptTrackLineColor id="OptTrackLineColor"></A> Set Track-Linecolor </TD>
+      <TD class=dashedCell vAlign=top>set the color for the Trackline </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>&nbsp;</p>
+<p><A name=OptSails id="OptSails"></A> Please click in the fields to get an explanation / The tabs brings you to the next image <img src="Images/SailsOptions.PNG" width="692" height="631" border="0" usemap="#Map4MapMap2">
+  <MAP name=Map4MapMap2><area shape="rect" coords="31,70,69,92" href="#OptMiscellaneous"><area shape="rect" coords="71,69,114,90" href="#optMiscancelousl">
+    <AREA href="#OptBehavoir" shape=rect coords=14,42,74,61>
+    <AREA href="#OptCapacity" shape=rect coords=75,43,130,60>
+    <AREA href="#OptAbbreviations" shape=rect coords=131,44,203,60>
+    <area shape="rect" coords="206,43,243,62" href="#OptPaths">
+  <area shape="rect" coords="284,120,403,142" href="#OptSails1">
+  <area shape="rect" coords="212,188,479,461" href="#"></MAP>
+</p>
+<p><A name=OptSails1 id="OptSails1"></A> Please click in the fields to get an explanation / The tabs brings you to the next image <img src="Images/SailsOptions1.PNG" width="692" height="634" border="0" usemap="#Map4MapMap3">
+  <MAP name=Map4MapMap3>
+    <AREA href="#OptBehavoir" shape=rect coords=14,42,74,61>
+    <AREA href="#OptCapacity" shape=rect coords=75,43,130,60>
+    <AREA href="#OptAbbreviations" shape=rect coords=131,44,203,60>
+    <area shape="rect" coords="206,43,243,62" href="#OptPaths">
+  <area shape="rect" coords="311,142,384,161" href="#OptSails">
+  <area shape="rect" coords="31,70,69,92" href="#OptMiscellaneous">
+  <area shape="rect" coords="71,69,114,90" href="#OptNMEA">
+  <area shape="rect" coords="69,70,70,76" href="#"></MAP>
+</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <hr>

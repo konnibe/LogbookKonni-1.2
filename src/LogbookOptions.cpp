@@ -235,9 +235,9 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
-	m_checkBoxEngine = new wxCheckBox( m_panel15, wxID_ANY, _("Engine start/stop sails message"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxEngine = new wxCheckBox( m_panel15, wxID_ANY, _("Sails Messages"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxEngine->SetValue(true); 
-	m_checkBoxEngine->SetToolTip( _("Uncheck for Motorboats\n\nEngine(s) started, sets Sails to none and appends \"Sails down\" \n\"Sails hoisted\" when Engine stoped\n\nSet checkmarks in the sail-checkboxes BEFORE you stop the engine !") );
+	m_checkBoxEngine->SetToolTip( _("Uncheck for Motorboats\nSets \"Sails hoisted\" or \"Sails changed\" or \"Sails down\" messages\n\nSet/unset checkmarks in the sail-checkboxes BEFORE you start/stop the engine !") );
 	
 	fgSizer29->Add( m_checkBoxEngine, 0, wxALIGN_CENTER_VERTICAL, 0 );
 	
@@ -261,6 +261,10 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
+	m_checkBoxSailsDown = new wxCheckBox( m_panel15, wxID_ANY, _("On engine start set always all sails down"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxSailsDown->SetToolTip(_("Uncheck if you are motorsailing"));
+	fgSizer29->Add( m_checkBoxSailsDown, 0, 0, 5 );
+
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
@@ -1476,13 +1480,11 @@ void LogbookOptions::OnButtonToSailsSpace( wxCommandEvent& event )
 		checkboxSails[i]->SetToolTip( opt->sailsName.Item(i) );
 
 		fgSizerSailsCheckboxes->Add( checkboxSails[i] , 0, 0, 5 );
-
-		//log_pi->m_plogbook_window->checkboxSails[i]->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookDialog::OnCheckboxSails ), NULL, this );
 	}
 	wxButton* m_buttonSailsReset = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("none"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_buttonSailsReset->SetToolTip(_("Reset"));
 	m_buttonSailsReset->SetMinSize( wxSize( 40,15 ) );
-//	m_buttonSailsReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickResetSails ), NULL, this );
+
 	fgSizerSailsCheckboxes->Add( m_buttonSailsReset, 0, 0, 5 );
 
 	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
@@ -1807,6 +1809,7 @@ void LogbookOptions::OnButtonOKClick(wxCommandEvent &ev)
 		dlg->setSailsGap();
 		dlg->setToNumberEngine();
 		dlg->setCheckboxLabels();
+		dlg->setAbbreviations();
 	}
 
 	setUseRPM(opt->bRPMIsChecked);
@@ -1943,6 +1946,7 @@ void LogbookOptions::setValues()
 	m_textCtrlEngine->SetValue(opt->engine);
 	m_textCtrlPropShaft->SetValue(opt->shaft);
 	m_textCtrRPM->SetValue(opt->rpm);
+	m_checkBoxSailsDown->SetValue(opt->engineAllwaysSailsDown);
 
 	m_textCtrlAmpere->SetValue(opt->ampere);
 
@@ -2113,6 +2117,7 @@ void LogbookOptions::getValues()
 	opt->noGPS = m_checkBoxNoGPS->GetValue();
 	opt->engineMessageSails = m_checkBoxEngine->GetValue();
 	opt->engineMessageRunning = m_checkBoxEngineRunning->GetValue();
+	opt->engineAllwaysSailsDown = m_checkBoxSailsDown->GetValue();
 
 	opt->kmlRoute = m_checkBoxKMLRoute->GetValue();
 	opt->kmlTrack = m_checkBoxKMLTrack->GetValue();

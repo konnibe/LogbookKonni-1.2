@@ -40,6 +40,7 @@ public:
 	wxString	engineStr[2];
 	bool		engineMessageSails;
 	bool		engineMessageRunning;
+	bool		engineAllwaysSailsDown;
 
 	wxString    layoutPrefix[7];
 	bool		filterLayout[7];

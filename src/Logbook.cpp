@@ -457,7 +457,7 @@ void Logbook::SetSentence(wxString &sentence)
 					if(!opt->engine1Running)
 					{
 						opt->dtEngine1On = wxDateTime::Now();
-						if(opt->engineMessageSails)
+						if(opt->engineMessageSails && opt->engineAllwaysSailsDown)
 							dialog->resetSails();
 						appendRow(false);
 					}
@@ -494,7 +494,7 @@ void Logbook::SetSentence(wxString &sentence)
 					if(!opt->engine2Running)
 					{
 						opt->dtEngine2On = wxDateTime::Now();
-						if(opt->engineMessageSails)
+						if(opt->engineMessageSails && opt->engineAllwaysSailsDown)
 							dialog->resetSails();
 						appendRow(false);
 					}
@@ -2307,15 +2307,18 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 					{
 						if(s != _T(""))
 						{
-							switch(opt->showWindSpeed)
+							if(!s.Contains(opt->windkts) && !s.Contains(opt->windmeter) && !s.Contains(opt->windkmh))
 							{
+								switch(opt->showWindSpeed)
+								{
 								case 0:	wind = opt->windkts; break;
 								case 1: wind = opt->windmeter; break;
 								case 2: wind = opt->windkmh; break;
+								}
+								s.Replace(_T(","),_T("."));
+								s = wxString::Format(_T("%3.2f %s"),wxAtof(s),wind.c_str());
+								s.Replace(_T("."),dialog->decimalPoint);
 							}
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%3.2f %s"),wxAtof(s),wind.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
 							dialog->logGrids[grid]->SetCellValue(row,col,s);
 						}
 					}

@@ -97,7 +97,7 @@ SET(SRC_LOGBOOKKONNI
 		src/tinyxml/tinystr.cpp
 		src/tinyxml/tinystr.h 
 		src/MessageBoxOSX.h
-		src/MessageBoxOSX.cpp		
+		src/MessageBoxOSX.cpp	
  	)
 
 SET(SRC_NMEA0183

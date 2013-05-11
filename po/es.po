@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 18:11+0200\n"
+"POT-Creation-Date: 2013-04-26 17:14+0200\n"
 "PO-Revision-Date: 2012-06-20 11:54+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -79,9 +79,6 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
-msgid "#1 RPM"
-msgstr ""
-#
 #
 #
 #
@@ -89,9 +86,6 @@ msgstr ""
 #, fuzzy
 msgid "#1 Total"
 msgstr "Agua total"
-#
-msgid "#2 RPM"
-msgstr ""
 #
 #
 #
@@ -385,6 +379,9 @@ msgstr "Nubolosidad"
 msgid "Course changes"
 msgstr ""
 #
+msgid "Create"
+msgstr ""
+#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -395,6 +392,10 @@ msgid "Crewlist"
 msgstr "Listado de tripulación"
 #
 msgid "Current"
+msgstr "Corriente"
+#
+#, fuzzy
+msgid "Current <"
 msgstr "Corriente"
 #
 #, fuzzy
@@ -853,6 +854,10 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 #
+#, fuzzy
+msgid "HardWeather"
+msgstr "Meteo"
+#
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
 " or Data with {{ and }} ?"
@@ -1070,6 +1075,10 @@ msgstr ""
 #
 msgid "Length over all"
 msgstr ""
+#
+#, fuzzy
+msgid "LightWeather"
+msgstr "Meteo"
 #
 msgid "Local = UTC"
 msgstr ""
@@ -1322,6 +1331,9 @@ msgstr ""
 "\n"
 "P.f. modifique los parámetros en Options"
 #
+msgid "Nothing done at the moment"
+msgstr ""
+#
 msgid "Now"
 msgstr ""
 #
@@ -1331,6 +1343,9 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Old Logbook until %s"
 msgstr "Abrir fichero de bitácora antiguo"
+#
+msgid "On engine start set always all sails down"
+msgstr ""
 #
 msgid "Onboard"
 msgstr ""
@@ -1346,6 +1361,9 @@ msgid ""
 msgstr ""
 "Opendocument Hoja de cálculo(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV "
 "Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
+#
+msgid "Other filter ?"
+msgstr ""
 #
 #, fuzzy
 msgid "Overview"
@@ -1538,6 +1556,9 @@ msgstr ""
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr ""
 #
+msgid "Polar"
+msgstr ""
+#
 msgid "Policy"
 msgstr "Poliza"
 #
@@ -1676,6 +1697,10 @@ msgstr ""
 msgid "Revolutions"
 msgstr ""
 #
+#, fuzzy
+msgid "RoughWeather"
+msgstr "Meteo"
+#
 msgid "Route"
 msgstr "Ruta"
 #
@@ -1712,6 +1737,14 @@ msgstr "Vela-Nº"
 msgid "Sails"
 msgstr "Velas"
 #
+#
+#
+#
+#
+#, fuzzy
+msgid "Sails ="
+msgstr "Velas"
+#
 msgid "Sails changed"
 msgstr ""
 #
@@ -1735,6 +1768,189 @@ msgstr ""
 #
 msgid "Sails used mostly"
 msgstr ""
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+msgid "Save"
+msgstr "Guardar"
 #
 msgid "Save Boat File"
 msgstr "Guardar fichero embarcación"
@@ -2400,6 +2616,9 @@ msgstr "Oleaje"
 msgid "Wave Max."
 msgstr "Oleaje"
 #
+msgid "Wavehight <"
+msgstr ""
+#
 msgid "WayPoint arrived"
 msgstr ""
 #
@@ -2813,6 +3032,7 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "&Cut"
 #~ msgstr "País"
@@ -2947,9 +3167,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Add to Watchlist"
 #~ msgstr "Guardia"
+#
 #
 #
 #
@@ -3299,8 +3521,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "CrewList"
 #~ msgstr "Listado de tripulación"
+#
 #
 #
 #
@@ -3494,9 +3718,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Elimiar línea"
+#
 #
 #
 #
@@ -3565,6 +3791,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr "Fin 2ª guardia"
 #
@@ -3600,8 +3827,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Fin 3ª guardia"
+#
 #
 #
 #
@@ -3671,9 +3900,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "End 5.Watch"
 #~ msgstr "Fin 1ª guardia"
+#
 #
 #
 #
@@ -3791,8 +4022,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "EngineTotal"
 #~ msgstr "Máquina total"
+#
 #
 #
 #
@@ -4130,8 +4363,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "GRT"
 #~ msgstr "BRT"
+#
 #
 #
 #
@@ -4203,8 +4438,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Intervalo:"
+#
 #
 #
 #
@@ -4635,8 +4872,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Logbook files (*.txt)|*.txt"
 #~ msgstr "Ficheros bitácora (*.txt)|*.txt"
+#
 #
 #
 #
@@ -4791,9 +5030,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "No. Watches"
 #~ msgstr "Guardia"
+#
 #
 #
 #
@@ -5012,9 +5253,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Paste"
 #~ msgstr "Fecha"
+#
 #
 #
 #
@@ -5269,6 +5512,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter like 1.30 or 1,30 or 1:30\n"
 #~ "for 1:30h"
@@ -5276,188 +5520,6 @@ msgstr ""
 #~ "Entre por favor 1.30 o 1,30 o 1:30\n"
 #~ "para 1:30h"
 #
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#~ msgid "Save"
-#~ msgstr "Guardar"
 #
 #
 #
@@ -5829,9 +5891,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Search.."
 #~ msgstr "Seleccione bitácora"
+#
 #
 #
 #
@@ -6045,9 +6109,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Show all Layouts"
 #~ msgstr "Leer Layouts de nuevo"
+#
 #
 #
 #
@@ -6085,8 +6151,10 @@ msgstr ""
 #~ msgstr "Siento, 0 Hrs 0 Min 0 Sec no es posible"
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Siento, tu bitácora no tiene entradas"
+#
 #
 #
 #
@@ -6247,9 +6315,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Speed STW Max."
 #~ msgstr "Mar de fondo"
+#
 #
 #
 #
@@ -6318,6 +6388,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Inicio 2ªguardia"
 #
@@ -6353,8 +6424,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 3.Watch"
 #~ msgstr "Inicio 3ªguardia"
+#
 #
 #
 #
@@ -6424,6 +6497,7 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Start 5.Watch"
 #~ msgstr "Inicio 1ªguardia"
@@ -6460,9 +6534,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Start 6.Watch"
 #~ msgstr "Inicio 1ªguardia"
+#
 #
 #
 #
@@ -6744,9 +6820,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Swell Peak"
 #~ msgstr "Mar de fondo"
+#
 #
 #
 #
@@ -6816,8 +6894,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Temporizador activado/parado"
+#
 #
 #
 #
@@ -7302,6 +7382,7 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Traditional-Style"
 #~ msgstr "Nacionalidad"
@@ -7463,9 +7544,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "View "
 #~ msgstr "Ver"
+#
 #
 #
 #
@@ -7957,9 +8040,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Wave Peak"
 #~ msgstr "Oleaje"
+#
 #
 #
 #

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 18:53+0200\n"
+"POT-Creation-Date: 2013-04-26 17:14+0200\n"
 "PO-Revision-Date: 2013-04-24 18:27+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -80,14 +80,8 @@ msgstr ""
 msgid "\""
 msgstr "\""
 #
-msgid "#1 RPM"
-msgstr "1 RPM"
-#
 msgid "#1 Total"
 msgstr "Total 1"
-#
-msgid "#2 RPM"
-msgstr "2 RPM"
 #
 msgid "#2 Total"
 msgstr "Total 2"
@@ -433,6 +427,9 @@ msgstr "Cap"
 msgid "Course changes"
 msgstr "Changement de cap"
 #
+msgid "Create"
+msgstr ""
+#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -446,6 +443,10 @@ msgid "Crewlist"
 msgstr "Equipage"
 #
 msgid "Current"
+msgstr "Courant"
+#
+#, fuzzy
+msgid "Current <"
 msgstr "Courant"
 #
 msgid "Current Avg."
@@ -788,6 +789,10 @@ msgstr ""
 msgid "HTML"
 msgstr "HTML"
 #
+#, fuzzy
+msgid "HardWeather"
+msgstr "Temps"
+#
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
 " or Data with {{ and }} ?"
@@ -1009,6 +1014,10 @@ msgstr "Longueur du pont"
 msgid "Length over all"
 msgstr "Longueur hors tout"
 #
+#, fuzzy
+msgid "LightWeather"
+msgstr "Temps"
+#
 msgid "Local = UTC"
 msgstr "Localement = UTC"
 #
@@ -1201,6 +1210,9 @@ msgstr ""
 "\n"
 "Veuillez changer ces paramètres dans (Minuterie - Interval)"
 #
+msgid "Nothing done at the moment"
+msgstr ""
+#
 #
 #
 #
@@ -1222,6 +1234,9 @@ msgstr "Editeur"
 msgid "Old Logbook until %s"
 msgstr "Ancien livre de bord depuis %s"
 #
+msgid "On engine start set always all sails down"
+msgstr ""
+#
 msgid "Onboard"
 msgstr "A bord"
 #
@@ -1238,6 +1253,9 @@ msgid ""
 msgstr ""
 "Ouvrir le document (*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV Format "
 "OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
+#
+msgid "Other filter ?"
+msgstr ""
 #
 msgid "Overview"
 msgstr "Aperçu"
@@ -1316,6 +1334,9 @@ msgstr "Veuillez remplir en degrés, minutes, secondes"
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr "Veuillez remplir en degrés, minutes, secondes"
 #
+msgid "Polar"
+msgstr ""
+#
 msgid "Policy"
 msgstr ""
 "N° police\n"
@@ -1392,6 +1413,10 @@ msgstr "Effacer les données pour éditer les niveaux"
 msgid "Revolutions"
 msgstr "Révolutions"
 #
+#, fuzzy
+msgid "RoughWeather"
+msgstr "Temps"
+#
 msgid "Route"
 msgstr "Route"
 #
@@ -1426,6 +1451,10 @@ msgstr ""
 "de voile"
 #
 msgid "Sails"
+msgstr "Voiles"
+#
+#, fuzzy
+msgid "Sails ="
 msgstr "Voiles"
 #
 #
@@ -1487,6 +1516,9 @@ msgid "Sails used mostly"
 msgstr ""
 "Voile utilisée\n"
 "principalement"
+#
+msgid "Save"
+msgstr ""
 #
 msgid "Save Boat File"
 msgstr "Sauver le fichier du bateau"
@@ -2079,6 +2111,9 @@ msgstr ""
 "Vague la\n"
 "plus haute"
 #
+msgid "Wavehight <"
+msgstr ""
+#
 msgid "WayPoint arrived"
 msgstr "Waypoint d'arrivé"
 #
@@ -2473,6 +2508,7 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
 #
@@ -2506,8 +2542,18 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "      Course- Message toute les x minutes"
+#
+#
+#~ msgid "#1 RPM"
+#~ msgstr "1 RPM"
+#
+#
+#~ msgid "#2 RPM"
+#~ msgstr "2 RPM"
+#
 #
 #
 #
@@ -2594,8 +2640,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2664,8 +2712,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid ":0"
 #~ msgstr ":0"
+#
 #
 #
 #
@@ -2730,8 +2780,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Add to Watchlist same as"
 #~ msgstr "Ajouter à la liste des quarts comme avec"
+#
 #
 #
 #
@@ -2796,8 +2848,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Automatic Watch Interval"
 #~ msgstr "Durée automatique de quart"
+#
 #
 #
 #
@@ -2884,6 +2938,7 @@ msgstr "Jaune"
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Supprimer la ligne"
@@ -2918,8 +2973,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Glisser-déposer pour changer l'ordre dans la liste"
+#
 #
 #
 #
@@ -2986,10 +3043,12 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Fin"
+#
 #
 #
 #
@@ -3056,10 +3115,12 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
 #~ "Fin"
+#
 #
 #
 #
@@ -3126,6 +3187,7 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "Quart 6 :\n"
@@ -3161,8 +3223,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "If Waypoint arrived"
 #~ msgstr "Si waypoint d'arrivé"
+#
 #
 #
 #~ msgid ""
@@ -3175,12 +3239,14 @@ msgstr "Jaune"
 #~ "Le caractère \" _\" est important"
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own layouts\n"
 #~ "with prefix e.g. My_"
 #~ msgstr ""
 #~ "Si vous avez créé vos propres mises en page\n"
 #~ "avec le préfixe par exemple My_"
+#
 #
 #
 #
@@ -3245,8 +3311,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Délai : "
+#
 #
 #
 #
@@ -3272,6 +3340,7 @@ msgstr "Jaune"
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "Info personnelle"
+#
 #
 #
 #~ msgid "Logbook from %s to %s"
@@ -3307,12 +3376,15 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Numéro du quart"
 #
 #
+#
 #~ msgid "Only Layouts with prefix:"
 #~ msgstr "Seulement avec le préfixe de la mise en page :"
+#
 #
 #
 #
@@ -3391,8 +3463,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Person:"
 #~ msgstr "Personne :"
+#
 #
 #
 #
@@ -3457,8 +3531,10 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Veuillez entrer 4 chiffres au format 24h ex : 1545 = 03:45 PM"
+#
 #
 #
 #
@@ -3498,8 +3574,10 @@ msgstr "Jaune"
 #~ "    12:30:00PM"
 #
 #
+#
 #~ msgid "Show all Layouts"
 #~ msgstr "Montrer les mises en page"
+#
 #
 #
 #
@@ -3535,8 +3613,10 @@ msgstr "Jaune"
 #~ msgstr "Désolé, 0 Hrs 0 Min 0 Sec est impossible"
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Désolé, votre livre de bord est vide"
+#
 #
 #
 #
@@ -3603,10 +3683,12 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "Quart 2 :\n"
 #~ "Début"
+#
 #
 #
 #
@@ -3673,10 +3755,12 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "Quart 4 :\n"
 #~ "Début"
+#
 #
 #
 #
@@ -3743,10 +3827,12 @@ msgstr "Jaune"
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr ""
 #~ "Quart 6 :\n"
 #~ "Début"
+#
 #
 #
 #

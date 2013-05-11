@@ -79,6 +79,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 
 	this->SetSizeHints( wxSize( -1,-1 ), wxDefaultSize );
 	
+	wxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
 	
 	m_logbook = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_TOP );
@@ -405,10 +406,10 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMotorSails->SetColLabelSize( 30 );
 	m_gridMotorSails->SetColLabelValue( 0, _("Engine #1") );
 	m_gridMotorSails->SetColLabelValue( 1, _("#1 Total") );
-	m_gridMotorSails->SetColLabelValue( 2, _("#1 RPM") );
+	m_gridMotorSails->SetColLabelValue( 2, _T("#1 ") );
 	m_gridMotorSails->SetColLabelValue( 3, _("Engine #2") );
 	m_gridMotorSails->SetColLabelValue( 4, _("#2 Total") );
-	m_gridMotorSails->SetColLabelValue( 5, _("#2 RPM") );
+	m_gridMotorSails->SetColLabelValue( 5, _T("#2 ") );
 	m_gridMotorSails->SetColLabelValue( 6, _("Fuel") );
 	m_gridMotorSails->SetColLabelValue( 7, _("FuelTotal") );
 	m_gridMotorSails->SetColLabelValue( 8, _("Sails") );
@@ -1924,7 +1925,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_panel13->Layout();
 	bSizer13->Fit( m_panel13 );
 	m_logbook->AddPage( m_panel13, _("Maintenance"), false );
-	
+
 	bSizer2->Add( m_logbook, 1, wxEXPAND | wxALL, 2 );
 
 	this->SetSizer( bSizer2 );
@@ -2410,6 +2411,7 @@ LogbookDialog::~LogbookDialog()
 	for(int i = 0; i < 14; i++)
 		checkboxSails[i]->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookDialog::OnCheckboxSails ), NULL, this );
 
+
 	this->Disconnect( wxEVT_IDLE, wxIdleEventHandler( LogbookDialog::OnIdleMainDialog ) );
 
 	delete m_menu1; 
@@ -2513,7 +2515,7 @@ void LogbookDialog::OnToggleButtonEngine1( wxCommandEvent& event )
 {
 	if(event.IsChecked())
 	{
-		if(logbookPlugIn->opt->engineMessageSails)
+		if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
 			resetSails();
 		logbook->bRPM1 = true;
 		logbookPlugIn->opt->toggleEngine1 = true;
@@ -2526,8 +2528,8 @@ void LogbookDialog::OnToggleButtonEngine1( wxCommandEvent& event )
 	}
 	else
 	{
-		if(logbookPlugIn->opt->engineMessageSails)
-			stateSails();
+		//if(logbookPlugIn->opt->engineMessageSails)
+			//stateSails();
 		logbookPlugIn->opt->toggleEngine1 = false;
 		logbook->bRPM1 = false;
 		logbook->dtEngine1Off = wxDateTime::Now().Subtract(logbookPlugIn->opt->dtEngine1On);
@@ -2544,6 +2546,8 @@ void LogbookDialog::OnToggleButtonEngine2( wxCommandEvent& event )
 {
 	if(event.IsChecked())
 	{
+		if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
+			resetSails();
 		logbook->bRPM2 = true;
 		logbookPlugIn->opt->toggleEngine2 = true;
 		logbookPlugIn->opt->dtEngine2On = wxDateTime::Now();
@@ -2564,6 +2568,12 @@ void LogbookDialog::OnToggleButtonEngine2( wxCommandEvent& event )
 		logbookPlugIn->opt->engine2Running = false;
 		m_toggleBtnEngine2->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR1)+onOff[0]);
 	}
+}
+
+void LogbookDialog::setAbbreviations()
+{
+	m_gridMotorSails->SetLabelValue(wxHORIZONTAL,_T("#1 ")+logbookPlugIn->opt->rpm,LogbookHTML::RPM1);
+	m_gridMotorSails->SetLabelValue(wxHORIZONTAL,_T("#2 ")+logbookPlugIn->opt->rpm,LogbookHTML::RPM2);
 }
 
 void LogbookDialog::OnButtonClickResetSails( wxCommandEvent& event )
@@ -3780,6 +3790,7 @@ Backup Logbook(*.txt)|*.txt");
 	setCheckboxSails();
 	setSailsGap();
 	stateSails();
+	setAbbreviations();
 	logbook->sailsMessage = false;
 	logbook->oldSailsState = logbook->sailsState;
 
