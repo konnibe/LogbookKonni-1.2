@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi 2.6.1310\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-26 17:14+0200\n"
+"POT-Creation-Date: 2013-05-14 16:22+0200\n"
 "PO-Revision-Date: 2012-06-22 17:41+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -416,9 +416,6 @@ msgstr "Zachmurzenie"
 msgid "Course changes"
 msgstr "Jeśli kurs zmieni się o więcej niż "
 #
-msgid "Create"
-msgstr ""
-#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -432,10 +429,6 @@ msgid "Crewlist"
 msgstr "Lista załogi"
 #
 msgid "Current"
-msgstr "Prąd"
-#
-#, fuzzy
-msgid "Current <"
 msgstr "Prąd"
 #
 msgid "Current Avg."
@@ -618,9 +611,6 @@ msgstr "Motogodziny #2"
 msgid "Engine #2 stopped"
 msgstr "Motogodziny #2"
 #
-msgid "Engine start/stop sails message"
-msgstr ""
-#
 msgid ""
 "Engine stopped\n"
 "\n"
@@ -776,10 +766,6 @@ msgstr "Nr HIN"
 #
 msgid "HTML"
 msgstr ""
-#
-#, fuzzy
-msgid "HardWeather"
-msgstr "Pogoda"
 #
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
@@ -956,10 +942,6 @@ msgstr "Długość po pokładzie"
 #
 msgid "Length over all"
 msgstr "Długość całkowita"
-#
-#, fuzzy
-msgid "LightWeather"
-msgstr "Pogoda"
 #
 msgid "Local = UTC"
 msgstr "Lokalny = UTC"
@@ -1150,9 +1132,6 @@ msgstr ""
 "\n"
 "Zmień ustawienie w Preferencjach "
 #
-msgid "Nothing done at the moment"
-msgstr ""
-#
 #, fuzzy
 msgid "Now"
 msgstr "Nie"
@@ -1182,9 +1161,6 @@ msgid ""
 msgstr ""
 "Otwórz dokument Arkusz(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV Format "
 "OpenOffice(*.csv)|*.csv|Kopia zapasowa Dziennika(*.txt)|*.txt"
-#
-msgid "Other filter ?"
-msgstr ""
 #
 msgid "Overview"
 msgstr "Przegląd"
@@ -1258,9 +1234,6 @@ msgstr "Wprowadź jeden znak dla stopni, minut i sekund"
 #
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr "Wprowadź jeden znak dla stopni, minut i sekund"
-#
-msgid "Polar"
-msgstr ""
 #
 msgid "Policy"
 msgstr "Nr polisy"
@@ -1338,10 +1311,6 @@ msgstr ""
 msgid "Revolutions"
 msgstr ""
 #
-#, fuzzy
-msgid "RoughWeather"
-msgstr "Pogoda"
-#
 msgid "Route"
 msgstr "Trasa"
 #
@@ -1382,9 +1351,36 @@ msgstr "Żagle"
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
-msgid "Sails ="
-msgstr "Żagle"
+msgid "Sails Messages"
+msgstr "Jeśli nastąpiła zmiana wachty"
 #
 #
 #
@@ -1446,9 +1442,6 @@ msgid "Sails used mostly"
 msgstr ""
 "Najczęściej\n"
 "używane żagle"
-#
-msgid "Save"
-msgstr ""
 #
 msgid "Save Boat File"
 msgstr "Zapisz plik Opisu Jachtu"
@@ -1885,11 +1878,9 @@ msgstr "UTC"
 #
 msgid ""
 "Uncheck for Motorboats\n"
+"Sets \"Sails hoisted\" or \"Sails changed\" or \"Sails down\" messages\n"
 "\n"
-"Engine(s) started, sets Sails to none and appends \"Sails down\" \n"
-"\"Sails hoisted\" when Engine stoped\n"
-"\n"
-"Set checkmarks in the sail-checkboxes BEFORE you stop the engine !"
+"Set/unset checkmarks in the sail-checkboxes BEFORE you start/stop the engine !"
 msgstr ""
 #
 msgid "Uncheck for Motorboats."
@@ -1903,6 +1894,9 @@ msgstr ""
 "Odznacz jeśli nie masz GPS\n"
 "Jeżeli GPS nie działa, odznacz aby\n"
 "uniknąć powtarzających się ostrzeżeń."
+#
+msgid "Uncheck if you are motorsailing"
+msgstr ""
 #
 msgid "Uninstall"
 msgstr "Odinstaluj"
@@ -2014,9 +2008,6 @@ msgid "Wave Max."
 msgstr ""
 "Maksymalny\n"
 "stan morza"
-#
-msgid "Wavehight <"
-msgstr ""
 #
 msgid "WayPoint arrived"
 msgstr "Jeśli osiągnięto Waypoint"
@@ -2383,8 +2374,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2520,8 +2513,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "    Wpis o zmianie kursu po minutach"
+#
 #
 #
 #
@@ -2603,8 +2598,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -2680,8 +2677,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Dodawaj Wpis co X mm"
+#
+#
+#, fuzzy
+#~ msgid "Current <"
+#~ msgstr "Prąd"
+#
 #
 #
 #
@@ -2768,10 +2772,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "I wachty"
+#
 #
 #
 #
@@ -2844,10 +2850,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "III wachty"
+#
 #
 #
 #
@@ -2920,6 +2928,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
@@ -2958,10 +2967,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr ""
 #~ "Koniec\n"
 #~ "VI wachty"
+#
 #
 #
 #
@@ -3167,9 +3178,16 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "FirstName"
 #~ msgstr "Imię"
+#
+#
+#, fuzzy
+#~ msgid "HardWeather"
+#~ msgstr "Pogoda"
+#
 #
 #
 #
@@ -3209,6 +3227,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own Layouts\n"
 #~ "prepend them with e.g. My_ \n"
@@ -3220,12 +3239,14 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own layouts\n"
 #~ "with prefix e.g. My_"
 #~ msgstr ""
 #~ "Jeśli utworzyłeś własne szablony\n"
 #~ "z prefiksem np.: Mój_ "
+#
 #
 #
 #
@@ -3296,8 +3317,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interwał:"
+#
 #
 #
 #
@@ -3327,10 +3350,17 @@ msgstr ""
 #~ msgstr "Etykieta użytkownika"
 #
 #
+#, fuzzy
+#~ msgid "LightWeather"
+#~ msgstr "Pogoda"
+#
+#
+#
 #
 #
 #~ msgid "Logbook from %s to %s"
 #~ msgstr "Dziennik od %s do %s"
+#
 #
 #
 #
@@ -3487,14 +3517,17 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "No. Watches"
 #~ msgstr "Wachta"
 #
 #
 #
+#
 #~ msgid "Only Layouts with prefix:"
 #~ msgstr "tylko Szablony z prefiksem:"
+#
 #
 #
 #
@@ -3579,9 +3612,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Wprowadź 4 cyfry w formacie 24h np. 1545 = 03:45:00 PM"
+#
 #
 #
 #
@@ -3706,12 +3741,28 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Wprowadź Czas w formacie:\n"
 #~ "   12:30:00PM"
+#
+#
+#, fuzzy
+#~ msgid "RoughWeather"
+#~ msgstr "Pogoda"
+#
+#
+#
+#
+#
+#
+#, fuzzy
+#~ msgid "Sails ="
+#~ msgstr "Żagle"
+#
 #
 #
 #
@@ -3827,8 +3878,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Show all Layouts"
 #~ msgstr "Pokaż wszystkie Szablony"
+#
 #
 #
 #
@@ -3868,8 +3921,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Niestety, Twój Dziennik nie zawiera wpisów"
+#
 #
 #
 #
@@ -3942,10 +3997,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "II wachty"
+#
 #
 #
 #
@@ -4018,10 +4075,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "IV wachty"
+#
 #
 #
 #
@@ -4094,10 +4153,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr ""
 #~ "Początek\n"
 #~ "VI wachty"
+#
 #
 #
 #
@@ -4179,8 +4240,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer"
+#
 #
 #
 #
@@ -4251,8 +4314,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "delay to find the right course to the wind"
 #~ msgstr "czas na ustawienie jachtu odpowiednio do wiatru"
+#
 #
 #
 #

@@ -214,6 +214,11 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 
 		m_plogbook_window->logbook->appendRow(false);
       }
+	  else if(message_id == _T("POLAR_SAVE_LOGBOOK"))
+	  {
+		if(m_plogbook_window)
+			m_plogbook_window->logbook->update();
+	  }
       else if(message_id == _T("LOGBOOK_LOG_LASTLINE_REQUEST"))
       {
 		if(!m_plogbook_window)

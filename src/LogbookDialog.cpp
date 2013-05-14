@@ -143,10 +143,10 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	wxBoxSizer* bSizer45;
 	bSizer45 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_toggleBtnEngine1 = new wxToggleButton( m_panelEngine, wxID_ANY, _(""), wxDefaultPosition, wxDefaultSize, 0 );
+	m_toggleBtnEngine1 = new wxToggleButton( m_panelEngine, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer45->Add( m_toggleBtnEngine1, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM, 5 );
 	
-	m_toggleBtnEngine2 = new wxToggleButton( m_panelEngine, wxID_ANY, _(""), wxDefaultPosition, wxDefaultSize, 0 );
+	m_toggleBtnEngine2 = new wxToggleButton( m_panelEngine, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer45->Add( m_toggleBtnEngine2, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
 	fgSizerSails = new wxFlexGridSizer( 2, 5, 0, 0 );
@@ -2515,6 +2515,7 @@ void LogbookDialog::OnToggleButtonEngine1( wxCommandEvent& event )
 {
 	if(event.IsChecked())
 	{
+		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON1"), _T("ON"));
 		if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
 			resetSails();
 		logbook->bRPM1 = true;
@@ -2530,6 +2531,7 @@ void LogbookDialog::OnToggleButtonEngine1( wxCommandEvent& event )
 	{
 		//if(logbookPlugIn->opt->engineMessageSails)
 			//stateSails();
+		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON1"), _T("OFF"));
 		logbookPlugIn->opt->toggleEngine1 = false;
 		logbook->bRPM1 = false;
 		logbook->dtEngine1Off = wxDateTime::Now().Subtract(logbookPlugIn->opt->dtEngine1On);
@@ -2546,6 +2548,7 @@ void LogbookDialog::OnToggleButtonEngine2( wxCommandEvent& event )
 {
 	if(event.IsChecked())
 	{
+		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON2"), _T("ON"));
 		if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
 			resetSails();
 		logbook->bRPM2 = true;
@@ -2559,6 +2562,7 @@ void LogbookDialog::OnToggleButtonEngine2( wxCommandEvent& event )
 	}
 	else
 	{
+		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON2"), _T("OFF"));
 		logbookPlugIn->opt->toggleEngine2 = false;
 		logbook->bRPM2 = false;
 		logbook->dtEngine2Off = wxDateTime::Now().Subtract(logbookPlugIn->opt->dtEngine2On);

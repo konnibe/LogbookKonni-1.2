@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-26 17:14+0200\n"
+"POT-Creation-Date: 2013-05-14 16:22+0200\n"
 "PO-Revision-Date: 2012-06-20 11:54+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -379,9 +379,6 @@ msgstr "Nubolosidad"
 msgid "Course changes"
 msgstr ""
 #
-msgid "Create"
-msgstr ""
-#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -392,10 +389,6 @@ msgid "Crewlist"
 msgstr "Listado de tripulación"
 #
 msgid "Current"
-msgstr "Corriente"
-#
-#, fuzzy
-msgid "Current <"
 msgstr "Corriente"
 #
 #, fuzzy
@@ -666,9 +659,6 @@ msgstr "Máquina"
 msgid "Engine #2 stopped"
 msgstr "Máquina"
 #
-msgid "Engine start/stop sails message"
-msgstr ""
-#
 msgid ""
 "Engine stopped\n"
 "\n"
@@ -853,10 +843,6 @@ msgstr ""
 #
 msgid "HTML"
 msgstr ""
-#
-#, fuzzy
-msgid "HardWeather"
-msgstr "Meteo"
 #
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
@@ -1075,10 +1061,6 @@ msgstr ""
 #
 msgid "Length over all"
 msgstr ""
-#
-#, fuzzy
-msgid "LightWeather"
-msgstr "Meteo"
 #
 msgid "Local = UTC"
 msgstr ""
@@ -1331,9 +1313,6 @@ msgstr ""
 "\n"
 "P.f. modifique los parámetros en Options"
 #
-msgid "Nothing done at the moment"
-msgstr ""
-#
 msgid "Now"
 msgstr ""
 #
@@ -1361,9 +1340,6 @@ msgid ""
 msgstr ""
 "Opendocument Hoja de cálculo(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV "
 "Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
-#
-msgid "Other filter ?"
-msgstr ""
 #
 #, fuzzy
 msgid "Overview"
@@ -1556,9 +1532,6 @@ msgstr ""
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr ""
 #
-msgid "Polar"
-msgstr ""
-#
 msgid "Policy"
 msgstr "Poliza"
 #
@@ -1697,10 +1670,6 @@ msgstr ""
 msgid "Revolutions"
 msgstr ""
 #
-#, fuzzy
-msgid "RoughWeather"
-msgstr "Meteo"
-#
 msgid "Route"
 msgstr "Ruta"
 #
@@ -1737,13 +1706,8 @@ msgstr "Vela-Nº"
 msgid "Sails"
 msgstr "Velas"
 #
-#
-#
-#
-#
-#, fuzzy
-msgid "Sails ="
-msgstr "Velas"
+msgid "Sails Messages"
+msgstr ""
 #
 msgid "Sails changed"
 msgstr ""
@@ -1768,189 +1732,6 @@ msgstr ""
 #
 msgid "Sails used mostly"
 msgstr ""
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-msgid "Save"
-msgstr "Guardar"
 #
 msgid "Save Boat File"
 msgstr "Guardar fichero embarcación"
@@ -2440,11 +2221,9 @@ msgstr ""
 #
 msgid ""
 "Uncheck for Motorboats\n"
+"Sets \"Sails hoisted\" or \"Sails changed\" or \"Sails down\" messages\n"
 "\n"
-"Engine(s) started, sets Sails to none and appends \"Sails down\" \n"
-"\"Sails hoisted\" when Engine stoped\n"
-"\n"
-"Set checkmarks in the sail-checkboxes BEFORE you stop the engine !"
+"Set/unset checkmarks in the sail-checkboxes BEFORE you start/stop the engine !"
 msgstr ""
 #
 msgid "Uncheck for Motorboats."
@@ -2454,6 +2233,9 @@ msgid ""
 "Uncheck if You have no GPS\n"
 "If GPS is out of order, uncheck to\n"
 "prevent that the message repeats."
+msgstr ""
+#
+msgid "Uncheck if you are motorsailing"
 msgstr ""
 #
 #, fuzzy
@@ -2615,9 +2397,6 @@ msgstr "Oleaje"
 #, fuzzy
 msgid "Wave Max."
 msgstr "Oleaje"
-#
-msgid "Wavehight <"
-msgstr ""
 #
 msgid "WayPoint arrived"
 msgstr ""
@@ -3033,6 +2812,7 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "&Cut"
 #~ msgstr "País"
@@ -3168,9 +2948,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Add to Watchlist"
 #~ msgstr "Guardia"
+#
 #
 #
 #
@@ -3522,8 +3304,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "CrewList"
 #~ msgstr "Listado de tripulación"
+#
+#
+#, fuzzy
+#~ msgid "Current <"
+#~ msgstr "Corriente"
+#
 #
 #
 #
@@ -3719,9 +3508,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Elimiar línea"
+#
 #
 #
 #
@@ -3792,6 +3583,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr "Fin 2ª guardia"
 #
@@ -3828,8 +3620,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Fin 3ª guardia"
+#
 #
 #
 #
@@ -3901,9 +3695,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "End 5.Watch"
 #~ msgstr "Fin 1ª guardia"
+#
 #
 #
 #
@@ -4023,8 +3819,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "EngineTotal"
 #~ msgstr "Máquina total"
+#
 #
 #
 #
@@ -4364,8 +4162,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "GRT"
 #~ msgstr "BRT"
+#
+#
+#, fuzzy
+#~ msgid "HardWeather"
+#~ msgstr "Meteo"
+#
 #
 #
 #
@@ -4439,8 +4244,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Intervalo:"
+#
+#
+#, fuzzy
+#~ msgid "LightWeather"
+#~ msgstr "Meteo"
+#
 #
 #
 #
@@ -4873,8 +4685,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Logbook files (*.txt)|*.txt"
 #~ msgstr "Ficheros bitácora (*.txt)|*.txt"
+#
 #
 #
 #
@@ -5031,9 +4845,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "No. Watches"
 #~ msgstr "Guardia"
+#
 #
 #
 #
@@ -5254,9 +5070,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Paste"
 #~ msgstr "Fecha"
+#
 #
 #
 #
@@ -5513,12 +5331,212 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter like 1.30 or 1,30 or 1:30\n"
 #~ "for 1:30h"
 #~ msgstr ""
 #~ "Entre por favor 1.30 o 1,30 o 1:30\n"
 #~ "para 1:30h"
+#
+#
+#, fuzzy
+#~ msgid "RoughWeather"
+#~ msgstr "Meteo"
+#
+#
+#
+#
+#
+#
+#, fuzzy
+#~ msgid "Sails ="
+#~ msgstr "Velas"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#~ msgid "Save"
+#~ msgstr "Guardar"
+#
 #
 #
 #
@@ -5892,9 +5910,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Search.."
 #~ msgstr "Seleccione bitácora"
+#
 #
 #
 #
@@ -6110,9 +6130,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Show all Layouts"
 #~ msgstr "Leer Layouts de nuevo"
+#
 #
 #
 #
@@ -6152,8 +6174,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Siento, tu bitácora no tiene entradas"
+#
 #
 #
 #
@@ -6316,9 +6340,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Speed STW Max."
 #~ msgstr "Mar de fondo"
+#
 #
 #
 #
@@ -6389,6 +6415,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Inicio 2ªguardia"
 #
@@ -6425,8 +6452,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 3.Watch"
 #~ msgstr "Inicio 3ªguardia"
+#
 #
 #
 #
@@ -6498,6 +6527,7 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Start 5.Watch"
 #~ msgstr "Inicio 1ªguardia"
@@ -6535,9 +6565,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Start 6.Watch"
 #~ msgstr "Inicio 1ªguardia"
+#
 #
 #
 #
@@ -6821,9 +6853,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Swell Peak"
 #~ msgstr "Mar de fondo"
+#
 #
 #
 #
@@ -6895,8 +6929,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Temporizador activado/parado"
+#
 #
 #
 #
@@ -7383,6 +7419,7 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Traditional-Style"
 #~ msgstr "Nacionalidad"
@@ -7545,9 +7582,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "View "
 #~ msgstr "Ver"
+#
 #
 #
 #
@@ -8041,9 +8080,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Wave Peak"
 #~ msgstr "Oleaje"
+#
 #
 #
 #

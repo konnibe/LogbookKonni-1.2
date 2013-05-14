@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-26 17:14+0200\n"
+"POT-Creation-Date: 2013-05-14 16:22+0200\n"
 "PO-Revision-Date: 2012-06-20 11:53+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: \n"
@@ -400,9 +400,6 @@ msgstr "Skyer"
 msgid "Course changes"
 msgstr "Hvis kurs ændres mere end °  "
 #
-msgid "Create"
-msgstr ""
-#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -416,10 +413,6 @@ msgid "Crewlist"
 msgstr "Besætningsliste"
 #
 msgid "Current"
-msgstr "Strøm"
-#
-#, fuzzy
-msgid "Current <"
 msgstr "Strøm"
 #
 msgid "Current Avg."
@@ -660,9 +653,6 @@ msgstr "Motor #2"
 msgid "Engine #2 stopped"
 msgstr "Demo Maskine stoppet"
 #
-msgid "Engine start/stop sails message"
-msgstr ""
-#
 msgid ""
 "Engine stopped\n"
 "\n"
@@ -839,10 +829,6 @@ msgstr "Skrog ID nummer"
 #
 msgid "HTML"
 msgstr ""
-#
-#, fuzzy
-msgid "HardWeather"
-msgstr "Vejr"
 #
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
@@ -1041,10 +1027,6 @@ msgstr "Længde over dæk"
 #
 msgid "Length over all"
 msgstr "Længde over alt"
-#
-#, fuzzy
-msgid "LightWeather"
-msgstr "Vejr"
 #
 msgid "Local = UTC"
 msgstr "Lokal = UTC"
@@ -1290,9 +1272,6 @@ msgstr ""
 "\n"
 "Venligst ret indstillinger i Indstillinger"
 #
-msgid "Nothing done at the moment"
-msgstr ""
-#
 #
 #
 #
@@ -1341,9 +1320,6 @@ msgid ""
 msgstr ""
 "Opendocument Regneark(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV Format "
 "OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
-#
-msgid "Other filter ?"
-msgstr ""
 #
 msgid "Overview"
 msgstr "Oversigt"
@@ -1420,9 +1396,6 @@ msgstr "Anfør én karakter i  Grader, Minutter og Sekunder"
 #
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr "Anfør én karakter i  Grader, Minutter og Sekunder"
-#
-msgid "Polar"
-msgstr ""
 #
 msgid "Policy"
 msgstr "Police"
@@ -1501,10 +1474,6 @@ msgstr ""
 msgid "Revolutions"
 msgstr ""
 #
-#, fuzzy
-msgid "RoughWeather"
-msgstr "Vejr"
-#
 msgid "Route"
 msgstr "Rute"
 #
@@ -1545,9 +1514,37 @@ msgstr "Sejl"
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
-msgid "Sails ="
-msgstr "Sejl"
+msgid "Sails Messages"
+msgstr "Hvis vagt skiftet"
 #
 #
 #
@@ -1610,162 +1607,6 @@ msgstr ""
 #
 msgid "Sails used mostly"
 msgstr "Mest brugte sejl"
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-msgid "Save"
-msgstr "Speichern"
 #
 msgid "Save Boat File"
 msgstr "Gem båd fil"
@@ -2196,11 +2037,9 @@ msgstr "UTC"
 #
 msgid ""
 "Uncheck for Motorboats\n"
+"Sets \"Sails hoisted\" or \"Sails changed\" or \"Sails down\" messages\n"
 "\n"
-"Engine(s) started, sets Sails to none and appends \"Sails down\" \n"
-"\"Sails hoisted\" when Engine stoped\n"
-"\n"
-"Set checkmarks in the sail-checkboxes BEFORE you stop the engine !"
+"Set/unset checkmarks in the sail-checkboxes BEFORE you start/stop the engine !"
 msgstr ""
 #
 msgid "Uncheck for Motorboats."
@@ -2214,6 +2053,9 @@ msgstr ""
 "Fravælg, hvis du ikke benytter en GPS\n"
 "Fravælg hvis GPS ikke er funktionsdygtig\n"
 "for at undgå beskeden gentager sig."
+#
+msgid "Uncheck if you are motorsailing"
+msgstr ""
 #
 msgid "Uninstall"
 msgstr "Afinstaller"
@@ -2319,9 +2161,6 @@ msgstr "Gennemsnitlig bølgehøjde"
 #
 msgid "Wave Max."
 msgstr "Maksimale bølgehøjde"
-#
-msgid "Wavehight <"
-msgstr ""
 #
 msgid "WayPoint arrived"
 msgstr "Ankommet waypoint"
@@ -2705,8 +2544,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2843,8 +2684,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "     Kurs- Besked efter minutter"
+#
 #
 #
 #
@@ -2926,8 +2769,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
+#
 #
 #
 #
@@ -3002,6 +2847,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ":0"
 #~ msgstr ":0"
 #
@@ -3038,8 +2884,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Add to Watchlist"
 #~ msgstr "Tilføj til vagtliste"
+#
 #
 #
 #
@@ -3111,8 +2959,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Tilføj linje hver sm"
+#
 #
 #
 #
@@ -3413,8 +3263,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "CrewList"
 #~ msgstr "Crewliste"
+#
 #
 #
 #
@@ -3459,6 +3311,12 @@ msgstr ""
 #~ "\n"
 #~ "Indstil kolonnen 'Ombord' til JA\n"
 #~ "(dobbeltklik på kolonnen) "
+#
+#
+#, fuzzy
+#~ msgid "Current <"
+#~ msgstr "Strøm"
+#
 #
 #
 #
@@ -3632,9 +3490,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Delete"
 #~ msgstr "Slet række"
+#
 #
 #
 #
@@ -3705,8 +3565,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 1.Watch"
 #~ msgstr "Slut på 1. vagt"
+#
 #
 #
 #
@@ -3777,8 +3639,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 3.Watch"
 #~ msgstr "Slut på 3. vagt"
+#
 #
 #
 #
@@ -3849,6 +3713,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr "Slut på 5. vagt"
 #
@@ -3885,8 +3750,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 6.Watch"
 #~ msgstr "Slut på 6. vagt"
+#
 #
 #
 #
@@ -4090,9 +3957,16 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "FirstName"
 #~ msgstr "Fornavn"
+#
+#
+#, fuzzy
+#~ msgid "HardWeather"
+#~ msgstr "Vejr"
+#
 #
 #
 #
@@ -4132,6 +4006,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own Layouts\n"
 #~ "prepend them with e.g. My_ \n"
@@ -4143,12 +4018,14 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own layouts\n"
 #~ "with prefix e.g. My_"
 #~ msgstr ""
 #~ "Hvis du har lavet dit eget layout\n"
 #~ "med f.eks My_ foran"
+#
 #
 #
 #
@@ -4221,8 +4098,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Interval:"
+#
 #
 #
 #
@@ -4251,6 +4130,12 @@ msgstr ""
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "Brugerlabel"
+#
+#
+#, fuzzy
+#~ msgid "LightWeather"
+#~ msgstr "Vejr"
+#
 #
 #
 #
@@ -4401,8 +4286,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Logbook from %s to %s"
 #~ msgstr "Logbog fra %s til %s"
+#
 #
 #
 #
@@ -4559,14 +4446,17 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Nr. vagter"
 #
 #
 #
 #
+#
 #~ msgid "Only Layouts with prefix:"
 #~ msgstr "kun layouts med Prefix:"
+#
 #
 #
 #
@@ -4764,8 +4654,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Path to HTML-Editor (optional)"
 #~ msgstr "Pfad zum HTML-Editor (optional)"
+#
 #
 #
 #
@@ -4836,6 +4728,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Persons:"
 #~ msgstr "Personer:"
 #
@@ -4872,8 +4765,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Anfør 4 cifre i 24h-format f.eks 1545 = 15:45"
+#
 #
 #
 #
@@ -4998,12 +4893,185 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Anfør tid i formatet:\n"
 #~ "   12:30:00."
+#
+#
+#, fuzzy
+#~ msgid "RoughWeather"
+#~ msgstr "Vejr"
+#
+#
+#
+#
+#
+#
+#, fuzzy
+#~ msgid "Sails ="
+#~ msgstr "Sejl"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#~ msgid "Save"
+#~ msgstr "Speichern"
+#
 #
 #
 #
@@ -5297,9 +5365,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Select boat-layout to view"
 #~ msgstr "Wähle Route"
+#
 #
 #
 #
@@ -5340,13 +5410,16 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Beklager, 0 timer 0 minutter 0 sekunder er ikke muligt"
 #
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Beklager, din logbog har ingen linjer"
+#
 #
 #
 #
@@ -5505,8 +5578,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr "Maximal STW fart"
+#
 #
 #
 #
@@ -5577,8 +5652,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr "Start 2.vagt"
+#
 #
 #
 #
@@ -5649,8 +5726,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr "Start 4.vagt"
+#
 #
 #
 #
@@ -5721,8 +5800,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 6.Watch"
 #~ msgstr "Start 6.vagt"
+#
 #
 #
 #
@@ -5802,8 +5883,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer "
 #~ msgstr "Timer til/fra"
+#
 #
 #
 #
@@ -5977,9 +6060,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "View "
 #~ msgstr "Ansehen"
+#
 #
 #
 #
@@ -6040,8 +6125,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
 #
 #
 #

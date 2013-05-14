@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: logbookkonni_pi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-26 17:14+0200\n"
+"POT-Creation-Date: 2013-05-14 16:22+0200\n"
 "PO-Revision-Date: 2012-04-14 17:50+0100\n"
 "Last-Translator: Konni <konnibe@hotmail.de>\n"
 "Language-Team: rider2@kpnmail.nl <rider2@kpnmail.nl>\n"
@@ -426,9 +426,6 @@ msgstr "Bewolking"
 msgid "Course changes"
 msgstr "Bij koersverandering > (graden):"
 #
-msgid "Create"
-msgstr ""
-#
 msgid ""
 "Create a new logbook\n"
 "the active logbook is saved with today's date\n"
@@ -442,10 +439,6 @@ msgid "Crewlist"
 msgstr "Bemanningslijst"
 #
 msgid "Current"
-msgstr "Stroom"
-#
-#, fuzzy
-msgid "Current <"
 msgstr "Stroom"
 #
 msgid "Current Avg."
@@ -632,9 +625,6 @@ msgstr "Motor"
 msgid "Engine #2 stopped"
 msgstr "Motor"
 #
-msgid "Engine start/stop sails message"
-msgstr ""
-#
 msgid ""
 "Engine stopped\n"
 "\n"
@@ -790,10 +780,6 @@ msgstr "Rompnr."
 #
 msgid "HTML"
 msgstr ""
-#
-#, fuzzy
-msgid "HardWeather"
-msgstr "Weer"
 #
 msgid ""
 "Have You forgotten to enclose the Header with [[ and ]]\n"
@@ -969,10 +955,6 @@ msgstr "Lengte over dek"
 #
 msgid "Length over all"
 msgstr "Lengte over alles"
-#
-#, fuzzy
-msgid "LightWeather"
-msgstr "Weer"
 #
 msgid "Local = UTC"
 msgstr "LT = UTC"
@@ -1178,9 +1160,6 @@ msgstr ""
 "Instellingen wijzigen in Toolbox/Plugins/Logbook/Voorkeuren/Instellingen/"
 "Timerinstellingen"
 #
-msgid "Nothing done at the moment"
-msgstr ""
-#
 #
 #
 #
@@ -1221,9 +1200,6 @@ msgid ""
 msgstr ""
 "Opendocument SpreadSheet(*.ods)|*.ods|Excel 2003 Format(*.xml)|*.xml|CSV "
 "Format OpenOffice(*.csv)|*.csv|Backup Logbook(*.txt)|*.txt"
-#
-msgid "Other filter ?"
-msgstr ""
 #
 msgid "Overview"
 msgstr "Overzicht"
@@ -1299,9 +1275,6 @@ msgstr "Voer graden, minuten, seconden in"
 #
 msgid "Please fill in one character in Degrees, Minuts and Seconds"
 msgstr "Voer graden, minuten , seconden in"
-#
-msgid "Polar"
-msgstr ""
 #
 msgid "Policy"
 msgstr "Polisnr."
@@ -1382,10 +1355,6 @@ msgstr ""
 msgid "Revolutions"
 msgstr ""
 #
-#, fuzzy
-msgid "RoughWeather"
-msgstr "Weer"
-#
 msgid "Route"
 msgstr "Route"
 #
@@ -1426,9 +1395,36 @@ msgstr "Zeilvoering"
 #
 #
 #
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #, fuzzy
-msgid "Sails ="
-msgstr "Zeilvoering"
+msgid "Sails Messages"
+msgstr "Regel toevoegen bij wisseling van de wacht"
 #
 #
 #
@@ -1490,9 +1486,6 @@ msgid "Sails used mostly"
 msgstr ""
 "Zeilvoering\n"
 "(meest gebruikt)"
-#
-msgid "Save"
-msgstr ""
 #
 msgid "Save Boat File"
 msgstr "Opslaan vaartuigbestand"
@@ -1928,11 +1921,9 @@ msgstr "UTC"
 #
 msgid ""
 "Uncheck for Motorboats\n"
+"Sets \"Sails hoisted\" or \"Sails changed\" or \"Sails down\" messages\n"
 "\n"
-"Engine(s) started, sets Sails to none and appends \"Sails down\" \n"
-"\"Sails hoisted\" when Engine stoped\n"
-"\n"
-"Set checkmarks in the sail-checkboxes BEFORE you stop the engine !"
+"Set/unset checkmarks in the sail-checkboxes BEFORE you start/stop the engine !"
 msgstr ""
 #
 msgid "Uncheck for Motorboats."
@@ -1946,6 +1937,9 @@ msgstr ""
 "Niet aanvinken als u geen GPS heeft of \n"
 "als uw GPS niet functioneert om te voor-\n"
 "komen dat de melding zich blijft herhalen."
+#
+msgid "Uncheck if you are motorsailing"
+msgstr ""
 #
 msgid "Uninstall"
 msgstr "Verwijderen"
@@ -2060,9 +2054,6 @@ msgid "Wave Max."
 msgstr ""
 "Golfhoogte\n"
 "(max.)"
-#
-msgid "Wavehight <"
-msgstr ""
 #
 msgid "WayPoint arrived"
 msgstr "Routepunt bereikt"
@@ -2442,8 +2433,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "\n"
 #~ msgstr "\n"
+#
 #
 #
 #
@@ -2579,8 +2572,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "      Course- Message after Minutes"
 #~ msgstr "               Koersbericht na (minuten):"
+#
 #
 #
 #
@@ -2673,6 +2668,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "0"
 #~ msgstr "0"
 #
@@ -2709,8 +2705,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "1. Watch of 1. Person"
 #~ msgstr "1e Wacht van 1e persoon"
+#
 #
 #
 #
@@ -2797,8 +2795,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Add to Watchlist"
 #~ msgstr "Toevoegen aan wachtlijst"
+#
 #
 #
 #
@@ -2869,8 +2869,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Append Line every Nm"
 #~ msgstr "Regel toevoegen na elke (NM):"
+#
+#
+#, fuzzy
+#~ msgid "Current <"
+#~ msgstr "Stroom"
+#
 #
 #
 #
@@ -2957,8 +2964,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Drag 'n Drop to change the order in the list"
 #~ msgstr "Verslepen om de volgorde in de lijst te veranderen."
+#
 #
 #
 #
@@ -3031,10 +3040,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 2.Watch"
 #~ msgstr ""
 #~ "2e Wacht:\n"
 #~ "eind"
+#
 #
 #
 #
@@ -3107,6 +3118,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 4.Watch"
 #~ msgstr ""
 #~ "4e Wacht:\n"
@@ -3145,10 +3157,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "End 5.Watch"
 #~ msgstr ""
 #~ "5e Wacht:\n"
 #~ "eind"
+#
 #
 #
 #
@@ -3269,8 +3283,15 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "EngineTotal"
 #~ msgstr "Ttl motor"
+#
+#
+#, fuzzy
+#~ msgid "HardWeather"
+#~ msgstr "Weer"
+#
 #
 #
 #
@@ -3310,6 +3331,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own Layouts\n"
 #~ "prepend them with e.g. My_ \n"
@@ -3321,12 +3343,14 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "If You have created Your own layouts\n"
 #~ "with prefix e.g. My_"
 #~ msgstr ""
 #~ "Aanvinken als u uw eigen opmaakstijl heeft gemaakt,\n"
 #~ "waarvan de naam start met bijv. Mijn_."
+#
 #
 #
 #
@@ -3397,8 +3421,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Interval:"
 #~ msgstr "Tijdinterval:"
+#
 #
 #
 #
@@ -3427,6 +3453,12 @@ msgstr ""
 #, fuzzy
 #~ msgid "Label_"
 #~ msgstr "ExtraVeld"
+#
+#
+#, fuzzy
+#~ msgid "LightWeather"
+#~ msgstr "Weer"
+#
 #
 #
 #
@@ -3467,13 +3499,16 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "No. Watches"
 #~ msgstr "Aantal wachten"
 #
 #
 #
+#
 #~ msgid "Only Layouts with prefix:"
 #~ msgstr "alleen opmaak startend met:"
+#
 #
 #
 #
@@ -3558,8 +3593,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Person:"
 #~ msgstr "Persoon:"
+#
 #
 #
 #
@@ -3630,8 +3667,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Please enter 4 digits in 24h-Format like 1545 = 03:45 PM"
 #~ msgstr "Voer 4 cijfers in 24-uur format in, zoals: 1545 = 03:45 PM"
+#
 #
 #
 #
@@ -3756,12 +3795,28 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid ""
 #~ "Please enter the Time in the format:\n"
 #~ "   12:30:00PM"
 #~ msgstr ""
 #~ "Voer tijd in met format:\n"
 #~ "    12:30:00PM"
+#
+#
+#, fuzzy
+#~ msgid "RoughWeather"
+#~ msgstr "Weer"
+#
+#
+#
+#
+#
+#
+#, fuzzy
+#~ msgid "Sails ="
+#~ msgstr "Zeilvoering"
+#
 #
 #
 #
@@ -3801,13 +3856,16 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Sorry, 0 Hrs 0 Min 0 Sec are not possible"
 #~ msgstr "Fout: 0 u 0 m 0 s is niet mogelijk!"
 #
 #
 #
+#
 #~ msgid "Sorry, Your Logbook has no lines"
 #~ msgstr "Fout: het journaal bevat geen regel(s)!"
+#
 #
 #
 #
@@ -3968,10 +4026,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Speed STW Max."
 #~ msgstr ""
 #~ "STW\n"
 #~ "(max.)"
+#
 #
 #
 #
@@ -4044,10 +4104,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 2.Watch"
 #~ msgstr ""
 #~ "2e Wacht:\n"
 #~ "start"
+#
 #
 #
 #
@@ -4120,6 +4182,7 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 4.Watch"
 #~ msgstr ""
 #~ "4e Wacht:\n"
@@ -4158,10 +4221,12 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Start 5.Watch"
 #~ msgstr ""
 #~ "5e Wacht:\n"
 #~ "start"
+#
 #
 #
 #
@@ -4242,9 +4307,11 @@ msgstr ""
 #
 #
 #
+#
 #, fuzzy
 #~ msgid "Static Watchtimes"
 #~ msgstr "Pas wachtinstelling toe"
+#
 #
 #
 #
@@ -4315,8 +4382,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "Timer on/off"
 #~ msgstr "Timer Aan/Uit"
+#
 #
 #
 #
@@ -4377,8 +4446,10 @@ msgstr ""
 #
 #
 #
+#
 #~ msgid "s"
 #~ msgstr "s"
+#
 #
 #
 #
