@@ -14,6 +14,34 @@
   #include "wx/wx.h"
 #endif //precompiled headers
 
+#ifdef __WXOSX__
+#include <wx/artprov.h>
+#include <wx/xrc/xmlres.h>
+#include <wx/intl.h>
+#include <wx/string.h>
+#include <wx/stattext.h>
+#include <wx/gdicmn.h>
+#include <wx/font.h>
+#include <wx/colour.h>
+#include <wx/settings.h>
+#include <wx/choice.h>
+#include <wx/sizer.h>
+#include <wx/textctrl.h>
+#include <wx/generic/grid.h>
+#include <wx/checkbox.h>
+#include <wx/radiobut.h>
+#include <wx/statline.h>
+#include <wx/button.h>
+#include <wx/panel.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/bmpbuttn.h>
+#include <wx/notebook.h>
+#include <wx/scrolwin.h>
+#include <wx/dialog.h>
+#include <wx/tglbtn.h>
+#else
 #include <wx/sizer.h>
 #include <wx/gdicmn.h>
 #include <wx/string.h>
@@ -29,7 +57,7 @@
 #include <wx/button.h>
 #include <wx/dialog.h>
 #include <wx/tglbtn.h>
-
+#endif
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -57,13 +85,14 @@ class LogbookOptions : public wxDialog
 		wxStaticText* m_staticText133;
 		wxChoice* m_choiceTimeFormat;
 		wxCheckBox* m_checkBoxNoSeconds;
+        wxStaticText* m_staticText59;
 		wxStaticText* m_staticTextTime;
 		wxRadioButton* m_radioBtnUTC;
 		wxStaticText* m_staticText71;
 		wxStaticLine* m_staticline44;
 		wxCheckBox* m_checkBoxShowLogbook;
 		wxStaticText* m_staticText76;
-		wxStaticText* m_staticText1361;
+        wxStaticText* m_staticText1361;
 		wxCheckBox* m_checkBoxShowOnlySelectedLayouts;
 		wxStaticText* m_staticText741;
 		wxStaticLine* m_staticline25;
@@ -75,7 +104,7 @@ class LogbookOptions : public wxDialog
 		wxStaticText* m_staticText122;
 		wxStaticText* m_staticText1231;
 		wxStaticText* m_staticText124;
-		wxCheckBox* m_checkBoxPopUp;
+        wxCheckBox* m_checkBoxPopUp;
 		wxStaticLine* m_staticline10;
 		wxStaticText* m_staticText731;
 		wxStaticText* m_staticText742;
@@ -132,9 +161,9 @@ class LogbookOptions : public wxDialog
 		wxStaticText* m_staticText50;
 		wxTextCtrl* m_sMotorh;
 		wxStaticText* m_staticText106;
-		wxStaticText* m_staticText135;
-		wxStaticText* m_staticText137;
-		wxStaticText* m_staticText136;
+        wxStaticText* m_staticText135;
+        wxStaticText* m_staticText137;
+        wxStaticText* m_staticText136;
 		wxStaticText* m_staticText70;
 		wxStaticText* m_staticText712;
 		wxStaticText* m_staticText72;
@@ -155,98 +184,98 @@ class LogbookOptions : public wxDialog
 		wxBitmapButton* m_bpButtonMail;
 		wxStaticText* m_staticText79;
 		wxButton* m_buttonResetPath;
-		wxPanel* m_panel24;
-		wxNotebook* m_notebook7;
-		wxPanel* m_panel27;
-		wxStaticText* m_staticText1381;
-		wxCheckBox* m_checkBoxKMLRoute;
-		wxCheckBox* m_checkBoxKMLTrack;
-		wxStaticText* m_staticText1281;
-		wxStaticText* m_staticText131;
-		wxStaticText* m_staticText129;
-		wxStaticText* m_staticText1291;
-		wxPanel* m_panel28;
-		wxCheckBox* m_checkBoxUseRPMOnOff;
-		wxStaticText* m_staticTextRPMSentence;
-		wxToggleButton* m_toggleBtnRPMCheck;
-		wxStaticText* m_staticText138;
-		wxTextCtrl* m_textCtrlEngine1;
-		wxStaticText* m_staticText139;
-		wxTextCtrl* m_textCtrlEngine2;
-		wxButton* m_buttonToSailsSpace;
-		wxStaticText* m_staticText1351;
-		wxButton* m_buttonBackToSails;
-		wxButton* m_button60;
-		wxButton* m_button61;
-		wxButton* m_button62;
-		wxButton* m_button63;
-		wxButton* m_buttonSpaceRPlus;
-		wxButton* m_buttonSpaceRMinus;
-		wxButton* m_buttonSpaceCPlus;
-		wxButton* m_buttonSpaceCMinus;
-		wxButton* m_buttonSpaceReset;
+        wxPanel* m_panel24;
+        wxNotebook* m_notebook7;
+        wxPanel* m_panel27;
+        wxStaticText* m_staticText1381;
+        wxCheckBox* m_checkBoxKMLRoute;
+        wxCheckBox* m_checkBoxKMLTrack;
+        wxStaticText* m_staticText1281;
+        wxStaticText* m_staticText131;
+        wxStaticText* m_staticText129;
+        wxStaticText* m_staticText1291;
+        wxPanel* m_panel28;
+        wxCheckBox* m_checkBoxUseRPMOnOff;
+        wxStaticText* m_staticTextRPMSentence;
+        wxToggleButton* m_toggleBtnRPMCheck;
+        wxStaticText* m_staticText138;
+        wxTextCtrl* m_textCtrlEngine1;
+        wxStaticText* m_staticText139;
+        wxTextCtrl* m_textCtrlEngine2;
+        wxButton* m_buttonToSailsSpace;
+        wxStaticText* m_staticText1351;
+        wxButton* m_buttonBackToSails;
+        wxButton* m_button60;
+        wxButton* m_button61;
+        wxButton* m_button62;
+        wxButton* m_button63;
+        wxButton* m_buttonSpaceRPlus;
+        wxButton* m_buttonSpaceRMinus;
+        wxButton* m_buttonSpaceCPlus;
+        wxButton* m_buttonSpaceCMinus;
+        wxButton* m_buttonSpaceReset;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;
-		wxCheckBox* m_checkBoxSailsDown;
+        wxCheckBox* m_checkBoxSailsDown;
 
 		wxDateTime textCtrlDate;
 
 		// Virtual event handlers, overide them in your derived class
-		virtual void OnClose( wxCloseEvent& event );
-		virtual void OnChoiceDateFormat( wxCommandEvent& event );
-		virtual void OnChoiceDate1( wxCommandEvent& event );
-		virtual void OnChoiceDate2( wxCommandEvent& event );
-		virtual void OnChoiceDate3( wxCommandEvent& event );
-		virtual void OnTextDateSeparator( wxCommandEvent& event );
-		virtual void OnChoiceTimeFormat( wxCommandEvent& event );
-		virtual void OnCheckboxNoSeconds( wxCommandEvent& event );
-		virtual void onRadioBtnUTC( wxCommandEvent& event );
-		virtual void onRadioBtnLocal( wxCommandEvent& event );
-		virtual void onRadioBtnGPSAuto( wxCommandEvent& event );
-		virtual void onChoicePositionFormat( wxCommandEvent& event );
-		virtual void onCheckBoxToolTips( wxCommandEvent& event );
-		virtual void OnChoiceNoEngines( wxCommandEvent& event );
-		virtual void OnCheckBoxEngineMessage( wxCommandEvent& event );
-		virtual void OnCheckBoxEngineRunning( wxCommandEvent& event );
-		virtual void onCheckBoNoGPS( wxCommandEvent& event );
-		virtual void onButtonClickInstallHTMLFiles( wxCommandEvent& event );
-		virtual void onButtonClickInstallLanguages( wxCommandEvent& event );
-		virtual void OnButtonClickUninstall( wxCommandEvent& event );
-		virtual void OnTextEnterWaterTank( wxCommandEvent& event );
-		virtual void OnTextEnterm_textCtrlWatermaker( wxCommandEvent& event );
-		virtual void OnTextEnterFuelTank( wxCommandEvent& event );
-		virtual void OnTextEnterBank1( wxCommandEvent& event );
-		virtual void onTextEnterBank2( wxCommandEvent& event );
-		virtual void onTextEnterm_sKnots( wxCommandEvent& event );
-		virtual void onTextEnterm_sMeterSec( wxCommandEvent& event );
-		virtual void onTextEnterm_sKmh( wxCommandEvent& event );
-		virtual void onTextm_sLiter( wxCommandEvent& event );
-		virtual void onButtonClickODT( wxCommandEvent& event );
-		virtual void onButtonClickDataManager( wxCommandEvent& event );
-		virtual void onButtonClickMail( wxCommandEvent& event );
-		virtual void onButtonHTMLEditor( wxCommandEvent& event );
-		virtual void OnButtonResetPaths( wxCommandEvent& event );
-		virtual void OnCheckBoxUseRPM( wxCommandEvent& event );
-		virtual void OnToggleButtonRPMCheck( wxCommandEvent& event );
-		virtual void OnButtonToSailsSpace( wxCommandEvent& event );
-		virtual void onButtonBackToSails( wxCommandEvent& event );
-		virtual void OnButtonSpaceRPlus( wxCommandEvent& event );
-		virtual void OnButtonSpaceRMinus( wxCommandEvent& event );
-		virtual void OnButtonSpaceCPlus( wxCommandEvent& event );
-		virtual void OnButtonSpaceCMinus( wxCommandEvent& event );
-		virtual void OnButtonSpaceReset( wxCommandEvent& event );
-		virtual void OnCancel( wxCommandEvent& event );
-		virtual void OnButtonOKClick( wxCommandEvent& event );
-	
+        virtual void OnClose( wxCloseEvent& event );
+        virtual void OnChoiceDateFormat( wxCommandEvent& event );
+        virtual void OnChoiceDate1( wxCommandEvent& event );
+        virtual void OnChoiceDate2( wxCommandEvent& event );
+        virtual void OnChoiceDate3( wxCommandEvent& event );
+        virtual void OnTextDateSeparator( wxCommandEvent& event );
+        virtual void OnChoiceTimeFormat( wxCommandEvent& event );
+        virtual void OnCheckboxNoSeconds( wxCommandEvent& event );
+        virtual void onRadioBtnUTC( wxCommandEvent& event );
+        virtual void onRadioBtnLocal( wxCommandEvent& event );
+        virtual void onRadioBtnGPSAuto( wxCommandEvent& event );
+        virtual void onChoicePositionFormat( wxCommandEvent& event );
+        virtual void onCheckBoxToolTips( wxCommandEvent& event );
+        virtual void OnChoiceNoEngines( wxCommandEvent& event );
+        virtual void OnCheckBoxEngineMessage( wxCommandEvent& event );
+        virtual void OnCheckBoxEngineRunning( wxCommandEvent& event );
+        virtual void onCheckBoNoGPS( wxCommandEvent& event );
+        virtual void onButtonClickInstallHTMLFiles( wxCommandEvent& event );
+        virtual void onButtonClickInstallLanguages( wxCommandEvent& event );
+        virtual void OnButtonClickUninstall( wxCommandEvent& event );
+        virtual void OnTextEnterWaterTank( wxCommandEvent& event );
+        virtual void OnTextEnterm_textCtrlWatermaker( wxCommandEvent& event );
+        virtual void OnTextEnterFuelTank( wxCommandEvent& event );
+        virtual void OnTextEnterBank1( wxCommandEvent& event );
+        virtual void onTextEnterBank2( wxCommandEvent& event );
+        virtual void onTextEnterm_sKnots( wxCommandEvent& event );
+        virtual void onTextEnterm_sMeterSec( wxCommandEvent& event );
+        virtual void onTextEnterm_sKmh( wxCommandEvent& event );
+        virtual void onTextm_sLiter( wxCommandEvent& event );
+        virtual void onButtonClickODT( wxCommandEvent& event );
+        virtual void onButtonClickDataManager( wxCommandEvent& event );
+        virtual void onButtonClickMail( wxCommandEvent& event );
+        virtual void onButtonHTMLEditor( wxCommandEvent& event );
+        virtual void OnButtonResetPaths( wxCommandEvent& event );
+        virtual void OnCheckBoxUseRPM( wxCommandEvent& event );
+        virtual void OnToggleButtonRPMCheck( wxCommandEvent& event );
+        virtual void OnButtonToSailsSpace( wxCommandEvent& event );
+        virtual void onButtonBackToSails( wxCommandEvent& event );
+        virtual void OnButtonSpaceRPlus( wxCommandEvent& event );
+        virtual void OnButtonSpaceRMinus( wxCommandEvent& event );
+        virtual void OnButtonSpaceCPlus( wxCommandEvent& event );
+        virtual void OnButtonSpaceCMinus( wxCommandEvent& event );
+        virtual void OnButtonSpaceReset( wxCommandEvent& event );
+        virtual void OnCancel( wxCommandEvent& event );
+        virtual void OnButtonOKClick( wxCommandEvent& event );
+    
 	public:
-		wxRadioButton* m_radioBtnLocal;
-		wxChoice* m_choiceTzIndicator;
-		wxChoice* m_choiceTzHours;
-		wxRadioButton* m_radioBtnGPSAuto;
-		wxChoice* m_choicePositionFormat;
+        wxRadioButton* m_radioBtnLocal;
+        wxChoice* m_choiceTzIndicator;
+        wxChoice* m_choiceTzHours;
+        wxRadioButton* m_radioBtnGPSAuto;
+        wxChoice* m_choicePositionFormat;
 		wxCheckBox* m_checkBoxToolTips;
-		wxChoice* m_choiceNoEngines;
+        wxChoice* m_choiceNoEngines;
 		wxCheckBox* m_checkBoxShowAllLayouts;
 		wxTextCtrl* m_textCtrlLayoutPrefix;
 		wxCheckBox* m_checkBoxNoGPS;
@@ -266,9 +295,9 @@ class LogbookOptions : public wxDialog
 		wxChoice* m_choiceHeading;
 		wxTextCtrl* m_textCtrlTemperature;
 		wxTextCtrl* m_textCtrlAmpere;
-		wxTextCtrl* m_textCtrlEngine;
-		wxTextCtrl* m_textCtrlPropShaft;
-		wxTextCtrl* m_textCtrRPM;
+        wxTextCtrl* m_textCtrlEngine;
+        wxTextCtrl* m_textCtrlPropShaft;
+        wxTextCtrl* m_textCtrRPM;
 		wxTextCtrl* m_Days;
 		wxTextCtrl* m_Weeks;
 		wxTextCtrl* m_textMonth;
@@ -277,28 +306,31 @@ class LogbookOptions : public wxDialog
 		wxTextCtrl* m_textCtrlMailClient;
 		wxTextCtrl* m_textCtrlHTMLEditorPath;
 		wxBitmapButton* m_bpButtonHTMLEditor;
-		wxTextCtrl* m_textCtrlKMLLineWidt;
-		wxChoice* m_choiceKMLLineTranparency;
-		wxChoice* m_choiceKMLRouteLineColo;
-		wxChoice* m_choiceKMLTrackLineColor;
-		wxCheckBox* m_checkBoxNMEAUseRPM;
-		wxCheckBox* m_checkBoxNMEAUseWIMDA;
-		wxPanel* m_panelSails;
-		wxPanel* m_panelSailNames;
-		wxGrid* m_gridSailNames;
-		wxPanel* m_panelSailsCheckbox;
-		wxFlexGridSizer* fgSizerSailsCheckboxes;
-		wxCheckBox* m_checkBoxEngine;
-		wxCheckBox* m_checkBoxEngineRunning;
+        wxTextCtrl* m_textCtrlKMLLineWidt;
+        wxChoice* m_choiceKMLLineTranparency;
+        wxChoice* m_choiceKMLRouteLineColo;
+        wxChoice* m_choiceKMLTrackLineColor;
+        wxCheckBox* m_checkBoxNMEAUseRPM;
+        wxCheckBox* m_checkBoxNMEAUseWIMDA;
+        wxPanel* m_panelSails;
+        wxPanel* m_panelSailNames;
+        wxGrid* m_gridSailNames;
+        wxPanel* m_panelSailsCheckbox;
+        wxFlexGridSizer* fgSizerSailsCheckboxes;
+        wxCheckBox* m_checkBoxEngine;
+        wxCheckBox* m_checkBoxEngineRunning;
 
-
-		LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi* log_pi, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(652,580), long style = wxDEFAULT_DIALOG_STYLE|wxVSCROLL );
+#ifdef __WXOSX__
+        LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi* log_pi, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(680,700), long style = wxDEFAULT_DIALOG_STYLE|wxVSCROLL );
+#else
+		LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi* log_pi, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(654,622), long style = wxDEFAULT_DIALOG_STYLE|wxVSCROLL );
+#endif
 		~LogbookOptions();
 
 		void getValues();
 		void setTimeFormat(int i);
 		void setDateFormat();
-		void setRPMSentence(wxString sentence);
+        void setRPMSentence(wxString sentence);
 
 	private:
 		Options			 *opt;
@@ -324,6 +356,6 @@ class LogbookOptions : public wxDialog
 		void updateChoiceBoxes();
 		void setDateEnabled(int i);
 		void resetToOldDateTimeFormat();
-		void setUseRPM(bool bIsChecked);
+        void setUseRPM(bool bIsChecked);
 };
 #endif

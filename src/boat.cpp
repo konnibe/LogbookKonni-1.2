@@ -38,15 +38,16 @@ Boat::Boat(LogbookDialog* d, wxString data, wxString lay, wxString layoutODT)
 
 Boat::~Boat(void)
 {
+	saveData();
 	for(unsigned int i = 0; i < ctrl.GetCount(); i++)
 	{
 		if(ctrl[i]->IsKindOf(CLASSINFO(wxTextCtrl)))
 		{
 			ctrl[i]->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, 
-				wxObjectEventFunction(&LogbookDialog::boatNameOnTextEnter)  );
+				wxCommandEventHandler(LogbookDialog::boatNameOnTextEnter),NULL,parent );
 		}
 	}
-	saveData();
+
 }
 
 void Boat::setLayoutLocation(wxString loc)
@@ -189,8 +190,8 @@ void Boat::saveData()
 		{
 			wxTextCtrl* te = wxDynamicCast(ctrl[i], wxTextCtrl);
 			wxString temp = te->GetValue();
-			temp = parent->replaceDangerChar(temp);
-			if(i == 18 && (!temp.IsEmpty() || temp.GetChar(0) != ' '))
+			temp = parent->replaceDangerChar(temp);	
+			if(i == 18 && (!temp.IsEmpty() && temp.GetChar(0) != ' '))
 			{
 				wxDateTime dt;
 				parent->myParseDate(temp,dt);
@@ -234,11 +235,31 @@ wxString Boat::readLayoutFileODT(wxString layout)
 
 	if(wxFileExists(filename))
 	{
-		static const wxString fn = _T("content.xml");
-		wxZipInputStream zip(filename,fn);
+//#ifdef __WXOSX__
+        auto_ptr<wxZipEntry> entry;
+        static const wxString fn = _T("content.xml");
+        wxString name = wxZipEntry::GetInternalName(fn);
+        wxFFileInputStream in(filename);
+        wxZipInputStream zip(in);
+        do
+        {
+            entry.reset(zip.GetNextEntry());
+        }
+        while (entry.get() != NULL && entry->GetInternalName() != name);
+        if (entry.get() != NULL)
+        {
+            wxTextInputStream txt(zip,_T("\n"),wxConvUTF8);
+            while(!zip.Eof())
+	            odt += txt.ReadLine();
+        }
+//#else
+	/*	static const wxString fn = _T("content.xml");
+		wxFileInputStream in(filename);
+		wxZipInputStream zip(in);
 		wxTextInputStream txt(zip);
 		while(!zip.Eof())
-			odt += txt.ReadLine();
+			odt += txt.ReadLine();*/
+//#endif
 	}
 	return odt;
 }
@@ -246,9 +267,9 @@ wxString Boat::readLayoutFileODT(wxString layout)
 void Boat::viewODT(wxString path,wxString layout,bool mode)
 {
 	if(parent->logbookPlugIn->opt->filterLayout)
-		layout.Prepend(parent->logbookPlugIn->opt->layoutPrefix[LogbookDialog::BOAT]);
+        layout.Prepend(parent->logbookPlugIn->opt->layoutPrefix[LogbookDialog::BOAT]);
 
-	toODT(path, layout, mode);
+    toODT(path, layout, mode);
 	if(layout != _T(""))
 	{
 	    wxString fn = data_locn;
@@ -699,9 +720,11 @@ void Boat::toHTML(wxString path, wxString layout, bool mode)
 
 	if(html.Contains(wxT("<!--Repeat -->")))
 		html = repeatArea(html);
-	
-	wxString str(html, wxConvUTF8);	
-
+#ifdef __WXOSX__
+       wxString str(html.wx_str(), wxConvUTF8);
+#else
+	wxString str(html);	
+#endif
 	boatHTMLFile->Write(str);
 	boatHTMLFile->Close();
 }
@@ -761,9 +784,9 @@ wxString Boat::repeatArea(wxString html)
 void Boat::viewHTML(wxString path, wxString layout, bool mode)
 {
 	if(parent->logbookPlugIn->opt->filterLayout)
-		layout.Prepend(parent->logbookPlugIn->opt->layoutPrefix[LogbookDialog::BOAT]);
+        layout.Prepend(parent->logbookPlugIn->opt->layoutPrefix[LogbookDialog::BOAT]);
 
-	toHTML(path, layout, mode);
+    toHTML(path, layout, mode);
 	if(layout != _T(""))
 	{
 	    wxString fn = data_locn;
@@ -806,16 +829,16 @@ void Boat::cellChanged(int row, int col)
 
 void Boat::deleteRow(int row)
 {
-#ifdef __WXOSX__
-    int answer = MessageBoxOSX(NULL,wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"), wxID_OK | wxID_CANCEL);
-    if (answer == wxID_OK)
-        parent->m_gridEquipment->DeleteRows(row);
-#else
+#ifndef __WXOSX__
 	int answer = wxMessageBox(wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
                               wxYES_NO | wxCANCEL, parent);
 	if (answer == wxYES)
-		parent->m_gridEquipment->DeleteRows(row);
+#else
+	int answer = MessageBoxOSX(parent,wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
+                              wxID_OK | wxID_CANCEL);
+	if (answer == wxYES)
 #endif
+		parent->m_gridEquipment->DeleteRows(row);
 }
 
 void Boat::toCSV(wxString savePath)
@@ -1070,8 +1093,10 @@ void Boat::saveODS( wxString path, bool mode )
 //	bool empty = false;
 	long emptyCol = 0;
 
-	while(wxString line = stream->ReadLine())
+    wxString line;
+	while(!input.Eof())
 	{
+		line = stream->ReadLine(); // for #1.2#
 		int col = 0;
 		if(input.Eof()) break;
 		txt << _T("<table:table-row table:style-name=\"ro2\">");

@@ -7,11 +7,11 @@
 // Copyright:   (c) 2007 Luciano Cattani
 // Licence:     wxWidgets licence
 /////////////////////////////////////////////////////////////////////////////
-
+#ifndef __WXOSX__
 #ifdef __GNUG__
     #pragma implementation "jsonreader.cpp"
 #endif
-
+#endif
 #include "jsonreader.h"
 
 #include <wx/mstream.h>

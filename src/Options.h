@@ -30,21 +30,21 @@ public:
 	bool		popup;
 	bool		hourFormat;
 	bool		statusbarGlobal;
-	bool		layoutShow;
+    bool		layoutShow;
 	bool		statusbarWatch;
-	int			engines;
-	bool		toggleEngine1;
-	bool		toggleEngine2;
-	wxDateTime	dtEngine1On;
-	wxDateTime	dtEngine2On;
-	wxString	engineStr[2];
-	bool		engineMessageSails;
-	bool		engineMessageRunning;
-	bool		engineAllwaysSailsDown;
+    int			engines;
+    bool		toggleEngine1;
+    bool		toggleEngine2;
+    wxDateTime	dtEngine1On;
+    wxDateTime	dtEngine2On;
+    wxString	engineStr[2];
+    bool		engineMessageSails;
+    bool		engineMessageRunning;
+    bool		engineAllwaysSailsDown;
 
 	wxString    layoutPrefix[7];
-	bool		filterLayout[7];
-	bool		noGPS;
+    bool		filterLayout[7];
+    bool		noGPS;
 	bool		colouredMaintenance;
 	bool		guardChange;
 	wxString	guardChangeText;
@@ -95,9 +95,9 @@ public:
 	// Grid MotorSails
 	wxString	vol;
 	wxString	motorh;
-	wxString    engine;
-	wxString	shaft;
-	wxString	rpm;
+    wxString    engine;
+    wxString	shaft;
+    wxString	rpm;
 
 	//Maintenance
 	wxString	days;
@@ -123,34 +123,34 @@ public:
 	wxString    bank2;
 	wxString    ampere;
 	wxString    ampereh;
+    
+    // KML
+    int			kmlRoute;
+    int			kmlTrack;
+    wxString	kmlLineWidth;
+    int			kmlLineTransparancy;
+    int			kmlRouteColor;
+    int			kmlTrackColor;
+    wxArrayString kmlColor;
+    wxArrayString kmlTrans;
 
-	// KML
-	int			kmlRoute;
-	int			kmlTrack;
-	wxString	kmlLineWidth;
-	int			kmlLineTransparancy;
-	int			kmlRouteColor;
-	int			kmlTrackColor;
-	wxArrayString kmlColor;
-	wxArrayString kmlTrans;
+    //NMEA
+    bool		bRPMIsChecked;
+    wxString	sentence;
+    wxString	engine1;
+    wxString	engine2;
+    bool		engine1Running;
+    bool		engine2Running;
+    bool		bRPMCheck;
+    bool		NMEAUseERRPM;
+    bool		NMEAUseWIMDA;
 
-	//NMEA
-	bool		bRPMIsChecked;
-	wxString	sentence;
-	wxString	engine1;
-	wxString	engine2;
-	bool		engine1Running;
-	bool		engine2Running;
-	bool		bRPMCheck;
-	bool		NMEAUseERRPM;
-	bool		NMEAUseWIMDA;
-
-	// Sails
-	wxArrayString	abrSails;
-	wxArrayString	sailsName;
-	bool			bSailIsChecked[14];
-	int				rowGap;
-	int				colGap;
+    // Sails
+    wxArrayString	abrSails;
+    wxArrayString	sailsName;
+    bool			bSailIsChecked[14];
+    int				rowGap;
+    int				colGap;
 
 	//wxChoice
 	int		showDepth;
@@ -204,15 +204,15 @@ public:
 	int       date3;
 
 	ArrayOfGridColWidth		NavColWidth;
-	ArrayOfGridColWidth		WeatherColWidth;
-	ArrayOfGridColWidth		MotorColWidth;
-	ArrayOfGridColWidth		CrewColWidth;
-	ArrayOfGridColWidth		WakeColWidth;
-	ArrayOfGridColWidth		EquipColWidth;
-	ArrayOfGridColWidth		OverviewColWidth;
-	ArrayOfGridColWidth		ServiceColWidth;
-	ArrayOfGridColWidth		RepairsColWidth;
-	ArrayOfGridColWidth		BuyPartsColWidth;
+    ArrayOfGridColWidth		WeatherColWidth;
+    ArrayOfGridColWidth		MotorColWidth;
+    ArrayOfGridColWidth		CrewColWidth;
+    ArrayOfGridColWidth		WakeColWidth;
+    ArrayOfGridColWidth		EquipColWidth;
+    ArrayOfGridColWidth		OverviewColWidth;
+    ArrayOfGridColWidth		ServiceColWidth;
+    ArrayOfGridColWidth		RepairsColWidth;
+    ArrayOfGridColWidth		BuyPartsColWidth;
 
 	int stateEvents;
 };

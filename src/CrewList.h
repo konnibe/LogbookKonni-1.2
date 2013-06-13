@@ -129,7 +129,7 @@ private:
 
 private:
 	Options*		opt;
-	wxArrayString	crewFields;
+    wxArrayString	crewFields;
 	wxString		data_locn;
 	wxString 		html_locn;
 	wxString		ODT_locn;
@@ -177,7 +177,7 @@ private:
 class myGridCellBoolEditor : public wxGridCellBoolEditor
 {
 public:
-	void BeginEdit (int row, int col, wxGrid* grid)
+/*	void BeginEdit (int row, int col, wxGrid* grid)
 	{
 		wxGridCellBoolEditor::BeginEdit(row, col, grid);
  
@@ -187,6 +187,15 @@ public:
 			m_control->GetEventHandler()->AddPendingEvent(event);
 		}
 	}
+*/
+	void StartingClick()
+	{		
+		this->CBox()->SetValue(!this->CBox()->GetValue());
+		wxFocusEvent event (wxEVT_KILL_FOCUS);
+		if (m_control)
+		{
+			m_control->GetEventHandler()->AddPendingEvent(event);
+		}
+	}
 };
-
 

@@ -10,11 +10,11 @@
 
 #if !defined( _WX_JSONVAL_H )
 #define _WX_JSONVAL_H
-
+#ifndef __WXOSX__
 #ifdef __GNUG__
     #pragma interface "jsonval.h"
 #endif
-
+#endif
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
 

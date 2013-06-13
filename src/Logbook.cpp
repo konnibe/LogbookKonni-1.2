@@ -1,5 +1,5 @@
 ﻿#ifndef WX_PRECOMP
-      #include <wx/wx.h>
+#include <wx/wx.h>
 #endif
 
 #define PI 3.14159265
@@ -34,7 +34,7 @@
 #include <math.h>
 
 Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString layoutODT)
-: LogbookHTML(this,parent,data,layout)
+	: LogbookHTML(this,parent,data,layout)
 {
 #ifdef PBVE_DEBUG
 	pbvecount = 0;
@@ -90,6 +90,7 @@ Logbook::Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString
 	oldPosition.latitude = 500;
 	activeRoute = wxEmptyString;
 	activeRouteGUID = wxEmptyString;
+	activeMOB = wxEmptyString;
 	MOBIsActive = false;
 	routeIsActive = false;
 	trackIsActive = false;
@@ -123,23 +124,23 @@ void Logbook::setTrackToNewID(wxString target)
 	wxArrayString files;
 	dir.GetAllFiles(parent->data,&files,_T("until*.txt"),wxDIR_FILES);
 
-		for(unsigned int i = 0; i < files.Count(); i++)
-		{
-			wxFileInputStream file(files[i]);
-			wxTextInputStream txt(file);
+	for(unsigned int i = 0; i < files.Count(); i++)
+	{
+		wxFileInputStream file(files[i]);
+		wxTextInputStream txt(file);
 
-			wxString data = wxEmptyString;
-			while(!file.Eof())
-				data += txt.ReadLine() + _T("\n");
+		wxString data = wxEmptyString;
+		while(!file.Eof())
+			data += txt.ReadLine() + _T("\n");
 
-			for(unsigned int n = 0; n < mergeList.GetCount(); n++)
-				data.Replace(mergeList.Item(n),target);
+		for(unsigned int n = 0; n < mergeList.GetCount(); n++)
+			data.Replace(mergeList.Item(n),target);
 
-			wxFileOutputStream fileo(files[i]);
-			wxTextOutputStream txto(fileo);
-			txto << data;
-			fileo.Close();
-		}
+		wxFileOutputStream fileo(files[i]);
+		wxTextOutputStream txto(fileo);
+		txto << data;
+		fileo.Close();
+	}
 }
 
 void Logbook::setLayoutLocation(wxString loc)
@@ -170,15 +171,15 @@ void Logbook::SetPosition(PlugIn_Position_Fix &pfix)
 
 	if(pfix.nSats != 0)
 	{
-		sSOG = wxString::Format(_T("%5.2f %s"), pfix.Sog,opt->speed.c_str());
-		sCOG = wxString::Format(_T("%5.2f %s"),pfix.Cog, opt->Deg.c_str());
+		sSOG = wxString::Format(_T("%5.2f %s"), pfix.Sog, opt->speed.c_str());
+		sCOG = wxString::Format(_T("%5.2f %s"), pfix.Cog, opt->Deg.c_str());
 		SetGPSStatus(true);
 	}
 	else
 		SetGPSStatus(false);
 
 	mUTCDateTime.Set(pfix.FixTime);
-//	dialog->GPSTimer->Start(5000);
+	//	dialog->GPSTimer->Start(5000);
 }
 void Logbook::clearNMEAData()
 {
@@ -203,202 +204,203 @@ void Logbook::SetSentence(wxString &sentence)
 #endif
 
 	if(m_NMEA0183.PreParse())
-    {
+	{
 		noSentence = false;
 		if(m_NMEA0183.LastSentenceIDReceived == _T("GGA"))
-            {
-                  if(m_NMEA0183.Parse())
-                  {
-                        if(m_NMEA0183.Gga.GPSQuality > 0)
-                        {
-							SetGPSStatus(true);
-							setPositionString(m_NMEA0183.Gga.Position.Latitude.Latitude,
-											m_NMEA0183.Gga.Position.Latitude.Northing,
-											m_NMEA0183.Gga.Position.Longitude.Longitude,
-											m_NMEA0183.Gga.Position.Longitude.Easting);
+		{
+			if(m_NMEA0183.Parse())
+			{
+				if(m_NMEA0183.Gga.GPSQuality > 0)
+				{
+					SetGPSStatus(true);
+					setPositionString(m_NMEA0183.Gga.Position.Latitude.Latitude,
+						m_NMEA0183.Gga.Position.Latitude.Northing,
+						m_NMEA0183.Gga.Position.Longitude.Longitude,
+						m_NMEA0183.Gga.Position.Longitude.Easting);
 
-                        }
-                  }
-            }
+				}
+			}
+		}
 		else if(m_NMEA0183.LastSentenceIDReceived == _T("GLL"))
-            {
-                  if(m_NMEA0183.Parse())
-                  {
-					SetGPSStatus(true);
-					setPositionString(m_NMEA0183.Gll.Position.Latitude.Latitude,
-									m_NMEA0183.Gll.Position.Latitude.Northing,
-									m_NMEA0183.Gll.Position.Longitude.Longitude,
-									m_NMEA0183.Gll.Position.Longitude.Easting);
-                  }
-            }
-			else if(m_NMEA0183.LastSentenceIDReceived == _T("ZDA"))
-            {
-                  if(m_NMEA0183.Parse())
-                  {
-					dt = dt.Set(m_NMEA0183.Zda.Day,(wxDateTime::Month)(m_NMEA0183.Zda.Month-1),m_NMEA0183.Zda.Year);
-					dt.ParseTime(dt.ParseFormat(m_NMEA0183.Zda.UTCTime,_T("%H%M%S")));
-
-					setDateTimeString(dt);
-				  }
+		{
+			if(m_NMEA0183.Parse())
+			{
+				SetGPSStatus(true);
+				setPositionString(m_NMEA0183.Gll.Position.Latitude.Latitude,
+					m_NMEA0183.Gll.Position.Latitude.Northing,
+					m_NMEA0183.Gll.Position.Longitude.Longitude,
+					m_NMEA0183.Gll.Position.Longitude.Easting);
 			}
-			else if(m_NMEA0183.LastSentenceIDReceived == _T("HDT"))
-            {
-                  if(m_NMEA0183.Parse())
-                  {
-					  if(opt->showHeading == 0)
-						sCOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Hdt.DegreesTrue,opt->Deg.c_str());
-					  dCOW = m_NMEA0183.Hdt.DegreesTrue;
-					  bCOW = true;
-					  dtCOW = wxDateTime::Now();
-				  }
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("ZDA"))
+		{
+			if(m_NMEA0183.Parse())
+			{
+				dt = dt.Set(m_NMEA0183.Zda.Day,(wxDateTime::Month)(m_NMEA0183.Zda.Month-1),m_NMEA0183.Zda.Year);
+				// dt.ParseTime((const char)dt.ParseFormat(m_NMEA0183.Zda.UTCTime,_T("%H%M%S")));
+				dt.ParseFormat(m_NMEA0183.Zda.UTCTime,_T("%H%M%S"));
+				setDateTimeString(dt);
 			}
-			else if(m_NMEA0183.LastSentenceIDReceived == _T("HDM"))
-            {
-                  if(m_NMEA0183.Parse())
-                  {
-					  if(opt->showHeading == 1)
-						sCOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Hdm.DegreesMagnetic,opt->Deg.c_str());
-					  dCOW = m_NMEA0183.Hdm.DegreesMagnetic;
-					  bCOW = true;
-					  dtCOW = wxDateTime::Now();
-				  }
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("HDT"))
+		{
+			if(m_NMEA0183.Parse())
+			{
+				if(opt->showHeading == 0)
+					sCOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Hdt.DegreesTrue,opt->Deg.c_str());
+				dCOW = m_NMEA0183.Hdt.DegreesTrue;
+				bCOW = true;
+				dtCOW = wxDateTime::Now();
 			}
-			else if(m_NMEA0183.LastSentenceIDReceived == _T("RMB"))
-            {
-				  if(opt->waypointArrived)
-				  {
-					if(m_NMEA0183.Parse())
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("HDM"))
+		{
+			if(m_NMEA0183.Parse())
+			{
+				if(opt->showHeading == 1)
+					sCOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Hdm.DegreesMagnetic,opt->Deg.c_str());
+				dCOW = m_NMEA0183.Hdm.DegreesMagnetic;
+				bCOW = true;
+				dtCOW = wxDateTime::Now();
+			}
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("RMB"))
+		{
+			if(opt->waypointArrived)
+			{
+				if(m_NMEA0183.Parse())
+				{
+					if(m_NMEA0183.Rmb.IsArrivalCircleEntered == NTrue)
 					{
-						  if(m_NMEA0183.Rmb.IsArrivalCircleEntered == NTrue)
+						if(m_NMEA0183.Rmb.From != lastWayPoint)
 						{
-							  if(m_NMEA0183.Rmb.From != lastWayPoint)
-							{
-								checkWayPoint(m_NMEA0183.Rmb);
-							}
+							checkWayPoint(m_NMEA0183.Rmb);
 						}
 					}
-				  }
+				}
 			}
-			else if(m_NMEA0183.LastSentenceIDReceived == _T("RMC"))
-            {
-                  if(m_NMEA0183.Parse())
-                  {
-					SetGPSStatus(true);
-					setPositionString(m_NMEA0183.Rmc.Position.Latitude.Latitude,
-									m_NMEA0183.Rmc.Position.Latitude.Northing,
-									m_NMEA0183.Rmc.Position.Longitude.Longitude,
-									m_NMEA0183.Rmc.Position.Longitude.Easting);
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("RMC"))
+		{
+			if(m_NMEA0183.Parse())
+			{
+				SetGPSStatus(true);
+				setPositionString(m_NMEA0183.Rmc.Position.Latitude.Latitude,
+					m_NMEA0183.Rmc.Position.Latitude.Northing,
+					m_NMEA0183.Rmc.Position.Longitude.Longitude,
+					m_NMEA0183.Rmc.Position.Longitude.Easting);
 
 
-					if(m_NMEA0183.Rmc.SpeedOverGroundKnots != 999.0)
-						sSOG = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Rmc.SpeedOverGroundKnots,opt->speed.c_str());
-					if(m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue != 999.0)
-						sCOG = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue, opt->Deg.c_str());
-					if(m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue != 999.0)
-						dCOG = m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue;
+				if(m_NMEA0183.Rmc.SpeedOverGroundKnots != 999.0)
+					sSOG = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Rmc.SpeedOverGroundKnots,opt->speed.c_str());
+				if(m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue != 999.0)
+					sCOG = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue, opt->Deg.c_str());
+				if(m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue != 999.0)
+					dCOG = m_NMEA0183.Rmc.TrackMadeGoodDegreesTrue;
 
-					long day,month,year;
-					m_NMEA0183.Rmc.Date.SubString(0,1).ToLong(&day);
-					m_NMEA0183.Rmc.Date.SubString(2,3).ToLong(&month);
-					m_NMEA0183.Rmc.Date.SubString(4,5).ToLong(&year);
-					dt.Set(((int)day),(wxDateTime::Month)(month-1),((int)year+2000));
-					dt.ParseTime(dt.ParseFormat(m_NMEA0183.Rmc.UTCTime,_T("%H%M%S")));
+				long day,month,year;
+				m_NMEA0183.Rmc.Date.SubString(0,1).ToLong(&day);
+				m_NMEA0183.Rmc.Date.SubString(2,3).ToLong(&month);
+				m_NMEA0183.Rmc.Date.SubString(4,5).ToLong(&year);
+				dt.Set(((int)day),(wxDateTime::Month)(month-1),((int)year+2000));
+				//dt.ParseTime((const char)dt.ParseFormat(m_NMEA0183.Rmc.UTCTime,_T("%H%M%S")));
+				dt.ParseFormat(m_NMEA0183.Rmc.UTCTime,_T("%H%M%S"));
 
-					setDateTimeString(dt);
+				setDateTimeString(dt);
 
-					if(!dialog->logbookPlugIn->eventsEnabled && opt->courseChange)
-						checkCourseChanged();
-				  }
+				if(!dialog->logbookPlugIn->eventsEnabled && opt->courseChange)
+					checkCourseChanged();
 			}
-			else if(m_NMEA0183.LastSentenceIDReceived == _T("VHW"))
-            {
-                  if(m_NMEA0183.Parse())
-                  {
-					  sSOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Vhw.Knots,opt->speed.c_str());
-					  dtSOW = wxDateTime::Now();
-					  bSOW = true;
-				  }
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("VHW"))
+		{
+			if(m_NMEA0183.Parse())
+			{
+				sSOW = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Vhw.Knots,opt->speed.c_str());
+				dtSOW = wxDateTime::Now();
+				bSOW = true;
 			}
-			else if(m_NMEA0183.LastSentenceIDReceived == _T("MWV"))
-            {
-                  if(m_NMEA0183.Parse())
-				  {
-			        double dWind = 0;
-					if(opt->showWindHeading && bCOW)
-					{
-						dWind = m_NMEA0183.Mwv.WindAngle + dCOW;
-						if(dWind > 360) { dWind -= 360; }
-					}
-					else
-						dWind = m_NMEA0183.Mwv.WindAngle;
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("MWV"))
+		{
+			if(m_NMEA0183.Parse())
+			{
+				double dWind = 0;
+				if(opt->showWindHeading && bCOW)
+				{
+					dWind = m_NMEA0183.Mwv.WindAngle + dCOW;
+					if(dWind > 360) { dWind -= 360; }
+				}
+				else
+					dWind = m_NMEA0183.Mwv.WindAngle;
 
-					sWind = wxString::Format(_T("%3.0f %s %s"), dWind,opt->Deg.c_str(),m_NMEA0183.Mwv.Reference.c_str());
+				sWind = wxString::Format(_T("%3.0f %s %s"), dWind,opt->Deg.c_str(),m_NMEA0183.Mwv.Reference.c_str());
 
-					wxString temp = _T("");
-					if(m_NMEA0183.Mwv.WindSpeedUnits == 'N')
-						temp = opt->windkts;
-					else if(m_NMEA0183.Mwv.WindSpeedUnits == 'M')
-						temp = opt->windmeter;
-					else if(m_NMEA0183.Mwv.WindSpeedUnits == 'K')
-						temp = opt->windkmh;
+				wxString temp = _T("");
+				if(m_NMEA0183.Mwv.WindSpeedUnits == 'N')
+					temp = opt->windkts;
+				else if(m_NMEA0183.Mwv.WindSpeedUnits == 'M')
+					temp = opt->windmeter;
+				else if(m_NMEA0183.Mwv.WindSpeedUnits == 'K')
+					temp = opt->windkmh;
 
-					sWindSpeed = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Mwv.WindSpeed,temp.c_str());
-					dtWind = wxDateTime::Now();
-					bWind = true;
-				  }
+				sWindSpeed = wxString::Format(_T("%5.2f %s"), m_NMEA0183.Mwv.WindSpeed,temp.c_str());
+				dtWind = wxDateTime::Now();
+				bWind = true;
 			}
-            else if(m_NMEA0183.LastSentenceIDReceived == _T("MTW"))
-            {	
-					  if(m_NMEA0183.Parse())
-					  {
-						double t;
-						if(opt->temperature == _T("F"))
-							t = (( m_NMEA0183.Mtw.Temperature * 9 ) / 5 ) + 32;
-						else
-							t = m_NMEA0183.Mtw.Temperature;
-						sTemperatureWater = wxString::Format(_T("%4.1f %s %s"),t,opt->Deg.c_str(),opt->temperature.c_str());
-						dtTemperatureWater = wxDateTime::Now();
-						bTemperatureWater = true;
-					  }
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("MTW"))
+		{	
+			if(m_NMEA0183.Parse())
+			{
+				double t;
+				if(opt->temperature == _T("F"))
+					t = (( m_NMEA0183.Mtw.Temperature * 9 ) / 5 ) + 32;
+				else
+					t = m_NMEA0183.Mtw.Temperature;
+				sTemperatureWater = wxString::Format(_T("%4.1f %s %s"),t,opt->Deg.c_str(),opt->temperature.c_str());
+				dtTemperatureWater = wxDateTime::Now();
+				bTemperatureWater = true;
 			}
-            else if(m_NMEA0183.LastSentenceIDReceived == _T("DBT"))
-            {			
-					  m_NMEA0183.Parse();
-					  dtDepth = wxDateTime::Now();
-					  bDepth = true;
-					  if(m_NMEA0183.Dbt.ErrorMessage.Contains(_T("Invalid")) ||
-						  (m_NMEA0183.Dbt.DepthMeters == m_NMEA0183.Dbt.DepthFathoms))
-					  {
-						sDepth = _T("-----");
-					  }
-					  else
-					  {
-						switch(opt->showDepth)
-							{
-							case 0:
-								sDepth = wxString::Format(_T("%5.1f %s"), 
-									m_NMEA0183.Dbt.DepthMeters, opt->meter.c_str());
-								break;
-							case 1:
-								sDepth = wxString::Format(_T("%5.1f %s"), 
-									m_NMEA0183.Dbt.DepthFeet, opt->feet.c_str());
-								break;
-							case 2:
-								sDepth = wxString::Format(_T("%5.1f %s"), 
-									m_NMEA0183.Dbt.DepthFathoms, opt->fathom.c_str());
-							break;
-						}
-					  }
+		}
+		else if(m_NMEA0183.LastSentenceIDReceived == _T("DBT"))
+		{			
+			m_NMEA0183.Parse();
+			dtDepth = wxDateTime::Now();
+			bDepth = true;
+			if(m_NMEA0183.Dbt.ErrorMessage.Contains(_T("Invalid")) ||
+				(m_NMEA0183.Dbt.DepthMeters == m_NMEA0183.Dbt.DepthFathoms))
+			{
+				sDepth = _T("-----");
 			}
+			else
+			{
+				switch(opt->showDepth)
+				{
+				case 0:
+					sDepth = wxString::Format(_T("%5.1f %s"), 
+						m_NMEA0183.Dbt.DepthMeters, opt->meter.c_str());
+					break;
+				case 1:
+					sDepth = wxString::Format(_T("%5.1f %s"), 
+						m_NMEA0183.Dbt.DepthFeet, opt->feet.c_str());
+					break;
+				case 2:
+					sDepth = wxString::Format(_T("%5.1f %s"), 
+						m_NMEA0183.Dbt.DepthFathoms, opt->fathom.c_str());
+					break;
+				}
+			}
+		}
 	}
 
-/*  Propietary NMEA sentences														*/
-/*																					*/
-/*  use function appendRow to add the values to the grid							*/
-/*  For motorhours and/or fuel recalculate the grid with							*/
-/*	changeCellValue(lastRow, 0,0)													*/
-/*	In function checkGPS(bool appendClick) set the strings to emtpy string when GPS */
-/*  is off.																			*/
+	/*  Propietary NMEA sentences														*/
+	/*																					*/
+	/*  use function appendRow to add the values to the grid							*/
+	/*  For motorhours and/or fuel recalculate the grid with							*/
+	/*	changeCellValue(lastRow, 0,0)													*/
+	/*	In function checkGPS(bool appendClick) set the strings to emtpy string when GPS */
+	/*  is off.																			*/
 
 	wxStringTokenizer tkz(sentence,_T(","));
 	wxString sentenceInd = tkz.GetNextToken();
@@ -428,7 +430,7 @@ void Logbook::SetSentence(wxString &sentence)
 		tkz.GetNextToken();
 		sHumidity = tkz.GetNextToken();
 	}
-	else if(opt->bRPMIsChecked && sentenceInd == _T("$ERRPM"))
+	else if(opt->bRPMIsChecked && sentenceInd.Right(3) == _T("RPM"))
 	{
 		rpmSentence = true;
 		if(opt->bRPMCheck)
@@ -464,7 +466,7 @@ void Logbook::SetSentence(wxString &sentence)
 					opt->engine1Running = true;
 				}
 				if(source == _T("S"))
-						sRPM1Shaft = speed;
+					sRPM1Shaft = speed;
 			}
 			else
 			{
@@ -480,7 +482,7 @@ void Logbook::SetSentence(wxString &sentence)
 				}
 			}
 		}
-		else
+		else if(opt->engines == 1)
 		{
 			speed.ToLong(&Umin2);
 			if(source == _T("E"))
@@ -501,7 +503,7 @@ void Logbook::SetSentence(wxString &sentence)
 					opt->engine2Running = true;
 				}
 				if(source == _T("S"))
-						sRPM2Shaft = speed;
+					sRPM2Shaft = speed;
 			}
 			else
 			{
@@ -511,13 +513,15 @@ void Logbook::SetSentence(wxString &sentence)
 					dtEngine2Off = wxDateTime::Now().Subtract(opt->dtEngine2On);
 					opt->dtEngine2On = -1;
 					if(opt->engineMessageSails)
-						dialog->stateSails();
+						dialog->resetSails();
 					appendRow(false);
 					opt->engine2Running = false;
 				}
 			}
 		}
+
 	}
+
 }
 
 void Logbook::setDateTimeString(wxDateTime dt)
@@ -549,33 +553,33 @@ void Logbook::setDateTimeString(wxDateTime dt)
 
 void Logbook::setPositionString(double dLat, int iNorth, double dLon, int iEast)
 {
-    double lat, lon;
+	double lat, lon;
 	float llt = dLat;
-    int lat_deg_int = (int)(llt / 100);
-    float lat_deg = lat_deg_int;
-    float lat_min = llt - (lat_deg * 100);
-    lat = lat_deg + (lat_min/60.);
-    if(iNorth == South)
-           lat = -lat;
+	int lat_deg_int = (int)(llt / 100);
+	float lat_deg = lat_deg_int;
+	float lat_min = llt - (lat_deg * 100);
+	lat = lat_deg + (lat_min/60.);
+	if(iNorth == South)
+		lat = -lat;
 	if(opt->traditional)
 		sLat = this->toSDMM(1,lat, true);
 	else
 		sLat = this->toSDMMOpenCPN(1,lat, true);
 
 	float lln = dLon;
-    int lon_deg_int = (int)(lln / 100);
-    float lon_deg = lon_deg_int;
-    float lon_min = lln - (lon_deg * 100);
-    lon = lon_deg + (lon_min/60.);
-    if(iEast == West)
-          lon = -lon;
+	int lon_deg_int = (int)(lln / 100);
+	float lon_deg = lon_deg_int;
+	float lon_min = lln - (lon_deg * 100);
+	lon = lon_deg + (lon_min/60.);
+	if(iEast == West)
+		lon = -lon;
 	if(opt->traditional)
 		sLon = this->toSDMM(2,lon, false);
 	else
 		sLon = this->toSDMMOpenCPN(2,lon, true);
 
 	SetGPSStatus(true);
-//	dialog->GPSTimer->Start(5000);
+	//	dialog->GPSTimer->Start(5000);
 
 	if(opt->everySM)
 		checkDistance();
@@ -589,14 +593,14 @@ void Logbook::newLogbook()
 		this->switchToActuellLogbook();
 
 #ifdef __WXOSX__
-    int i = MessageBoxOSX(this->dialog,_("Are you sure ?"),_("New Logbook"),wxID_NO|wxID_OK);
-    if(i == wxID_NO)
+	int i = MessageBoxOSX(this->dialog,_("Are you sure ?"),_("New Logbook"),wxID_NO|wxID_OK);
+	if(i == wxID_NO)
 	{ 	dialog->logGrids[dialog->m_logbook->GetSelection()]->SetFocus(); return; }
-    
-    int ii = MessageBoxOSX(this->dialog,_("Reset all Values to zero ?"),_T("New Logbook"),wxID_OK|wxID_NO);
-    if(ii == wxID_OK)
-        zero = true;
-    else if(ii == wxID_NO)
+
+	int ii = MessageBoxOSX(this->dialog,_("Reset all Values to zero ?"),_T("New Logbook"),wxID_OK|wxID_NO);
+	if(ii == wxID_OK)
+		zero = true;
+	else if(ii == wxID_NO)
 	{ 	dialog->logGrids[dialog->m_logbook->GetSelection()]->SetFocus(); return; }
 #else
 	int i = wxMessageBox(_("Are you sure ?"),_("New Logbook"),wxYES_NO );
@@ -611,8 +615,8 @@ void Logbook::newLogbook()
 	if(dialog->m_gridGlobal->GetNumberRows() <= 0)
 	{
 #ifdef __WXOSX__
-        MessageBoxOSX(this->dialog, _("Your Logbook has no lines ?"),_("New Logbook"),wxID_OK);
-        return;
+		MessageBoxOSX(this->dialog, _("Your Logbook has no lines ?"),_("New Logbook"),wxID_OK);
+		return;
 #else
 		wxMessageBox(_("Your Logbook has no lines ?"),_("New Logbook"),wxOK );
 		return;
@@ -629,7 +633,7 @@ void Logbook::newLogbook()
 	ss.Replace(_T(":"),_T("_"));
 	ss = wxString::Format(_T("until_%s_%s_logbook.txt"),wxDateTime::Now().FormatISODate().c_str(),ss.c_str());
 	sn = temp+ss;
-	
+
 	wxCopyFile(data_locn,sn);
 
 	wxArrayString s;
@@ -696,7 +700,7 @@ void Logbook::selectLogbook()
 	}
 
 	if(selLogbook.selRow == -1) { 	dialog->logGrids[dialog->m_logbook->GetSelection()]->SetFocus(); return; }
-	
+
 	wxString s = selLogbook.files[selLogbook.selRow];
 
 	for(int i = 0; i < LOGGRIDS; i++)
@@ -722,7 +726,7 @@ void Logbook::loadSelectedData(wxString path)
 	else
 	{
 		wxDateTime dt = dialog->getDateTo(path);
-		path = wxString::Format(_("Old Logbook until %s"),dt.FormatDate().c_str());
+		path = wxString::Format(_("Old Logbook until %s"),dt.FormatDate().c_str()); 
 		oldLogbook = true;
 	}
 	title = path;
@@ -762,7 +766,7 @@ void Logbook::loadData()
 
 	wxFileInputStream input1( data_locn );
 	wxTextInputStream* stream1 = new wxTextInputStream (input1);
-	
+
 	t = stream1->ReadLine();
 	if(t.IsEmpty()) return; // first install only
 	if(t.Contains(_T("#1.2#")))
@@ -812,12 +816,12 @@ void Logbook::loadData()
 			::wxCopyFile(files[i],dest+sep+fn.GetFullName(),true);
 		}
 	}
-	
+
 	/***************************/
 
 	wxFileInputStream input( data_locn );
-	wxTextInputStream* stream = new wxTextInputStream (input);
-	
+	wxTextInputStream* stream = new wxTextInputStream (input, _T("\n"),wxConvUTF8);
+
 	wxString firstrow = stream->ReadLine(); // for #1.2#
 	wxStringTokenizer first(firstrow, _T("\t"),wxTOKEN_RET_EMPTY );
 	first.GetNextToken();
@@ -857,14 +861,24 @@ void Logbook::loadData()
 			case 2:     day = wxAtoi(s);
 				break;
 			case 3:		year = wxAtoi(s);
-						dt.Set(day,(wxDateTime::Month)month,year);
-						dialog->m_gridGlobal->SetCellValue(row,RDATE,dt.Format(opt->sdateformat));
+				if(month != 0 && day != 0 && year != 0)
+				{
+					dt.Set(day,(wxDateTime::Month)month,year);
+					dialog->m_gridGlobal->SetCellValue(row,RDATE,dt.Format(opt->sdateformat));
+				}
 				break;
-			case 4:		hour = wxAtoi(s);
+			case 4:		if(s.IsEmpty())
+							hour = -1;
+						else
+							hour = wxAtoi(s);
 				break;
-			case 5:		min = wxAtoi(s);
+			case 5:		if(s.IsEmpty())
+							min = -1;
+						else
+							min = wxAtoi(s);
 				break;
-			case 6:		sec = wxAtoi(s);
+			case 6:		if(hour == -1 || min == -1) continue;
+						sec = wxAtoi(s);
 						dt.Set(hour,min,sec);
 						dialog->m_gridGlobal->SetCellValue(row,RTIME,dt.Format(opt->stimeformat));
 				break;
@@ -875,11 +889,13 @@ void Logbook::loadData()
 			case 9:		dialog->m_gridGlobal->SetCellValue(row,DISTANCE,s);
 				break;
 			case 10:	dialog->m_gridGlobal->SetCellValue(row,DTOTAL,s);
-						dialog->m_gridGlobal->SetReadOnly(row,DTOTAL);
+				dialog->m_gridGlobal->SetReadOnly(row,DTOTAL);
 				break;
-			case 11:	dialog->m_gridGlobal->SetCellValue(row,POSITION,s);
+			case 11:
+				dialog->m_gridGlobal->SetCellValue(row,POSITION,s);
 				break;
-			case 12:	dialog->m_gridGlobal->SetCellValue(row,COG,s);
+			case 12:
+				dialog->m_gridGlobal->SetCellValue(row,COG,s);
 				break;
 			case 13:	dialog->m_gridGlobal->SetCellValue(row,COW,s);
 				break;
@@ -889,11 +905,13 @@ void Logbook::loadData()
 				break;
 			case 16:	dialog->m_gridGlobal->SetCellValue(row,DEPTH,s);
 				break;
-			case 17:	dialog->m_gridGlobal->SetCellValue(row,REMARKS,s);
+			case 17:
+				dialog->m_gridGlobal->SetCellValue(row,REMARKS,s);
 				break;
 			case 18:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::BARO,s);
 				break;
-			case 19:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WIND,s);
+			case 19:
+				dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WIND,s);
 				break;
 			case 20:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::WSPD,s);
 				break;
@@ -927,7 +945,9 @@ void Logbook::loadData()
 				break;
 			case 35:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERT,s);
 				break;
-			case 36:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MREMARKS,s);
+
+			case 36:
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MREMARKS,s);
 				break;
 			case 37:	dialog->m_gridWeather->SetCellValue(row,LogbookHTML::HYDRO,s);
 				break;
@@ -964,7 +984,7 @@ void Logbook::loadData()
 			case 53:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::RPM1,s);
 				break;
 			case 54:	dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::RPM2,s);
-			//	int in =  0;
+				//    int in =  0;
 				break;
 			}			
 			c++;
@@ -974,22 +994,22 @@ void Logbook::loadData()
 		double dist = wxAtof(temp);
 		if((dialog->m_gridGlobal->GetCellValue(row,SIGN) == wxEmptyString || 
 			dialog->m_gridGlobal->GetCellValue(row,SIGN).GetChar(0) == ' ') && dist > 0)
-				dialog->m_gridGlobal->SetCellValue(row,SIGN,_T("S"));
+			dialog->m_gridGlobal->SetCellValue(row,SIGN,_T("S"));
 
 		if(fields < dialog->totalColumns) // data from 0.910 ? need zero-values to calculate the columns 
-			{
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1T,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENE,   wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENET,  wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1T, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2T, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERM, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMT,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
-				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMO,wxString::Format(_T("%2.2f %s"),nullval,opt->vol.c_str()));
-			}
+		{
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::MOTOR1T,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENE,   wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::GENET,  wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK1T, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2,  wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::BANK2T, wxString::Format(_T("%2.2f %s"),nullval,opt->ampereh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERM, wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMT,wxString::Format(_T("%s %s"),nullhstr.c_str(),opt->motorh.c_str()));
+			dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMO,wxString::Format(_T("%2.2f %s"),nullval,opt->vol.c_str()));
+		}
 
 		dialog->setEqualRowHeight(row);
 		row++;
@@ -1021,10 +1041,10 @@ wxString Logbook::makeDateFromFile(wxString date, wxString dateformat)
 {
 	wxStringTokenizer tkzd(date,_T("/"));
 	wxDateTime dt;
-	int month = wxAtoi(tkzd.GetNextToken());
-	int day   = wxAtoi(tkzd.GetNextToken());
-	int year  = wxAtoi(tkzd.GetNextToken());
-	dt.Set(day,(wxDateTime::Month) month, year);
+	wxDateTime::wxDateTime_t month = (wxDateTime::wxDateTime_t) wxAtoi(tkzd.GetNextToken());
+	wxDateTime::wxDateTime_t day    = (wxDateTime::wxDateTime_t) wxAtoi(tkzd.GetNextToken());
+	wxDateTime::wxDateTime_t year   = (wxDateTime::wxDateTime_t) wxAtoi(tkzd.GetNextToken());
+	dt.Set(day, month, year);
 
 	return dt.Format(dateformat);
 }
@@ -1033,10 +1053,10 @@ wxString Logbook::makeWatchtimeFromFile(wxString time, wxString timeformat)
 {
 	wxStringTokenizer tkzt(time,_T(","));
 	wxDateTime dts,dte;
-	int hours = wxAtoi(tkzt.GetNextToken());
-	int mins  = wxAtoi(tkzt.GetNextToken());
-	int houre = wxAtoi(tkzt.GetNextToken());
-	int mine  = wxAtoi(tkzt.GetNextToken());
+	wxDateTime::wxDateTime_t hours = (wxDateTime::wxDateTime_t) wxAtoi(tkzt.GetNextToken());
+	wxDateTime::wxDateTime_t mins  = (wxDateTime::wxDateTime_t) wxAtoi(tkzt.GetNextToken());
+	wxDateTime::wxDateTime_t houre = (wxDateTime::wxDateTime_t) wxAtoi(tkzt.GetNextToken());
+	wxDateTime::wxDateTime_t mine  = (wxDateTime::wxDateTime_t) wxAtoi(tkzt.GetNextToken());
 	dts.Set(hours,mins);
 	dte.Set(houre,mine);
 
@@ -1068,12 +1088,12 @@ void Logbook::convertTo_1_2()
 	{
 		wxFileName fn(files[i]);
 		wxFileInputStream stream( path + fn.GetFullName() );
-		wxTextInputStream* in = new wxTextInputStream (stream);
+		wxTextInputStream* in = new wxTextInputStream (stream,_T("\n"),wxConvUTF8);
 		wxFileOutputStream stream1( path + fn.GetFullName() + _T("_") );
-		wxTextOutputStream* out = new wxTextOutputStream (stream1);
-		
+		wxTextOutputStream* out = new wxTextOutputStream (stream1,wxEOL_NATIVE,wxConvUTF8);
+
 		int l = 0;
-		
+
 		while(true)
 		{
 			wxString s = in->ReadLine();
@@ -1102,10 +1122,10 @@ void Logbook::convertTo_1_2()
 
 	wxString m = _T("service.txt");
 	wxFileInputStream streams( path + m );
-	wxTextInputStream* in = new wxTextInputStream (streams);
+	wxTextInputStream* in = new wxTextInputStream (streams,_T("\n"),wxConvUTF8);
 	wxFileOutputStream stream2( path + m + _T("_") );
-	wxTextOutputStream* out = new wxTextOutputStream (stream2);
-	
+	wxTextOutputStream* out = new wxTextOutputStream (stream2,wxEOL_NATIVE,wxConvUTF8);
+
 	int l = 0;
 	while(true)
 	{
@@ -1158,10 +1178,10 @@ void Logbook::convertTo_1_2()
 	}
 
 	m = _T("crewlist.txt");
-	wxFileInputStream streamc( path + m );
-	in = new wxTextInputStream (streamc);
+	wxFileInputStream streamc(path + m );
+	in = new wxTextInputStream (streamc,_T("\n"),wxConvUTF8);
 	wxFileOutputStream stream3( path + m + _T("_") );
-	out = new wxTextOutputStream (stream3);
+	out = new wxTextOutputStream (stream3,wxEOL_NATIVE,wxConvUTF8);
 
 	l = 0;
 	while(true)
@@ -1200,9 +1220,9 @@ void Logbook::convertTo_1_2()
 
 	m = _T("boat.txt");
 	wxFileInputStream streamb( path + m );
-	in = new wxTextInputStream (streamb);
+	in = new wxTextInputStream (streamb,_T("\n"),wxConvUTF8);
 	wxFileOutputStream stream4( path + m + _T("_") );
-	out = new wxTextOutputStream (stream4);
+	out = new wxTextOutputStream (stream4,wxEOL_NATIVE,wxConvUTF8);
 
 	l = 0;
 	while(true)
@@ -1240,20 +1260,20 @@ void Logbook::convertTo_1_2()
 
 void Logbook::setCellAlign(int i)
 {
-		dialog->m_gridGlobal->SetCellAlignment    (i,ROUTE,                wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridGlobal->SetCellAlignment    (i,RDATE,                wxALIGN_CENTRE, wxALIGN_TOP);
-		dialog->m_gridGlobal->SetCellAlignment    (i,RTIME,                wxALIGN_CENTRE, wxALIGN_TOP);
-		dialog->m_gridGlobal->SetCellAlignment    (i,SIGN,                 wxALIGN_CENTRE, wxALIGN_TOP);
-		dialog->m_gridGlobal->SetCellAlignment    (i,WAKE,                 wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridGlobal->SetCellAlignment    (i,REMARKS,              wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridWeather->SetCellAlignment   (i,WEATHER,   wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridWeather->SetCellAlignment   (i,CLOUDS,    wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridWeather->SetCellAlignment   (i,VISIBILITY,wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::SAILS,       wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::REEF,        wxALIGN_LEFT, wxALIGN_TOP);
-		dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::MREMARKS,    wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridGlobal->SetCellAlignment    (i,ROUTE,                wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridGlobal->SetCellAlignment    (i,RDATE,                wxALIGN_CENTRE, wxALIGN_TOP);
+	dialog->m_gridGlobal->SetCellAlignment    (i,RTIME,                wxALIGN_CENTRE, wxALIGN_TOP);
+	dialog->m_gridGlobal->SetCellAlignment    (i,SIGN,                 wxALIGN_CENTRE, wxALIGN_TOP);
+	dialog->m_gridGlobal->SetCellAlignment    (i,WAKE,                 wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridGlobal->SetCellAlignment    (i,REMARKS,              wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridWeather->SetCellAlignment   (i,WEATHER,   wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridWeather->SetCellAlignment   (i,CLOUDS,    wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridWeather->SetCellAlignment   (i,VISIBILITY,wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::SAILS,       wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::REEF,        wxALIGN_LEFT, wxALIGN_TOP);
+	dialog->m_gridMotorSails->SetCellAlignment(i,LogbookHTML::MREMARKS,    wxALIGN_LEFT, wxALIGN_TOP);
 
-		dialog->m_gridGlobal->SetReadOnly(i,POSITION,true);
+	dialog->m_gridGlobal->SetReadOnly(i,POSITION,true);
 }
 
 void Logbook::switchToActuellLogbook()
@@ -1303,22 +1323,22 @@ void Logbook::appendRow(bool mode)
 			wxString str = wxString::Format(sLinesReminder,lastRow+1);
 			LinesReminderDlg* dlg = new LinesReminderDlg(str,dialog);
 			dlg->Show();
-/*#ifdef __WXOSX__
-        MessageBoxOSX(this->dialog, wxString::Format(_("Your Logbook has %i lines\n\nYou should create a new logbook to minimize loadingtime."),lastRow),_("Information"),wxID_OK);
-#else
+			/*#ifdef __WXOSX__
+			MessageBoxOSX(this->dialog, wxString::Format(_("Your Logbook has %i lines\n\nYou should create a new logbook to minimize loadingtime."),lastRow),_("Information"),wxID_OK);
+			#else
 			wxMessageBox(wxString::Format(_("Your Logbook has %i lines\n\n\
-You should create a new logbook to minimize loadingtime."),lastRow),_("Information"));
-#endif
-*/
+			You should create a new logbook to minimize loadingtime."),lastRow),_("Information"));
+			#endif
+			*/
 		}
-	//	dialog->logbookPlugIn->opt->timer = false;
+		//	dialog->logbookPlugIn->opt->timer = false;
 
-	/*	wxFileConfig *pConf = (wxFileConfig *)dialog->logbookPlugIn->m_pconfig;
+		/*	wxFileConfig *pConf = (wxFileConfig *)dialog->logbookPlugIn->m_pconfig;
 
 		if(pConf)
 		{
-            pConf->SetPath ( _T ( "/PlugIns/Logbook" ) );
-			pConf->Write ( _T( "Timer" ), dialog->logbookPlugIn->opt->timer );
+		pConf->SetPath ( _T ( "/PlugIns/Logbook" ) );
+		pConf->Write ( _T( "Timer" ), dialog->logbookPlugIn->opt->timer );
 		}		
 		*/
 	}
@@ -1327,50 +1347,50 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		dialog->logGrids[i]->AppendRows();
 
 	if(lastRow > 0)
-		{
-			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,dialog->logGrids[0]->GetCellValue(lastRow-1,ROUTE));
-			//if(gpsStatus)
-				dialog->logGrids[0]->SetCellValue(lastRow,POSITION,sLat+sLon);
-			//else
-			//	dialog->logGrids[0]->SetCellValue(lastRow,POSITION,dialog->logGrids[0]->GetCellValue(lastRow-1,POSITION));
-			changeCellValue(lastRow, 0,0);
-			dialog->logGrids[0]->SetCellValue(lastRow,DTOTAL,dialog->logGrids[0]->GetCellValue(lastRow-1,DTOTAL));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTORT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::MOTORT));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::MOTOR1T));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::GENET,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::GENET));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::FUELT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::FUELT));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::WATERT));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERMT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::WATERMT));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK1T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::BANK1T));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK2T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::BANK2T));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::TRACKID,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::TRACKID));
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::ROUTEID,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::ROUTEID));
-		}
+	{
+		dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,dialog->logGrids[0]->GetCellValue(lastRow-1,ROUTE));
+		//if(gpsStatus)
+		dialog->logGrids[0]->SetCellValue(lastRow,POSITION,sLat+sLon);
+		//else
+		//	dialog->logGrids[0]->SetCellValue(lastRow,POSITION,dialog->logGrids[0]->GetCellValue(lastRow-1,POSITION));
+		changeCellValue(lastRow, 0,0);
+		dialog->logGrids[0]->SetCellValue(lastRow,DTOTAL,dialog->logGrids[0]->GetCellValue(lastRow-1,DTOTAL));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTORT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::MOTORT));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::MOTOR1T));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::GENET,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::GENET));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::FUELT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::FUELT));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::WATERT));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERMT,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::WATERMT));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK1T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::BANK1T));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK2T,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::BANK2T));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::TRACKID,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::TRACKID));
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::ROUTEID,dialog->logGrids[2]->GetCellValue(lastRow-1,LogbookHTML::ROUTEID));
+	}
 	else
 	{
-			dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,_("unnamed Route"));
-			if(gpsStatus)
-				dialog->logGrids[0]->SetCellValue(lastRow,POSITION,sLat+sLon);
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::FUELT,opt->fuelTank.c_str());
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERT,opt->waterTank.c_str());
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK1T,opt->bank1.c_str());
-			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK2T,opt->bank2.c_str());
+		dialog->logGrids[0]->SetCellValue(lastRow,ROUTE,_("unnamed Route"));
+		if(gpsStatus)
+			dialog->logGrids[0]->SetCellValue(lastRow,POSITION,sLat+sLon);
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::FUELT,opt->fuelTank.c_str());
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::WATERT,opt->waterTank.c_str());
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK1T,opt->bank1.c_str());
+		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::BANK2T,opt->bank2.c_str());
 	}
 
 	if(sDate != _T(""))
-		{
-			dialog->logGrids[0]->SetCellValue(lastRow,RDATE,sDate);
-			dialog->logGrids[0]->SetCellValue(lastRow,RTIME,sTime);
-		}
+	{
+		dialog->logGrids[0]->SetCellValue(lastRow,RDATE,sDate);
+		dialog->logGrids[0]->SetCellValue(lastRow,RTIME,sTime);
+	}
+	else
+	{
+		if(!opt->UTC)
+			mCorrectedDateTime = wxDateTime::Now();
 		else
-		{
-			if(!opt->UTC)
-				mCorrectedDateTime = wxDateTime::Now();
-			else
-				mCorrectedDateTime = wxDateTime::Now().ToUTC();
-			dialog->logGrids[0]->SetCellValue(lastRow,RDATE,mCorrectedDateTime.Format(opt->sdateformat));
-			dialog->logGrids[0]->SetCellValue(lastRow,RTIME,mCorrectedDateTime.Format(opt->stimeformat));
-		}
+			mCorrectedDateTime = wxDateTime::Now().ToUTC();
+		dialog->logGrids[0]->SetCellValue(lastRow,RDATE,mCorrectedDateTime.Format(opt->sdateformat));
+		dialog->logGrids[0]->SetCellValue(lastRow,RTIME,mCorrectedDateTime.Format(opt->stimeformat));
+	}
 
 	if(MOBIsActive)
 		dialog->logGrids[0]->SetCellValue(lastRow,REMARKS,_("*** MAN OVERBOARD ***\n"));
@@ -1430,6 +1450,7 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 			if(opt->NMEAUseERRPM || opt->toggleEngine1)
 			{
 				dtEngine1Off = wxDateTime::Now().Subtract(opt->dtEngine1On);
+				//wxMessageBox(dtEngine1Off.Format(_T("%H:%M:%S")));
 				opt->dtEngine1On = wxDateTime::Now();
 				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR,dtEngine1Off.Format(_T("%H:%M")));
 				//			wxMessageBox(dtEngine1Off.Format(_T("%H:%M:%S")));
@@ -1437,14 +1458,12 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 		}
 		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::RPM1,sRPM1);
 	}
-
-	if(!bRPM1 && opt->engine1Running)	
+	if(!bRPM1 && opt->engine1Running)
 	{
 		if(opt->NMEAUseERRPM || !opt->toggleEngine1)
 			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR,dtEngine1Off.Format(_T("%H:%M")));
 		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MREMARKS,_("Engine #1 stopped"));
 	}
-
 	if(bRPM2)
 	{
 		if(	!opt->engine2Running)
@@ -1463,11 +1482,11 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 				dtEngine2Off = wxDateTime::Now().Subtract(opt->dtEngine2On);
 				opt->dtEngine2On = wxDateTime::Now();
 				dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1,dtEngine2Off.Format(_T("%H:%M")));
-//				wxMessageBox(dtEngine2Off.Format(_T("%H:%M:%S")));
+				//				wxMessageBox(dtEngine2Off.Format(_T("%H:%M:%S")));
 			}
 		}
 	}
-	if(!bRPM2 && opt->engine2Running)	
+	if(!bRPM2 && opt->engine2Running)
 	{
 		if(opt->NMEAUseERRPM || !opt->toggleEngine2)
 			dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::MOTOR1,dtEngine2Off.Format(_T("%H:%M")));
@@ -1482,10 +1501,10 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 
 	if(!sRPM1.IsEmpty())
 		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::RPM1,sRPM1+sEngine+
-											((sRPM1Shaft.IsEmpty())? _T("") : _T("\n")+sRPM1Shaft+sShaft));
+		((sRPM1Shaft.IsEmpty())? _T("") : _T("\n")+sRPM1Shaft+sShaft));
 	if(!sRPM2.IsEmpty())
 		dialog->logGrids[2]->SetCellValue(lastRow,LogbookHTML::RPM2,sRPM2+sEngine+
-											((sRPM2Shaft.IsEmpty())? _T("") : _T("\n")+sRPM2Shaft+sShaft));
+		((sRPM2Shaft.IsEmpty())? _T("") : _T("\n")+sRPM2Shaft+sShaft));
 
 	if(sailsMessage && opt->engineMessageSails)
 	{
@@ -1541,8 +1560,8 @@ You should create a new logbook to minimize loadingtime."),lastRow),_("Informati
 	setCellAlign(lastRow);
 	dialog->setEqualRowHeight(lastRow);
 
-	dialog->m_gridGlobal->SetReadOnly(lastRow,6); 
-	
+	dialog->m_gridGlobal->SetReadOnly(lastRow,6);
+
 	if(mode)
 	{
 		dialog->m_gridGlobal->MakeCellVisible(lastRow,0);
@@ -1620,19 +1639,18 @@ void Logbook::checkNMEADeviceIsOn()
 		wxDateTime now = wxDateTime::Now();
 
 		bRPM1 = false;
-		dtEngine1Off = now.Subtract(opt->dtEngine1On); 
+		dtEngine1Off = now.Subtract(opt->dtEngine1On);
 		opt->dtEngine1On = -1;
 		sRPM1 = wxEmptyString;
 		sRPM1Shaft = wxEmptyString;
 
 		bRPM2 = false;
-		dtEngine2Off = now.Subtract(opt->dtEngine2On); 
+		dtEngine2Off = now.Subtract(opt->dtEngine2On);
 		opt->dtEngine2On = -1;
 		sRPM2 = wxEmptyString;
 		sRPM2Shaft = wxEmptyString;
 
 		appendRow(false);
-
 		opt->engine1Running = false;
 		opt->engine2Running = false;
 	}
@@ -1641,7 +1659,7 @@ void Logbook::checkNMEADeviceIsOn()
 void Logbook::recalculateLogbook(int row)
 {
 	int cells[] = { LogbookHTML::POSITION,LogbookHTML::MOTOR,LogbookHTML::MOTOR1,LogbookHTML::FUEL,
-					LogbookHTML::GENE,LogbookHTML::BANK1,LogbookHTML::BANK2,LogbookHTML::WATERM,LogbookHTML::WATER };
+		LogbookHTML::GENE,LogbookHTML::BANK1,LogbookHTML::BANK2,LogbookHTML::WATERM,LogbookHTML::WATER };
 	int grid;
 
 	if(row < 0) return;
@@ -1688,27 +1706,27 @@ void Logbook::checkCourseChanged()
 #else
 	if(abs(result) >= opt->dCourseChangeDegrees && !dialog->logbookPlugIn->eventsEnabled)
 #endif
+	{
+		if(timer)
 		{
-			if(timer)
-			{
-				timer = false;
-				dt = mCorrectedDateTime;
-				long min;
-				opt->courseTextAfterMinutes.ToLong(&min);
-				wxTimeSpan t(0,(int)min);
-				dt.Add(t);
-			}
-			
-
-			if(mCorrectedDateTime >= dt)
-			{
-				dialog->logbookTimerWindow->popUp();
-				timer = true;
-				courseChange = true;
-				appendRow(false);
-				courseChange = false;
-			}
+			timer = false;
+			dt = mCorrectedDateTime;
+			long min;
+			opt->courseTextAfterMinutes.ToLong(&min);
+			wxTimeSpan t(0,(int)min);
+			dt.Add(t);
 		}
+
+
+		if(mCorrectedDateTime >= dt)
+		{
+			dialog->logbookTimerWindow->popUp();
+			timer = true;
+			courseChange = true;
+			appendRow(false);
+			courseChange = false;
+		}
+	}
 }
 
 void Logbook::checkWayPoint(RMB rmb)
@@ -1775,7 +1793,7 @@ void Logbook::checkDistance()
 
 	double sm = 
 		acos(cos(fromlat)*cos(fromlon)*cos(tolat)*cos(tolon) + 
-		  cos(fromlat)*sin(fromlon)*cos(tolat)*sin(tolon) + sin(fromlat)*sin(tolat)) * 3443.9;
+		cos(fromlat)*sin(fromlon)*cos(tolat)*sin(tolon) + sin(fromlat)*sin(tolat)) * 3443.9;
 
 	if(sm >= opt->dEverySM && !dialog->logbookPlugIn->eventsEnabled)
 	{
@@ -1821,10 +1839,10 @@ wxString Logbook::calculateDistance(wxString fromstr, wxString tostr)
 	if(newPosition.NSflag == 'S') tolat = -fromlat;
 	if(newPosition.WEflag == 'W') tolon = -fromlon;
 
-///////
-sm = acos(cos(fromlat)*cos(fromlon)*cos(tolat)*cos(tolon) + 
-		  cos(fromlat)*sin(fromlon)*cos(tolat)*sin(tolon) + sin(fromlat)*sin(tolat)) * 3443.9;
-////// code snippet from http://www2.nau.edu/~cvm/latlongdist.html#formats
+	///////
+	sm = acos(cos(fromlat)*cos(fromlon)*cos(tolat)*cos(tolon) + 
+		cos(fromlat)*sin(fromlon)*cos(tolat)*sin(tolon) + sin(fromlat)*sin(tolat)) * 3443.9;
+	////// code snippet from http://www2.nau.edu/~cvm/latlongdist.html#formats
 
 	wxString ret = wxString::Format(_T("%.2f %s"),sm,opt->distance.c_str());
 	ret.Replace(_T("."),dialog->decimalPoint);
@@ -1880,17 +1898,19 @@ wxDouble Logbook::positionStringToDezimalModern(wxString pos)
 void Logbook::deleteRow(int row)
 {
 	dialog->logGrids[dialog->m_notebook8->GetSelection()]->SelectRow(row,true);
-#ifdef __WXOSX__
-    int answer = MessageBoxOSX(this->dialog, (wxString::Format(_("Delete Row Nr. %i ?"),row+1)), _("Confirm"), wxID_OK | wxID_CANCEL| wxID_NO);
-    if (answer == wxID_OK)
-		deleteRows();
-#else
+#ifndef __WXOSX__
 	int answer = wxMessageBox(wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
-                              wxYES_NO | wxCANCEL, dialog);
+		wxYES_NO | wxCANCEL, dialog);
 	if (answer == wxYES)
-		deleteRows();
+#else
+	int answer = MessageBoxOSX(dialog,wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
+		wxID_OK | wxID_CANCEL);
+	if (answer == wxID_OK)
 #endif
-	modified = true;
+	{
+		deleteRows();
+		modified = true;
+	}
 }
 
 void Logbook::changeCellValue(int row, int col, int mode)
@@ -1911,7 +1931,7 @@ void Logbook::update()
 	dialog->logGrids[0]->Refresh();
 	dialog->logGrids[1]->Refresh();
 	dialog->logGrids[2]->Refresh();
-	
+
 	int count;
 	if((count  = dialog->logGrids[0]->GetNumberRows() )== 0) { wxFile f; f.Create(data_locn,true); return; }
 
@@ -1922,39 +1942,49 @@ void Logbook::update()
 	wxRename(data_locn,newLocn);
 
 	wxFileOutputStream output( data_locn );
-	wxTextOutputStream* stream = new wxTextOutputStream (output);
+	wxTextOutputStream* stream = new wxTextOutputStream (output,wxEOL_NATIVE,wxConvUTF8);
 
 	stream->WriteString(_T("#1.2#\t")+logbookDescription+_T("\n"));
 	for(int r = 0; r < count; r++)
-	{	
+	{
 		for(int g = 0; g < LOGGRIDS; g++)
 		{
 			for(int c = 0; c < dialog->logGrids[g]->GetNumberCols(); c++)
 			{
 				if(g == 1 && (c == LogbookHTML::HYDRO || c == LogbookHTML::WATERTE || c == LogbookHTML::AIRTE))
 					continue;
-				if(g == 2 && (c == LogbookHTML::MOTOR1  || c == LogbookHTML::MOTOR1T || 
-							  c == LogbookHTML::RPM1	|| c == LogbookHTML::RPM2	 || 
-					          c == LogbookHTML::GENE    || c == LogbookHTML::GENET   ||
-					          c == LogbookHTML::WATERM  || c == LogbookHTML::WATERMT ||
-							  c == LogbookHTML::WATERMO || c == LogbookHTML::BANK1   ||
-							  c == LogbookHTML::BANK1T  || c == LogbookHTML::BANK2   ||
-							  c == LogbookHTML::BANK2T  || 
-							  c == LogbookHTML::TRACKID || c == LogbookHTML::ROUTEID))
+				if(g == 2 && (c == LogbookHTML::MOTOR1  || c == LogbookHTML::MOTOR1T ||
+					c == LogbookHTML::RPM1	|| c == LogbookHTML::RPM2	 ||
+					c == LogbookHTML::GENE    || c == LogbookHTML::GENET   ||
+					c == LogbookHTML::WATERM  || c == LogbookHTML::WATERMT ||
+					c == LogbookHTML::WATERMO || c == LogbookHTML::BANK1   ||
+					c == LogbookHTML::BANK1T  || c == LogbookHTML::BANK2   ||
+					c == LogbookHTML::BANK2T  ||
+					c == LogbookHTML::TRACKID || c == LogbookHTML::ROUTEID))
 					continue;
 				if(g == 0 && c == RDATE)
 				{
 					wxString t = dialog->logGrids[g]->GetCellValue(r,c);
-					wxDateTime dt;
-					dialog->myParseDate(t,dt);
-					temp = wxString::Format(_T("%i \t%i \t%i"),dt.GetMonth(),dt.GetDay(),dt.GetYear());
+					if(!t.IsEmpty())
+					{
+						wxDateTime dt;
+						dialog->myParseDate(t,dt);
+						temp = wxString::Format(_T("%i \t%i \t%i"),dt.GetMonth(),dt.GetDay(),dt.GetYear());
+					}
+					else
+						temp = wxString::Format(_T(" \t \t"));
 				}
 				else if(g == 0 && c == RTIME)
 				{
 					wxString t = dialog->logGrids[g]->GetCellValue(r,c);
-					wxDateTime dt;
-					dialog->myParseTime(t,dt);
-					temp = wxString::Format(_T("%i \t%i \t%i"),dt.GetHour(),dt.GetMinute(),dt.GetSecond());
+					if(!t.IsEmpty())
+					{
+						wxDateTime dt;
+						dialog->myParseTime(t,dt);
+						temp = wxString::Format(_T("%i \t%i \t%i"),dt.GetHour(),dt.GetMinute(),dt.GetSecond());
+					}
+					else
+						temp = wxString::Format(_T(" \t \t"));
 				}
 				else
 					temp = dialog->logGrids[g]->GetCellValue(r,c);
@@ -2014,9 +2044,10 @@ void Logbook::update()
 		}
 
 		s.RemoveLast();
-		stream->WriteString(s+_T("\n"));
+		s += _T("\n");
+		stream->WriteString(s);
 		s = _T("");
-	}	
+	}
 	output.Close();
 }
 
@@ -2035,8 +2066,9 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 		return;
 	}
 
-	if(grid == 0 && col == ROUTE )	
+	if(grid == 0 && col == ROUTE )
 	{
+		if(s.IsEmpty()) return;
 		if(s.Last() == '\n')
 		{
 			s.RemoveLast();
@@ -2044,531 +2076,539 @@ void  Logbook::getModifiedCellValue(int grid, int row, int selCol, int col)
 		}
 	}
 	else if(grid == 0 && col == RDATE )
-					{
-						wxDateTime dt;
+	{
+		wxDateTime dt;
 
-						if(!dialog->myParseDate(s,dt))
-						{
-							dt = dt.Now();
+		if(!dialog->myParseDate(s,dt))
+		{
+			dt = dt.Now();
 #ifdef __WXOSX__
-                            wxString s = dt.FormatDate().c_str();
-                            MessageBoxOSX(NULL,wxString::Format(_("Please enter the Date in the format:\n      %s"),dt.Format(opt->sdateformat).c_str()), _("Information"),wxID_OK);                     
+			wxString s = dt.FormatDate().c_str();
+			MessageBoxOSX(NULL,wxString::Format(_("Please enter the Date in the format:\n      %s"),dt.Format(opt->sdateformat).c_str()), _("Information"),wxID_OK);                     
 #else
-							wxMessageBox(wxString::Format(_("Please enter the Date in the format:\n      %s"),dt.Format(opt->sdateformat).c_str()),_("Information"));
+			wxMessageBox(wxString::Format(_("Please enter the Date in the format:\n      %s"),dt.Format(opt->sdateformat).c_str()),_("Information"));
 #endif
-							dialog->logGrids[grid]->SetCellValue(row,col,_T(""));
-						}
-						else
-						{
-							dialog->logGrids[grid]->SetCellValue(row,col,dt.Format(opt->sdateformat));
+			dialog->logGrids[grid]->SetCellValue(row,col,_T(""));
+		}
+		else
+		{
+			dialog->logGrids[grid]->SetCellValue(row,col,dt.Format(opt->sdateformat));
 
-							if(row == dialog->m_gridGlobal->GetNumberRows()-1)
-								dialog->maintenance->checkService(row);
-						}
-					}
+			if(row == dialog->m_gridGlobal->GetNumberRows()-1)
+				dialog->maintenance->checkService(row);
+		}
+	}
 	else if(grid == 0 && col == RTIME)
-					{
-						wxDateTime dt;
-						const wxChar* c;
-						s.Replace(_T(","),_T(":"));
-						s.Replace(_T("."),_T(":"));
-						c = dialog->myParseTime(s,dt);
+	{
+		if(s.IsEmpty()) return;
+		wxDateTime dt;
+		bool c;
+		s.Replace(_T(","),_T(":"));
+		s.Replace(_T("."),_T(":"));
+		c = dialog->myParseTime(s,dt);
 
-						if(!c)
-						{
+		if(!c)
+		{
 #ifdef __WXOSX__
-                            MessageBoxOSX(NULL,wxString::Format(_("Please enter the Time in the format:\n   %s"),dt.Format(opt->stimeformat).c_str()),_("Information"),wxID_OK);
+			MessageBoxOSX(NULL,wxString::Format(_("Please enter the Time in the format:\n   %s"),dt.Format(opt->stimeformat).c_str()),_("Information"),wxID_OK);
 #else
-							wxMessageBox(wxString::Format(_("Please enter the Time in the format:\n   %s"),dt.Format(opt->stimeformat).c_str()));
+			wxMessageBox(wxString::Format(_("Please enter the Time in the format:\n   %s"),dt.Format(opt->stimeformat).c_str()));
 #endif
-							dialog->logGrids[grid]->SetCellValue(row,col,_T(""));
-						}
-						else
-						{
-							dialog->logGrids[grid]->SetCellValue(row,col,dt.Format(opt->stimeformat));
-							if(row == dialog->m_gridGlobal->GetNumberRows()-1)
-								dialog->maintenance->checkService(row);
-						}
-					}
+			dialog->logGrids[grid]->SetCellValue(row,col,_T(""));
+		}
+		else
+		{
+			dialog->logGrids[grid]->SetCellValue(row,col,dt.Format(opt->stimeformat));
+			if(row == dialog->m_gridGlobal->GetNumberRows()-1)
+				dialog->maintenance->checkService(row);
+		}
+	}
 	else if(grid == 0 && col == DISTANCE)
-					{	
-						s.Replace(_T(","),_T("."));
+	{	
+		s.Replace(_T(","),_T("."));
 
-						s = wxString::Format(_T("%.2f %s"),wxAtof(s),opt->distance.c_str());
-										
-						s.Replace(_T("."),dialog->decimalPoint);
-						dialog->logGrids[grid]->SetCellValue(row,col,s);
+		s = wxString::Format(_T("%.2f %s"),wxAtof(s),opt->distance.c_str());
 
-						computeCell(grid, row, col, s, true);
-						if(row == dialog->m_gridGlobal->GetNumberRows()-1)
-							dialog->maintenance->checkService(row);
-						
-						s.Replace(_T(","),_T("."));
-						if(wxAtof(s) >= 0.01) 
-							dialog->m_gridGlobal->SetCellValue(row,SIGN,_T("S"));
-						else
-							dialog->m_gridGlobal->SetCellValue(row,SIGN,_T(""));
-					}
-	
+		s.Replace(_T("."),dialog->decimalPoint);
+		dialog->logGrids[grid]->SetCellValue(row,col,s);
+
+		computeCell(grid, row, col, s, true);
+		if(row == dialog->m_gridGlobal->GetNumberRows()-1)
+			dialog->maintenance->checkService(row);
+
+		s.Replace(_T(","),_T("."));
+		if(wxAtof(s) >= 0.01) 
+			dialog->m_gridGlobal->SetCellValue(row,SIGN,_T("S"));
+		else
+			dialog->m_gridGlobal->SetCellValue(row,SIGN,_T(""));
+	}
+
 	else if(grid == 0 && col== SIGN)
-					{
-						dialog->logGrids[grid]->SetCellValue(row,col,s.Upper());
-						if(row == dialog->m_gridGlobal->GetNumberRows()-1)
-							dialog->maintenance->checkService(row);
-					}
+	{
+		dialog->logGrids[grid]->SetCellValue(row,col,s.Upper());
+		if(row == dialog->m_gridGlobal->GetNumberRows()-1)
+			dialog->maintenance->checkService(row);
+	}
 	else if(grid == 0 && col== POSITION)
-					{ 
-						if(s != _T("") && !s.Contains(opt->Deg)
-							&& !s.Contains(opt->Min)
-							&& !s.Contains(opt->Sec))
-						{
-							if(opt->traditional && s.length() != 22)
-							{
+	{ 
+		if(s != _T("") && !s.Contains(opt->Deg)
+			&& !s.Contains(opt->Min)
+			&& !s.Contains(opt->Sec))
+		{
+			if(opt->traditional && s.length() != 22)
+			{
 #ifdef __WXOSX__
-                                MessageBoxOSX(NULL,_("Please enter 0544512.15n0301205.15e for\n054Deg 45Min 12.15Sec N 030Deg 12Min 05.15Sec E"),_("Information"),wxID_OK);
+				MessageBoxOSX(NULL,_("Please enter 0544512.15n0301205.15e for\n054Deg 45Min 12.15Sec N 030Deg 12Min 05.15Sec E"),_("Information"),wxID_OK);
 #else
-								wxMessageBox(_("Please enter 0544512.15n0301205.15e for\n054Deg 45Min 12.15Sec N 030Deg 12Min 05.15Sec E"),_("Information"),wxOK);
+				wxMessageBox(_("Please enter 0544512.15n0301205.15e for\n054Deg 45Min 12.15Sec N 030Deg 12Min 05.15Sec E"),_("Information"),wxOK);
 #endif
-								s = _T("");
-							}
-							else if(!opt->traditional && s.length() != 22)
-							{
+				s = _T("");
+			}
+			else if(!opt->traditional && s.length() != 22)
+			{
 #ifdef __WXOSX__
-                                MessageBoxOSX(NULL,_("Please enter 05445.1234n03012.0504e for\n054Deg 45.1234Min N 030Deg 12.0504Min E"),_("Information"),wxID_OK);
+				MessageBoxOSX(NULL,_("Please enter 05445.1234n03012.0504e for\n054Deg 45.1234Min N 030Deg 12.0504Min E"),_("Information"),wxID_OK);
 #else
-								wxMessageBox(_("Please enter 05445.1234n03012.0504e for\n054Deg 45.1234Min N 030Deg 12.0504Min E"),_("Information"),wxOK);
+				wxMessageBox(_("Please enter 05445.1234n03012.0504e for\n054Deg 45.1234Min N 030Deg 12.0504Min E"),_("Information"),wxOK);
 #endif
-								s = _T("");
-							}
-							if(s == _T("")) return;
-							s.Replace(_T(","),_T("."));
+				s = _T("");
+			}
+			if(s == _T("")) return;
+			s.Replace(_T(","),_T("."));
 
-							if(opt->traditional)
-							{
-								wxString temp = s.SubString(0,2)+opt->Deg+_T(" ");
-								temp += s.SubString(3,4) + opt->Min+_T(" ");
-								temp += s.SubString(5,9) + opt->Sec+_T(" ");
-								temp += s.SubString(10,10).Upper() + _T("\n");
-								temp += s.SubString(11,13) + opt->Deg+_T(" ");
-								temp += s.SubString(14,15) + opt->Min+_T(" ");
-								temp += s.SubString(16,20) + opt->Sec+_T(" ");
-								temp += s.SubString(21,21).Upper();
-								s = temp;
-							}
-							else
-							{
-								wxString temp = s.SubString(0,2)+opt->Deg+_T(" ");
-								temp += s.SubString(3,9) + opt->Min+_T(" ");
-								temp += s.SubString(10,10).Upper() + _T("\n");
-								temp += s.SubString(11,13) + opt->Deg+_T(" ");
-								temp += s.SubString(14,20) + opt->Min+_T(" ");
-								temp += s.SubString(21,22).Upper();
-								s = temp;
-							}
-						}
-						s.Replace(_T("."),dialog->decimalPoint);
-						dialog->logGrids[grid]->SetCellValue(row,col,s);
-						if(row != 0)
-						{
-							for(int i = row; i < dialog->logGrids[grid]->GetNumberRows(); i++)
-							{
-								double distTotal,dist;
-								dialog->logGrids[grid]->SetCellValue(i,5,
-									calculateDistance(dialog->logGrids[grid]->GetCellValue(i-1,col),s));
-								wxString temp = dialog->logGrids[grid]->GetCellValue(i-1,6);
-								temp.Replace(_T(","),_T("."));
-								temp.ToDouble(&distTotal);
-								temp = dialog->logGrids[grid]->GetCellValue(i,5);
-								temp.Replace(_T(","),_T("."));
-								temp.ToDouble(&dist);
-								s= wxString::Format(_T("%9.2f %s"),distTotal+dist,opt->distance.c_str());
-								s.Replace(_T("."),dialog->decimalPoint);
-								dialog->logGrids[grid]->SetCellValue(i,6,s);
+			if(opt->traditional)
+			{
+				wxString temp = s.SubString(0,2)+opt->Deg+_T(" ");
+				temp += s.SubString(3,4) + opt->Min+_T(" ");
+				temp += s.SubString(5,9) + opt->Sec+_T(" ");
+				temp += s.SubString(10,10).Upper() + _T("\n");
+				temp += s.SubString(11,13) + opt->Deg+_T(" ");
+				temp += s.SubString(14,15) + opt->Min+_T(" ");
+				temp += s.SubString(16,20) + opt->Sec+_T(" ");
+				temp += s.SubString(21,21).Upper();
+				s = temp;
+			}
+			else
+			{
+				wxString temp = s.SubString(0,2)+opt->Deg+_T(" ");
+				temp += s.SubString(3,9) + opt->Min+_T(" ");
+				temp += s.SubString(10,10).Upper() + _T("\n");
+				temp += s.SubString(11,13) + opt->Deg+_T(" ");
+				temp += s.SubString(14,20) + opt->Min+_T(" ");
+				temp += s.SubString(21,22).Upper();
+				s = temp;
+			}
+		}
+		s.Replace(_T("."),dialog->decimalPoint);
+		dialog->logGrids[grid]->SetCellValue(row,col,s);
+		if(row != 0)
+		{
+			for(int i = row; i < dialog->logGrids[grid]->GetNumberRows(); i++)
+			{
+				double distTotal,dist;
+				dialog->logGrids[grid]->SetCellValue(i,5,
+					calculateDistance(dialog->logGrids[grid]->GetCellValue(i-1,col),s));
+				wxString temp = dialog->logGrids[grid]->GetCellValue(i-1,6);
+				temp.Replace(_T(","),_T("."));
+				temp.ToDouble(&distTotal);
+				temp = dialog->logGrids[grid]->GetCellValue(i,5);
+				temp.Replace(_T(","),_T("."));
+				temp.ToDouble(&dist);
+				s= wxString::Format(_T("%9.2f %s"),distTotal+dist,opt->distance.c_str());
+				s.Replace(_T("."),dialog->decimalPoint);
+				dialog->logGrids[grid]->SetCellValue(i,6,s);
 
-								if(dist >= 0.1)
-									dialog->m_gridGlobal->SetCellValue(i,3,_T("S"));
-								else
-									dialog->m_gridGlobal->SetCellValue(i,3,dialog->m_gridGlobal->GetCellValue(i-1,3));
+				if(dist >= 0.1)
+					dialog->m_gridGlobal->SetCellValue(i,3,_T("S"));
+				else
+					dialog->m_gridGlobal->SetCellValue(i,3,dialog->m_gridGlobal->GetCellValue(i-1,3));
 
-								if(i < dialog->m_gridGlobal->GetNumberRows()-1)
-								{
-									s = dialog->logGrids[grid]->GetCellValue(i+1,col);
-									if(s.IsEmpty() || s == _T(" "))
-										break;
-								}
-							}							
-						}
-					}
+				if(i < dialog->m_gridGlobal->GetNumberRows()-1)
+				{
+					s = dialog->logGrids[grid]->GetCellValue(i+1,col);
+					if(s.IsEmpty() || s == _T(" "))
+						break;
+				}
+			}							
+		}
+	}
 	else if(grid == 0 && col == COG)
-					{
-						if(s != _T(""))
-						{
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%3.2f%s"),wxAtof(s),opt->Deg.c_str());
-						    s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
+	{
+		if(s != _T(""))
+		{
+			s.Replace(_T(","),_T("."));
+			s = wxString::Format(_T("%3.2f%s"),wxAtof(s),opt->Deg.c_str());
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
 	else if(grid == 0 && col == COW)
-					{
-						if(s != _T(""))
-						{
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%3.2f%s %s"),wxAtof(s),opt->Deg.c_str(),(opt->showHeading)?_T("M"):_T("T"));
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
+	{
+		if(s != _T(""))
+		{
+			s.Replace(_T(","),_T("."));
+			s = wxString::Format(_T("%3.2f%s %s"),wxAtof(s),opt->Deg.c_str(),(opt->showHeading)?_T("M"):_T("T"));
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
 	else if(grid == 0 && (col == SOG || col == SOW))
-					{
-						if(s != _T(""))
-						{
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%2.2f %s"),wxAtof(s),+opt->speed.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 0 && col == DEPTH)
-					{
-						if(s != _T(""))
-						{
-							switch(opt->showDepth)
-							{
-								case 0:	depth = opt->meter; break;
-								case 1: depth = opt->feet; break;
-								case 2: depth = opt->fathom; break;
-							}
-							if(s.Contains(opt->meter) || 
-								s.Contains(opt->feet) || 
-								s.Contains(opt->fathom.c_str()) ||
-								s.Contains(_T("--")))
-							{
-								s.Replace(_T("."),dialog->decimalPoint);
-								dialog->logGrids[grid]->SetCellValue(row,col,s);
-							}
-							else
-							{
-								s.Replace(_T(","),_T("."));
-								s = wxString::Format(_T("%3.1f %s"),wxAtof(s),depth.c_str());
-								s.Replace(_T("."),dialog->decimalPoint);
-								dialog->logGrids[grid]->SetCellValue(row,col,s);
-							}
-					
-						}
-					}
-	else if(grid == 1 && col == LogbookHTML::BARO)
-					{
-						if(s != _T(""))
-						{
-							s = wxString::Format(_T("%u %s"),wxAtoi(s),opt->baro.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 1 && col == LogbookHTML::HYDRO)
-					{
-						if(s != _T(""))
-						{
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%4.1f%%"),wxAtof(s));
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 1 && col == LogbookHTML::AIRTE)
-					{
-						if(s != _T("") && !s.Contains(opt->Deg))
-						{
-							s = wxString::Format(_T("%3.0f %s %s"),wxAtof(s), opt->Deg.c_str(),opt->temperature.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 1 && col == LogbookHTML::WATERTE)
-					{
-						if(s != _T("") && !s.Contains(opt->Deg))
-						{
-							s = wxString::Format(_T("%3.0f %s %s"),wxAtof(s), opt->Deg.c_str(),opt->temperature.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 1 && col == LogbookHTML::WIND)
-					{
-						if(s != _T("") && !s.Contains(opt->Deg))
-						{
-							s = wxString::Format(_T("%3.0f%s %s"),wxAtof(s), opt->Deg.c_str(),opt->showWindDir?_T("R"):_T("T"));
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 1 && col == LogbookHTML::WSPD )
-					{
-						if(s != _T(""))
-						{
-							if(!s.Contains(opt->windkts) && !s.Contains(opt->windmeter) && !s.Contains(opt->windkmh))
-							{
-								switch(opt->showWindSpeed)
-								{
-								case 0:	wind = opt->windkts; break;
-								case 1: wind = opt->windmeter; break;
-								case 2: wind = opt->windkmh; break;
-								}
-								s.Replace(_T(","),_T("."));
-								s = wxString::Format(_T("%3.2f %s"),wxAtof(s),wind.c_str());
-								s.Replace(_T("."),dialog->decimalPoint);
-							}
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 1 && col == LogbookHTML::CURRENT)
-					{
-						if(s != _T("") && !s.Contains(opt->Deg))
-						{
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%3.0f%s"),wxAtof(s), opt->Deg.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);						
-						}
-					}				
-	else if(grid == 1 && col == LogbookHTML::CSPD)
-					{
-						if(s != _T(""))
-						{
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%3.2f %s"),wxAtof(s),opt->speed.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 1 && (col == LogbookHTML::WAVE || col == LogbookHTML::SWELL))
-					{
-						wxString d;
-						switch(opt->showWaveSwell)
-							{
-								case 0:	d = opt->meter; break;
-								case 1: d = opt->feet; break;
-								case 2: d = opt->fathom; break;
-							}
-						if(s != _T(""))
-						{
-							s.Replace(_T(","),_T("."));
-							s = wxString::Format(_T("%3.2f %s"),wxAtof(s),d.c_str());
-							s.Replace(_T("."),dialog->decimalPoint);
-							dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
-					}
-	else if(grid == 2 && ((col == LogbookHTML::MOTORT || col == LogbookHTML::MOTOR1T || 
-		                   col == LogbookHTML::GENET  || col == LogbookHTML::WATERMT )  && !s.IsEmpty()))
-					{
-						wxString pre, cur;
-						double hp,hc,mp,mc;
-						double res,hp_,hc_;
-
-						if(!s.Contains(_T(":")) && !s.Contains(_T(",")) && !s.Contains(_T("."))) 
-							s += _T(":");
-
-						if(s.Contains(_T(",")) || s.Contains(_T(".")))
-						{
-							double d;
-							s.Replace(_T(","),_T("."));
-							s.ToDouble(&d);
-							int h = (int) d;
-							int m = (60*(d - h));
-							s = wxString::Format(_T("%i:%i"),h,m);
-
-						}
-
-						if(row > 0)
-						{
-							pre = dialog->m_gridMotorSails->GetCellValue(row-1,col);
-							wxStringTokenizer tkz(pre,_T(":"));
-							tkz.GetNextToken().ToDouble(&hp);
-							tkz.GetNextToken().ToDouble(&mp);
- 
-						}
-						else
-						{ hp = 0; mp = 0; }
-
-						cur = s;
-						wxStringTokenizer tkz1(cur,_T(":"));
-						tkz1.GetNextToken().ToDouble(&hc);
-						tkz1.GetNextToken().ToDouble(&mc);
-
-						hc_ = hc + ((mc*(100.0/60.0))/100);
-						hp_ = hp + ((mp*(100.0/60.0))/100);
-
-						res = hc_ - hp_;
-
-						if(row == 0 || res <= 0.0)
-							dialog->m_gridMotorSails->SetCellValue(row,col-1,wxString::Format(_T("00:00 %s"),opt->motorh.c_str()));
-						else
-							dialog->m_gridMotorSails->SetCellValue(row,col-1,decimalToHours(res,false));
-
-						dialog->m_gridMotorSails->SetCellValue(row,col,  decimalToHours(hc_,true));
-
-						if(row < dialog->m_gridMotorSails->GetNumberRows()-1)
-							computeCell(grid,row+1,col-1,dialog->m_gridMotorSails->GetCellValue(row+1,col-1),true);
-						if(row == dialog->m_gridGlobal->GetNumberRows()-1)
-									dialog->maintenance->checkService(row);
-					}
-	else if(grid == 2 && ((col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
-		                   col == LogbookHTML::GENE  || col == LogbookHTML::WATERM)  && !s.IsEmpty()))
-					{
-						double watermaker;
-						opt->watermaker.ToDouble(&watermaker);
-
-						bool t = false;
-						wxString sep;
-
-						if(s.Contains(_T(".")))
-						{
-							t = true;
-							sep = _T(".");
-						}
-						if(s.Contains(_T(",")))
-						{
-							t = true;
-							sep = _T(",");
-						}
-						if(s.Contains(_T(":")))
-						{
-							t = true;
-							sep = _T(":");
-						}
-
-						if(true != t)
-							s.Append(_T(":0"));
-
-						wxStringTokenizer tkz(s,sep);
-						wxString h = tkz.GetNextToken();
-						wxString m = tkz.GetNextToken();
-						if(wxAtoi(m) > 59)
-							{
+	{
+		if(s != _T(""))
+		{
+			s.Replace(_T(","),_T("."));
 #ifdef __WXOSX__
-                                MessageBoxOSX(NULL,_("Minutes greater than 59"),_T(""),wxID_OK);
+			s = wxString::Format(_T("%2.2f %s"),wxAtof(s),(const wchar_t*)opt->speed.c_str());
 #else
-								wxMessageBox(_("Minutes greater than 59"),_T(""));
+			s = wxString::Format(_T("%2.2f %s"),wxAtof(s),opt->speed.c_str());
 #endif
-								dialog->logGrids[grid]->SetCellValue(row,col,_T("00:00"));
-								return;
-							}
-						else
-							{
-								s = wxString::Format(_T("%s:%s"),h.c_str(),m.c_str());
-								s = wxString::Format(_T("%s %s"),s.c_str(),opt->motorh.c_str());
-								dialog->logGrids[grid]->SetCellValue(row,col,s);
-								computeCell(grid, row, col,s, true);
-								if(row == dialog->m_gridGlobal->GetNumberRows()-1)
-									dialog->maintenance->checkService(row);
-								if(col == LogbookHTML::WATERM)
-								{
-									wxString t = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::WATERM);
-									wxStringTokenizer tkz(t,_T(":"));
-									double h,m;
-									tkz.GetNextToken().ToDouble(&h);
-									tkz.GetNextToken().ToDouble(&m);
-									h = h + (m*(100/60)/100);
-									double output = watermaker * h;
-									dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMO,wxString::Format(_T("+%2.2f %s"),output,opt->vol.c_str()));
-									computeCell(grid,row,LogbookHTML::WATERMO, dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::WATERMO),false);
-								}
-							}						
-					}
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 0 && col == DEPTH)
+	{
+		if(s != _T(""))
+		{
+			switch(opt->showDepth)
+			{
+			case 0:	depth = opt->meter; break;
+			case 1: depth = opt->feet; break;
+			case 2: depth = opt->fathom; break;
+			}
+			if(s.Contains(opt->meter) || 
+				s.Contains(opt->feet) || 
+				s.Contains(opt->fathom.c_str()) ||
+				s.Contains(_T("--")))
+			{
+				s.Replace(_T("."),dialog->decimalPoint);
+				dialog->logGrids[grid]->SetCellValue(row,col,s);
+			}
+			else
+			{
+				s.Replace(_T(","),_T("."));
+				s = wxString::Format(_T("%3.1f %s"),wxAtof(s),depth.c_str());
+				s.Replace(_T("."),dialog->decimalPoint);
+				dialog->logGrids[grid]->SetCellValue(row,col,s);
+			}
+
+		}
+	}
+	else if(grid == 1 && col == LogbookHTML::BARO)
+	{
+		if(s != _T(""))
+		{
+			s = wxString::Format(_T("%u %s"),wxAtoi(s),opt->baro.c_str());
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 1 && col == LogbookHTML::HYDRO)
+	{
+		if(s != _T(""))
+		{
+			s.Replace(_T(","),_T("."));
+			s = wxString::Format(_T("%4.1f%%"),wxAtof(s));
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 1 && col == LogbookHTML::AIRTE)
+	{
+		if(s != _T("") && !s.Contains(opt->Deg))
+		{
+			s = wxString::Format(_T("%3.0f %s %s"),wxAtof(s), opt->Deg.c_str(),opt->temperature.c_str());
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 1 && col == LogbookHTML::WATERTE)
+	{
+		if(s != _T("") && !s.Contains(opt->Deg))
+		{
+			s = wxString::Format(_T("%3.0f %s %s"),wxAtof(s), opt->Deg.c_str(),opt->temperature.c_str());
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 1 && col == LogbookHTML::WIND)
+	{
+		if(s != _T("") && !s.Contains(opt->Deg))
+		{
+			s = wxString::Format(_T("%3.0f%s %s"),wxAtof(s), opt->Deg.c_str(),opt->showWindDir?_T("R"):_T("T"));
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 1 && col == LogbookHTML::WSPD )
+	{
+		if(s != _T(""))
+		{
+			if(!s.Contains(opt->windkts) && !s.Contains(opt->windmeter) && !s.Contains(opt->windkmh))
+			{
+				switch(opt->showWindSpeed)
+				{
+				case 0:	wind = opt->windkts; break;
+				case 1: wind = opt->windmeter; break;
+				case 2: wind = opt->windkmh; break;
+				}
+				s.Replace(_T(","),_T("."));
+				s = wxString::Format(_T("%3.2f %s"),wxAtof(s),wind.c_str());
+				s.Replace(_T("."),dialog->decimalPoint);
+			}
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 1 && col == LogbookHTML::CURRENT)
+	{
+		if(s != _T("") && !s.Contains(opt->Deg))
+		{
+			s.Replace(_T(","),_T("."));
+			s = wxString::Format(_T("%3.0f%s"),wxAtof(s), opt->Deg.c_str());
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);						
+		}
+	}				
+	else if(grid == 1 && col == LogbookHTML::CSPD)
+	{
+		if(s != _T(""))
+		{
+			s.Replace(_T(","),_T("."));
+			s = wxString::Format(_T("%3.2f %s"),wxAtof(s),opt->speed.c_str());
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 1 && (col == LogbookHTML::WAVE || col == LogbookHTML::SWELL))
+	{
+		wxString d;
+		switch(opt->showWaveSwell)
+		{
+		case 0:	d = opt->meter; break;
+		case 1: d = opt->feet; break;
+		case 2: d = opt->fathom; break;
+		}
+		if(s != _T(""))
+		{
+			s.Replace(_T(","),_T("."));
+			s = wxString::Format(_T("%3.2f %s"),wxAtof(s),d.c_str());
+			s.Replace(_T("."),dialog->decimalPoint);
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+	}
+	else if(grid == 2 && ((col == LogbookHTML::MOTORT || col == LogbookHTML::MOTOR1T ||
+		col == LogbookHTML::GENET  || col == LogbookHTML::WATERMT )  && !s.IsEmpty()))
+	{
+		wxString pre, cur;
+		double hp,hc,mp,mc;
+		double res,hp_,hc_;
+
+		if(!s.Contains(_T(":")) && !s.Contains(_T(",")) && !s.Contains(_T("."))) 
+			s += _T(":");
+
+		if(s.Contains(_T(",")) || s.Contains(_T(".")))
+		{
+			double d;
+			s.Replace(_T(","),_T("."));
+			s.ToDouble(&d);
+			int h = (int) d;
+			int m = (60*(d - h));
+			s = wxString::Format(_T("%i:%i"),h,m);
+
+		}
+
+		if(row > 0)
+		{
+			pre = dialog->m_gridMotorSails->GetCellValue(row-1,col);
+			wxStringTokenizer tkz(pre,_T(":"));
+			tkz.GetNextToken().ToDouble(&hp);
+			tkz.GetNextToken().ToDouble(&mp);
+
+		}
+		else
+		{ hp = 0; mp = 0; }
+
+		cur = s;
+		wxStringTokenizer tkz1(cur,_T(":"));
+		tkz1.GetNextToken().ToDouble(&hc);
+		tkz1.GetNextToken().ToDouble(&mc);
+
+		hc_ = hc + ((mc*(100.0/60.0))/100);
+		hp_ = hp + ((mp*(100.0/60.0))/100);
+
+		res = hc_ - hp_;
+
+		if(row == 0 || res <= 0.0)
+			dialog->m_gridMotorSails->SetCellValue(row,col-1,wxString::Format(_T("00:00 %s"),opt->motorh.c_str()));
+		else
+			dialog->m_gridMotorSails->SetCellValue(row,col-1,decimalToHours(res,false));
+
+		dialog->m_gridMotorSails->SetCellValue(row,col,  decimalToHours(hc_,true));
+
+		if(row < dialog->m_gridMotorSails->GetNumberRows()-1)
+			computeCell(grid,row+1,col-1,dialog->m_gridMotorSails->GetCellValue(row+1,col-1),true);
+		if(row == dialog->m_gridGlobal->GetNumberRows()-1)
+			dialog->maintenance->checkService(row);
+	}
+	else if(grid == 2 && ((col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 ||
+		col == LogbookHTML::GENE  || col == LogbookHTML::WATERM)  && !s.IsEmpty()))
+	{
+		double watermaker;
+		opt->watermaker.ToDouble(&watermaker);
+
+		bool t = false;
+		wxString sep;
+
+		if(s.Contains(_T(".")))
+		{
+			t = true;
+			sep = _T(".");
+		}
+		if(s.Contains(_T(",")))
+		{
+			t = true;
+			sep = _T(",");
+		}
+		if(s.Contains(_T(":")))
+		{
+			t = true;
+			sep = _T(":");
+		}
+
+		if(true != t)
+			s.Append(_T(":0"));
+
+		wxStringTokenizer tkz(s,sep);
+		wxString h = tkz.GetNextToken();
+		wxString m = wxEmptyString;
+		if(tkz.HasMoreTokens())
+			m = tkz.GetNextToken();
+
+		if(wxAtoi(m) > 59)
+		{
+#ifdef __WXOSX__
+			MessageBoxOSX(NULL,_("Minutes greater than 59"),_T(""),wxID_OK);
+#else
+			wxMessageBox(_("Minutes greater than 59"),_T(""));
+#endif
+			dialog->logGrids[grid]->SetCellValue(row,col,_T("00:00"));
+			return;
+		}
+		else
+		{
+			s = wxString::Format(_T("%s:%s"),h.c_str(),m.c_str());
+			s = wxString::Format(_T("%s %s"),s.c_str(),opt->motorh.c_str());
+			dialog->logGrids[grid]->SetCellValue(row,col,s);
+			computeCell(grid, row, col,s, true);
+			if(row == dialog->m_gridGlobal->GetNumberRows()-1)
+				dialog->maintenance->checkService(row);
+			if(col == LogbookHTML::WATERM)
+			{
+				wxString t = dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::WATERM);
+				wxStringTokenizer tkz(t,_T(":"));
+				double h,m;
+				tkz.GetNextToken().ToDouble(&h);
+				tkz.GetNextToken().ToDouble(&m);
+				h = h + (m*(100/60)/100);
+				double output = watermaker * h;
+				dialog->m_gridMotorSails->SetCellValue(row,LogbookHTML::WATERMO,wxString::Format(_T("+%2.2f %s"),output,opt->vol.c_str()));
+				computeCell(grid,row,LogbookHTML::WATERMO, dialog->m_gridMotorSails->GetCellValue(row,LogbookHTML::WATERMO),false);
+			}
+		}						
+	}
 
 	else if(grid == 2 && ( col == LogbookHTML::FUELT || col == LogbookHTML::WATERT ||
-		                   col == LogbookHTML::BANK1T || col == LogbookHTML::BANK2T) && !s.IsEmpty())
-					{
-						double div = 1.0;
-						long capacity;
-						wxString ap;
-						double t,c;
-						wxString ind;
+		col == LogbookHTML::BANK1T || col == LogbookHTML::BANK2T) && !s.IsEmpty())
+	{
+		double div = 1.0;
+		long capacity;
+		wxString ap;
+		double t,c;
+		wxString ind;
 
-						if(col == LogbookHTML::BANK1T || col == LogbookHTML::BANK2T)
-							ap = opt->ampereh;
-						else
-							ap = opt->vol;
+		if(col == LogbookHTML::BANK1T || col == LogbookHTML::BANK2T)
+			ap = opt->ampereh;
+		else
+			ap = opt->vol;
 
-						if(row > 0)
-							dialog->m_gridMotorSails->GetCellValue(row-1,col).ToDouble(&t);						
-						else
-							{ t = 0; c = 0; }
-						dialog->m_gridMotorSails->GetCellValue(row,col).ToDouble(&c);
+		if(row > 0)
+			dialog->m_gridMotorSails->GetCellValue(row-1,col).ToDouble(&t);						
+		else
+		{ t = 0; c = 0; }
+		dialog->m_gridMotorSails->GetCellValue(row,col).ToDouble(&c);
 
-						if(s.Contains(_T("/")))
-						{
-							double a,b;
-							wxStringTokenizer tkz(s,_T("/"));
-							tkz.GetNextToken().ToDouble(&a);
-							tkz.GetNextToken().ToDouble(&b);
-							div = a/b;
-							if(col == LogbookHTML::FUELT) 
-								opt->fuelTank.ToLong(&capacity);
-							else if( col == LogbookHTML::BANK1T)
-								opt->bank1.ToLong(&capacity);
-							else if(col == LogbookHTML::BANK2T)
-								opt->bank2.ToLong(&capacity);
-							else
-								opt->waterTank.ToLong(&capacity);
+		if(s.Contains(_T("/")))
+		{
+			double a,b;
+			wxStringTokenizer tkz(s,_T("/"));
+			tkz.GetNextToken().ToDouble(&a);
+			tkz.GetNextToken().ToDouble(&b);
+			div = a/b;
+			if(col == LogbookHTML::FUELT) 
+				opt->fuelTank.ToLong(&capacity);
+			else if( col == LogbookHTML::BANK1T)
+				opt->bank1.ToLong(&capacity);
+			else if(col == LogbookHTML::BANK2T)
+				opt->bank2.ToLong(&capacity);
+			else
+				opt->waterTank.ToLong(&capacity);
 
-							c = capacity*div;						
-						}
+			c = capacity*div;						
+		}
 
-						s.Replace(_T(","),_T("."));
-						ind = (c < t)?_T("-"):_T("+");
+		s.Replace(_T(","),_T("."));
+		ind = (c < t)?_T("-"):_T("+");
 
-						if(row != 0)
-								dialog->m_gridMotorSails->SetCellValue(row,col-1,wxString::Format(_T("%s%.2f %s"),ind.c_str(),fabs(t-c),ap.c_str()));
-						else
-								dialog->m_gridMotorSails->SetCellValue(row,col-1,wxString::Format(_T("%s0.00 %s"),ind.c_str(),ap.c_str()));
+		if(row != 0)
+			dialog->m_gridMotorSails->SetCellValue(row,col-1,wxString::Format(_T("%s%.2f %s"),ind.c_str(),fabs(t-c),ap.c_str()));
+		else
+			dialog->m_gridMotorSails->SetCellValue(row,col-1,wxString::Format(_T("%s0.00 %s"),ind.c_str(),ap.c_str()));
 
-							dialog->m_gridMotorSails->SetCellValue(row,col,wxString::Format(_T("%.2f %s"),c,ap.c_str()));
-						
-						int x;
-						if(col == LogbookHTML::WATERT)
-							x = 2;
-						else
-							x =1;
-						if(row < dialog->m_gridMotorSails->GetNumberRows()-1)
-							computeCell(grid,row+1,col-x,dialog->m_gridMotorSails->GetCellValue(row+1,col-x),false);
+		dialog->m_gridMotorSails->SetCellValue(row,col,wxString::Format(_T("%.2f %s"),c,ap.c_str()));
 
-						dialog->maintenance->checkService(row);
-					}
-	else if(grid == 2 && ( col == LogbookHTML::FUEL    || col == LogbookHTML::WATER || 
-		                   col == LogbookHTML::WATERMO || col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2) && !s.IsEmpty())
-					{
-						wxChar ch;
-						wxString ap;
+		int x;
+		if(col == LogbookHTML::WATERT)
+			x = 2;
+		else
+			x =1;
+		if(row < dialog->m_gridMotorSails->GetNumberRows()-1)
+			computeCell(grid,row+1,col-x,dialog->m_gridMotorSails->GetCellValue(row+1,col-x),false);
 
-						if(col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2)
-							ap = opt->ampereh;
-						else
-							ap = opt->vol;
+		dialog->maintenance->checkService(row);
+	}
+	else if(grid == 2 && ( col == LogbookHTML::FUEL    || col == LogbookHTML::WATER ||
+		col == LogbookHTML::WATERMO || col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2) && !s.IsEmpty())
+	{
+		wxChar ch;
+		wxString ap;
 
-						s.Replace(_T(","),_T("."));
-						if(col != LogbookHTML::WATERMO)
-							ch = s.GetChar(0);
-						else 
-							ch = '+';
+		if(col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2)
+			ap = opt->ampereh;
+		else
+			ap = opt->vol;
 
-						s = wxString::Format(_T("%.2f %s"),wxAtof(s),ap.c_str());
-						s.Replace(_T("."),dialog->decimalPoint);
-						
-						if(ch != '-' && ch != '+')
-							dialog->logGrids[grid]->SetCellValue(row,col,_T("-")+s);
-						else
-						{
-							if(ch == '+')
-								dialog->logGrids[grid]->SetCellValue(row,col,wxString(ch)+s);
-							else
-								dialog->logGrids[grid]->SetCellValue(row,col,s);
-						}
+		s.Replace(_T(","),_T("."));
+		if(col != LogbookHTML::WATERMO)
+			ch = s.GetChar(0);
+		else 
+			ch = '+';
 
-						computeCell(grid, row, col,s, false);
-						dialog->maintenance->checkService(row);
-					}
+		s = wxString::Format(_T("%.2f %s"),wxAtof(s),ap.c_str());
+		s.Replace(_T("."),dialog->decimalPoint);
+
+		if(ch != '-' && ch != '+')
+			dialog->logGrids[grid]->SetCellValue(row,col,_T("-")+s);
+		else
+		{
+			if(ch == '+')
+				dialog->logGrids[grid]->SetCellValue(row,col,wxString(ch)+s);
+			else
+				dialog->logGrids[grid]->SetCellValue(row,col,s);
+		}
+
+		computeCell(grid, row, col,s, false);
+		dialog->maintenance->checkService(row);
+	}
 	return;
 }
 
@@ -2635,8 +2675,8 @@ void Logbook::deleteRows()
 			dialog->logGrids[grid]->DeleteRows(rows[i]);
 	}
 	dialog->selGridRow = rows[rowsCount-1]-1;
-		if(dialog->logGrids[tab]->GetNumberRows() > 0) 
-			dialog->logGrids[tab]->SetGridCursor(rows[rowsCount-1]-1,0);
+	if(dialog->logGrids[tab]->GetNumberRows() > 0)
+		dialog->logGrids[tab]->SetGridCursor(rows[rowsCount-1]-1,0);
 
 	modified = true;
 	if(dialog->logGrids[0]->GetNumberRows() > 0)
@@ -2665,13 +2705,13 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 	s.Replace(_T(","),_T("."));
 
 	if(col == DISTANCE)
-	   abrev = opt->distance; 
-	else if(col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
-		    col == LogbookHTML::GENE || col == LogbookHTML::WATERM)
-	   abrev = opt->motorh; 
+		abrev = opt->distance; 
+	else if(col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 ||
+		col == LogbookHTML::GENE || col == LogbookHTML::WATERM)
+		abrev = opt->motorh; 
 	else if(col == LogbookHTML::FUEL || col == LogbookHTML::WATER ||
-		    col == LogbookHTML::WATERMO)
-	   abrev = opt->vol; 
+		col == LogbookHTML::WATERMO)
+		abrev = opt->vol; 
 	else if(col == LogbookHTML::BANK1 || col == LogbookHTML::BANK2)
 		abrev = opt->ampereh;
 
@@ -2681,13 +2721,13 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 	for(int i = row; i < count; i++)
 	{
 		if(col != LogbookHTML::WATERMO && col != LogbookHTML::WATER && col != LogbookHTML::FUEL &&
-		   col != LogbookHTML::BANK1   && col != LogbookHTML::BANK2)
+			col != LogbookHTML::BANK1   && col != LogbookHTML::BANK2)
 		{
 			s = dialog->logGrids[grid]->GetCellValue(i,col);
 			s.Replace(_T(","),_T("."));
 			if(s == _T("0000")) s = _T("00:00");
-			if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
-				             col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
+			if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 ||
+				col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
 			{
 				wxArrayString time = wxStringTokenize(s,_T(":"));
 				time[0].ToLong(&hourCur);
@@ -2748,13 +2788,13 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 		{
 			wxString temp;
 			if(col != LogbookHTML::WATERMO)
-				 temp = dialog->logGrids[grid]->GetCellValue(i-1,col+1);
+				temp = dialog->logGrids[grid]->GetCellValue(i-1,col+1);
 			else
-				 temp = dialog->logGrids[grid]->GetCellValue(i-1,col+2);
+				temp = dialog->logGrids[grid]->GetCellValue(i-1,col+2);
 
 			temp.Replace(_T(","),_T("."));
-			if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
-				             col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
+			if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 ||
+				col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
 			{
 				if(temp.Contains(_T(":")))
 				{
@@ -2768,205 +2808,217 @@ wxString Logbook::computeCell(int grid, int row, int col, wxString s, bool mode)
 				temp.ToDouble(&last);
 		}
 		else { 
-				last = 0.0f; hourLast = 0; minLast = 0; 			
-			 }
-		
-		if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 || 
-			             col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
-			{
-				hourLast += hourCur;
-				minLast  += minCur;
-				if(minLast >= 60) { hourLast++; minLast -= 60; }
-				s = wxString::Format(_T("%05u:%02u %s"),hourLast,minLast,abrev.c_str());
-				dialog->logGrids[grid]->SetCellValue(i,col+1,s);
-				cur = wxString::Format(_T("%02u:%02u %s"),hourCur,minCur,abrev.c_str());
-				dialog->logGrids[grid]->SetCellValue(i,col,cur);
-			}
+			last = 0.0f; hourLast = 0; minLast = 0; 			
+		}
+
+		if(grid == 2 && (col == LogbookHTML::MOTOR || col == LogbookHTML::MOTOR1 ||
+			col == LogbookHTML::GENE  || col == LogbookHTML::WATERM))
+		{
+			hourLast += hourCur;
+			minLast  += minCur;
+			if(minLast >= 60) { hourLast++; minLast -= 60; }
+#ifdef __WXOSX__
+			s = wxString::Format(_T("%05ld:%02ld %s"),(wchar_t)hourLast,(wchar_t)minLast,abrev.c_str());
+#else
+			s = wxString::Format(_T("%05ld:%02ld %s"),hourLast,minLast,abrev.c_str());
+#endif
+			dialog->logGrids[grid]->SetCellValue(i,col+1,s);
+#ifdef __WXOSX__
+			cur = wxString::Format(_T("%02ld:%02ld %s"),(wchar_t)hourCur,(wchar_t)minCur,abrev.c_str());
+#else
+			cur = wxString::Format(_T("%02ld:%02ld %s"),hourCur,minCur,abrev.c_str());
+#endif
+			dialog->logGrids[grid]->SetCellValue(i,col,cur);
+		}
 		else
-			{
-				s = wxString::Format(_T("%10.2f %s"),last+current,abrev.c_str());
-				s.Replace(_T("."),dialog->decimalPoint);
-				if(col != LogbookHTML::WATERMO)
-					dialog->logGrids[grid]->SetCellValue(i,col+1,s);
-				else
-					dialog->logGrids[grid]->SetCellValue(i,col+2,s);
-			}	
+		{
+#ifdef __WXOSX__
+			s = wxString::Format(_T("%10.2f %s"),last+current,abrev.c_str());
+#else
+			s = wxString::Format(_T("%10.2f %s"),last+current,abrev.c_str());
+#endif
+			s.Replace(_T("."),dialog->decimalPoint);
+			if(col != LogbookHTML::WATERMO)
+				dialog->logGrids[grid]->SetCellValue(i,col+1,s);
+			else
+				dialog->logGrids[grid]->SetCellValue(i,col+2,s);
+		}	
 	}
 	return cur;
 }
 
 wxString Logbook::toSDMM ( int NEflag, double a, bool mode )
 {
-      short neg = 0;
-      int d;
-      long m;
-	  wxDouble sec;
+	short neg = 0;
+	int d;
+	long m;
+	wxDouble sec;
 
-      if ( a < 0.0 )
-      {
-            a = -a;
-            neg = 1;
-      }
-      d = ( int ) a;
-      m = ( long ) ( ( a - ( double ) d ) * 60000.0 );
-	  double z = (m % 1000);
-	  sec = 60 * (z/1000) ;
+	if ( a < 0.0 )
+	{
+		a = -a;
+		neg = 1;
+	}
+	d = ( int ) a;
+	m = ( long ) ( ( a - ( double ) d ) * 60000.0 );
+	double z = (m % 1000);
+	sec = 60 * (z/1000) ;
 
-      if ( neg )
-            d = -d;
+	if ( neg )
+		d = -d;
 
-      wxString s;
+	wxString s;
 
-      if ( !NEflag )
-            s.Printf ( _T ( "%d%02ld%02ld" ), d, m / 1000, m % 1000 );
-      else
-      {
-            if ( NEflag == 1 )
-            {
-                  char c = 'N';
+	if ( !NEflag )
+		s.Printf ( _T ( "%d%02ld%02ld" ), d, m / 1000, m % 1000 );
+	else
+	{
+		if ( NEflag == 1 )
+		{
+			char c = 'N';
 
-                  if ( neg )
-                  {
-                        d = -d;
-                        c = 'S';
-                  }
-					newPosition.posLat = a;
-					newPosition.latitude = d;
-					newPosition.latmin   = m / 1000.0;
-					newPosition.WEflag = c;
+			if ( neg )
+			{
+				d = -d;
+				c = 'S';
+			}
+			newPosition.posLat = a;
+			newPosition.latitude = d;
+			newPosition.latmin   = m / 1000.0;
+			newPosition.WEflag = c;
 
-				  s.Printf ( _T("%03d%02ld%05.2f%c"), d, m / 1000, sec , c );
-            }
-            else if ( NEflag == 2 )
-            {
-                  char c = 'E';
+			s.Printf ( _T("%03d%02ld%05.2f%c"), d, m / 1000, sec , c );
+		}
+		else if ( NEflag == 2 )
+		{
+			char c = 'E';
 
-                  if ( neg )
-                  {
-                        d = -d;
-                        c = 'W';
-                  }
-					newPosition.posLon = a;
-					newPosition.longitude = d;
-					newPosition.lonmin   = m / 1000.0;
-					newPosition.NSflag = c;
-					s.Printf ( _T("%03d%02ld%05.2f%c"), d, m / 1000, sec, c );
-            }
-      }
-      return s;
+			if ( neg )
+			{
+				d = -d;
+				c = 'W';
+			}
+			newPosition.posLon = a;
+			newPosition.longitude = d;
+			newPosition.lonmin   = m / 1000.0;
+			newPosition.NSflag = c;
+			s.Printf ( _T("%03d%02ld%05.2f%c"), d, m / 1000, sec, c );
+		}
+	}
+	return s;
 }
 
 wxString Logbook::toSDMMOpenCPN ( int NEflag, double a, bool hi_precision )
 {
-      wxString s;
-      double mpy;
-      short neg = 0;
-      int d;
-      long m;
-      double ang = a;
-      char c = 'N';
-	  int g_iSDMMFormat = 0;
+	wxString s;
+	double mpy;
+	short neg = 0;
+	int d;
+	long m;
+	double ang = a;
+	char c = 'N';
+	int g_iSDMMFormat = 0;
 
-      if ( a < 0.0 )
-      {
-            a = -a;
-            neg = 1;
-      }
-      d = ( int ) a;
-      if ( neg )
-            d = -d;
-      if(NEflag)
-      {
-            if ( NEflag == 1 )
-            {
-                  c = 'N';
+	if ( a < 0.0 )
+	{
+		a = -a;
+		neg = 1;
+	}
+	d = ( int ) a;
+	if ( neg )
+		d = -d;
+	if(NEflag)
+	{
+		if ( NEflag == 1 )
+		{
+			c = 'N';
 
-                  if ( neg )
-                  {
-                        d = -d;
-                        c = 'S';
-                  }
-            }
-            else if ( NEflag == 2 )
-            {
-                  c = 'E';
+			if ( neg )
+			{
+				d = -d;
+				c = 'S';
+			}
+		}
+		else if ( NEflag == 2 )
+		{
+			c = 'E';
 
-                  if ( neg )
-                  {
-                        d = -d;
-                        c = 'W';
-                  }
-            }
-      }
+			if ( neg )
+			{
+				d = -d;
+				c = 'W';
+			}
+		}
+	}
 
-	  switch (g_iSDMMFormat)
-      {
-      case 0:
-            mpy = 600.0;
-            if(hi_precision)
-                  mpy = mpy * 1000;
+	switch (g_iSDMMFormat)
+	{
+	case 0:
+		mpy = 600.0;
+		if(hi_precision)
+			mpy = mpy * 1000;
 
-            m = ( long ) wxRound( ( a - ( double ) d ) * mpy );
+		m = ( long ) wxRound( ( a - ( double ) d ) * mpy );
 
-            if ( !NEflag || NEflag < 1 || NEflag > 2) //Does it EVER happen?
-            {
-                  if(hi_precision)
-					  s.Printf ( _T ( "%d %02ld.%04ld'" ), d, m / 10000, m % 10000 );
-                  else
-					  s.Printf ( _T ( "%d %02ld.%01ld'" ), d, m / 10,   m % 10 );
-            }
-            else
-            {
-				if(NEflag == 1)
-				{
-					newPosition.posLat = a;
-					newPosition.latitude = d;
-					newPosition.latmin   = m / 1000.0;
-					newPosition.WEflag = c;
-				}
-				else
-				{
-					newPosition.posLon = a;
-					newPosition.longitude = d;
-					newPosition.lonmin   = m / 1000.0;
-					newPosition.NSflag = c;
-				}
-                  if(hi_precision)
-					  s.Printf ( _T ( "%03d%02ld.%04ld%c" ), d, m / 10000,( m % 10000 ), c );
-                   else
-					   s.Printf ( _T ( "%03d%02ld.%01ld%c" ), d, m / 10,   ( m % 10 ), c );
-            }
-            break;
-      case 1:
-            if (hi_precision)
-                  s.Printf (_T ( "%03.6f" ), ang); //cca 11 cm - the GPX precision is higher, but as we use hi_precision almost everywhere it would be a little too much....
-            else
-                  s.Printf (_T ( "%03.4f" ), ang); //cca 11m
-            break;
-      case 2:
-            m = ( long ) ( ( a - ( double ) d ) * 60 );
-            mpy = 10.0;
-            if (hi_precision)
-                  mpy = mpy * 100;
-            long sec = (long) (( a - ( double ) d - ( ( ( double ) m ) / 60 ) ) * 3600 * mpy);
+		if ( !NEflag || NEflag < 1 || NEflag > 2) //Does it EVER happen?
+		{
+			if(hi_precision)
+				s.Printf ( _T ( "%d %02ld.%04ld'" ), d, m / 10000, m % 10000 );
+			else
+				s.Printf ( _T ( "%d %02ld.%01ld'" ), d, m / 10,   m % 10 );
+		}
+		else
+		{
+			if(NEflag == 1)
+			{
+				newPosition.posLat = a;
+				newPosition.latitude = d;
+				newPosition.latmin   = m / 1000.0;
+				newPosition.WEflag = c;
+			}
+			else
+			{
+				newPosition.posLon = a;
+				newPosition.longitude = d;
+				newPosition.lonmin   = m / 1000.0;
+				newPosition.NSflag = c;
+			}
+			if(hi_precision)
+				s.Printf ( _T ( "%03d%02ld.%04ld%c" ), d, m / 10000,( m % 10000 ), c );
+			else
+				s.Printf ( _T ( "%03d%02ld.%01ld%c" ), d, m / 10,   ( m % 10 ), c );
+		}
+		break;
+	case 1:
+		if (hi_precision)
+			s.Printf (_T ( "%03.6f" ), ang); //cca 11 cm - the GPX precision is higher, but as we use hi_precision almost everywhere it would be a little too much....
+		else
+			s.Printf (_T ( "%03.4f" ), ang); //cca 11m
+		break;
+	case 2:
+		m = ( long ) ( ( a - ( double ) d ) * 60 );
+		mpy = 10.0;
+		if (hi_precision)
+			mpy = mpy * 100;
+		long sec = (long) (( a - ( double ) d - ( ( ( double ) m ) / 60 ) ) * 3600 * mpy);
 
-            if ( !NEflag || NEflag < 1 || NEflag > 2) //Does it EVER happen?
-            {
-                  if(hi_precision)
-					  s.Printf ( _T ( "%d %ld'%ld.%ld\"" ), d, m, sec / 1000, sec % 1000 );
-                  else
-					  s.Printf ( _T ( "%d %ld'%ld.%ld\"" ), d, m, sec / 10, sec % 10 );
-            }
-            else
-            {
-                  if(hi_precision)
-					  s.Printf ( _T ( "%03d %02ld %02ld.%03ld %c" ), d, m, sec / 1000, sec % 1000, c );
-                   else
-					   s.Printf ( _T ( "%03d %02ld %02ld.%ld %c" ), d, m,sec / 10, sec % 10, c );
-            }
-            break;
-      }
-      return s;
+		if ( !NEflag || NEflag < 1 || NEflag > 2) //Does it EVER happen?
+		{
+			if(hi_precision)
+				s.Printf ( _T ( "%d %ld'%ld.%ld\"" ), d, m, sec / 1000, sec % 1000 );
+			else
+				s.Printf ( _T ( "%d %ld'%ld.%ld\"" ), d, m, sec / 10, sec % 10 );
+		}
+		else
+		{
+			if(hi_precision)
+				s.Printf ( _T ( "%03d %02ld %02ld.%03ld %c" ), d, m, sec / 1000, sec % 1000, c );
+			else
+				s.Printf ( _T ( "%03d %02ld %02ld.%ld %c" ), d, m,sec / 10, sec % 10, c );
+		}
+		break;
+	}
+	return s;
 }
 
 bool Logbook::checkGPS(bool appendClick)
@@ -2990,28 +3042,28 @@ bool Logbook::checkGPS(bool appendClick)
 
 			if(!OCPN_Message)
 			{	/* s = wxString::Format(_("\nName of Waypoint: %s\nTrue bearing to destination: %4.1f%s\nRange to destination: %4.2f%s"),
-																	tempRMB.From.c_str(),
-																	tempRMB.BearingToDestinationDegreesTrue,opt->Deg.c_str(),
-																	tempRMB.RangeToDestinationNauticalMiles,opt->distance.c_str());
+				tempRMB.From.c_str(),
+				tempRMB.BearingToDestinationDegreesTrue,opt->Deg.c_str(),
+				tempRMB.RangeToDestinationNauticalMiles,opt->distance.c_str());
 				s.Replace(_T("."),dialog->decimalPoint);*/
 			}
 			else
 			{
 				setWayPointArrivedText();
 			}
-			
+
 		}
 		else if(everySM && !appendClick)
 			sLogText += opt->everySMText+opt->everySMAmount+opt->distance;
 		else if((dialog->timer->IsRunning() || opt->timerType != 0) && !appendClick)
 			sLogText += opt->ttext;
-			
+
 		return true;
 	}
 	else
 	{
-	//	sLat = sLon = sDate = sTime = _T("");
-//		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = sTemperatureAir = sPressure = sHumidity = _T("");
+		//	sLat = sLon = sDate = sTime = _T("");
+		//		sCOG = sCOW = sSOG = sSOW = sDepth = sWind = sWindSpeed = sTemperatureWater = sTemperatureAir = sPressure = sHumidity = _T("");
 		sCOG = sSOG = _T("");
 		bCOW = false;
 
@@ -3029,25 +3081,25 @@ bool Logbook::checkGPS(bool appendClick)
 
 void Logbook::setWayPointArrivedText()
 {
-			wxString ext;
-			wxString msg;
+	wxString ext;
+	wxString msg;
 
-			if(tempRMB.To != _T("-1"))
-				{ msg = _("Next WP Name: "); }
-			else
-				{ msg = _("Last waypoint of the Route"); tempRMB.To = wxEmptyString; }
+	if(tempRMB.To != _T("-1"))
+	{ msg = _("Next WP Name: "); }
+	else
+	{ msg = _("Last waypoint of the Route"); tempRMB.To = wxEmptyString; }
 
-			wxString s = wxString::Format(_("\nName of Waypoint: %s\n%s %s"),tempRMB.From.c_str(), msg.c_str(), tempRMB.To.c_str());
+	wxString s = wxString::Format(_("\nName of Waypoint: %s\n%s %s"),tempRMB.From.c_str(), msg.c_str(), tempRMB.To.c_str());
 
-			if(WP_skipped)
-				ext = _("Waypoint skipped");
-			else
-				ext = _("WayPoint arrived");
+	if(WP_skipped)
+		ext = _("Waypoint skipped");
+	else
+		ext = _("WayPoint arrived");
 
-			if(sLogText != _T(""))
-				sLogText += wxString::Format(_T("\n%s\n%s%s"),opt->waypointText.c_str(),ext.c_str(),s.c_str());
-			else
-				sLogText += wxString::Format(_T("%s\n%s%s"),opt->waypointText.c_str(),ext.c_str(),s.c_str());
+	if(sLogText != _T(""))
+		sLogText += wxString::Format(_T("\n%s\n%s%s"),opt->waypointText.c_str(),ext.c_str(),s.c_str());
+	else
+		sLogText += wxString::Format(_T("%s\n%s%s"),opt->waypointText.c_str(),ext.c_str(),s.c_str());
 }
 
 class ActuellWatch;
@@ -3073,24 +3125,24 @@ void Logbook::showSearchDlg(int row, int col)
 NoAppendDialog::NoAppendDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
+
 	wxBoxSizer* bSizer20;
 	bSizer20 = new wxBoxSizer( wxVERTICAL );
-	
+
 	m_staticText73 = new wxStaticText( this, wxID_ANY, _("It's not allowed to append Data to a old Logbook\n\n\
-OpenCPN switchs to actuell logbook"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+														 OpenCPN switchs to actuell logbook"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
 	m_staticText73->Wrap( -1 );
 	bSizer20->Add( m_staticText73, 0, wxALL|wxEXPAND, 5 );
-	
+
 	m_sdbSizer5 = new wxStdDialogButtonSizer();
 	m_sdbSizer5OK = new wxButton( this, wxID_OK );
 	m_sdbSizer5->AddButton( m_sdbSizer5OK );
 	m_sdbSizer5->Realize();
 	bSizer20->Add( m_sdbSizer5, 0, wxALIGN_CENTER, 5 );
-	
+
 	this->SetSizer( bSizer20 );
 	this->Layout();
-	
+
 	this->Centre( wxBOTH );
 }
 
@@ -3105,16 +3157,16 @@ PBVEDialog::PBVEDialog( wxWindow* parent, wxWindowID id, const wxString& title, 
 {
 	dialog = (LogbookDialog*)parent;
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
+
 	wxBoxSizer* bSizer21;
 	bSizer21 = new wxBoxSizer( wxVERTICAL );
-	
+
 	m_textCtrlPVBE = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
 	bSizer21->Add( m_textCtrlPVBE, 1, wxALL|wxEXPAND, 5 );
-	
+
 	this->SetSizer( bSizer21 );
 	this->Layout();
-	
+
 	this->Centre( wxBOTH );
 	m_textCtrlPVBE->AppendText(_T("this is a test if you have received PBVE-Sentences\nthey are manufacturer-specific\nit's use is for engine-hours and fuel-consumption\n"));
 }
@@ -3143,97 +3195,97 @@ LogbookSearch::LogbookSearch( wxWindow* parent, int row, int col, wxWindowID id,
 	this->col = col;
 
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
+
 	wxBoxSizer* bSizer23;
 	bSizer23 = new wxBoxSizer( wxVERTICAL );
-	
+
 	wxFlexGridSizer* fgSizer41;
 	fgSizer41 = new wxFlexGridSizer( 0, 3, 0, 0 );
 	fgSizer41->SetFlexibleDirection( wxBOTH );
 	fgSizer41->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
+
 	m_staticText96 = new wxStaticText( this, wxID_ANY, _("Search in"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText96->Wrap( -1 );
 	fgSizer41->Add( m_staticText96, 0, wxALL, 5 );
-	
+
 	m_radioBtnActuell = new wxRadioButton( this, wxID_ANY, _("Actuell Logbook"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer41->Add( m_radioBtnActuell, 0, wxALL, 5 );
-	
+
 	m_radioBtnAll = new wxRadioButton( this, wxID_ANY, _("All Logbooks"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer41->Add( m_radioBtnAll, 0, wxALL, 5 );
-	
+
 	bSizer23->Add( fgSizer41, 0, wxALIGN_CENTER, 5 );
-	
+
 	m_staticline32 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
 	bSizer23->Add( m_staticline32, 0, wxEXPAND | wxALL, 5 );
-	
+
 	wxFlexGridSizer* fgSizer411;
 	fgSizer411 = new wxFlexGridSizer( 0, 2, 0, 0 );
 	fgSizer411->SetFlexibleDirection( wxBOTH );
 	fgSizer411->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
+
 	m_staticText108 = new wxStaticText( this, wxID_ANY, _("Searchstring"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText108->Wrap( -1 );
 	fgSizer411->Add( m_staticText108, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
+
 	m_textCtrl72 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 250,-1 ), wxTE_LEFT|wxTE_MULTILINE );
 	fgSizer411->Add( m_textCtrl72, 0, wxALL, 5 );
-	
+
 	m_staticText110 = new wxStaticText( this, wxID_ANY, _("In Column"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText110->Wrap( -1 );
 	fgSizer411->Add( m_staticText110, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
+
 	wxArrayString m_choice23Choices;
 	m_choice23 = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxSize( 250,-1 ), m_choice23Choices, 0 );
 	m_choice23->SetSelection( 0 );
 	fgSizer411->Add( m_choice23, 0, wxALL, 5 );
-	
+
 	m_staticText97 = new wxStaticText( this, wxID_ANY, _("Date"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText97->Wrap( -1 );
 	fgSizer411->Add( m_staticText97, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
+
 	wxFlexGridSizer* fgSizer42;
 	fgSizer42 = new wxFlexGridSizer( 0, 3, 0, 0 );
 	fgSizer42->SetFlexibleDirection( wxBOTH );
 	fgSizer42->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
+
 	wxString m_choiceGreaterEqualChoices[] = { wxT(">="), wxT("<=") };
 	int m_choiceGreaterEqualNChoices = sizeof( m_choiceGreaterEqualChoices ) / sizeof( wxString );
 	m_choiceGreaterEqual = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceGreaterEqualNChoices, m_choiceGreaterEqualChoices, 0 );
 	m_choiceGreaterEqual->SetSelection( 0 );
 	fgSizer42->Add( m_choiceGreaterEqual, 0, wxALL, 5 );
-	
+
 	m_datePicker = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
 	fgSizer42->Add( m_datePicker, 0, wxALL, 5 );
-	
+
 	m_buttonSelectDate = new wxButton( this, wxID_ANY, _("Select"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer42->Add( m_buttonSelectDate, 0, wxALL, 5 );
-	
+
 	fgSizer411->Add( fgSizer42, 1, wxEXPAND, 5 );
-	
+
 	bSizer23->Add( fgSizer411, 0, wxEXPAND, 5 );
-	
+
 	m_staticline39 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
 	bSizer23->Add( m_staticline39, 0, wxEXPAND | wxALL, 5 );
-	
+
 	wxFlexGridSizer* fgSizer43;
 	fgSizer43 = new wxFlexGridSizer( 0, 2, 0, 0 );
 	fgSizer43->SetFlexibleDirection( wxBOTH );
 	fgSizer43->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
+
 	m_buttonBack = new wxButton( this, wxID_ANY, wxT("<<"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer43->Add( m_buttonBack, 0, wxALL, 5 );
-	
+
 	m_buttonForward = new wxButton( this, wxID_ANY, wxT(">>"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer43->Add( m_buttonForward, 0, wxALIGN_CENTER|wxALL, 5 );
-	
+
 	bSizer23->Add( fgSizer43, 0, wxALIGN_CENTER, 0 );
-	
+
 	this->SetSizer( bSizer23 );
 	this->Layout();
-	
+
 	this->Centre( wxBOTH );
-	
+
 	// Connect Events
 	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( LogbookSearch::OnInitDialog ) );
 	m_buttonBack->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookSearch::OnButtonClickBack ), NULL, this );
@@ -3248,7 +3300,7 @@ LogbookSearch::~LogbookSearch()
 	m_buttonBack->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookSearch::OnButtonClickBack ), NULL, this );
 	m_buttonForward->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookSearch::OnButtonClickForward ), NULL, this );
 	m_buttonSelectDate->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookSearch::OnButtonClickSelectDate ), NULL, this );
-	
+
 }
 
 void LogbookSearch::OnInitDialog( wxInitDialogEvent& event )
@@ -3335,12 +3387,12 @@ void LogbookSearch::OnButtonClickBack( wxCommandEvent& event )
 			if(m_choiceGreaterEqual->GetSelection() == 0)
 			{
 				if(dt < dlgDt) 
-				continue;
+					continue;
 			}
 			else
 			{
 				if(dt > dlgDt) 
-				continue;
+					continue;
 			}
 		}
 
@@ -3358,23 +3410,23 @@ void LogbookSearch::OnButtonClickBack( wxCommandEvent& event )
 LinesReminderDlg::LinesReminderDlg(wxString str, wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
+
 	wxBoxSizer* bSizer38;
 	bSizer38 = new wxBoxSizer( wxVERTICAL );
-	
+
 	m_staticTextreminder = new wxStaticText( this, wxID_ANY, str, wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
 	m_staticTextreminder->Wrap( -1 );
 	bSizer38->Add( m_staticTextreminder, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-	
+
 	m_sdbSizer9 = new wxStdDialogButtonSizer();
 	m_sdbSizer9OK = new wxButton( this, wxID_OK );
 	m_sdbSizer9->AddButton( m_sdbSizer9OK );
 	m_sdbSizer9->Realize();
 	bSizer38->Add( m_sdbSizer9, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	
+
 	this->SetSizer( bSizer38 );
 	this->Layout();
-	
+
 	this->Fit();
 	this->Centre( wxBOTH );
 }

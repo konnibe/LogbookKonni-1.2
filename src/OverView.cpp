@@ -1,6 +1,6 @@
 //#pragma once
 #ifndef WX_PRECOMP
-      #include <wx/wx.h>
+#include <wx/wx.h>
 #endif
 
 #include "OverView.h"
@@ -64,7 +64,7 @@ void OverView::viewODT(wxString path,wxString layout,int mode)
 
 	if(layout != _T(""))
 	{
-	    fn.Replace(_T("txt"),_T("odt"));
+		fn.Replace(_T("txt"),_T("odt"));
 		parent->startApplication(fn,_T(".odt"));
 	}
 }
@@ -80,7 +80,7 @@ void OverView::viewHTML(wxString path,wxString layout,int mode)
 
 	if(layout != _T(""))
 	{
-	    fn.Replace(_T("txt"),_T("html"));
+		fn.Replace(_T("txt"),_T("html"));
 		parent->startBrowser(fn);
 	}
 }
@@ -134,7 +134,7 @@ void OverView::loadAllLogbooks()
 	{
 		//wxFileName name(files.Item(f));
 		//if(name.GetName().Contains(_T("logbook")))
-			logbooks.Add(files[f]);
+		logbooks.Add(files[f]);
 	}
 }
 
@@ -144,7 +144,7 @@ void OverView::selectLogbook()
 	path = path + wxFileName::GetPathSeparator() + _T("data");
 
 	SelectLogbook selLogbook(parent,path);
-	
+
 	if(selLogbook.ShowModal() == wxID_CANCEL)
 		return;
 
@@ -165,12 +165,12 @@ void OverView::actuellLogbook()
 	showAllLogbooks = false;
 	clearGrid();
 	for(unsigned int i=0; i < logbooks.size(); i++)
-	  if(!logbooks[i].Contains(_T("until")))
-	  {
-	    loadLogbookData(logbooks[i],false);
-	    break;
-	  }
-    opt->overviewAll = 0;
+		if(!logbooks[i].Contains(_T("until")))
+		{
+			loadLogbookData(logbooks[i],false);
+			break;
+		}
+		opt->overviewAll = 0;
 }
 
 void OverView::allLogbooks()
@@ -199,7 +199,7 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 {
 	wxString t,s;
 	bool test = true;
-//	bool write = true;
+	//	bool write = true;
 	double x = 0;
 	wxStringTokenizer tkz1;
 	wxTimeSpan span;
@@ -255,87 +255,105 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 										grid->SetCellValue(row,FROUTE,s);
 									}
 									else ;
-										//write = false;
+									//write = false;
 
+									break;
+			case DATEM:			
+				if(s.IsEmpty())
+					month = -1;
+				else
+					month = wxAtoi(s);
 				break;
-			case DATEM:			month = wxAtoi(s);
-				break;
-			case DATED:			day = wxAtoi(s);
+			case DATED:			
+				if(s.IsEmpty())
+					day = -1;
+				else
+					day = wxAtoi(s);
 				break;
 			case DATEY:			{
-								year = wxAtoi(s);
-								wxDateTime tmp;
-								tmp.Set(day,(wxDateTime::Month) month,year);
-								s = tmp.Format(opt->sdateformat);
+				year = wxAtoi(s);
+				if(day == -1 || month == -1) continue;
 
-								if(test)
-								{
-									startdate = s;
-									enddate = s;
-									if(rowNewLogbook == 0)
-										oneLogbookTotal.logbookStart = oneLogbookTotal.logbookEnd = s;
+				wxDateTime tmp;
+				tmp.Set(day,(wxDateTime::Month) month,year);
+				s = tmp.Format(opt->sdateformat);
+
+				if(test)
+				{
+					startdate = s;
+					enddate = s;
+					if(rowNewLogbook == 0)
+						oneLogbookTotal.logbookStart = oneLogbookTotal.logbookEnd = s;
+				}
+				else
+					enddate = s;
+
+				if(etmaldate != s)
+				{
+					etmaldate = s;
+					etmalcount++;
+					bestetmaltemp = 0;
+				}
+
+				date = s;
 								}
+								break;
+			case TIMEH:			if(s.IsEmpty()) 
+									hour = -1;
 								else
-									enddate = s;
-
-								if(etmaldate != s)
-								{
-									etmaldate = s;
-									etmalcount++;
-									bestetmaltemp = 0;
-								}
-
-									date = s;
-								}
+									hour = wxAtoi(s);
 				break;
-			case TIMEH:			hour = wxAtoi(s);
-				break;
-			case TIMEM:			min = wxAtoi(s);
+			case TIMEM:			if(s.IsEmpty())
+									min = -1;
+								else
+									min = wxAtoi(s);
 				break;
 			case TIMES:			{
-								sec = wxAtoi(s);	
-								wxDateTime tmp;
-								tmp.Set(hour,min,sec);
-								s = tmp.Format(opt->stimeformat);
+				if(hour == -1 || min == -1) continue;
+				sec = wxAtoi(s);
+				wxDateTime tmp;
+				tmp.Set(hour,min,sec);
+				s = tmp.Format(opt->stimeformat);
 
-								if(test)
-								{
-									starttime = s;
-									endtime = s;
-									if(rowNewLogbook == 0)
-										oneLogbookTotal.logbookTimeStart = oneLogbookTotal.logbookTimeEnd = s;
+				if(test)
+				{
+					starttime = s;
+					endtime = s;
+					if(rowNewLogbook == 0)
+						oneLogbookTotal.logbookTimeStart = oneLogbookTotal.logbookTimeEnd = s;
+				}
+				else
+					endtime = s;
 								}
-								else
-									endtime = s;
-								}
-				break;
+								break;
 			case SIGN:		   sign = s;
 				break;
 			case WATCH:	
 				break;
-			case DISTANCE:			if(sign != 'S') break;
-									s.ToDouble(&x);
+			case DISTANCE:			
+				if(!s.IsEmpty() && sign != 'S') break;
+				s.ToDouble(&x);
 
-									distance += x;
-									etmal = distance/etmalcount;
+				distance += x;
+				etmal = distance/etmalcount;
 
-									if(date == etmaldate)
-									{
-										bestetmaltemp += x;
-										if(bestetmaltemp > bestetmal)
-											bestetmal = bestetmaltemp;
-										if(bestetmaltemp > oneLogbookTotal.bestetmal)
-											 oneLogbookTotal.bestetmal = bestetmaltemp;
-									}
-									oneLogbookTotal.distance += x;
-									//allLogbooksTotal.distance += x;
+				if(date == etmaldate)
+				{
+					bestetmaltemp += x;
+					if(bestetmaltemp > bestetmal)
+						bestetmal = bestetmaltemp;
+					if(bestetmaltemp > oneLogbookTotal.bestetmal)
+						oneLogbookTotal.bestetmal = bestetmaltemp;
+				}
+				oneLogbookTotal.distance += x;
+				//allLogbooksTotal.distance += x;
 				break;
 			case DISTANCETOTAL:		
 			case POSITION:			
 			case COG:				
 			case HEADING:	
 				break;
-			case SOG:				if(sign == _T("S"))
+			case SOG:				if(!s.IsEmpty() && sign == _T("S"))
 									{
 										s.ToDouble(&x);
 										speed += x;	oneLogbookTotal.speed += x;
@@ -343,8 +361,8 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 										if(x > speedpeak) speedpeak = x;
 										if(x > oneLogbookTotal.speedpeak) oneLogbookTotal.speedpeak = x;
 									}
-				break;
-			case STW:				if(sign == _T("S"))
+									break;
+			case STW:				if(!s.IsEmpty() && sign == _T("S"))
 									{
 										s.ToDouble(&x);
 										speedSTW += x; oneLogbookTotal.speedSTW += x;
@@ -352,7 +370,7 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 										if(x > speedpeakSTW) speedpeakSTW = x;
 										if(x > oneLogbookTotal.speedpeakSTW) oneLogbookTotal.speedpeakSTW = x;
 									}
-				break;
+									break;
 			case DEPTH:				
 			case REMARKS:			
 			case BAROMETER:
@@ -362,116 +380,124 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 				break;
 			case WIND:				if(!s.IsEmpty())
 									{
-									s.ToDouble(&x);
-									winddir += x; oneLogbookTotal.winddir += x;
-									windcount++; oneLogbookTotal.windcount++;
+										s.ToDouble(&x);
+										winddir += x; oneLogbookTotal.winddir += x;
+										windcount++; oneLogbookTotal.windcount++;
 									}
-				break;
+									break;
 			case WINDFORCE:			if(!s.IsEmpty())
 									{
-									s.ToDouble(&x);
-									wind += x; oneLogbookTotal.wind += x;
-									if(x > windpeak) windpeak = x; 
-									if(x > oneLogbookTotal.windpeak) oneLogbookTotal.windpeak = x;
+										s.ToDouble(&x);
+										wind += x; oneLogbookTotal.wind += x;
+										if(x > windpeak) windpeak = x; 
+										if(x > oneLogbookTotal.windpeak) oneLogbookTotal.windpeak = x;
 									}
-				break;
+									break;
 			case CURRENT:			if(!s.IsEmpty())
 									{
-									s.ToDouble(&x);
-									currentdir += x; oneLogbookTotal.currentdir += x;
-									currentcount++; oneLogbookTotal.currentcount++;
+										s.ToDouble(&x);
+										currentdir += x; oneLogbookTotal.currentdir += x;
+										currentcount++; oneLogbookTotal.currentcount++;
 									}
-				break;
+									break;
 			case CURRENTFORCE:		if(!s.IsEmpty())
 									{
-									s.ToDouble(&x);
-									current += x; oneLogbookTotal.current += x;
-									if(x > currentpeak) currentpeak = x; 
-									if(x > oneLogbookTotal.currentpeak) oneLogbookTotal.currentpeak = x;
+										s.ToDouble(&x);
+										current += x; oneLogbookTotal.current += x;
+										if(x > currentpeak) currentpeak = x; 
+										if(x > oneLogbookTotal.currentpeak) oneLogbookTotal.currentpeak = x;
 									}
-				break;
+									break;
 			case WAVE:				if(!s.IsEmpty())
 									{
-									s.ToDouble(&x);
-									wave += x; oneLogbookTotal.wave += x;
-									wavecount++; oneLogbookTotal.wavecount++;
-									if(x > wavepeak) wavepeak = x; 
-									if(x > oneLogbookTotal.wavepeak) oneLogbookTotal.wavepeak = x;
+										s.ToDouble(&x);
+										wave += x; oneLogbookTotal.wave += x;
+										wavecount++; oneLogbookTotal.wavecount++;
+										if(x > wavepeak) wavepeak = x; 
+										if(x > oneLogbookTotal.wavepeak) oneLogbookTotal.wavepeak = x;
 									}
-				break;
+									break;
 			case SWELL:				if(!s.IsEmpty())
 									{
-									s.ToDouble(&x);
-									swell += x; oneLogbookTotal.swell += x;
-									swellcount++; oneLogbookTotal.swellcount++;
-									if(x > swellpeak) swellpeak = x; 
-									if(x > oneLogbookTotal.swellpeak) oneLogbookTotal.swellpeak = x;
+										s.ToDouble(&x);
+										swell += x; oneLogbookTotal.swell += x;
+										swellcount++; oneLogbookTotal.swellcount++;
+										if(x > swellpeak) swellpeak = x; 
+										if(x > oneLogbookTotal.swellpeak) oneLogbookTotal.swellpeak = x;
 									}
-				break;
+									break;
 			case WEATHER:			
 			case CLOUDS:			
 			case VISIBILITY:
 				break;
-			case ENGINE1:			tkz1.SetString(s, _T(":"),wxTOKEN_RET_EMPTY );
+			case ENGINE1:			if(s.IsEmpty()) continue;
+
+				tkz1.SetString(s, _T(":"),wxTOKEN_RET_EMPTY );
+				long hours, minutes;
+				tkz1.GetNextToken().ToLong(&hours);
+				tkz1.GetNextToken().ToLong(&minutes);
+				enginehours += hours; enginemin += minutes;
+				if(enginemin >= 60) { enginehours++; enginemin -= 60; }
+				oneLogbookTotal.enginehours += hours; oneLogbookTotal.enginemin += minutes;
+				if(oneLogbookTotal.enginemin >= 60) { oneLogbookTotal.enginehours++; oneLogbookTotal.enginemin -= 60; }
+				break;
+			case ENGINE2:			if(s.IsEmpty()) continue;
+
+									{	tkz1.SetString(s, _T(":"),wxTOKEN_RET_EMPTY );
 									long hours, minutes;
 									tkz1.GetNextToken().ToLong(&hours);
 									tkz1.GetNextToken().ToLong(&minutes);
-									enginehours += hours; enginemin += minutes;
-									if(enginemin >= 60) { enginehours++; enginemin -= 60; }
-									oneLogbookTotal.enginehours += hours; oneLogbookTotal.enginemin += minutes;
-									if(oneLogbookTotal.enginemin >= 60) { oneLogbookTotal.enginehours++; oneLogbookTotal.enginemin -= 60; }
-				break;
-			case ENGINE2:			
-									{	tkz1.SetString(s, _T(":"),wxTOKEN_RET_EMPTY );
-										long hours, minutes;
-										tkz1.GetNextToken().ToLong(&hours);
-										tkz1.GetNextToken().ToLong(&minutes);
-										enginehours2 += hours; enginemin2 += minutes;
-										if(enginemin2 >= 60) { enginehours2++; enginemin2 -= 60; }
-										oneLogbookTotal.enginehours2 += hours; oneLogbookTotal.enginemin2 += minutes;
-										if(oneLogbookTotal.enginemin2 >= 60) { oneLogbookTotal.enginehours2++; oneLogbookTotal.enginemin2 -= 60; }
+									enginehours2 += hours; enginemin2 += minutes;
+									if(enginemin2 >= 60) { enginehours2++; enginemin2 -= 60; }
+									oneLogbookTotal.enginehours2 += hours; oneLogbookTotal.enginemin2 += minutes;
+									if(oneLogbookTotal.enginemin2 >= 60) { oneLogbookTotal.enginehours2++; oneLogbookTotal.enginemin2 -= 60; }
 									}					
-				break;
-			case GENERATOR:			
+									break;
+			case GENERATOR:			if(s.IsEmpty()) continue;
+
 									{	tkz1.SetString(s, _T(":"),wxTOKEN_RET_EMPTY );
-										long hours, minutes;
-										tkz1.GetNextToken().ToLong(&hours);
-										tkz1.GetNextToken().ToLong(&minutes);
-										generatorhours += hours; generatormin += minutes;
-										if(generatormin >= 60) { generatorhours++; generatormin -= 60; }
-										oneLogbookTotal.generatorhours += hours; oneLogbookTotal.generatormin += minutes;
-										if(oneLogbookTotal.generatormin >= 60) { oneLogbookTotal.generatorhours++; oneLogbookTotal.generatormin -= 60; }
+									long hours, minutes;
+									tkz1.GetNextToken().ToLong(&hours);
+									tkz1.GetNextToken().ToLong(&minutes);
+									generatorhours += hours; generatormin += minutes;
+									if(generatormin >= 60) { generatorhours++; generatormin -= 60; }
+									oneLogbookTotal.generatorhours += hours; oneLogbookTotal.generatormin += minutes;
+									if(oneLogbookTotal.generatormin >= 60) { oneLogbookTotal.generatorhours++; oneLogbookTotal.generatormin -= 60; }
 									}					
-				break;
-			case WATERM:			
+									break;
+			case WATERM:			if(s.IsEmpty()) continue;
+
 									{	tkz1.SetString(s, _T(":"),wxTOKEN_RET_EMPTY );
-										long hours, minutes;
-										tkz1.GetNextToken().ToLong(&hours);
-										tkz1.GetNextToken().ToLong(&minutes);
-										watermhours += hours; watermmin += minutes;
-										if(watermmin >= 60) { watermhours++; watermmin -= 60; }
-										oneLogbookTotal.watermhours += hours; oneLogbookTotal.watermmin += minutes;
-										if(oneLogbookTotal.watermmin >= 60) { oneLogbookTotal.watermhours++; oneLogbookTotal.watermmin -= 60; }
+									long hours, minutes;
+									tkz1.GetNextToken().ToLong(&hours);
+									tkz1.GetNextToken().ToLong(&minutes);
+									watermhours += hours; watermmin += minutes;
+									if(watermmin >= 60) { watermhours++; watermmin -= 60; }
+									oneLogbookTotal.watermhours += hours; oneLogbookTotal.watermmin += minutes;
+									if(oneLogbookTotal.watermmin >= 60) { oneLogbookTotal.watermhours++; oneLogbookTotal.watermmin -= 60; }
 									}					
-				break;
+									break;
 			case ENGINE1T:		
 				break;
-			case FUEL:				if(s.GetChar(0) == '+') break;									
-				                    s.ToDouble(&x);
-									if(s.GetChar(0) != '-') s.Prepend(_T("-"));  // version 0.910 has no minus sign
+			case FUEL:				if(s.IsEmpty()) continue;
 
-								//	if(x < 0)
-								//	{
-										fuel += x;
-										oneLogbookTotal.fuel += x;
-								//	}
+				if(s.GetChar(0) == '+') break;									
+				s.ToDouble(&x);
+				if(s.GetChar(0) != '-') s.Prepend(_T("-"));  // version 0.910 has no minus sign
+
+				//	if(x < 0)
+				//	{
+				fuel += x;
+				oneLogbookTotal.fuel += x;
+				//	}
 				break;
-			case WATERMO:			s.ToDouble(&x);
-								//	if(x < 0)
-								//	{
-										watermo += x;
-										oneLogbookTotal.watermo += x;
-								//	}
+			case WATERMO:			if(s.IsEmpty()) continue;
+				s.ToDouble(&x);
+				//	if(x < 0)
+				//	{
+				watermo += x;
+				oneLogbookTotal.watermo += x;
+				//	}
 				break;
 			case FUELTOTAL:			
 				break;
@@ -493,50 +519,52 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 										{
 											t_coll.insert(pair(s,1)); 
 											wxString result;
-										for(it = t_coll.begin(); it != t_coll.end(); ++it)
-										{
-											result = it->first;
-										}
+											for(it = t_coll.begin(); it != t_coll.end(); ++it)
+											{
+												result = it->first;
+											}
 										}
 									}
-				break;
+									break;
 			case REEF:				
 				break;
-			case WATER:				if(s.GetChar(0) == '+') break;				 // add water used only
-									if(s.GetChar(0) != '-') s.Prepend(_T("-"));  // version 0.910 has no minus sign
-									s.ToDouble(&x);
-									
-									x = fabs(x);
-								//	if(x < 0)
-								//	{
-										water += x;
-										oneLogbookTotal.water += x;
-								//	}
+			case WATER:				if(s.IsEmpty()) continue;
+				if(s.GetChar(0) == '+') break;				 // add water used only
+				if(s.GetChar(0) != '-') s.Prepend(_T("-"));  // version 0.910 has no minus sign
+				s.ToDouble(&x);
+
+				x = fabs(x);
+				//	if(x < 0)
+				//	{
+				water += x;
+				oneLogbookTotal.water += x;
+				//	}
 				break;
-			case BANK1:			
-								s.ToDouble(&x);
-								if(x >= 0)
-								{
-									bank1g += x;
-									oneLogbookTotal.bank1g += x;
-								}
-								else
-								{
-									bank1u += fabs(x); 
-									oneLogbookTotal.bank1u += bank1u;
-								}
+			case BANK1:			if(s.IsEmpty()) continue;
+				s.ToDouble(&x);
+				if(x >= 0)
+				{
+					bank1g += x;
+					oneLogbookTotal.bank1g += x;
+				}
+				else
+				{
+					bank1u += fabs(x); 
+					oneLogbookTotal.bank1u += bank1u;
+				}
 				break;
-			case BANK2:			s.ToDouble(&x);
-								if(x >= 0)
-								{
-									bank2g += x;
-									oneLogbookTotal.bank2g += x;
-								}
-								else
-								{
-									bank2u += fabs(x); 
-									oneLogbookTotal.bank2u += bank2u;
-								}
+			case BANK2:			if(s.IsEmpty()) continue;
+				s.ToDouble(&x);
+				if(x >= 0)
+				{
+					bank2g += x;
+					oneLogbookTotal.bank2g += x;
+				}
+				else
+				{
+					bank2u += fabs(x); 
+					oneLogbookTotal.bank2u += bank2u;
+				}
 				break;
 			case WATERTOTAL:		
 				break;
@@ -545,7 +573,7 @@ void OverView::loadLogbookData(wxString logbook, bool colour)
 			}
 			c++;
 		}
-//		if(write)
+		//if(test)
 			writeSumColumn(lastrow, logbook, path, colour);
 		test = false;
 	}
@@ -662,9 +690,9 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 
 	switch(opt->showWaveSwell)
 	{
-		case 0:	d = opt->meter; break;
-		case 1: d = opt->feet; break;
-		case 2: d = opt->fathom; break;
+	case 0:	d = opt->meter; break;
+	case 1: d = opt->feet; break;
+	case 2: d = opt->fathom; break;
 	}
 
 	grid->SetCellAlignment(row,FLOG,wxALIGN_LEFT, wxALIGN_TOP);
@@ -685,21 +713,12 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FBESTETMAL,temp);
 
-#ifdef __WXOSX__
-	temp = wxString::Format(_T("%6.2f %s"),labs(fuel),opt->vol.c_str());
-	temp.Replace(_T("."),parent->decimalPoint);
-	grid->SetCellValue(row,FFUEL,temp);
-	temp = wxString::Format(_T("%6.2f %s"),labs(water),opt->vol.c_str());
-	temp.Replace(_T("."),parent->decimalPoint);
-	grid->SetCellValue(row,FWATER,temp);
-#else
 	temp = wxString::Format(_T("%6.2f %s"),fabs(fuel),opt->vol.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FFUEL,temp);
 	temp = wxString::Format(_T("%6.2f %s"),fabs(water),opt->vol.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FWATER,temp);
-#endif
 
 	temp = wxString::Format(_T("%3.2f %s"),bank1u,opt->ampereh.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
@@ -804,37 +823,46 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FBSPEED,temp);
 
-//	if(speedcountSTW)
-//		temp = wxString::Format(_T("%6.2f %s"),speedSTW/speedcountSTW,opt->speed.c_str());
-//	else
-//		temp = nothing;
-//	temp.Replace(_T("."),parent->decimalPoint);
-//	grid->SetCellValue(row,FSPEEDSTW,temp);
+	//	if(speedcountSTW)
+	//		temp = wxString::Format(_T("%6.2f %s"),speedSTW/speedcountSTW,opt->speed.c_str());
+	//	else
+	//		temp = nothing;
+	//	temp.Replace(_T("."),parent->decimalPoint);
+	//	grid->SetCellValue(row,FSPEEDSTW,temp);
 
-//	temp = wxString::Format(_T("%6.2f %s"),speedpeakSTW,opt->speed.c_str());
-//	temp.Replace(_T("."),parent->decimalPoint);
-//	grid->SetCellValue(row,FBSPEEDSTW,temp);
+	//	temp = wxString::Format(_T("%6.2f %s"),speedpeakSTW,opt->speed.c_str());
+	//	temp.Replace(_T("."),parent->decimalPoint);
+	//	grid->SetCellValue(row,FBSPEEDSTW,temp);
 
 	grid->SetCellValue(row,FPATH,path);
 
-	wxDateTime startdt, enddt;
+	wxDateTime startdt, enddt, timet;
 
+	if((startdate.IsEmpty() || enddate.IsEmpty()) ||
+		(starttime.IsEmpty() || endtime.IsEmpty()))
+		return;
+
+	parent->myParseTime(starttime,timet);
+	wxTimeSpan timesp(timet.GetHour(),timet.GetMinute());
 	parent->myParseDate(startdate,startdt);
-	parent->myParseTime(starttime,startdt);
+	startdt.Add(timesp);
+
+	parent->myParseTime(endtime,timet);
+	wxTimeSpan timespe(timet.GetHour(),timet.GetMinute());
 	parent->myParseDate(enddate,enddt);
-	parent->myParseTime(endtime,enddt);
+	enddt.Add(timespe);
 
 	wxTimeSpan journey = enddt.Subtract(startdt);
 	wxTimeSpan time;
 	if(journey.GetDays() > 0)
 	{
 		journey.GetMinutes();
-		wxTimeSpan t(0,journey.GetMinutes()-(journey.GetDays()*24*60)); 
+		wxTimeSpan t(0,journey.GetMinutes()-(journey.GetDays()*24*60));
 		time = t;
 	}
 	else
 	{
-		wxTimeSpan t(journey.GetHours(),journey.GetMinutes());
+		wxTimeSpan t(0,journey.GetMinutes());
 		time = t;
 	}
 	grid->SetCellValue(row,FJOURNEY,wxString::Format(_T("%s %s %s %s"),
@@ -846,11 +874,11 @@ void OverView::writeSumColumn(int row, wxString logbook, wxString path, bool col
 
 	for(it = t_coll.begin(); it != t_coll.end(); ++it)
 		if(it->second >= max)  { sail = it->first; max = it->second; }
-	grid->SetCellValue(row,FSAILS,sail);
+		grid->SetCellValue(row,FSAILS,sail);
 
-	if(colour)
-		for(int i = 0; i < grid->GetCols(); i++)
-			grid->SetCellBackgroundColour(row,i,wxColour(230,230,230));
+		if(colour)
+			for(int i = 0; i < grid->GetCols(); i++)
+				grid->SetCellBackgroundColour(row,i,wxColour(230,230,230));
 }
 
 void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool colour)
@@ -865,9 +893,9 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 	wxString d, sail;
 	switch(opt->showWaveSwell)
 	{
-		case 0:	d = opt->meter; break;
-		case 1: d = opt->feet; break;
-		case 2: d = opt->fathom; break;
+	case 0:	d = opt->meter; break;
+	case 1: d = opt->feet; break;
+	case 2: d = opt->fathom; break;
 	}
 
 	grid->SetCellAlignment(row,FLOG,wxALIGN_LEFT, wxALIGN_TOP);
@@ -886,21 +914,12 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FBESTETMAL,temp);
 
-#ifdef __WXOSX__
-	temp = wxString::Format(_T("%6.2f %s"),labs(fuel),opt->vol.c_str());
-	temp.Replace(_T("."),parent->decimalPoint);
-	grid->SetCellValue(row,FFUEL,temp);
-	temp = wxString::Format(_T("%6.2f %s"),labs(water),opt->vol.c_str());
-	temp.Replace(_T("."),parent->decimalPoint);
-	grid->SetCellValue(row,FWATER,temp);
-#else
 	temp = wxString::Format(_T("%6.2f %s"),fabs(data.fuel),opt->vol.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FFUEL,temp);
 	temp = wxString::Format(_T("%6.2f %s"),fabs(data.water),opt->vol.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 	grid->SetCellValue(row,FWATER,temp);
-#endif
 
 	temp = wxString::Format(_T("%3.2f %s"),data.bank1u,opt->ampereh.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
@@ -1013,12 +1032,21 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 	temp = wxString::Format(_T("%6.2f %s"),data.speedpeakSTW,opt->speed.c_str());
 	temp.Replace(_T("."),parent->decimalPoint);
 
-	wxDateTime startdt, enddt, startdtd, enddtd;
+	wxDateTime startdt, enddt, startdtd, enddtd, time;
 
+	if((data.logbookStart.IsEmpty() || enddate.IsEmpty()) ||
+		(data.logbookTimeStart.IsEmpty() || endtime.IsEmpty()))
+		return;
+	
+	parent->myParseTime(data.logbookTimeStart,time);
+	wxTimeSpan timesp(time.GetHour(),time.GetMinute());
 	parent->myParseDate(data.logbookStart,startdt);
-	parent->myParseTime(data.logbookTimeStart,startdt);
+	startdt.Add(timesp);
+
+	parent->myParseTime(endtime,time);
+	wxTimeSpan timespe(time.GetHour(),time.GetMinute());
 	parent->myParseDate(enddate,enddt);
-	parent->myParseTime(endtime,enddt);
+	enddt.Add(timespe);
 
 	wxTimeSpan journey = enddt.Subtract(startdt);
 	if(journey.GetWeeks() > 3)
@@ -1029,24 +1057,24 @@ void OverView::writeSumColumnLogbook(total data, int row, wxString logbook, bool
 
 		//years = journey.GetDays() / 365 ;
 
-		
+
 		years = enddt.GetYear()-startdt.GetYear();
 
 		int bd = startdt.GetDay(), bm = startdt.GetMonth() ,by = startdt.GetYear(),
-			cd = enddt.GetDay(),cm = enddt.GetMonth(),cy = enddt.GetYear(),ad,am,ay; 
+			cd = enddt.GetDay(),cm = enddt.GetMonth(),cy = enddt.GetYear(),ad,am,ay;
 		if(cd<bd)
-{
-cm=cm-1;
-cd=cd+startdt.GetLastMonthDay().GetDay();
-}
-if(cm<bm)
-{
-cy=cy-1;
-cm=cm+12;
-}
-ad=cd-bd;
-am=cm-bm;
-ay=cy-by; 
+		{
+			cm=cm-1;
+			cd=cd+startdt.GetLastMonthDay().GetDay();
+		}
+		if(cm<bm)
+		{
+			cy=cy-1;
+			cm=cm+12;
+		}
+		ad=cd-bd;
+		am=cm-bm;
+		ay=cy-by;
 
 		month = startdt.GetMonth()-enddt.GetMonth();
 		if(month < 0 && startdt.GetYear() != enddt.GetYear())
@@ -1063,13 +1091,13 @@ ay=cy-by;
 			days = startdt.GetDay() - days;
 			month --;
 		}
-/*		else
+		/*		else
 		{
-			month--;
-			days = enddt.GetLastMonthDay((wxDateTime::Month)month).GetDay() - (startdt.GetDay() - enddt.GetDay());
+		month--;
+		days = enddt.GetLastMonthDay((wxDateTime::Month)month).GetDay() - (startdt.GetDay() - enddt.GetDay());
 		}
-*/
-		grid->SetCellValue(row,FJOURNEY,wxString::Format(_("%i Year(s) %i Month(s) %i Day(s)"),ay,am,ad));	
+		*/
+		grid->SetCellValue(row,FJOURNEY,wxString::Format(_("%i Year(s) %i Month(s) %i Day(s)"),ay,am,ad));
 	}
 	else
 		grid->SetCellValue(row,FJOURNEY,journey.Format(_("%E Week(s) %D Day(s) %H:%M "))+opt->motorh);
@@ -1080,11 +1108,11 @@ ay=cy-by;
 
 	for(it = t_coll.begin(); it != t_coll.end(); ++it)
 		if(it->second >= max)  { sail = it->first; max = it->second; }
-	grid->SetCellValue(row,FSAILS,sail);
+		grid->SetCellValue(row,FSAILS,sail);
 
-	if(colour)
-		for(int i = 0; i < grid->GetCols(); i++)
-			grid->SetCellBackgroundColour(row,i,wxColour(230,230,230));
+		if(colour)
+			for(int i = 0; i < grid->GetCols(); i++)
+				grid->SetCellBackgroundColour(row,i,wxColour(230,230,230));
 }
 
 void OverView::setLayoutLocation()

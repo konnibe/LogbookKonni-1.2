@@ -12,7 +12,6 @@
 #include "Maintenance.h"
 #include "boat.h"
 #include "OverView.h"
-#include "EzGrid.h"
 #include "tinyxml/tinyxml.h"
 
 #include <wx/string.h>
@@ -129,46 +128,46 @@ enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 		wxButton* m_button4;
 		wxButton* logSave;
 		wxStaticLine* m_staticline8;
-		wxBitmapButton* m_bpButtonShowHideLayout;
+        wxBitmapButton* m_bpButtonShowHideLayout;
 		wxStaticText* m_staticText32;
 		wxChoice* logbookChoice;
 		wxButton* logView;
 		wxStaticLine* m_staticline7;
 		wxButton* newLogbook;
 		wxButton* selLogbook;
-		wxStaticLine* m_staticline411;
-		wxBitmapButton* m_bpButtonShowHideStatusGlobal;
-		wxBitmapButton* m_bpButtonHelpGlobal;
-		wxStaticLine* m_staticline401;
+        wxStaticLine* m_staticline411;
+        wxBitmapButton* m_bpButtonShowHideStatusGlobal;
+        wxBitmapButton* m_bpButtonHelpGlobal;
+        wxStaticLine* m_staticline401;
 		wxNotebook* m_notebook8;
 		wxPanel* m_panel6;
-		wxMenu* m_menu10;
+        wxMenu* m_menu10;
 		wxPanel* m_panel7;
 		wxGrid* m_gridWeather;
 		wxPanel* m_panel71;
 		wxGrid* m_gridMotorSails;
-		wxButton* m_buttonSetTimer;
-		wxStaticText* m_staticText1241;
-		myBitmapButton* m_bpButtonTimer;
-		wxStaticLine* m_staticline40;
-		wxStaticText* m_staticText12411;
-		myBitmapButton* m_bpButtonWatch;
-		wxStaticLine* m_staticline41;
-		wxStaticText* m_staticText124111;
-		myBitmapButton* m_bpButton8Waypoint;
-		wxStaticLine* m_staticline42;
-		wxStaticText* m_staticText1241111;
-		myBitmapButton* m_bpButtonDistance;
-		wxTextCtrl* m_textCtrlStatusDistance;
-		wxStaticLine* m_staticline43;
-		wxStaticText* m_staticText12411111;
-		myBitmapButton* m_bpButtonCourse;
-		wxTextCtrl* m_textCtrlStatusCourseDeg;
-		wxTextCtrl* m_textCtrlStatusCourseMin;
-		wxStaticLine* m_staticline44;
-		wxButton* m_buttonStartStop;
-		wxStaticLine* m_staticline46;
-		wxStaticText* m_staticTextStatusText;
+        wxButton* m_buttonSetTimer;
+        wxStaticText* m_staticText1241;
+        myBitmapButton* m_bpButtonTimer;
+        wxStaticLine* m_staticline40;
+        wxStaticText* m_staticText12411;
+        myBitmapButton* m_bpButtonWatch;
+        wxStaticLine* m_staticline41;
+        wxStaticText* m_staticText124111;
+        myBitmapButton* m_bpButton8Waypoint;
+        wxStaticLine* m_staticline42;
+        wxStaticText* m_staticText1241111;
+        myBitmapButton* m_bpButtonDistance;
+        wxTextCtrl* m_textCtrlStatusDistance;
+        wxStaticLine* m_staticline43;
+        wxStaticText* m_staticText12411111;
+        myBitmapButton* m_bpButtonCourse;
+        wxTextCtrl* m_textCtrlStatusCourseDeg;
+        wxTextCtrl* m_textCtrlStatusCourseMin;
+        wxStaticLine* m_staticline44;
+        wxButton* m_buttonStartStop;
+        wxStaticLine* m_staticline46;
+        wxStaticText* m_staticTextStatusText;
 		wxPanel* m_panel142;
 		wxButton* logSaveOverview;
 		wxStaticLine* m_staticline81;
@@ -208,8 +207,8 @@ enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 		wxStaticText* m_staticText1181;
 		wxGrid* m_gridCrewWake;
 		wxMenu* m_menu21;
-		wxPanel* m_panel24;
-		wxStaticText* m_staticTextStatusWatch;
+        wxPanel* m_panel24;
+        wxStaticText* m_staticTextStatusWatch;
 		wxPanel* m_panel3;
 		wxButton* addEquipmentButton;
 		wxToggleButton* m_toggleBtnShowEquipment;
@@ -299,39 +298,39 @@ enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 		wxStaticText* m_staticText6211;
 		wxStaticLine* m_staticline1411;
 		wxMenu* m_menu711;
-		wxStaticText* m_staticText140;
-		wxTextCtrl* m_textCtrl95;
-		wxStaticText* m_staticText141;
-		wxTextCtrl* m_textCtrl96;
-		wxStaticText* m_staticText142;
-		wxTextCtrl* m_textCtrl100;
-		wxStaticText* m_staticText143;
-		wxTextCtrl* m_textCtrl98;
-		wxStaticLine* m_staticline421;
-		wxButton* m_button61;
-		wxStaticLine* m_staticline431;
-		wxChoice* m_choice32;
-		wxButton* m_buttonSavePolar;
-		wxTextCtrl* m_textCtrl99;
-		wxPanel* m_panel22;
-		wxButton* m_buttonSailsReset;
-		wxBoxSizer* bSizerPolar;
-		wxStaticText* m_staticText144;
-		wxChoice* m_choiceDegreesPolar;
-		wxStaticLine* m_staticline441;
-		wxStaticText* m_staticText145;
-		wxStaticText* m_staticText146;
-		wxChoice* m_choiceSourcePolar;
-		wxStaticText* m_staticText148;
-		wxChoice* m_choiceWindPolar;
-		wxChoice* m_choiceWavefromPolar;
-		wxStaticText* m_staticText147;
-		wxChoice* m_choice37;
-		wxChoice* m_choiceCurrentPolar;
-		wxButton* m_button62;
-		wxStaticLine* m_staticline45;
-		wxButton* m_buttonFilterPolar;
-		wxChoice* m_choiceRingsPolar;
+        wxStaticText* m_staticText140;
+        wxTextCtrl* m_textCtrl95;
+        wxStaticText* m_staticText141;
+        wxTextCtrl* m_textCtrl96;
+        wxStaticText* m_staticText142;
+        wxTextCtrl* m_textCtrl100;
+        wxStaticText* m_staticText143;
+        wxTextCtrl* m_textCtrl98;
+        wxStaticLine* m_staticline421;
+        wxButton* m_button61;
+        wxStaticLine* m_staticline431;
+        wxChoice* m_choice32;
+        wxButton* m_buttonSavePolar;
+        wxTextCtrl* m_textCtrl99;
+        wxPanel* m_panel22;
+        wxButton* m_buttonSailsReset;
+        wxBoxSizer* bSizerPolar;
+        wxStaticText* m_staticText144;
+        wxChoice* m_choiceDegreesPolar;
+        wxStaticLine* m_staticline441;
+        wxStaticText* m_staticText145;
+        wxStaticText* m_staticText146;
+        wxChoice* m_choiceSourcePolar;
+        wxStaticText* m_staticText148;
+        wxChoice* m_choiceWindPolar;
+        wxChoice* m_choiceWavefromPolar;
+        wxStaticText* m_staticText147;
+        wxChoice* m_choice37;
+        wxChoice* m_choiceCurrentPolar;
+        wxButton* m_button62;
+        wxStaticLine* m_staticline45;
+        wxButton* m_buttonFilterPolar;
+        wxChoice* m_choiceRingsPolar;
 
 		// Virtual event handlers, overide them in your derived class
 		 void LogbookDialogOnClose( wxCloseEvent& event ) ;
@@ -526,11 +525,15 @@ enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 		 void onMenuSelectionDeleteRows( wxCommandEvent& event );
 		 void OnMenuSelectionFlip( wxCommandEvent& event );
 		 void OnMenuSelectionFlipWatches( wxCommandEvent& event );
-		 void OnButtomClickShowHideLayout( wxCommandEvent& event );
-		 void OnToggleButtonEngine1( wxCommandEvent& event );
-		 void OnToggleButtonEngine2( wxCommandEvent& event );
-		 void OnButtonClickResetSails( wxCommandEvent& event );
-		 void OnCheckboxSails( wxCommandEvent& event );
+         void OnButtomClickShowHideLayout( wxCommandEvent& event );
+         void OnToggleButtonEngine1( wxCommandEvent& event );
+         void OnToggleButtonEngine2( wxCommandEvent& event );
+         void OnButtonClickResetSails( wxCommandEvent& event );
+         void OnCheckboxSails( wxCommandEvent& event );
+
+		 void OnComboUpService(wxCommandEvent& event);
+		 void OnComboUpRepairs(wxCommandEvent& event);
+		 void OnComboUpBuyParts(wxCommandEvent& event);
 
 		 void m_menu1Highlighted(wxMenuEvent& event);
 
@@ -544,25 +547,26 @@ enum grids  {LOGBOOK,OVERVIEW,CREW,BOAT,GSERVICE,GREPAIRS,GBUYPARTS};
 		 void setIniValues();
 		 void flipMonthDay();
 		 void deleteRows();
+		 void setBulletColorAllStates(myBitmapButton* button, wxBitmap bmp);
 	
 	public:
 enum maintenanceTab {SERVICE,REPAIRS,BUYPARTS};
 enum FORMAT {HTML,ODT};
 
-		wxPanel* m_panel2;
-		wxBoxSizer* bSizer6;
-		wxPanel* m_panelLayout;
-		wxButton* m_buttonReloadLayout;
+        wxPanel* m_panel2;
+        wxBoxSizer* bSizer6;
+        wxPanel* m_panelLayout;
+        wxButton* m_buttonReloadLayout;
 		wxButton* m_buttonEditLayout;
-		wxPanel* m_panelEngine;
-		wxToggleButton* m_toggleBtnEngine1;
-		wxToggleButton* m_toggleBtnEngine2;
-		wxFlexGridSizer* fgSizerSails;
+        wxPanel* m_panelEngine;
+        wxToggleButton* m_toggleBtnEngine1;
+        wxToggleButton* m_toggleBtnEngine2;
+        wxFlexGridSizer* fgSizerSails;
 		wxRadioButton* m_radioBtnHTML;
 		wxRadioButton* m_radioBtnODT;
 		wxGrid* m_gridGlobal;
-		wxMenu* m_menu1;
-		wxPanel* Statusbar;
+        wxMenu* m_menu1;
+        wxPanel* Statusbar;
 		wxChoice* overviewChoice;
 		wxButton* m_buttonReloadLayoutOview;
 		wxButton* m_buttonEditLayoutOview;
@@ -576,10 +580,10 @@ enum FORMAT {HTML,ODT};
 		wxButton* m_buttonEditLayoutCrew;
 		wxRadioButton* m_radioBtnHTMLCrew;
 		wxRadioButton* m_radioBtnODTCrew;
-		wxChoice* m_choiceCrewNames;
-		wxTextCtrl* m_textCtrlWakeTrip;
-		wxTextCtrl* m_textCtrlWakeDay;
-		wxChoice* m_choiceWakeDisplay;
+        wxChoice* m_choiceCrewNames;
+        wxTextCtrl* m_textCtrlWakeTrip;
+        wxTextCtrl* m_textCtrlWakeDay;
+        wxChoice* m_choiceWakeDisplay;
 		wxButton* m_buttonReloadLayoutsBoat;
 		wxButton* m_buttonEditLayoutBoat;
 		wxRadioButton* m_radioBtnHTMLBoat;
@@ -618,7 +622,7 @@ enum FORMAT {HTML,ODT};
 		wxRadioButton* m_radioBtnODTBuyParts;
 		wxButton* m_buttonViewBuyParts;
 		wxGrid* m_gridMaintenanceBuyParts;
-		wxPanel* m_panelPolar;
+        wxPanel* m_panelPolar;
 
 		LogbookDialog( logbookkonni_pi* d, wxTimer* t, LogbookTimer* lt, wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Active Logbook"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1010,535 ), long style = wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxMINIMIZE_BOX|wxRESIZE_BORDER);
 		~LogbookDialog();
@@ -648,7 +652,7 @@ enum FORMAT {HTML,ODT};
 		
 
 		static bool myParseDate(wxString s,wxDateTime  &dt);
-		static const wxChar* myParseTime(wxString s, wxDateTime &dt);
+		static bool myParseTime(wxString s, wxDateTime &dt);
 		static void setDatePattern();
 
 		void setTitleExt();
@@ -661,8 +665,8 @@ enum FORMAT {HTML,ODT};
 		void init();
 		void OnTimerGPS(wxTimerEvent& ev);
 		void OnLogTimer(wxTimerEvent& ev);
-		void OnTimerSails(wxTimerEvent& ev);
-		int  showLayoutDialog(int grid, wxChoice *choice, wxString location, int format);
+        void OnTimerSails(wxTimerEvent& ev);
+        int  showLayoutDialog(int grid, wxChoice *choice, wxString location, int format);
 		bool isInArrayString(wxArrayString ar, wxString s);
 		wxDateTime getDateTo(wxString filename);
 		void loadTimerEx();
@@ -672,25 +676,25 @@ enum FORMAT {HTML,ODT};
 		void startNormalTimer();
 		void resetBullets();
 		void deselectAllLogbookGrids();
-		void writeToRouteDlg(wxJSONValue data);
-		void setToNumberEngine();
-		void resetSails();
-		void setCheckboxLabels();
-		void setSailsGap();
-		void setAbbreviations();
-		void setCheckboxSails();
-		void stateSails();
+        void writeToRouteDlg(wxJSONValue data);
+        void setToNumberEngine();
+        void resetSails();
+        void setCheckboxLabels();
+        void setSailsGap();
+        void setAbbreviations();
+        void setCheckboxSails();
+        void stateSails();
 
 		logbookkonni_pi*	  logbookPlugIn;
 		wxString*			  pHome_Locn;
-		wxString			  basePath;
+        wxString			  basePath;
 		wxString              data;
 		wxString              image_locn;
 		Logbook*			  logbook;
 		OverView*			  overview;
-		wxString			  onOff[2];
-		wxString			  panelOnOff[2];
-		wxCheckBox*			  checkboxSails[14];
+        wxString			  onOff[2];
+        wxString			  panelOnOff[2];
+        wxCheckBox*			  checkboxSails[14];
 
 		static wxString		datePattern;
 		static wxChar		dateSeparator;
@@ -702,7 +706,7 @@ enum FORMAT {HTML,ODT};
 		LogbookTimer*		logbookTimerWindow;
 		wxTimer*            timer;
 		wxTimer*			GPSTimer;
-		wxTimer*			SailsTimer;
+        wxTimer*			SailsTimer;
 		bool				statusGPS;
 		wxTimer*			logbookTimer;
 		int					fullHourPlus;
@@ -733,15 +737,15 @@ enum FORMAT {HTML,ODT};
 		wxString			xmlHead;
 		wxString			xmlEnd;
 
-		// KML-String for Export
-		wxString			kmlHead;
-		wxString			kmlFolder;
-		wxString			kmlLine;
-		wxString			kmlEndFolder;
-		wxString			kmlBody;
-		wxString			kmlEnd;
-		wxString			kmlPathHeader;
-		wxString			kmlPathFooter;
+        // KML-String for Export
+        wxString			kmlHead;
+        wxString			kmlFolder;
+        wxString			kmlLine;
+        wxString			kmlEndFolder;
+        wxString			kmlBody;
+        wxString			kmlEnd;
+        wxString			kmlPathHeader;
+        wxString			kmlPathFooter;
 
 		wxString			titleExt;
 };
@@ -784,11 +788,10 @@ class LayoutDialog : public wxDialog
 		
 		// Virtual event handlers, overide them in your derived class
 		 void OnButtonClickLoadLayout( wxCommandEvent& event );
-		 void OnChoice( wxCommandEvent& event );
-		 void OnText( wxCommandEvent& event );
+         void OnChoice( wxCommandEvent& event );
+         void OnText( wxCommandEvent& event );
 
-		
-	
+
 	public:
 		wxRadioButton* m_radioBtnEdit;
 		wxRadioButton* m_radioBtnFilter;
@@ -825,16 +828,15 @@ class SelectLogbook : public wxDialog
 		wxButton* m_sdbSizer4OK;
 		wxButton* m_sdbSizer4Cancel;
 		
-		 void OnInit( wxInitDialogEvent& event );
-		 void OnCellSelecttion( wxGridEvent& event );
-		 void OnGridCellChange( wxGridEvent& event );
-		 void OnKeyDown( wxKeyEvent& event );
-		
+		void OnInit( wxInitDialogEvent& event );
+        void OnCellSelecttion( wxGridEvent& event );
+        void OnGridCellChange( wxGridEvent& event );
+        void OnKeyDown( wxKeyEvent& event );
 	
 	public:
 		wxGrid* m_grid13;
 		wxArrayString files;
-		int selRow;
+        int selRow;
 
 #ifdef __WXMSW__		
 		SelectLogbook( wxWindow* parent, wxString path, wxWindowID id = wxID_ANY, const wxString& title = _("Select Logbook"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 700,252), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
@@ -968,6 +970,7 @@ class myTreeItem : public wxTreeItemData
 public:
 	myTreeItem( int type, wxString name, wxString text, wxString guid, wxString route, wxString guidWP, wxString WP, int grid, int gridcol, bool deleteable, bool add, bool menu);
 	myTreeItem( const myTreeItem* item);
+	~myTreeItem(){};
 
 	int		 type;
 	wxString name;
@@ -988,6 +991,7 @@ class DnD : public wxTextDropTarget
 {
 public:
     DnD(ColdFinger* d, wxTreeCtrl *pOwner, wxTreeCtrl* pSender) { m_pOwner = pOwner; m_pSender = pSender; dialog = d;}
+	~DnD();
 
      bool OnDropText(wxCoord x, wxCoord y, const wxString& str);
 
@@ -1137,14 +1141,32 @@ class PositionDlg : public wxDialog
 		wxString retstr;
 };
 
+#if wxCHECK_VERSION(2, 9, 0)
+class myBitmapButton : public wxButton
+{
+public:
+	myBitmapButton( wxWindow* Statusbar, wxWindowID id = wxID_ANY, wxString text = wxEmptyString, const wxBitmap bm = wxBitmap(), const wxPoint& pos = wxDefaultPosition, 
+		const wxSize& size = wxSize( -1,20 ), long style = wxBU_AUTODRAW, int state = 0 ) : wxButton( Statusbar, id, text, pos, size, style ) 
+	{
+		this->state = state;
+		this->SetBitmapLabel(bm);
+		this->SetBitmapHover(bm);
+		this->SetBitmapPosition(wxRIGHT);
+	}
+	~myBitmapButton(){}
+
+	int state;
+};
+#else
 class myBitmapButton : public wxBitmapButton
 {
 public:
-	myBitmapButton( wxWindow* Statusbar, wxWindowID id = wxID_ANY, const wxBitmap bm = NULL, const wxPoint& pos = wxDefaultPosition, 
+	myBitmapButton( wxWindow* Statusbar, wxWindowID id = wxID_ANY, const wxBitmap bm = wxBitmap(), const wxPoint& pos = wxDefaultPosition, 
 		const wxSize& size = wxSize( 10,10 ), long style = wxBU_AUTODRAW, int state = 0 ) : wxBitmapButton( Statusbar, id, bm, pos, size, style ) {this->state = state;}
 	~myBitmapButton(){}
 
 	int state;
 };
+#endif 
 
-#endif //__logbook__
+#endif

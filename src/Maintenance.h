@@ -29,8 +29,11 @@ public:
 	enum fieldsService{PRIORITY,TEXT,IF,WARN,URGENT,START,ACTIVE};
 public:
 	Maintenance(LogbookDialog* d, wxString data, wxString lay, wxString layoutODT);
+#ifdef __WXOSX__
 	virtual ~Maintenance(void);
-
+#else
+	~Maintenance(void);
+#endif
 	void addLine();
 	void addLineRepairs();
 	void addLineBuyParts();
@@ -76,7 +79,8 @@ public:
 	int				m_choicesCount;
 	wxString		m_YesNo[2];
 	bool			modified;
-
+	bool			modifiedR;	
+	bool			modifiedB;
 private:
 	LogbookDialog*	dialog;
 	Options*		opt;
@@ -112,8 +116,11 @@ private:
 	wxString		data_locn;
 	wxString		data_locnRepairs;
 	wxString		data_locnBuyParts;
-
+#ifdef __WXOSX__
+//
+#else
 	bool			format; // 0 = ODT 1 = HTML
+#endif
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -129,7 +136,7 @@ class DateDialog : public wxDialog
 		wxButton* m_sdbSizer6Cancel;
 		
 		// Virtual event handlers, overide them in your derived class
-		virtual void OnCalenderSelChanged( wxCalendarEvent& event ) { event.Skip(); }
+		void OnCalenderSelChanged( wxCalendarEvent& event ) { event.Skip(); }
 		
 	
 	public:
@@ -138,4 +145,21 @@ class DateDialog : public wxDialog
 		DateDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Select a date"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 221,198 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~DateDialog();
 	
+};
+
+class myGridCellChoiceEditor : public wxGridCellChoiceEditor
+{
+public:
+	myGridCellChoiceEditor(int i, wxString s[], bool mode):wxGridCellChoiceEditor(i,s,mode){}
+	~myGridCellChoiceEditor(void){}
+
+	void StartingClick()
+	{
+		this->Combo()->Show(true);
+#if wxCHECK_VERSION(2,9,0)
+		this->Combo()->Popup();
+#else
+		
+#endif
+	}
 };

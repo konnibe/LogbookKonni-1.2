@@ -77,19 +77,13 @@ SET(SRC_LOGBOOKKONNI
 		src/OverView.cpp	
 		src/Export.h
 		src/Export.cpp
-		src/FastComboEditor.h		
-		src/FastComboEditor.cpp
-		src/EzGrid.h
-		src/EzGrid.cpp
-		src/GridCellChoiceRenderer.h	
-		src/GridCellChoiceRenderer.cpp
-        src/json_defs.h
-        src/jsonreader.h
-        src/jsonval.h
-        src/jsonwriter.h
-        src/jsonreader.cpp
-        src/jsonval.cpp
-        src/jsonwriter.cpp
+        	src/json_defs.h
+       		src/jsonreader.h
+        	src/jsonval.h
+        	src/jsonwriter.h
+        	src/jsonreader.cpp
+        	src/jsonval.cpp
+        	src/jsonwriter.cpp
 		src/tinyxml/tinyxml.cpp
 		src/tinyxml/tinyxml.h
 		src/tinyxml/tinyxmlerror.cpp

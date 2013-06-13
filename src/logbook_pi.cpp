@@ -25,6 +25,7 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.             *
 ***************************************************************************
 */
+//#define _2_9_x_ // uncomment this to compile for 2.9.x
 
 #ifndef  WX_PRECOMP
 #include "wx/wx.h"
@@ -48,7 +49,7 @@
 #include <wx/msgdlg.h>
 #include <memory>
 
-#include "jsonreader.h"
+#include "../../../include/wx/jsonreader.h"
 
 using namespace std;
 
@@ -105,6 +106,7 @@ logbookkonni_pi::~logbookkonni_pi()
 int logbookkonni_pi::Init(void)
 {
 	state = OFF;
+	dlgShow = false;
 
     AddLocaleCatalog( _T("opencpn-logbookkonni_pi") );
 
@@ -119,9 +121,8 @@ int logbookkonni_pi::Init(void)
 	m_pconfig = GetOCPNConfigObject(); 
 
 	LoadConfig();
-
 	if(m_bLOGShowIcon)
-            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_logbook_pi, _img_logbook, wxITEM_NORMAL,
+            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_logbook_pi, _img_logbook_pi, wxITEM_NORMAL,
                   _("Logbook"), _T(""), NULL,
                    LOGBOOK_TOOL_POSITION, 0, this);
 
@@ -173,54 +174,57 @@ void logbookkonni_pi::shutdown(bool menu)
 	timer = NULL;
 	m_timer = NULL;
 
-
 	if(m_plogbook_window != NULL)
 	{
 		if(m_plogbook_window->IsIconized()) m_plogbook_window->Iconize(false);
 		m_plogbook_window->setIniValues();
 
-		if((opt->engine2Running && opt->toggleEngine1) 
-			|| (opt->engine1Running && opt->toggleEngine2))
-		{
-			int a = wxMessageBox(_("Your engine(s) are still running\n\nStop engine(s) ?"),_T(""),wxYES_NO | wxICON_QUESTION, NULL);
-
-			if( a == wxYES)
-				m_plogbook_window->logbook->resetEngineManuallMode();
-		}
-
-		SaveConfig();
-
+		if((opt->engine1Running && opt->toggleEngine1)
+            || (opt->engine2Running && opt->toggleEngine2))
+        {
+#ifndef __WXOSX__
+            int a = wxMessageBox(_("Your engine(s) are still running\n\nStop engine(s) ?"),_T(""),wxYES_NO | wxICON_QUESTION, NULL);
+            if( a == wxYES)
+#else
+            int a = MessageBoxOSX(NULL,_("Your engine(s) are still running\n\nStop engine(s) ?"),_T(""),wxID_OK | wxID_NO);
+            if( a == wxID_OK)
+#endif
+                m_plogbook_window->logbook->resetEngineManuallMode();
+        }
+        SaveConfig();
 		m_plogbook_window->Close();
 		m_plogbook_window->Destroy();
 		m_plogbook_window = NULL;
+		dlgShow = false;
+	//	SetToolbarItemState( m_leftclick_tool_id, dlgShow );
 	}
 }
 
+
 void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
-{		
+{
+    if(message_id == _T("OCPN_MAN_OVERBOARD"))
+        {
+            wxJSONReader reader;
+            wxJSONValue  data;
+            int numErrors = reader.Parse( message_body, &data );
+            if(numErrors != 0) return;
 
-      if(message_id == _T("OCPN_MAN_OVERBOARD"))
-      {
-		wxJSONReader reader;
-		wxJSONValue  data;
-		int numErrors = reader.Parse( message_body, &data );
-		if(numErrors != 0) return;
+            if(!m_plogbook_window)
+                startLogbook();
 
-		if(!m_plogbook_window)
-			startLogbook();
+            m_plogbook_window->logbook->MOB_GUID = data.Item(_T("GUID")).AsString();
+            m_plogbook_window->logbook->MOBIsActive = true;
 
-		m_plogbook_window->logbook->MOB_GUID = data.Item(_T("GUID")).AsString();
-		m_plogbook_window->logbook->MOBIsActive = true;
-
-		m_plogbook_window->logbook->appendRow(false);
-      }
-	  else if(message_id == _T("POLAR_SAVE_LOGBOOK"))
-	  {
-		if(m_plogbook_window)
-			m_plogbook_window->logbook->update();
-	  }
-      else if(message_id == _T("LOGBOOK_LOG_LASTLINE_REQUEST"))
-      {
+            m_plogbook_window->logbook->appendRow(false);
+        }
+        else if(message_id == _T("POLAR_SAVE_LOGBOOK"))
+        {
+            if(m_plogbook_window)
+                m_plogbook_window->logbook->update();
+        }
+       else if(message_id == _T("LOGBOOK_LOG_LASTLINE_REQUEST"))
+       {
 		if(!m_plogbook_window)
 			startLogbook();
 
@@ -359,7 +363,7 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 		m_plogbook_window->logbook->OCPN_Message = false;
 		lastWaypointInRoute = _T("-1");
 		m_plogbook_window->logbook->lastWayPoint = wxEmptyString;
-		m_plogbook_window->logbook->routeIsActive = false;
+        m_plogbook_window->logbook->routeIsActive = false;
 	  }
 	  else if(message_id == _T("OCPN_RTE_DEACTIVATED"))
       {
@@ -373,9 +377,9 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 
 		m_plogbook_window->logbook->activeRoute = wxEmptyString;
 		m_plogbook_window->logbook->activeRouteGUID = wxEmptyString;
-		m_plogbook_window->logbook->routeIsActive = false;
-		if(m_plogbook_window->logbook->activeMOB)
-			m_plogbook_window->logbook->MOBIsActive = false;
+        m_plogbook_window->logbook->routeIsActive = false;
+		if(!m_plogbook_window->logbook->activeMOB.IsEmpty())
+            m_plogbook_window->logbook->MOBIsActive = false;
 
 	  }
 	  else if(message_id == _T("OCPN_RTE_ACTIVATED"))
@@ -390,111 +394,111 @@ void logbookkonni_pi::SetPluginMessage(wxString &message_id, wxString &message_b
 
 		m_plogbook_window->logbook->activeRoute = data.Item(_T("Route_activated")).AsString();
 		m_plogbook_window->logbook->activeRouteGUID = data.Item(_T("GUID")).AsString();
-		m_plogbook_window->logbook->routeIsActive = true;
-	  }
-	  else if(message_id == _T("OCPN_TRK_ACTIVATED"))
+        m_plogbook_window->logbook->routeIsActive = true;
+      }
+      else if(message_id == _T("OCPN_TRK_ACTIVATED"))
       {
-		if(!m_plogbook_window)
-			startLogbook();
+        if(!m_plogbook_window)
+            startLogbook();
 
-		wxJSONReader reader;
-		wxJSONValue  data;
-		int numErrors = reader.Parse( message_body, &data );
-		if(numErrors != 0) return;
+        wxJSONReader reader;
+        wxJSONValue  data;
+        int numErrors = reader.Parse( message_body, &data );
+        if(numErrors != 0) return;
 
-		m_plogbook_window->logbook->activeTrack = data.Item(_T("Name")).AsString();
-		m_plogbook_window->logbook->activeTrackGUID = data.Item(_T("GUID")).AsString();
-		m_plogbook_window->logbook->trackIsActive = true;
-	  }
-	  else if(message_id == _T("OCPN_TRK_DEACTIVATED"))
+        m_plogbook_window->logbook->activeTrack = data.Item(_T("Name")).AsString();
+        m_plogbook_window->logbook->activeTrackGUID = data.Item(_T("GUID")).AsString();
+        m_plogbook_window->logbook->trackIsActive = true;
+      }
+      else if(message_id == _T("OCPN_TRK_DEACTIVATED"))
       {
-		wxJSONReader reader;
-		wxJSONValue  data;
-		int numErrors = reader.Parse( message_body, &data );
-		if(numErrors != 0) return;
+        wxJSONReader reader;
+        wxJSONValue  data;
+        int numErrors = reader.Parse( message_body, &data );
+        if(numErrors != 0) return;
 
-		if(!m_plogbook_window)
-			startLogbook();
+        if(!m_plogbook_window)
+            startLogbook();
 
-		if(m_plogbook_window)
-		{
-			m_plogbook_window->logbook->activeTrack = wxEmptyString;
-			m_plogbook_window->logbook->activeTrackGUID = wxEmptyString;
-			m_plogbook_window->logbook->trackIsActive = false;
-		}
+        if(m_plogbook_window)
+        {
+            m_plogbook_window->logbook->activeTrack = wxEmptyString;
+            m_plogbook_window->logbook->activeTrackGUID = wxEmptyString;
+            m_plogbook_window->logbook->trackIsActive = false;
+        }
 
-	  }
-	  else if(message_id == _T("OCPN_TRACKPOINTS_COORDS"))
-      {
-		wxJSONReader reader;
-		wxJSONValue  data;
-		int numErrors = reader.Parse( message_body, &data );
-		if(numErrors != 0) return;
+    }
+    else if(message_id == _T("OCPN_TRACKPOINTS_COORDS"))
+    {
+        wxJSONReader reader;
+        wxJSONValue  data;
+        int numErrors = reader.Parse( message_body, &data );
+        if(numErrors != 0) return;
 
-		bool error = data[_T("error")].AsBool();
+        bool error = data[_T("error")].AsBool();
 
-		if(!error)
-		{
-			double lat = data[_T("lat")].AsDouble();
-			double lon = data[_T("lon")].AsDouble();
-			int total = data[_T("TotalNodes")].AsInt();
-			int i = data[_T("NodeNr")].AsInt();
-			if(i == 1)
-			{
-				wxString ph = m_plogbook_window->kmlPathHeader;
-				ph.Replace(_T("#NAME#"),_T("Trackline"));
-				ph.Replace(_T("#LINE#"),_T("#LineTrack"));
-				*m_plogbook_window->logbook->kmlFile << ph;
-			}
-			if(i <= total)
-				*m_plogbook_window->logbook->kmlFile << wxString::Format(_T("%f,%f\n"),lon,lat);
-			if(i == total)
-				*m_plogbook_window->logbook->kmlFile << m_plogbook_window->kmlPathFooter;
-		}
-//		m_plogbook_window->logbook->writeTrackToKML(data);
-	  }
-	  else if(message_id == _T("OCPN_TRACKS_MERGED"))
-	  {     
-		if(!m_plogbook_window)
-			startLogbook();
+        if(!error)
+        {
+            double lat = data[_T("lat")].AsDouble();
+            double lon = data[_T("lon")].AsDouble();
+            int total = data[_T("TotalNodes")].AsInt();
+            int i = data[_T("NodeNr")].AsInt();
+            if(i == 1)
+            {
+                wxString ph = m_plogbook_window->kmlPathHeader;
+                ph.Replace(_T("#NAME#"),_T("Trackline"));
+                ph.Replace(_T("#LINE#"),_T("#LineTrack"));
+                *m_plogbook_window->logbook->kmlFile << ph;
+            }
+            if(i <= total)
+                *m_plogbook_window->logbook->kmlFile << wxString::Format(_T("%f,%f\n"),lon,lat);
+            if(i == total)
+                *m_plogbook_window->logbook->kmlFile << m_plogbook_window->kmlPathFooter;
+        }
+        //		m_plogbook_window->logbook->writeTrackToKML(data);
+    }
+    else if(message_id == _T("OCPN_TRACKS_MERGED"))
+    {
+        if(!m_plogbook_window)
+            startLogbook();
 
-		wxJSONReader reader;
-		wxJSONValue  data;
-		int numErrors = reader.Parse( message_body, &data );
-		if(numErrors != 0) return;
+        wxJSONReader reader;
+        wxJSONValue  data;
+        int numErrors = reader.Parse( message_body, &data );
+        if(numErrors != 0) return;
 
-		unsigned int i = 1;
-		wxString target = data[_T("targetTrack")].AsString();
-		while(true)
-		{
-			if(data.HasMember(_T("mergeTrack")+wxString::Format(_T("%d"),i)))
-				m_plogbook_window->logbook->mergeList.Add(data[_T("mergeTrack")+wxString::Format(_T("%d"),i++)].AsString());
-			else
-				break;
-		
-		}
-		m_plogbook_window->logbook->setTrackToNewID(target);
-	  }
-	  else if(message_id == _T("OCPN_ROUTE_RESPONSE"))
-      {
-		wxJSONReader reader;
-		wxJSONValue  data;
-		int numErrors = reader.Parse( message_body, &data );
-		if(numErrors != 0) return;
+        unsigned int i = 1;
+        wxString target = data[_T("targetTrack")].AsString();
+        while(true)
+        {
+            if(data.HasMember(_T("mergeTrack")+wxString::Format(_T("%d"),i)))
+                m_plogbook_window->logbook->mergeList.Add(data[_T("mergeTrack")+wxString::Format(_T("%d"),i++)].AsString());
+            else
+                break;
 
-		bool error = data[0][_T("error")].AsBool();
+        }
+        m_plogbook_window->logbook->setTrackToNewID(target);
+    }
+    else if(message_id == _T("OCPN_ROUTE_RESPONSE"))
+    {
+        wxJSONReader reader;
+        wxJSONValue  data;
+        int numErrors = reader.Parse( message_body, &data );
+        if(numErrors != 0) return;
 
-		if(!error)
-			m_plogbook_window->logbook->writeRouteToKML(data);
-	  }
-	  else if(message_id == _T("OCPN_ROUTELIST_RESPONSE"))
-      {
-		wxJSONReader reader;
-		wxJSONValue  data;
-		int numErrors = reader.Parse( message_body, &data );
-		if(numErrors != 0) return;
+        bool error = data[0][_T("error")].AsBool();
 
-		m_plogbook_window->writeToRouteDlg(data);
+        if(!error)
+            m_plogbook_window->logbook->writeRouteToKML(data);
+    }
+    else if(message_id == _T("OCPN_ROUTELIST_RESPONSE"))
+    {
+        wxJSONReader reader;
+        wxJSONValue  data;
+        int numErrors = reader.Parse( message_body, &data );
+        if(numErrors != 0) return;
+
+        m_plogbook_window->writeToRouteDlg(data);
 	  }
 }
 
@@ -706,7 +710,8 @@ void logbookkonni_pi::SetPositionFix(PlugIn_Position_Fix &pfix)
 {
       if(m_plogbook_window)
 	  {
-		  m_plogbook_window->logbook->SetPosition(pfix);
+		  if(m_plogbook_window->logbook)
+			m_plogbook_window->logbook->SetPosition(pfix);
       }
 }
 
@@ -716,11 +721,10 @@ void logbookkonni_pi::SetDefaults(void)
       if(!m_bLOGShowIcon)
       {
             m_bLOGShowIcon = true;
-
-            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_logbook, _img_logbook_pi, wxITEM_NORMAL,
+            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_logbook_pi, _img_logbook_pi, wxITEM_NORMAL,
                   _("Logbook"), _T(""), NULL,
                    LOGBOOK_TOOL_POSITION, 0, this);
-				   
+
       }
 }
 
@@ -737,10 +741,9 @@ int logbookkonni_pi::GetToolbarToolCount(void)
 void logbookkonni_pi::ShowPreferencesDialog( wxWindow* parent )
 {
 	dlgShow = false;
-	
+
 //#ifdef __WXOSX__
 // Not tested yet
-//    	AddLocaleCatalog( _T("opencpn-logbookkonni_pi") );
 //#else
 	if(opt->firstTime)
 	{
@@ -754,13 +757,13 @@ void logbookkonni_pi::ShowPreferencesDialog( wxWindow* parent )
 //#endif
 
 #ifdef __WXMSW__
-	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 692,630  ),
+	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 692,660  ),
 		wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 #elif defined __WXOSX__
-    optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 710,660 ) ,
+    optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 710,685 ) ,
 		wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 #else
-	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 740,668 ) ,
+	optionsDialog = new LogbookOptions(parent, opt, this, -1, _("Logbook Preferences"), wxDefaultPosition,  wxSize( 740,700 ) ,
 		wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );	
 #endif
 	optionsDialog->m_checkBoxShowLogbook->SetValue(m_bLOGShowIcon);
@@ -774,7 +777,7 @@ void logbookkonni_pi::ShowPreferencesDialog( wxWindow* parent )
                   m_bLOGShowIcon= optionsDialog->m_checkBoxShowLogbook->GetValue();
 
                   if(m_bLOGShowIcon)
-                        m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_logbook, _img_logbook, wxITEM_NORMAL,
+                        m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_logbook_pi, _img_logbook_pi, wxITEM_NORMAL,
                               _("Logbook"), _T(""), NULL, LOGBOOK_TOOL_POSITION,
                               0, this);
                   else
@@ -786,6 +789,7 @@ void logbookkonni_pi::ShowPreferencesDialog( wxWindow* parent )
 
 void logbookkonni_pi::OnToolbarToolCallback(int id)
 {
+	dlgShow = !dlgShow;
       // show the Logbook dialog
 	if(NULL == m_plogbook_window)
 	{
@@ -796,7 +800,7 @@ void logbookkonni_pi::OnToolbarToolCallback(int id)
 			m_timer = new wxTimer(timer,ID_LOGTIMER);
 			timer->Connect( wxEVT_TIMER, wxObjectEventFunction( &LogbookTimer::OnTimer ));
 		}
-        m_plogbook_window = new LogbookDialog(this, m_timer, timer, m_parent_window, wxID_ANY,_("Active Logbook"), wxDefaultPosition, wxSize( opt->dlgWidth,opt->dlgHeight ), wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxMINIMIZE_BOX|wxRESIZE_BORDER);
+        m_plogbook_window = new LogbookDialog(this, m_timer, timer, m_parent_window, wxID_ANY, _("Active Logbook"), wxDefaultPosition, wxSize( opt->dlgWidth,opt->dlgHeight ), wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxMINIMIZE_BOX|wxRESIZE_BORDER);
 		m_plogbook_window->init();
 		m_plogbook_window->CenterOnParent();
 		m_plogbook_window->Show();
@@ -812,7 +816,6 @@ void logbookkonni_pi::OnToolbarToolCallback(int id)
 		}
 		else
 		{
-			dlgShow = !dlgShow;
 			m_plogbook_window->Show(dlgShow);
 		}
 	}
@@ -833,6 +836,10 @@ void logbookkonni_pi::OnToolbarToolCallback(int id)
 	{
 		state = OFF;
 	}
+
+      // Toggle is handled by the toolbar but we must keep plugin manager b_toggle updated
+      // to actual status to ensure correct status upon toolbar rebuild
+     // SetToolbarItemState( m_leftclick_tool_id, dlgShow );
 }
 
 void logbookkonni_pi::SaveConfig()
@@ -860,7 +867,7 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "Date1" ), opt->date1);
 			pConf->Write ( _T ( "Date2" ), opt->date2);
 			pConf->Write ( _T ( "Date3" ), opt->date3 );
-			pConf->Write ( _T ( "NoEngines" ), opt->engines );
+            pConf->Write ( _T ( "NoEngines" ), opt->engines );
 
 			pConf->Write ( _T ( "TimeFormat" ), opt->timeformat );
 			pConf->Write ( _T ( "NoSeconds" ), opt->noseconds );
@@ -906,9 +913,9 @@ void logbookkonni_pi::SaveConfig()
 
 			pConf->Write ( _T ( "Vol" ), opt->vol );
 			pConf->Write ( _T ( "Motorhours" ), opt->motorh);
-			pConf->Write ( _T ( "Engine" ), opt->engine );
-			pConf->Write ( _T ( "Shaft" ), opt->shaft);
-			pConf->Write ( _T ( "RPM" ), opt->rpm );
+            pConf->Write ( _T ( "Engine" ), opt->engine );
+            pConf->Write ( _T ( "Shaft" ), opt->shaft);
+            pConf->Write ( _T ( "RPM" ), opt->rpm );
 
 			pConf->Write ( _T ( "Days" ), opt->days );
 			pConf->Write ( _T ( "Weeks" ), opt->weeks );
@@ -959,74 +966,74 @@ void logbookkonni_pi::SaveConfig()
 			pConf->Write ( _T ( "MailClient" ), opt->mailClient);
 
 			pConf->Write ( _T ( "GPSWarning" ), opt->noGPS);
-			pConf->Write ( _T ( "EngineMessageSails" ), opt->engineMessageSails);
-			pConf->Write ( _T ( "WriteEngineRun" ), opt->engineMessageRunning);
-			pConf->Write ( _T ( "SailsDown" ), opt->engineAllwaysSailsDown);
-			wxString str = wxEmptyString;
-			for(int i = 0; i < 7; i++)
-				str += wxString::Format(_T("%i,%s,"),opt->filterLayout[i],opt->layoutPrefix[i].c_str());
-			str.RemoveLast();
-			pConf->Write ( _T ( "PrefixLayouts" ), str);
+            pConf->Write ( _T ( "EngineMessageSails" ), opt->engineMessageSails);
+            pConf->Write ( _T ( "WriteEngineRun" ), opt->engineMessageRunning);
+            pConf->Write ( _T ( "SailsDown" ), opt->engineAllwaysSailsDown);
+            wxString str = wxEmptyString;
+            for(int i = 0; i < 7; i++)
+                str += wxString::Format(_T("%i,%s,"),opt->filterLayout[i],opt->layoutPrefix[i].c_str());
+            str.RemoveLast();
+            pConf->Write ( _T ( "PrefixLayouts" ), str);
 
-			wxString kmlRouteTrack = wxString::Format(_T("%i,%i"),opt->kmlRoute,opt->kmlTrack);
-			pConf->Write ( _T ( "KMLRouteTrack" ), kmlRouteTrack);
-			pConf->Write ( _T ( "KMLWidth" ), opt->kmlLineWidth);
-			pConf->Write ( _T ( "KMLTransp" ), opt->kmlLineTransparancy);
-			pConf->Write ( _T ( "KMLRouteColor" ), opt->kmlRouteColor);
-			pConf->Write ( _T ( "KMLTrackColor" ), opt->kmlTrackColor);
+            wxString kmlRouteTrack = wxString::Format(_T("%i,%i"),opt->kmlRoute,opt->kmlTrack);
+            pConf->Write ( _T ( "KMLRouteTrack" ), kmlRouteTrack);
+            pConf->Write ( _T ( "KMLWidth" ), opt->kmlLineWidth);
+            pConf->Write ( _T ( "KMLTransp" ), opt->kmlLineTransparancy);
+            pConf->Write ( _T ( "KMLRouteColor" ), opt->kmlRouteColor);
+            pConf->Write ( _T ( "KMLTrackColor" ), opt->kmlTrackColor);
 
-			pConf->Write ( _T ( "RPMIsChecked" ), opt->bRPMIsChecked);
-			pConf->Write ( _T ( "NMEAUseRPM" ), opt->NMEAUseERRPM);
-			pConf->Write ( _T ( "NMEAUseWIMDA" ), opt->NMEAUseWIMDA);
-			pConf->Write ( _T ( "Engine1" ), opt->engine1);
-			pConf->Write ( _T ( "Engine2" ), opt->engine2);
-			pConf->Write ( _T ( "Engine1Runs" ), opt->engine1Running);
-			pConf->Write ( _T ( "Engine2Runs" ), opt->engine2Running);
+            pConf->Write ( _T ( "RPMIsChecked" ), opt->bRPMIsChecked);
+            pConf->Write ( _T ( "NMEAUseRPM" ), opt->NMEAUseERRPM);
+            pConf->Write ( _T ( "NMEAUseWIMDA" ), opt->NMEAUseWIMDA);
+            pConf->Write ( _T ( "Engine1" ), opt->engine1);
+            pConf->Write ( _T ( "Engine2" ), opt->engine2);
+            pConf->Write ( _T ( "Engine1Runs" ), opt->engine1Running);
+            pConf->Write ( _T ( "Engine2Runs" ), opt->engine2Running);
 
-			pConf->Write ( _T ( "ShowLayoutP" ), opt->layoutShow);
+            pConf->Write ( _T ( "ShowLayoutP" ), opt->layoutShow);
 
-			pConf->Write ( _T ( "toggleEngine1" ), opt->toggleEngine1);
-			pConf->Write ( _T ( "toggleEngine2" ), opt->toggleEngine2);
+            pConf->Write ( _T ( "toggleEngine1" ), opt->toggleEngine1);
+            pConf->Write ( _T ( "toggleEngine2" ), opt->toggleEngine2);
 
-			wxString sails = wxEmptyString;
-			sails = wxString::Format(_T("%i,%i,"),opt->rowGap,opt->colGap);
-			for(int i = 0; i < 14; i++)
-				sails += wxString::Format(_T("%s,%s,%i,"),opt->abrSails.Item(i).c_str(),opt->sailsName.Item(i).c_str(),opt->bSailIsChecked[i]);
-			sails.RemoveLast();
-			pConf->Write ( _T ( "Sails" ), sails);
+            wxString sails = wxEmptyString;
+            sails = wxString::Format(_T("%i,%i,"),opt->rowGap,opt->colGap);
+            for(int i = 0; i < 14; i++)
+                sails += wxString::Format(_T("%s,%s,%i,"),opt->abrSails.Item(i).c_str(),opt->sailsName.Item(i).c_str(),opt->bSailIsChecked[i]);
+            sails.RemoveLast();
+            pConf->Write ( _T ( "Sails" ), sails);
 
-			if(opt->dtEngine1On.IsValid())
-				pConf->Write ( _T ( "Engine1TimeStart" ), opt->dtEngine1On.FormatISODate()+_T(" ")+
-														  opt->dtEngine1On.FormatISOTime());
-			else
-				pConf->Write ( _T ( "Engine1TimeStart" ),wxEmptyString);
+            if(opt->dtEngine1On.IsValid())
+                pConf->Write ( _T ( "Engine1TimeStart" ), opt->dtEngine1On.FormatISODate()+_T(" ")+
+                    opt->dtEngine1On.FormatISOTime());
+            else
+                pConf->Write ( _T ( "Engine1TimeStart" ),wxEmptyString);
 
-			if(opt->dtEngine2On.IsValid())
-				pConf->Write ( _T ( "Engine2TimeStart" ), opt->dtEngine2On.FormatISODate()+_T(" ")+
-														  opt->dtEngine2On.FormatISOTime());
-			else
-				pConf->Write ( _T ( "Engine2TimeStart" ),wxEmptyString);
+            if(opt->dtEngine2On.IsValid())
+                pConf->Write ( _T ( "Engine2TimeStart" ), opt->dtEngine2On.FormatISODate()+_T(" ")+
+                    opt->dtEngine2On.FormatISOTime());
+            else
+                pConf->Write ( _T ( "Engine2TimeStart" ),wxEmptyString);
 
-			writeCols(pConf,opt->NavColWidth,		_T("NavGridColWidth"));
-			writeCols(pConf,opt->WeatherColWidth,	_T("WeatherGridColWidth"));
-			writeCols(pConf,opt->MotorColWidth,		_T("MotorGridColWidth"));
-			writeCols(pConf,opt->CrewColWidth,		_T("CrewGridColWidth"));
-			writeCols(pConf,opt->WakeColWidth,		_T("WakeGridColWidth"));
-			writeCols(pConf,opt->EquipColWidth,		_T("EquipGridColWidth"));
-			writeCols(pConf,opt->OverviewColWidth,	_T("OverviewGridColWidth"));
-			writeCols(pConf,opt->ServiceColWidth,	_T("ServiceGridColWidth"));	
-			writeCols(pConf,opt->RepairsColWidth,	_T("RepairsGridColWidth"));	
-			writeCols(pConf,opt->BuyPartsColWidth,	_T("BuyPartsGridColWidth"));	
+            writeCols(pConf,opt->NavColWidth,		_T("NavGridColWidth"));
+            writeCols(pConf,opt->WeatherColWidth,	_T("WeatherGridColWidth"));
+            writeCols(pConf,opt->MotorColWidth,		_T("MotorGridColWidth"));
+            writeCols(pConf,opt->CrewColWidth,		_T("CrewGridColWidth"));
+            writeCols(pConf,opt->WakeColWidth,		_T("WakeGridColWidth"));
+            writeCols(pConf,opt->EquipColWidth,		_T("EquipGridColWidth"));
+            writeCols(pConf,opt->OverviewColWidth,	_T("OverviewGridColWidth"));
+            writeCols(pConf,opt->ServiceColWidth,	_T("ServiceGridColWidth"));
+            writeCols(pConf,opt->RepairsColWidth,	_T("RepairsGridColWidth"));
+            writeCols(pConf,opt->BuyPartsColWidth,	_T("BuyPartsGridColWidth"));
 	  }
 }
 
 void logbookkonni_pi::writeCols(wxFileConfig *pConf, ArrayOfGridColWidth ar, wxString entry)
 {
-			wxString str = wxEmptyString;
-			for(unsigned int i = 0; i < ar.Count(); i++)
-				str += wxString::Format(_T("%i,"),ar[i]);
-			str.RemoveLast();
-			pConf->Write(entry,str);
+    wxString str = wxEmptyString;
+    for(unsigned int i = 0; i < ar.Count(); i++)
+        str += wxString::Format(_T("%i,"),ar[i]);
+    str.RemoveLast();
+    pConf->Write(entry,str);
 }
 
 void logbookkonni_pi::LoadConfig()
@@ -1056,7 +1063,7 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "Date1" ), &opt->date1,0 );
 			pConf->Read ( _T ( "Date2" ), &opt->date2,1 );
 			pConf->Read ( _T ( "Date3" ), &opt->date3,2 );
-			pConf->Read ( _T ( "NoEngines" ), &opt->engines,0 );
+            pConf->Read ( _T ( "NoEngines" ), &opt->engines,0 );
 
 			pConf->Read ( _T ( "TimeFormat" ), &opt->timeformat, -1 );
 			pConf->Read ( _T ( "NoSeconds" ), &opt->noseconds );
@@ -1103,11 +1110,10 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "NavFathom" ), &opt->fathom );
 
 			pConf->Read ( _T ( "Vol" ), &opt->vol );
-			pConf->Read ( _T ( "Motorhours" ), &opt->motorh);
-			pConf->Read ( _T ( "Engine" ), &opt->engine,_T("E") );
-			pConf->Read ( _T ( "Shaft" ), &opt->shaft,_T("S"));
-			pConf->Read ( _T ( "RPM" ), &opt->rpm,_T("RPM") );
-
+            pConf->Read ( _T ( "Motorhours" ), &opt->motorh);
+            pConf->Read ( _T ( "Engine" ), &opt->engine,_T("E") );
+            pConf->Read ( _T ( "Shaft" ), &opt->shaft,_T("S"));
+            pConf->Read ( _T ( "RPM" ), &opt->rpm,_T("RPM") );
 
 			pConf->Read ( _T ( "Windkts" ), &opt->windkts );
 			pConf->Read ( _T ( "WindMeter" ), &opt->windmeter );
@@ -1162,161 +1168,161 @@ void logbookkonni_pi::LoadConfig()
 			pConf->Read ( _T ( "MailClient" ), &opt->mailClient);
 
 			pConf->Read ( _T ( "GPSWarning" ), &opt->noGPS);
-			pConf->Read ( _T ( "EngineMessageSails" ), &opt->engineMessageSails);
-			pConf->Read ( _T ( "WriteEngineRun" ), &opt->engineMessageRunning);
-			pConf->Read ( _T ( "SailsDown" ), &opt->engineAllwaysSailsDown);
+            pConf->Read ( _T ( "EngineMessageSails" ), &opt->engineMessageSails);
+            pConf->Read ( _T ( "WriteEngineRun" ), &opt->engineMessageRunning);
+            pConf->Read ( _T ( "SailsDown" ), &opt->engineAllwaysSailsDown);
 
-			wxString str = wxEmptyString;
-			pConf->Read ( _T ( "PrefixLayouts" ), &str);
-			if(str.Contains(_T(",")))
-			{
-				wxStringTokenizer tkz(str,_T(","));
-				for(int i = 0; i < 7; i++)
-				{
-					opt->filterLayout[i] = (wxAtoi(tkz.GetNextToken()))?true:false;
-					opt->layoutPrefix[i] = tkz.GetNextToken();
-				}
-			}
+            wxString str = wxEmptyString;
+            pConf->Read ( _T ( "PrefixLayouts" ), &str);
+            if(str.Contains(_T(",")))
+            {
+                wxStringTokenizer tkz(str,_T(","));
+                for(int i = 0; i < 7; i++)
+                {
+                    opt->filterLayout[i] = (wxAtoi(tkz.GetNextToken()))?true:false;
+                    opt->layoutPrefix[i] = tkz.GetNextToken();
+                }
+            }
 
-			wxString kmlRouteTrack = wxEmptyString;
-			pConf->Read ( _T ( "KMLRouteTrack" ), &kmlRouteTrack,_T("1,1"));
-			wxStringTokenizer tkz(kmlRouteTrack,_T(","));
-			opt->kmlRoute = wxAtoi(tkz.GetNextToken());
-			opt->kmlTrack = wxAtoi(tkz.GetNextToken());
-			pConf->Read ( _T ( "KMLWidth" ), &opt->kmlLineWidth,_T("4"));
-			pConf->Read ( _T ( "KMLTransp" ), &opt->kmlLineTransparancy,0);
-			pConf->Read ( _T ( "KMLRouteColor" ), &opt->kmlRouteColor,0);
-			pConf->Read ( _T ( "KMLTrackColor" ), &opt->kmlTrackColor,3);
+            wxString kmlRouteTrack = wxEmptyString;
+            pConf->Read ( _T ( "KMLRouteTrack" ), &kmlRouteTrack,_T("1,1"));
+            wxStringTokenizer tkz(kmlRouteTrack,_T(","));
+            opt->kmlRoute = wxAtoi(tkz.GetNextToken());
+            opt->kmlTrack = wxAtoi(tkz.GetNextToken());
+            pConf->Read ( _T ( "KMLWidth" ), &opt->kmlLineWidth,_T("4"));
+            pConf->Read ( _T ( "KMLTransp" ), &opt->kmlLineTransparancy,0);
+            pConf->Read ( _T ( "KMLRouteColor" ), &opt->kmlRouteColor,0);
+            pConf->Read ( _T ( "KMLTrackColor" ), &opt->kmlTrackColor,3);
 
-			pConf->Read ( _T ( "RPMIsChecked" ), &opt->bRPMIsChecked,false);
-			pConf->Read ( _T ( "NMEAUseRPM" ), &opt->NMEAUseERRPM,false);
-			pConf->Read ( _T ( "NMEAUseWIMDA" ), &opt->NMEAUseWIMDA,false);
-			pConf->Read ( _T ( "Engine1" ), &opt->engine1,_T(""));
-			pConf->Read ( _T ( "Engine2" ), &opt->engine2,_T(""));
-			pConf->Read ( _T ( "Engine1Runs" ), &opt->engine1Running);
-			pConf->Read ( _T ( "Engine2Runs" ), &opt->engine2Running);
+            pConf->Read ( _T ( "RPMIsChecked" ), &opt->bRPMIsChecked,false);
+            pConf->Read ( _T ( "NMEAUseRPM" ), &opt->NMEAUseERRPM,false);
+            pConf->Read ( _T ( "NMEAUseWIMDA" ), &opt->NMEAUseWIMDA,false);
+            pConf->Read ( _T ( "Engine1" ), &opt->engine1,_T(""));
+            pConf->Read ( _T ( "Engine2" ), &opt->engine2,_T(""));
+            pConf->Read ( _T ( "Engine1Runs" ), &opt->engine1Running);
+            pConf->Read ( _T ( "Engine2Runs" ), &opt->engine2Running);
 
-			pConf->Read ( _T ( "ShowLayoutP" ), &opt->layoutShow,true);
+            pConf->Read ( _T ( "ShowLayoutP" ), &opt->layoutShow,true);
 
-			pConf->Read ( _T ( "toggleEngine1" ), &opt->toggleEngine1);
-			pConf->Read ( _T ( "toggleEngine2" ), &opt->toggleEngine2);
+            pConf->Read ( _T ( "toggleEngine1" ), &opt->toggleEngine1);
+            pConf->Read ( _T ( "toggleEngine2" ), &opt->toggleEngine2);
 
-			wxString sails = wxEmptyString;
-			pConf->Read ( _T ( "Sails" ), &sails);
-			if(!sails.IsEmpty())
-			{
-				wxStringTokenizer tkz(sails,_T(","));
-				if(wxString(sails.GetChar(0)).IsNumber())
-				{
-					opt->rowGap = wxAtoi(tkz.GetNextToken());
-					opt->colGap = wxAtoi(tkz.GetNextToken());
-				}
-				
-				for(int i = 0; i < 14; i++)
-				{
-					opt->abrSails.Item(i) = tkz.GetNextToken();
-					opt->sailsName.Item(i) = tkz.GetNextToken();
-					opt->bSailIsChecked[i] = (wxAtoi(tkz.GetNextToken())?true:false);
-				}
-			}
+            wxString sails = wxEmptyString;
+            pConf->Read ( _T ( "Sails" ), &sails);
+            if(!sails.IsEmpty())
+            {
+                wxStringTokenizer tkz(sails,_T(","));
+                if(wxString(sails.GetChar(0)).IsNumber())
+                {
+                    opt->rowGap = wxAtoi(tkz.GetNextToken());
+                    opt->colGap = wxAtoi(tkz.GetNextToken());
+                }
 
-			wxString engine1 = wxEmptyString, engine2 = wxEmptyString;
-			pConf->Read ( _T ( "Engine1TimeStart" ), &engine1);
-			pConf->Read ( _T ( "Engine2TimeStart" ), &engine2);
+                for(int i = 0; i < 14; i++)
+                {
+                    opt->abrSails.Item(i) = tkz.GetNextToken();
+                    opt->sailsName.Item(i) = tkz.GetNextToken();
+                    opt->bSailIsChecked[i] = (wxAtoi(tkz.GetNextToken())?true:false);
+                }
+            }
 
-			if(!engine1.IsEmpty())
-			{
-				wxStringTokenizer tkz(engine1,_T(" "));
-				wxString date = tkz.GetNextToken();
-				wxString time = tkz.GetNextToken();
+            wxString engine1 = wxEmptyString, engine2 = wxEmptyString;
+            pConf->Read ( _T ( "Engine1TimeStart" ), &engine1);
+            pConf->Read ( _T ( "Engine2TimeStart" ), &engine2);
 
-				wxDateTime dt;
-				dt.ParseDate(date);
-				dt.ParseTime(time);
+            if(!engine1.IsEmpty())
+            {
+                wxStringTokenizer tkz(engine1,_T(" "));
+                wxString date = tkz.GetNextToken();
+                wxString time = tkz.GetNextToken();
 
-				if(dt.GetYear() != 1970)
-					opt->dtEngine1On = dt;
-			}
+                wxDateTime dt;
+                dt.ParseDate(date);
+                dt.ParseTime(time);
 
-			if(!engine2.IsEmpty())
-			{
-				wxStringTokenizer tkz(engine2,_T(" "));
-				wxString date = tkz.GetNextToken();
-				wxString time = tkz.GetNextToken();
+                if(dt.GetYear() != 1970)
+                    opt->dtEngine1On = dt;
+            }
 
-				wxDateTime dt;
-				dt.ParseDate(date);
-				dt.ParseTime(time);
+            if(!engine2.IsEmpty())
+            {
+                wxStringTokenizer tkz(engine2,_T(" "));
+                wxString date = tkz.GetNextToken();
+                wxString time = tkz.GetNextToken();
 
-				if(dt.GetYear() != 1970)
-					opt->dtEngine2On = dt;
-			}
+                wxDateTime dt;
+                dt.ParseDate(date);
+                dt.ParseTime(time);
+
+                if(dt.GetYear() != 1970)
+                    opt->dtEngine2On = dt;
+            }
 
 			bool r;
-			r = pConf->Read (_T ( "NavGridColWidth"),&str);
-			if(r)
-				opt->NavColWidth = readCols(opt->NavColWidth,str);
-			else
-				opt->NavColWidth = readColsOld(pConf,opt->NavColWidth,_T ("NavGridColWidth"));
+          r = pConf->Read (_T ( "NavGridColWidth"),&str);
+          if(r)
+            opt->NavColWidth = readCols(opt->NavColWidth,str);
+          else
+            opt->NavColWidth = readColsOld(pConf,opt->NavColWidth,_T ("NavGridColWidth"));
 
-			r = pConf->Read (_T ( "WeatherGridColWidth"),&str);
-			if(r)
-				opt->WeatherColWidth = readCols(opt->WeatherColWidth,str);
-			else
-				opt->WeatherColWidth = readColsOld(pConf,opt->WeatherColWidth,_T ("WeatherGridColWidth"));
+          r = pConf->Read (_T ( "WeatherGridColWidth"),&str);
+          if(r)
+            opt->WeatherColWidth = readCols(opt->WeatherColWidth,str);
+          else
+            opt->WeatherColWidth = readColsOld(pConf,opt->WeatherColWidth,_T ("WeatherGridColWidth"));
 
-			r = pConf->Read (_T ( "MotorGridColWidth"),&str);
-			if(r)
-				opt->MotorColWidth = readCols(opt->MotorColWidth,str);
-			else
-				opt->MotorColWidth = readColsOld(pConf,opt->MotorColWidth,_T ("MotorGridColWidth"));
+          r = pConf->Read (_T ( "MotorGridColWidth"),&str);
+          if(r)
+            opt->MotorColWidth = readCols(opt->MotorColWidth,str);
+          else
+            opt->MotorColWidth = readColsOld(pConf,opt->MotorColWidth,_T ("MotorGridColWidth"));
 
-			r = pConf->Read (_T ( "CrewGridColWidth"),&str);
-			if(r)
-				opt->CrewColWidth = readCols(opt->CrewColWidth,str);
-			else
-				opt->CrewColWidth = readColsOld(pConf,opt->CrewColWidth,_T ("CrewGridColWidth"));
+          r = pConf->Read (_T ( "CrewGridColWidth"),&str);
+          if(r)
+            opt->CrewColWidth = readCols(opt->CrewColWidth,str);
+          else
+            opt->CrewColWidth = readColsOld(pConf,opt->CrewColWidth,_T ("CrewGridColWidth"));
 
-			r = pConf->Read (_T ( "WakeGridColWidth"),&str);
-			if(r)
-				opt->WakeColWidth = readCols(opt->WakeColWidth,str);
-			else
-				opt->WakeColWidth = readColsOld(pConf,opt->WakeColWidth,_T ("WakeGridColWidth"));
+          r = pConf->Read (_T ( "WakeGridColWidth"),&str);
+          if(r)
+            opt->WakeColWidth = readCols(opt->WakeColWidth,str);
+          else
+            opt->WakeColWidth = readColsOld(pConf,opt->WakeColWidth,_T ("WakeGridColWidth"));
 
-			r = pConf->Read (_T ( "EquipGridColWidth"),&str);
-			if(r)
-				opt->EquipColWidth = readCols(opt->EquipColWidth,str);
-			else
-				opt->EquipColWidth = readColsOld(pConf,opt->EquipColWidth,_T ("EquipGridColWidth"));
+          r = pConf->Read (_T ( "EquipGridColWidth"),&str);
+          if(r)
+            opt->EquipColWidth = readCols(opt->EquipColWidth,str);
+          else
+            opt->EquipColWidth = readColsOld(pConf,opt->EquipColWidth,_T ("EquipGridColWidth"));
 
-			r = pConf->Read (_T ( "OverviewGridColWidth"),&str);
-			if(r)
-				opt->OverviewColWidth = readCols(opt->OverviewColWidth,str);
-			else
-				opt->OverviewColWidth = readColsOld(pConf,opt->OverviewColWidth,_T ("OverviewGridColWidth"));
+          r = pConf->Read (_T ( "OverviewGridColWidth"),&str);
+          if(r)
+            opt->OverviewColWidth = readCols(opt->OverviewColWidth,str);
+          else
+            opt->OverviewColWidth = readColsOld(pConf,opt->OverviewColWidth,_T ("OverviewGridColWidth"));
 
-			r = pConf->Read (_T ( "ServiceGridColWidth"),&str);
-			if(r)
-				opt->ServiceColWidth = readCols(opt->ServiceColWidth,str);
-			else
-				opt->ServiceColWidth = readColsOld(pConf,opt->ServiceColWidth,_T ("ServiceGridColWidth"));
+          r = pConf->Read (_T ( "ServiceGridColWidth"),&str);
+          if(r)
+            opt->ServiceColWidth = readCols(opt->ServiceColWidth,str);
+          else
+            opt->ServiceColWidth = readColsOld(pConf,opt->ServiceColWidth,_T ("ServiceGridColWidth"));
 
-			r = pConf->Read (_T ( "RepairsGridColWidth"),&str);
-			if(r)
-				opt->RepairsColWidth = readCols(opt->RepairsColWidth,str);
-			else
-				opt->RepairsColWidth = readColsOld(pConf,opt->RepairsColWidth,_T ("RepairsGridColWidth"));
+          r = pConf->Read (_T ( "RepairsGridColWidth"),&str);
+          if(r)
+            opt->RepairsColWidth = readCols(opt->RepairsColWidth,str);
+          else
+            opt->RepairsColWidth = readColsOld(pConf,opt->RepairsColWidth,_T ("RepairsGridColWidth"));
 
-			r = pConf->Read (_T ( "BuyPartsGridColWidth"),&str);
-			if(r)
-				opt->BuyPartsColWidth = readCols(opt->BuyPartsColWidth,str);
-			else
-				opt->BuyPartsColWidth = readColsOld(pConf,opt->BuyPartsColWidth,_T ("BuyPartsGridColWidth"));
+          r = pConf->Read (_T ( "BuyPartsGridColWidth"),&str);
+          if(r)
+            opt->BuyPartsColWidth = readCols(opt->BuyPartsColWidth,str);
+          else
+            opt->BuyPartsColWidth = readColsOld(pConf,opt->BuyPartsColWidth,_T ("BuyPartsGridColWidth"));
 
-			pConf->DeleteEntry ( _T ( "ShowAllLayout" ));
-			pConf->DeleteEntry ( _T ( "ShowFilteredLayout" ));
+          pConf->DeleteEntry ( _T ( "ShowAllLayout" ));
+          pConf->DeleteEntry ( _T ( "ShowFilteredLayout" ));
 
-			opt->ampereh = opt->ampere+opt->motorh;
+          opt->ampereh = opt->ampere+opt->motorh;
 	  }
 
 	if(opt->timeformat == -1)
@@ -1332,30 +1338,29 @@ void logbookkonni_pi::LoadConfig()
 
 ArrayOfGridColWidth logbookkonni_pi::readCols(ArrayOfGridColWidth ar, wxString str)
 {
-	wxStringTokenizer tkz(str,_T(","));
-	while(tkz.HasMoreTokens())
-		ar.Add(wxAtoi(tkz.GetNextToken()));
+    wxStringTokenizer tkz(str,_T(","));
+    while(tkz.HasMoreTokens())
+        ar.Add(wxAtoi(tkz.GetNextToken()));
 
-	return ar;
+    return ar;
 }
 
 ArrayOfGridColWidth logbookkonni_pi::readColsOld(wxFileConfig *pConf, ArrayOfGridColWidth ar, wxString entry)
 {
-	int val;
-	bool r;
-	int i = 0;
+    int val;
+    bool r;
+    int i = 0;
 
-	while(true)
-	{
-		r = pConf->Read (wxString::Format(entry+_T ( "/%i"),i++), &val);
-		if(!r) break;
-		ar.Add(val);
-	}
-	pConf->DeleteGroup(_T("/PlugIns/Logbook/"+entry));
+    while(true)
+    {
+        r = pConf->Read (wxString::Format(entry+_T ( "/%i"),i++), &val);
+        if(!r) break;
+        ar.Add(val);
+    }
+    pConf->DeleteGroup(_T("/PlugIns/Logbook/"+entry));
 
-	return ar;
+    return ar;
 }
-
 
 void logbookkonni_pi::loadLayouts(wxWindow *parent)
 {
@@ -1417,11 +1422,15 @@ void logbookkonni_pi::loadLayouts(wxWindow *parent)
 	data3.append(sep);
 	if(!wxDir::Exists(data3))
 		wxMkdir(data3);
-
+#ifdef __WXOSX__
+    wxFileDialog* openFileDialog =
+		new wxFileDialog( parent, _("Select zipped Layout-Files"), _T(""), _T(""), _T("*.zip"),
+		                  wxFD_DEFAULT_STYLE, wxDefaultPosition, wxDefaultSize);
+#else
 	wxFileDialog* openFileDialog =
 		new wxFileDialog( parent, _("Select zipped Layout-Files"), _T(""), _T(""), _T("*.zip"),
-		                  wxOPEN, wxDefaultPosition);
- 
+		                  wxFD_OPEN, wxDefaultPosition);
+#endif 
 	wxString n = _T("not ");
 	int ret = true;
 	
@@ -1481,20 +1490,20 @@ void logbookkonni_pi::loadLayouts(wxWindow *parent)
 		}
 		if(m_plogbook_window != NULL)
 		{
-		m_plogbook_window->loadLayoutChoice(LogbookDialog::LOGBOOK,
-			m_plogbook_window->logbook->layout_locn,m_plogbook_window->logbookChoice,opt->layoutPrefix[LogbookDialog::LOGBOOK]);
-		m_plogbook_window->loadLayoutChoice(LogbookDialog::CREW,
-			m_plogbook_window->crewList->layout_locn,m_plogbook_window->crewChoice,opt->layoutPrefix[LogbookDialog::CREW]);
-		m_plogbook_window->loadLayoutChoice(LogbookDialog::BOAT,
-			m_plogbook_window->boat->layout_locn,m_plogbook_window->boatChoice,opt->layoutPrefix[LogbookDialog::BOAT]);
-		m_plogbook_window->loadLayoutChoice(LogbookDialog::OVERVIEW,
-			m_plogbook_window->logbook->layout_locn,m_plogbook_window->overviewChoice,opt->layoutPrefix[LogbookDialog::OVERVIEW]);
-		m_plogbook_window->loadLayoutChoice(LogbookDialog::GSERVICE,
-			m_plogbook_window->maintenance->layout_locnService,m_plogbook_window->m_choiceSelectLayoutService,opt->layoutPrefix[LogbookDialog::GSERVICE]);
-		m_plogbook_window->loadLayoutChoice(LogbookDialog::GREPAIRS,
-			m_plogbook_window->maintenance->layout_locnRepairs,m_plogbook_window->m_choiceSelectLayoutRepairs,opt->layoutPrefix[LogbookDialog::GREPAIRS]);
-		m_plogbook_window->loadLayoutChoice(LogbookDialog::GBUYPARTS,
-			m_plogbook_window->maintenance->layout_locnBuyParts,m_plogbook_window->m_choiceSelectLayoutBuyParts,opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
+            m_plogbook_window->loadLayoutChoice(LogbookDialog::LOGBOOK,
+                m_plogbook_window->logbook->layout_locn,m_plogbook_window->logbookChoice,opt->layoutPrefix[LogbookDialog::LOGBOOK]);
+            m_plogbook_window->loadLayoutChoice(LogbookDialog::CREW,
+                m_plogbook_window->crewList->layout_locn,m_plogbook_window->crewChoice,opt->layoutPrefix[LogbookDialog::CREW]);
+            m_plogbook_window->loadLayoutChoice(LogbookDialog::BOAT,
+                m_plogbook_window->boat->layout_locn,m_plogbook_window->boatChoice,opt->layoutPrefix[LogbookDialog::BOAT]);
+            m_plogbook_window->loadLayoutChoice(LogbookDialog::OVERVIEW,
+                m_plogbook_window->logbook->layout_locn,m_plogbook_window->overviewChoice,opt->layoutPrefix[LogbookDialog::OVERVIEW]);
+            m_plogbook_window->loadLayoutChoice(LogbookDialog::GSERVICE,
+                m_plogbook_window->maintenance->layout_locnService,m_plogbook_window->m_choiceSelectLayoutService,opt->layoutPrefix[LogbookDialog::GSERVICE]);
+            m_plogbook_window->loadLayoutChoice(LogbookDialog::GREPAIRS,
+                m_plogbook_window->maintenance->layout_locnRepairs,m_plogbook_window->m_choiceSelectLayoutRepairs,opt->layoutPrefix[LogbookDialog::GREPAIRS]);
+            m_plogbook_window->loadLayoutChoice(LogbookDialog::GBUYPARTS,
+                m_plogbook_window->maintenance->layout_locnBuyParts,m_plogbook_window->m_choiceSelectLayoutBuyParts,opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 		}
 	wxString ok = wxString::Format(_("Layouts %sinstalled at\n\n%s\n%s\n%s\n%s"),
 				       (!ret)?n.c_str():wxEmptyString,data.c_str(),data1.c_str(),data2.c_str(),data3.c_str());
@@ -1539,10 +1548,15 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 	languagePath = languagePath.Remove(languagePath.find_last_of(sep));
 	languagePath.append(sep + _T("Resources") + sep);
 #endif
-
+#ifdef __WXOSX__
+    wxFileDialog* openFileDialog =
+		new wxFileDialog( parent, _("Select zipped Languages-Files"), _T(""), FILETYPES, FILETYPES,
+		                  wxFD_DEFAULT_STYLE, wxDefaultPosition, wxDefaultSize);
+#else
 	wxFileDialog* openFileDialog =
 		new wxFileDialog( parent, _("Select zipped Languages-Files"), _T(""), FILETYPES, FILETYPES,
-		                  wxOPEN, wxDefaultPosition);
+		                  wxFD_OPEN, wxDefaultPosition);
+#endif
 	if ( openFileDialog->ShowModal() == wxID_OK )
 	{
 #ifdef __WXOSX__
@@ -1640,12 +1654,12 @@ bool LogbookTimer::popUp()
 	wxFrame *frame = (wxFrame*)plogbook_pi->m_parent_window->GetParent();
 	if((frame->IsIconized() || plogbook_pi->m_plogbook_window->IsIconized()) && plogbook_pi->opt->popup)
 	{
-		if(frame->IsIconized())
-			frame->Iconize(false);
+        if(frame->IsIconized())
+            frame->Iconize(false);
 
-		plogbook_pi->m_plogbook_window->Iconize(false);
-		plogbook_pi->m_parent_window->SetFocus();
-		return true;
+        plogbook_pi->m_plogbook_window->Iconize(false);
+        plogbook_pi->m_parent_window->SetFocus();
+        return true;
 	}
 
 	if(!plogbook_pi->m_plogbook_window->IsShown() && plogbook_pi->opt->popup)

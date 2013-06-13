@@ -10,11 +10,11 @@
 
 #if !defined( _WX_JSONWRITER_H )
 #define _WX_JSONWRITER_H
-
+#ifndef __WXOSX__
 #ifdef __GNUG__
     #pragma interface "jsonwriter.h"
 #endif
-
+#endif
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
 

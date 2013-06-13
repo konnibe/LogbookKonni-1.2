@@ -22,67 +22,67 @@ Options::Options(void)
 	stimeformat = _T("");
 	date1 = date2 = date3 = 0;
 	statusbarGlobal = true;
-	layoutShow = false;
+    layoutShow = false;
 	statusbarWatch = true;
-	kmlTrans.Add(_T("50"));
-	kmlTrans.Add(_T("FF"));
-	kmlColor.Add(_T("FFFFFF"));
-	kmlColor.Add(_T("000000"));
-	kmlColor.Add(_T("0000FF"));
-	kmlColor.Add(_T("14F0FF"));
-	engines = 0;
-	toggleEngine1 = false;
-	toggleEngine2 = false;
-	dtEngine1On = -1;
-	dtEngine2On = -1;
-	bRPMIsChecked = false;
-	sentence = wxEmptyString;
-	engine1  = wxEmptyString;
-	engine2 = wxEmptyString;
-	engine1Running = false;
-	engine2Running = false;
-	bRPMCheck = false;
-	engineStr[0] = _T("1");
-	engineStr[1] = _T("2");
-	engineMessageSails = false;
-	engineMessageRunning = false;
-	engineAllwaysSailsDown = false;
+    kmlTrans.Add(_T("50"));
+    kmlTrans.Add(_T("FF"));
+    kmlColor.Add(_T("FFFFFF"));
+    kmlColor.Add(_T("000000"));
+    kmlColor.Add(_T("0000FF"));
+    kmlColor.Add(_T("14F0FF"));
+    engines = 0;
+    toggleEngine1 = false;
+    toggleEngine2 = false;
+    dtEngine1On = -1;
+    dtEngine2On = -1;
+    bRPMIsChecked = false;
+    sentence = wxEmptyString;
+    engine1  = wxEmptyString;
+    engine2 = wxEmptyString;
+    engine1Running = false;
+    engine2Running = false;
+    bRPMCheck = false;
+    engineStr[0] = _T("1");
+    engineStr[1] = _T("2");
+    engineMessageSails = false;
+    engineMessageRunning = false;
+    engineAllwaysSailsDown = false;
 
-	abrSails.Add(_("Ma"));
-	abrSails.Add(_("Tr"));
-	abrSails.Add(_("Ge1"));
-	abrSails.Add(_("Ge2"));
-	abrSails.Add(_("Ge3"));
-	abrSails.Add(_("Fo1"));
-	abrSails.Add(_("Fo2"));
-	abrSails.Add(_("Fo3"));
-	abrSails.Add(_("Ji"));
-	abrSails.Add(_("Mi"));
-	abrSails.Add(_("Mt"));
-	abrSails.Add(_("St"));
-	abrSails.Add(_("Sp"));
-	abrSails.Add(_("?"));
+    abrSails.Add(_("Ma"));
+    abrSails.Add(_("Tr"));
+    abrSails.Add(_("Ge1"));
+    abrSails.Add(_("Ge2"));
+    abrSails.Add(_("Ge3"));
+    abrSails.Add(_("Fo1"));
+    abrSails.Add(_("Fo2"));
+    abrSails.Add(_("Fo3"));
+    abrSails.Add(_("Ji"));
+    abrSails.Add(_("Mi"));
+    abrSails.Add(_("Mt"));
+    abrSails.Add(_("St"));
+    abrSails.Add(_("Sp"));
+    abrSails.Add(_("?"));
 
-	sailsName.Add(_("Main"));
-	sailsName.Add(_("Try"));
-	sailsName.Add(_("Genoa 1"));
-	sailsName.Add(_("Genoa 2"));
-	sailsName.Add(_("Genoa 3"));
-	sailsName.Add(_("Fock 1"));
-	sailsName.Add(_("Fock 2"));
-	sailsName.Add(_("Fock 3"));
-	sailsName.Add(_("Jib"));
-	sailsName.Add(_("Mizzen"));
-	sailsName.Add(_("Mizzen Storm"));
-	sailsName.Add(_("Staysail"));
-	sailsName.Add(_("Spinnacker"));
-	sailsName.Add(_("You can change the abreviations and the names of the sails\nin Options/Miscellaneous/Sails"));
+    sailsName.Add(_("Main"));
+    sailsName.Add(_("Try"));
+    sailsName.Add(_("Genoa 1"));
+    sailsName.Add(_("Genoa 2"));
+    sailsName.Add(_("Genoa 3"));
+    sailsName.Add(_("Fock 1"));
+    sailsName.Add(_("Fock 2"));
+    sailsName.Add(_("Fock 3"));
+    sailsName.Add(_("Jib"));
+    sailsName.Add(_("Mizzen"));
+    sailsName.Add(_("Mizzen Storm"));
+    sailsName.Add(_("Staysail"));
+    sailsName.Add(_("Spinnacker"));
+    sailsName.Add(_("You can change the abreviations and the names of the sails\nin Options/Miscellaneous/Sails"));
 
-	rowGap = 0;
-	colGap = 0;
+    rowGap = 0;
+    colGap = 0;
 
-	for(int i = 0; i < 14; i++)
-		bSailIsChecked[i] = false;
+    for(int i = 0; i < 14; i++)
+            bSailIsChecked[i] = false;
 
 	// Global Options
 	traditional = true;
@@ -101,11 +101,11 @@ Options::Options(void)
 	dlgWidth = 1010;
 	dlgHeight = 535;
 	popup = true;
-	for(int i = 0; i < 7; i++)
-	{
-		layoutPrefix[i] =  _T("Label_");
-		filterLayout[i] =  true;
-	}
+    for(int i = 0; i < 7; i++)
+    {
+        layoutPrefix[i] =  _T("Label_");
+        filterLayout[i] =  true;
+    }
 	noGPS = true;
 	colouredMaintenance = true;
 	waypointArrived = false;
@@ -160,9 +160,9 @@ or change this text in Toolbox/Plugins/Logbook\n\nShift+Enter appends a new line
 	// Grid MotorSails
 	vol = _("gal");
 	motorh = _("h");
-	engine = _("E");
-	shaft = _T("S");
-	rpm = _T("RPM");
+    engine = _("E");
+    shaft = _T("S");
+    rpm = _T("RPM");
 
 	//Maintenance
 	days = _("day(s)");
@@ -211,22 +211,22 @@ or change this text in Toolbox/Plugins/Logbook\n\nShift+Enter appends a new line
 	serviceHTML = true;
 	repairsHTML = true;
 	buypartsHTML = false;
-	
+
 	// Paths
 	htmlEditor  = _T("");
 	htmlEditorReset = htmlEditor;
 
-	// KML
-	kmlRoute = 1;
-	kmlTrack = 1;
-	kmlLineWidth = _T("4");;
-	kmlLineTransparancy = 0;
-	kmlRouteColor = 0;
-	kmlTrackColor = 3;
+    // KML
+    kmlRoute = 1;
+    kmlTrack = 1;
+    kmlLineWidth = _T("4");;
+    kmlLineTransparancy = 0;
+    kmlRouteColor = 0;
+    kmlTrackColor = 3;
 
-	//NMEA
-	NMEAUseERRPM = false;
-	NMEAUseWIMDA = true;
+    //NMEA
+    NMEAUseERRPM = false;
+    NMEAUseWIMDA = true;
 
 #ifdef __WXMSW__
 	wxFileType *filetype1=wxTheMimeTypesManager->GetFileTypeFromExtension(_T("odt"));
@@ -331,8 +331,8 @@ or change this text in Toolbox/Plugins/Logbook\n\nShift+Enter appends a new line
 
 	stateEvents = 0;
 
-	for(int i = 0; i < 14; i++)
-		bSailIsChecked[i] = false;
+    for(int i = 0; i < 14; i++)
+        bSailIsChecked[i] = false;
 }
 
 Options::~Options(void)

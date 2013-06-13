@@ -31,6 +31,13 @@
 
 
 #include "nmea0183.h"
+#include <math.h>
+
+#if !defined(NAN)
+static const long long lNaN = 0xfff8000000000000;
+#define NAN (*(double*)&lNaN)
+
+#endif
 
 /*
 ** Author: Samuel R. Blackburn
@@ -132,6 +139,11 @@ unsigned char SENTENCE::ComputeChecksum( void ) const
 //   ASSERT_VALID( this );
 
    unsigned char checksum_value = 0;
+#ifdef __WXOSX__
+   char str_ascii[101];
+   strncpy(str_ascii, (const char *)Sentence.mb_str(), 99);
+   str_ascii[100] = '\0';
+#endif
 
    int string_length = Sentence.Len();
    int index = 1; // Skip over the $ at the begining of the sentence
@@ -141,7 +153,11 @@ unsigned char SENTENCE::ComputeChecksum( void ) const
           Sentence[ index ] != CARRIAGE_RETURN &&
           Sentence[ index ] != LINE_FEED )
    {
-      checksum_value ^= Sentence[ index ];
+#ifdef __WXOSX__
+      checksum_value ^= str_ascii[ index ];
+#else
+      checksum_value ^= (unsigned char)(Sentence[ index ]);
+#endif
       index++;
    }
 

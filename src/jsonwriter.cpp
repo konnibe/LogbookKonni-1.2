@@ -7,11 +7,11 @@
 // Copyright:   (c) 2007 Luciano Cattani
 // Licence:     wxWidgets licence
 /////////////////////////////////////////////////////////////////////////////
-
+#ifndef __WXOSX__
 #ifdef __GNUG__
     #pragma implementation "jsonwriter.cpp"
 #endif
-
+#endif
 
 #include "jsonwriter.h"
 

@@ -29,16 +29,35 @@ wxString Export::readLayoutODT(wxString path,wxString layout)
 {
 	wxString odt = _T("");
 
-
 	wxString filename = path + layout + _T(".odt");
 
 	if(wxFileExists(filename))
 	{
-		static const wxString fn = _T("content.xml");
-		wxZipInputStream zip(filename,fn);
+//#ifdef __WXOSX__
+        auto_ptr<wxZipEntry> entry;
+        static const wxString fn = _T("content.xml");
+        wxString name = wxZipEntry::GetInternalName(fn);
+        wxFFileInputStream in(filename);
+        wxZipInputStream zip(in);
+        do
+        {
+            entry.reset(zip.GetNextEntry());
+        }
+        while (entry.get() != NULL && entry->GetInternalName() != name);
+        if (entry.get() != NULL)
+        {
+            wxTextInputStream txt(zip,_T("\n"),wxConvUTF8);
+            while(!zip.Eof())
+	            odt += txt.ReadLine();
+        }
+//#else
+	/*	static const wxString fn = _T("content.xml");
+		wxFileInputStream in(filename);
+		wxZipInputStream zip(in);
 		wxTextInputStream txt(zip);
 		while(!zip.Eof())
-			odt += txt.ReadLine();
+			odt += txt.ReadLine();*/
+//#endif
 	}
 	return odt;
 }

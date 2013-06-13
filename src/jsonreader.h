@@ -10,11 +10,11 @@
 
 #if !defined( _WX_JSONREADER_H )
 #define _WX_JSONREADER_H
-
+#ifndef __WXOSX__
 #ifdef __GNUG__
     #pragma interface "jsonreader.h"
 #endif
-
+#endif
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
 

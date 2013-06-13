@@ -38,37 +38,37 @@ private:
 	wxDateTime			mUTCDateTime;
 	wxString		    sSOG;
 	wxString			sSOW;
-	wxDateTime			dtSOW;
-	bool				bSOW;
+    wxDateTime			dtSOW;
+    bool				bSOW;
 	wxString		    sCOG;
 	wxString		    sCOW;
-	wxDateTime			dtCOW;
+    wxDateTime			dtCOW;
 	wxString			sDistance;
 	wxString			sTemperatureWater;
-	wxDateTime			dtTemperatureWater;
-	bool				bTemperatureWater;
-	wxString			sTemperatureAir;
-	bool				bTemperatureAir;
-	wxDateTime			dtWimda;
-	wxString			sPressure;
-	wxString			sHumidity;
+    wxDateTime			dtTemperatureWater;
+    bool				bTemperatureWater;
+    wxString			sTemperatureAir;
+    bool				bTemperatureAir;
+    wxDateTime			dtWimda;
+    wxString			sPressure;
+    wxString			sHumidity;
 	wxString		    sWind;
-	wxDateTime			dtWind;
-	bool				bWind;
+    wxDateTime			dtWind;
+    bool				bWind;
 	wxString			sWindSpeed;
 	wxString			sDepth;
-	wxDateTime			dtDepth;
-	bool				bDepth;
+    wxDateTime			dtDepth;
+    bool				bDepth;
 	wxString			sLogText;
 	wxString			sLinesReminder;
-	wxString			sRPM1;
-	wxString			sRPM1Shaft;
-	wxString			sRPM1Source;
-	wxString			sRPM2Shaft;
-	wxString			sRPM2Source;
-	wxString			sRPM2;
-	wxDateTime			dtRPM2;
-	long				engine;
+    wxString			sRPM1;
+    wxString			sRPM1Shaft;
+    wxString			sRPM1Source;
+    wxString			sRPM2Shaft;
+    wxString			sRPM2Source;
+    wxString			sRPM2;
+    wxDateTime			dtRPM2;
+    long				engine;
 
 	bool				noSentence;
 	bool				bCOW;
@@ -79,7 +79,7 @@ private:
 	bool				everySM;
 	bool				waypointArrived;
 	bool				oldLogbook;
-	bool				wimdaSentence;
+    bool				wimdaSentence;
 
 	wxString			toSDMM ( int NEflag, double a, bool mode );
 	wxString			toSDMMOpenCPN ( int NEflag, double a, bool hi_precision );
@@ -104,10 +104,10 @@ private:
 public:
 	enum fields{ ROUTE,RDATE,RTIME,SIGN,WAKE,DISTANCE,DTOTAL,POSITION,COG,COW,SOG,SOW,DEPTH,REMARKS,
 				 BARO,HYDRO,TEMPAIR,TEMPWATER,WIND,WSPD,CURRENT,CSPD,WAVE,SWELL,WEATHER,CLOUDS,VISIBILITY,
-				 MOTOR,MOTORT,RPM1,MOTOR1,MOTOR1T,RPM2,FUEL,FUELT,SAILS,REEF,GENE,GENET,BANK1,BANK1T,BANK2,BANK2T,WATERM,WATERMT,WATERMO,WATER,WATERT,MREMARKS,ROUTEID,TRACKID};	
+				 MOTOR,MOTORT,RPM1,MOTOR1,MOTOR1T,RPM2,FUEL,FUELT,SAILS,REEF,GENE,GENET,BANK1,BANK1T,BANK2,BANK2T,WATERM,WATERMT,WATERMO,WATER,WATERT,MREMARKS,ROUTEID,TRACKID};
 
-	Options			*opt;
-	wxArrayString	mergeList;
+    Options			*opt;
+    wxArrayString	mergeList;
 	LogbookDialog*	dialog;
 	LogbookHTML*	logbookHTML;
 	wxString		layout_locn;
@@ -120,31 +120,31 @@ public:
 	bool			WP_skipped;
 	wxString		lastWayPoint;
 	bool			OCPN_Message;
-	bool			routeIsActive;
+    bool			routeIsActive;
 	wxString		activeRoute;
 	wxString		activeRouteGUID;
-	bool			trackIsActive;
-	wxString		activeMOB;
-	wxString		MOB_GUID;
-	bool			MOBIsActive;
-	wxString		activeTrack;
-	wxString		activeTrackGUID;
-//	int				weatherCol;
-//	int				sailsCol;
+    bool			trackIsActive;
+    wxString		activeMOB;
+
+    wxString		MOB_GUID;
+    bool			MOBIsActive;
+    wxString		activeTrack;
+    wxString		activeTrackGUID;
+
 	wxString		sDate;
 	wxString		sTime;
 	bool			guardChange;
-	bool			rpmSentence;
-	wxDateTime		dtRPM;
-	bool			engine1Manual;
-	bool			engine2Manual;
-	wxTimeSpan		dtEngine1Off;
-	wxTimeSpan		dtEngine2Off;
-	bool			bRPM2;
-	bool			bRPM1;
-	bool			sailsMessage;
-	int				sailsState;
-	int				oldSailsState;
+    bool			rpmSentence;
+    wxDateTime		dtRPM;
+    bool			engine1Manual;
+    bool			engine2Manual;
+    wxTimeSpan		dtEngine1Off;
+    wxTimeSpan		dtEngine2Off;
+    bool			bRPM2;
+    bool			bRPM1;
+    bool			sailsMessage;
+    int				sailsState;
+    int				oldSailsState;
 
 public:
 	Logbook(LogbookDialog* parent, wxString data, wxString layout, wxString layoutODT);
@@ -172,9 +172,9 @@ public:
 	void clearAllGrids();
 	void recalculateLogbook(int row);
 	void deleteRows();
-	void setTrackToNewID(wxString target);
-	void checkNMEADeviceIsOn();
-	void resetEngineManuallMode();
+    void setTrackToNewID(wxString target);
+    void checkNMEADeviceIsOn();
+    void resetEngineManuallMode();
 
 	static wxString makeDateFromFile(wxString date, wxString dateformat);
 	static wxString makeWatchtimeFromFile(wxString time, wxString timeformat);
@@ -190,7 +190,7 @@ private:
 
 	wxString	logbookData_actuell;
 	bool		noAppend; // Old Logbook; append Rows not allowed
-	wxString	logbookDescription;
+    wxString	logbookDescription;
 };
 
 

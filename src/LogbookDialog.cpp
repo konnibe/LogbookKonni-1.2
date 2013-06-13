@@ -1,4 +1,4 @@
-﻿///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 // C++ code generated with wxFormBuilder (version Sep  8 2010)
 
@@ -11,7 +11,6 @@
 #include "Logbook.h"
 #include "logbook_pi.h"
 #include "Options.h"
-#include "EzGrid.h"
 #include "tinyxml/tinyxml.h"
 #include "icons.h"
 //#ifdef __WXOSX__
@@ -55,6 +54,16 @@
 #include <wx/platinfo.h>
 #include <wx/timer.h> 
 #include <wx/arrimpl.cpp>
+#if wxCHECK_VERSION(2,9,0)
+#ifdef __WXOSX__
+#include <wx/uiaction.h>
+#endif
+#endif
+
+#include "back.xpm"
+#include "forward.xpm"
+#include "up.xpm"
+#include "down.xpm"
 
 //#define PBVE_DEBUG 1
 //////////////////////////////////////////////////////////////////////////
@@ -71,15 +80,16 @@ wxArrayString TimerIndidividualAMPM;
 LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style )
 :wxDialog( parent, id, title, pos, size, style )
 {
+	logbook = NULL;
 	logbookPlugIn = d;
 	timer = t;
 	logbookTimerWindow = lt;
-//	GPSTimer = NULL;
-	wxInitAllImageHandlers();
+	GPSTimer = NULL;
+//	wxInitAllImageHandlers();
 
 	this->SetSizeHints( wxSize( -1,-1 ), wxDefaultSize );
 	
-	wxSizer* bSizer2;
+    wxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
 	
 	m_logbook = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNB_TOP );
@@ -89,7 +99,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	bSizer6 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_button4 = new wxButton( m_panel2, wxID_ANY, _("Add Line"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button4 = new wxButton( m_panel2, wxID_ANY , _("Add Line"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_button4->SetToolTip( _("add a line to the end of your logbook") );
 	
 	bSizer6->Add( m_button4, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxLEFT, 5 );
@@ -102,62 +112,67 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_staticline8 = new wxStaticLine( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL|wxLI_VERTICAL );
 	bSizer6->Add( m_staticline8, 0, wxEXPAND | wxALL, 5 );
 	
-	m_bpButtonShowHideLayout = new wxBitmapButton( m_panel2, wxID_ANY, wxArtProvider::GetBitmap( wxART_GO_FORWARD, wxART_TOOLBAR ), wxDefaultPosition, wxSize( -1,-1 ), wxBU_AUTODRAW );
-	m_bpButtonShowHideLayout->SetToolTip( _("Show Layout Selection Mode") );
-	
-	bSizer6->Add( m_bpButtonShowHideLayout, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
-	
-	m_panelLayout = new wxPanel( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxBoxSizer* bSizer46;
-	bSizer46 = new wxBoxSizer( wxHORIZONTAL );
-	
+	m_bpButtonShowHideLayout = new wxBitmapButton( m_panel2, wxID_ANY, forward_xpm, wxDefaultPosition, wxSize( -1,-1 ), wxBU_AUTODRAW );
+    m_bpButtonShowHideLayout->SetToolTip( _("Show Layout Selection Mode") );
+
+    bSizer6->Add( m_bpButtonShowHideLayout, 0, wxALIGN_CENTER_VERTICAL, 0 );
+
+    m_panelLayout = new wxPanel( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    wxBoxSizer* bSizer46;
+    bSizer46 = new wxBoxSizer( wxHORIZONTAL );
+
 	m_staticText32 = new wxStaticText( m_panelLayout, wxID_ANY, _("Select Layout: "), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText32->Wrap( -1 );
-	bSizer46->Add( m_staticText32, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	bSizer46->Add( m_staticText32, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM, 5 );
 	
 	wxArrayString logbookChoiceChoices;
 	logbookChoice = new wxChoice( m_panelLayout, wxID_ANY, wxDefaultPosition, wxSize( 180,-1 ), logbookChoiceChoices, 0 );
 	logbookChoice->SetSelection( 0 );
 	logbookChoice->SetToolTip( _("Select a layout which is displayed\nwith button \"View\"") );
 	
-	bSizer46->Add( logbookChoice, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	bSizer46->Add( logbookChoice, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
-	m_buttonReloadLayout = new wxButton( m_panelLayout, wxID_ANY, _("R"), wxDefaultPosition, wxSize( -1,-1 ), wxBU_EXACTFIT );
+	m_buttonReloadLayout = new wxButton( m_panelLayout, wxID_ANY, _("R"), wxPoint( -1,-1 ), wxSize( -1,-1 ), wxBU_EXACTFIT );
 	m_buttonReloadLayout->SetToolTip( _("Reload Layouts") );
 	
-	bSizer46->Add( m_buttonReloadLayout, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	bSizer46->Add( m_buttonReloadLayout, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM, 5 );
 	
 	m_buttonEditLayout = new wxButton( m_panelLayout, wxID_ANY, _("E"), wxDefaultPosition, wxSize( -1,-1 ), wxBU_EXACTFIT );
 	m_buttonEditLayout->SetToolTip( _("Edit Layout") );
 	
-	bSizer46->Add( m_buttonEditLayout, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	bSizer46->Add( m_buttonEditLayout, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM, 5 );
+
+    m_panelLayout->SetSizer( bSizer46 );
+    m_panelLayout->Layout();
+    bSizer46->Fit( m_panelLayout );
+    bSizer6->Add( m_panelLayout, 1, wxEXPAND | wxALL, 5 );
+
+    m_panelEngine = new wxPanel( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    m_panelEngine->Hide();
+
+    wxBoxSizer* bSizer45;
+    bSizer45 = new wxBoxSizer( wxHORIZONTAL );
+
+	wxBoxSizer* bSizer49;
+	bSizer49 = new wxBoxSizer( wxVERTICAL );
 	
-	m_panelLayout->SetSizer( bSizer46 );
-	m_panelLayout->Layout();
-	bSizer46->Fit( m_panelLayout );
-	bSizer6->Add( m_panelLayout, 1, wxEXPAND | wxALL, 5 );
+	m_toggleBtnEngine1 = new wxToggleButton( m_panelEngine, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer49->Add( m_toggleBtnEngine1, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT|wxLEFT, 0 );
 	
-	m_panelEngine = new wxPanel( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	m_panelEngine->Hide();
+	m_toggleBtnEngine2 = new wxToggleButton( m_panelEngine, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer49->Add( m_toggleBtnEngine2, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT|wxLEFT, 0 );
+		
+	bSizer45->Add( bSizer49, 0, wxRIGHT|wxLEFT, 5 );
 	
-	wxBoxSizer* bSizer45;
-	bSizer45 = new wxBoxSizer( wxHORIZONTAL );
-	
-	m_toggleBtnEngine1 = new wxToggleButton( m_panelEngine, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer45->Add( m_toggleBtnEngine1, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM, 5 );
-	
-	m_toggleBtnEngine2 = new wxToggleButton( m_panelEngine, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer45->Add( m_toggleBtnEngine2, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
-	
-	fgSizerSails = new wxFlexGridSizer( 2, 5, 0, 0 );
+	fgSizerSails = new wxFlexGridSizer( 3, 5, 0, 0 );
 	fgSizerSails->SetFlexibleDirection( wxBOTH );
-	fgSizerSails->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	bSizer45->Add( fgSizerSails, 1, wxEXPAND, 5 );
-	m_panelEngine->SetSizer( bSizer45 );
-	m_panelEngine->Layout();
-	bSizer45->Fit( m_panelEngine );
-	bSizer6->Add( m_panelEngine, 1, wxEXPAND | wxALL, 0 );
+	fgSizerSails->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_NONE );
+		
+	bSizer45->Add( fgSizerSails, 0, wxRIGHT|wxLEFT, 0 );
+    m_panelEngine->SetSizer( bSizer45 );
+    m_panelEngine->Layout();
+    bSizer45->Fit( m_panelEngine );
+    bSizer6->Add( m_panelEngine, 1, wxEXPAND | wxALL, 0 );
 	
 	m_radioBtnHTML = new wxRadioButton( m_panel2, wxID_ANY, _("HTML"), wxDefaultPosition, wxDefaultSize, wxRB_GROUP );
 	m_radioBtnHTML->SetValue( true ); 
@@ -176,18 +191,18 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	newLogbook = new wxButton( m_panel2, wxID_ANY, _("New Logbook"), wxDefaultPosition, wxDefaultSize, 0 );
 	newLogbook->SetToolTip( _("Create a new logbook\nthe active logbook is saved with today's date\nand can be viewed with Button \"Select Logbook\"") );
-	
-	bSizer6->Add( newLogbook, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM, 5 );
+
+    bSizer6->Add( newLogbook, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM, 5 );
 	
 	selLogbook = new wxButton( m_panel2, wxID_ANY, _("Select Logbook"), wxDefaultPosition, wxDefaultSize, 0 );
 	selLogbook->SetToolTip( _("Select a old logbook\nEverytime a new logbook is created, you'll \nfind the active logbook as old logbook here") );
-	
-	bSizer6->Add( selLogbook, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
-	
+
+    bSizer6->Add( selLogbook, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
+
 	m_staticline411 = new wxStaticLine( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
 	bSizer6->Add( m_staticline411, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
-	m_bpButtonShowHideStatusGlobal = new wxBitmapButton( m_panel2, wxID_ANY, wxArtProvider::GetBitmap( wxART_GO_UP, wxART_TOOLBAR ), wxDefaultPosition, wxSize( -1,-1 ), wxBU_AUTODRAW );
+	m_bpButtonShowHideStatusGlobal = new wxBitmapButton( m_panel2, wxID_ANY, up_xpm, wxDefaultPosition, wxSize( -1,-1 ), wxBU_AUTODRAW );
 	m_bpButtonShowHideStatusGlobal->SetToolTip( _("Show/Hide Statusbar") );
 	
 	bSizer6->Add( m_bpButtonShowHideStatusGlobal, 0, wxALIGN_CENTER_VERTICAL, 5 );
@@ -196,7 +211,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_bpButtonHelpGlobal->SetToolTip( _("Help") );
 	
 	bSizer6->Add( m_bpButtonHelpGlobal, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT, 5 );
-	
+
 	bSizer361->Add( bSizer6, 0, 0, 0 );
 	
 	m_staticline401 = new wxStaticLine( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
@@ -204,7 +219,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 
 	m_notebook8 = new wxNotebook( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	m_panel6 = new wxPanel( m_notebook8, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-
+    
 	wxBoxSizer* bSizer391;
 	bSizer391 = new wxBoxSizer( wxVERTICAL );
 	m_gridGlobal = new wxGrid( m_panel6, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxALWAYS_SHOW_SB );
@@ -397,37 +412,37 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMotorSails->SetColSize( 17, 62 );
 	m_gridMotorSails->SetColSize( 18, 80 );
 	m_gridMotorSails->SetColSize( 19, 124 );
-	m_gridMotorSails->SetColSize( 20, 80 );
-	m_gridMotorSails->SetColSize( 21, 250 );
-	m_gridMotorSails->SetColSize( 22, 219 );
-	m_gridMotorSails->SetColSize( 23, 219 );
+    m_gridMotorSails->SetColSize( 20, 80 );
+    m_gridMotorSails->SetColSize( 21, 250 );
+    m_gridMotorSails->SetColSize( 22, 219 );
+    m_gridMotorSails->SetColSize( 23, 219 );
 	m_gridMotorSails->EnableDragColMove( false );
 	m_gridMotorSails->EnableDragColSize( true );
 	m_gridMotorSails->SetColLabelSize( 30 );
 	m_gridMotorSails->SetColLabelValue( 0, _("Engine #1") );
 	m_gridMotorSails->SetColLabelValue( 1, _("#1 Total") );
-	m_gridMotorSails->SetColLabelValue( 2, _T("#1 ") );
-	m_gridMotorSails->SetColLabelValue( 3, _("Engine #2") );
-	m_gridMotorSails->SetColLabelValue( 4, _("#2 Total") );
-	m_gridMotorSails->SetColLabelValue( 5, _T("#2 ") );
-	m_gridMotorSails->SetColLabelValue( 6, _("Fuel") );
-	m_gridMotorSails->SetColLabelValue( 7, _("FuelTotal") );
-	m_gridMotorSails->SetColLabelValue( 8, _("Sails") );
-	m_gridMotorSails->SetColLabelValue( 9, _("Reef") );
-	m_gridMotorSails->SetColLabelValue( 10, _("Generator") );
-	m_gridMotorSails->SetColLabelValue( 11, _("Gen. total") );
-	m_gridMotorSails->SetColLabelValue( 12, _("Bank #1") );
-	m_gridMotorSails->SetColLabelValue( 13, _("AH #1 Total") );
-	m_gridMotorSails->SetColLabelValue( 14, _("Bank #2") );
-	m_gridMotorSails->SetColLabelValue( 15, _("AH #2 Total") );
-	m_gridMotorSails->SetColLabelValue( 16, _("Watermaker") );
-	m_gridMotorSails->SetColLabelValue( 17, _("W-Total") );
-	m_gridMotorSails->SetColLabelValue( 18, _("W-Output") );
-	m_gridMotorSails->SetColLabelValue( 19, _("Water") );
-	m_gridMotorSails->SetColLabelValue( 20, _("WaterTotal") );
-	m_gridMotorSails->SetColLabelValue( 21, _("Remarks") );
-	m_gridMotorSails->SetColLabelValue( 22, _("RouteID") );
-	m_gridMotorSails->SetColLabelValue( 23, _("TrackID") );
+    m_gridMotorSails->SetColLabelValue( 2, _T("#1 ") );
+    m_gridMotorSails->SetColLabelValue( 3, _("Engine #2") );
+    m_gridMotorSails->SetColLabelValue( 4, _("#2 Total") );
+    m_gridMotorSails->SetColLabelValue( 5, _T("#2 ") );
+    m_gridMotorSails->SetColLabelValue( 6, _("Fuel") );
+    m_gridMotorSails->SetColLabelValue( 7, _("FuelTotal") );
+    m_gridMotorSails->SetColLabelValue( 8, _("Sails") );
+    m_gridMotorSails->SetColLabelValue( 9, _("Reef") );
+    m_gridMotorSails->SetColLabelValue( 10, _("Generator") );
+    m_gridMotorSails->SetColLabelValue( 11, _("Gen. total") );
+    m_gridMotorSails->SetColLabelValue( 12, _("Bank #1") );
+    m_gridMotorSails->SetColLabelValue( 13, _("AH #1 Total") );
+    m_gridMotorSails->SetColLabelValue( 14, _("Bank #2") );
+    m_gridMotorSails->SetColLabelValue( 15, _("AH #2 Total") );
+    m_gridMotorSails->SetColLabelValue( 16, _("Watermaker") );
+    m_gridMotorSails->SetColLabelValue( 17, _("W-Total") );
+    m_gridMotorSails->SetColLabelValue( 18, _("W-Output") );
+    m_gridMotorSails->SetColLabelValue( 19, _("Water") );
+    m_gridMotorSails->SetColLabelValue( 20, _("WaterTotal") );
+    m_gridMotorSails->SetColLabelValue( 21, _("Remarks") );
+    m_gridMotorSails->SetColLabelValue( 22, _("RouteID") );
+    m_gridMotorSails->SetColLabelValue( 23, _("TrackID") );
 	m_gridMotorSails->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
@@ -459,47 +474,56 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	bSizer39->Add( m_buttonSetTimer, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 0 );
 	
+#if wxCHECK_VERSION(2, 9, 0)
+	m_bpButtonTimer = new myBitmapButton( Statusbar, wxID_ANY, _("Timer"),*_img_Bullet_red, wxDefaultPosition, wxSize( -1,20 ), 0 );
+#else
 	m_staticText1241 = new wxStaticText( Statusbar, wxID_ANY, _("Timer"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText1241->Wrap( -1 );
 	bSizer39->Add( m_staticText1241, 0, wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-	
 	m_bpButtonTimer = new myBitmapButton( Statusbar, wxID_ANY, *_img_Bullet_red, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	
-//	m_bpButtonTimer->SetBitmapDisabled(wxT("Bullet_red.png") , wxBITMAP_TYPE_ANY ) );
-	bSizer39->Add( m_bpButtonTimer, 0, wxALIGN_CENTER_VERTICAL, 5 );
-	
+#endif
+    bSizer39->Add( m_bpButtonTimer, 0, wxALIGN_CENTER_VERTICAL, 5 );
 	m_staticline40 = new wxStaticLine( Statusbar, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
 	bSizer39->Add( m_staticline40, 0, wxEXPAND | wxALL, 5 );
 	
+#if wxCHECK_VERSION(2, 9, 0)
+	m_bpButtonWatch = new myBitmapButton( Statusbar, wxID_ANY, _("Watch"), *_img_Bullet_red, wxDefaultPosition, wxSize( -1,20 ), 0 );
+#else
 	m_staticText12411 = new wxStaticText( Statusbar, wxID_ANY, _("Watch"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText12411->Wrap( -1 );
 	bSizer39->Add( m_staticText12411, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
-	
 	m_bpButtonWatch = new myBitmapButton( Statusbar, wxID_ANY, *_img_Bullet_red, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+#endif
+
 	bSizer39->Add( m_bpButtonWatch, 0, wxALIGN_CENTER_VERTICAL, 5 );
-	
+
 	m_staticline41 = new wxStaticLine( Statusbar, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
 	bSizer39->Add( m_staticline41, 0, wxEXPAND | wxALL, 5 );
 	
+#if wxCHECK_VERSION(2, 9, 0)
+	m_bpButton8Waypoint = new myBitmapButton( Statusbar, wxID_ANY,  _("Waypoint"), *_img_Bullet_red, wxDefaultPosition, wxSize( -1,20 ), 0 );
+#else
 	m_staticText124111 = new wxStaticText( Statusbar, wxID_ANY, _("Waypoint"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText124111->Wrap( -1 );
 	bSizer39->Add( m_staticText124111, 0, wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-	
 	m_bpButton8Waypoint = new myBitmapButton( Statusbar, wxID_ANY, *_img_Bullet_red, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+#endif
 	bSizer39->Add( m_bpButton8Waypoint, 0, wxALIGN_CENTER_VERTICAL, 5 );
-	
+
 	m_staticline42 = new wxStaticLine( Statusbar, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
 	bSizer39->Add( m_staticline42, 0, wxEXPAND | wxALL, 5 );
-	
-	m_staticText1241111 = new wxStaticText( Statusbar, wxID_ANY, _("Distance"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1241111->Wrap( -1 );
-	bSizer39->Add( m_staticText1241111, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
-	
+
+#if wxCHECK_VERSION(2, 9, 0)
+	m_bpButtonDistance = new myBitmapButton( Statusbar, wxID_ANY,  _("Distance"), *_img_Bullet_red, wxDefaultPosition, wxSize( -1,20 ), 0 );
+#else
+	m_staticText12411 = new wxStaticText( Statusbar, wxID_ANY, _("Distance"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText12411->Wrap( -1 );
+	bSizer39->Add( m_staticText12411, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 	m_bpButtonDistance = new myBitmapButton( Statusbar, wxID_ANY, *_img_Bullet_red, wxDefaultPosition, wxSize( -1,-1 ), 0 );
-	
-//	m_bpButtonDistance->SetBitmapSelected( wxBitmap( wxT("Bullet_green.png"), wxBITMAP_TYPE_ANY ) );
+#endif
+
 	bSizer39->Add( m_bpButtonDistance, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT, 5 );
-	
+
 	m_textCtrlStatusDistance = new wxTextCtrl( Statusbar, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 60,-1 ), wxTE_PROCESS_ENTER  );
 	m_textCtrlStatusDistance->SetToolTip( _("Set the desired distance in NM\n = (Track made good)") );
 	
@@ -508,13 +532,16 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_staticline43 = new wxStaticLine( Statusbar, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
 	bSizer39->Add( m_staticline43, 0, wxEXPAND | wxALL, 5 );
 	
-	m_staticText12411111 = new wxStaticText( Statusbar, wxID_ANY, _("Course"), wxDefaultPosition, wxDefaultSize, 0  );
-	m_staticText12411111->Wrap( -1 );
-	bSizer39->Add( m_staticText12411111, 0, wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-	
+#if wxCHECK_VERSION(2, 9, 0)
+	m_bpButtonCourse = new myBitmapButton( Statusbar, wxID_ANY, _("Course"),  *_img_Bullet_red );
+#else
+	m_staticText1241 = new wxStaticText( Statusbar, wxID_ANY, _("Course"), wxDefaultPosition, wxDefaultSize, 0  );
+	m_staticText1241->Wrap( -1 );
+	bSizer39->Add( m_staticText1241, 0, wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
 	m_bpButtonCourse = new myBitmapButton( Statusbar, wxID_ANY, *_img_Bullet_red, wxDefaultPosition, wxSize( -1,-1 ), 0 );
+#endif
 	bSizer39->Add( m_bpButtonCourse, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT, 5 );
-	
+
 	m_textCtrlStatusCourseDeg = new wxTextCtrl( Statusbar, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), wxTE_PROCESS_ENTER  );
 	m_textCtrlStatusCourseDeg->SetToolTip( _("Set desired Degrees\nif the course changes by this amount\na course-changed-event occurs") );
 	
@@ -536,16 +563,17 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	m_staticline46 = new wxStaticLine( Statusbar, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
 	bSizer39->Add( m_staticline46, 0, wxEXPAND | wxALL, 5 );
-	
+
 	wxFlexGridSizer* fgSizer53;
 	fgSizer53 = new wxFlexGridSizer( 1, 1, 0, 0 );
 	fgSizer53->AddGrowableCol( 0 );
-	fgSizer53->AddGrowableRow( 0 );
+    fgSizer53->AddGrowableRow( 0 );  // T und T ???
+
 	fgSizer53->SetFlexibleDirection( wxBOTH );
 	fgSizer53->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
 #ifdef __WXOSX__
-	fgSizer53->SetMinSize( wxSize( -1,25 ) );
+	fgSizer53->SetMinSize( wxSize( -1,45 ) );  // war ,25
 	m_staticTextStatusText = new wxStaticText( Statusbar, wxID_ANY, _T("T\nT"), wxDefaultPosition, wxSize(350,-1), 0 ); 
 #else
 	m_staticTextStatusText = new wxStaticText( Statusbar, wxID_ANY, _T("T\nT"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -567,12 +595,19 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_logbook->AddPage( m_panel2, _("Logbook"), true );
 	m_panel142 = new wxPanel( m_logbook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer251;
-	fgSizer251 = new wxFlexGridSizer( 2, 1, 0, 0 );
+#ifdef __WXOSX__
+    fgSizer251 = new wxFlexGridSizer( 3, 1, 0, 0 );
+	fgSizer251->AddGrowableCol( 0 );
+	fgSizer251->AddGrowableRow( 2 );  // Übersicht???
+	fgSizer251->SetFlexibleDirection( wxBOTH );
+	fgSizer251->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+#else
+	fgSizer251 = new wxFlexGridSizer( 3, 1, 0, 0 );
 	fgSizer251->AddGrowableCol( 0 );
 	fgSizer251->AddGrowableRow( 2 );
 	fgSizer251->SetFlexibleDirection( wxBOTH );
 	fgSizer251->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
+#endif
 	fgSizer251->SetMinSize( wxSize( -1,400 ) ); 
 	wxBoxSizer* bSizer51;
 	bSizer51 = new wxBoxSizer( wxVERTICAL );
@@ -1111,9 +1146,11 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 
 	m_panel3 = new wxPanel( m_logbook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer1;
-	fgSizer1 = new wxFlexGridSizer( 1, 1, 0, 0 );
+
+    fgSizer1 = new wxFlexGridSizer( 2, 1, 0, 0 );
 	fgSizer1->AddGrowableCol( 0 );
-	fgSizer1->AddGrowableRow( 1 );
+	fgSizer1->AddGrowableRow( 1 );   // Wachen ???
+
 	fgSizer1->SetFlexibleDirection( wxBOTH );
 	fgSizer1->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1195,7 +1232,8 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	sbSizer11 = new wxStaticBoxSizer( new wxStaticBox( m_panel72, wxID_ANY, _("Boat") ), wxHORIZONTAL );
 	
 	wxFlexGridSizer* fgSizer38;
-	fgSizer38 = new wxFlexGridSizer( 1, 12, 0, 0 );
+
+    fgSizer38 = new wxFlexGridSizer( 2, 12, 0, 0 );
 	fgSizer38->SetFlexibleDirection( wxBOTH );
 	fgSizer38->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1342,7 +1380,8 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	sbSizer8 = new wxStaticBoxSizer( new wxStaticBox( m_panel72, wxID_ANY, _("Details") ), wxVERTICAL );
 	
 	wxFlexGridSizer* fgSizer33;
-	fgSizer33 = new wxFlexGridSizer( 1, 10, 0, 0 );
+
+    fgSizer33 = new wxFlexGridSizer( 4, 10, 0, 0 );
 	fgSizer33->SetFlexibleDirection( wxBOTH );
 	fgSizer33->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1556,13 +1595,14 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_panel13 = new wxPanel( m_logbook, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer13;
 	bSizer13 = new wxBoxSizer( wxVERTICAL );
-	
+// -------------------------------------------Maintenance-------------------------------------
 	m_notebook6 = new wxNotebook( m_panel13, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	m_panel14 = new wxPanel( m_notebook6, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer151;
-	fgSizer151 = new wxFlexGridSizer( 3, 1, 0, 0 );
+	fgSizer151 = new wxFlexGridSizer( 4, 1, 0, 0 );
 	fgSizer151->AddGrowableCol( 0 );
-	fgSizer151->AddGrowableRow( 2 );
+
+	fgSizer151->AddGrowableRow( 3 );
 	fgSizer151->SetFlexibleDirection( wxBOTH );
 	fgSizer151->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1623,7 +1663,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	bSizer12 = new wxBoxSizer( wxVERTICAL );
 	
 	bSizer12->SetMinSize( wxSize( -1,400 ) ); 
-	m_gridMaintanence = new EzGrid( m_panel14, wxID_ANY, wxDefaultPosition, wxSize(1000,400), 0 );
+	m_gridMaintanence = new wxGrid( m_panel14, wxID_ANY, wxDefaultPosition, wxSize(1000,400), 0 );
 	
 	// Grid
 	m_gridMaintanence->CreateGrid( 0, 7 );
@@ -1688,7 +1728,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	wxFlexGridSizer* fgSizer1513;
 	fgSizer1513 = new wxFlexGridSizer( 3, 1, 0, 0 );
 	fgSizer1513->AddGrowableCol( 0 );
-	fgSizer1513->AddGrowableRow( 2 );
+	fgSizer1513->AddGrowableRow( 2 );  // Reparaturen???
 	fgSizer1513->SetFlexibleDirection( wxBOTH );
 	fgSizer1513->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1749,7 +1789,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	bSizer122 = new wxBoxSizer( wxVERTICAL );
 	
 	bSizer122->SetMinSize( wxSize( -1,400 ) ); 
-	m_gridMaintanenceRepairs = new EzGrid( m_panel141, wxID_ANY, wxDefaultPosition, wxSize( 1000,400 ), 0 );
+	m_gridMaintanenceRepairs = new wxGrid( m_panel141, wxID_ANY, wxDefaultPosition, wxSize( 1000,400 ), 0 );
 	
 	// Grid
 	m_gridMaintanenceRepairs->CreateGrid( 0, 2 );
@@ -1805,7 +1845,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	wxFlexGridSizer* fgSizer1511;
 	fgSizer1511 = new wxFlexGridSizer( 3, 1, 0, 0 );
 	fgSizer1511->AddGrowableCol( 0 );
-	fgSizer1511->AddGrowableRow( 2 );
+	fgSizer1511->AddGrowableRow( 2 );  // Zubehör kaufen ???
 	fgSizer1511->SetFlexibleDirection( wxBOTH );
 	fgSizer1511->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -1865,9 +1905,9 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	wxBoxSizer* bSizer121;
 	bSizer121 = new wxBoxSizer( wxVERTICAL );
 	
-	bSizer121->SetMinSize( wxSize( -1,400 ) ); 
-	m_gridMaintenanceBuyParts = new EzGrid( m_panel16, wxID_ANY, wxDefaultPosition, wxSize(1000,400), 0 );
-	
+	bSizer121->SetMinSize( wxSize( -1,400 ) );
+	m_gridMaintenanceBuyParts = new wxGrid( m_panel16, wxID_ANY, wxDefaultPosition, wxSize(1000,400), 0 );
+
 	// Grid
 	m_gridMaintenanceBuyParts->CreateGrid( 0, 6 );
 	m_gridMaintenanceBuyParts->EnableEditing( true );
@@ -1908,10 +1948,10 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	wxMenuItem* m_menuItem1311;
 	m_menuItem1311 = new wxMenuItem( m_menu711, wxID_ANY, wxString( _("Delete Row") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menu711->Append( m_menuItem1311 );
-	
+// Menü ist GANZ unten außerhalb Fenster, warum????
 	
 	bSizer121->Add( m_gridMaintenanceBuyParts, 1, wxALL|wxEXPAND, 5 );
-	
+
 	fgSizer1511->Add( bSizer121, 1, wxEXPAND, 5 );
 	
 	m_panel16->SetSizer( fgSizer1511 );
@@ -1930,7 +1970,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 
 	this->SetSizer( bSizer2 );
 	this->Layout();
-	
+
 	this->Centre( wxHORIZONTAL );
 
 	// Connect Events
@@ -2042,9 +2082,9 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_choiceSelectLayoutService->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookDialog::OnChoiceService ), NULL, this );
 	m_choiceSelectLayoutRepairs->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookDialog::OnChoiceRepairs ), NULL, this );
 	m_choiceSelectLayoutBuyParts->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookDialog::OnChoiceBuyParts ), NULL, this );
-	m_bpButtonShowHideLayout->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtomClickShowHideLayout ), NULL, this );
-	m_toggleBtnEngine1->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine1 ), NULL, this );
-	m_toggleBtnEngine2->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine2 ), NULL, this );
+    m_bpButtonShowHideLayout->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtomClickShowHideLayout ), NULL, this );
+    m_toggleBtnEngine1->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine1 ), NULL, this );
+    m_toggleBtnEngine2->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine2 ), NULL, this );
 
 	m_notebook8->Connect( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED, wxNotebookEventHandler( LogbookDialog::OnNotebookPageChangedLoggrids ), NULL, this );
 	m_bpButtonShowHideStatusGlobal->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtomClickStatusbarGlobal ), NULL, this );
@@ -2068,7 +2108,6 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	this->Connect( m_menuItem9->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::onMenuSelectionServiceOK ) );
 	this->Connect( m_menuItem92->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::onMenuSelectionServiceBuyParts ) );
 
-	m_gridMaintanence->Disconnect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellLeftClickService ), NULL, this );
 	m_gridMaintanence->Connect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellLeftClickService ), NULL, this );
 	m_gridMaintanence->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellRightClickService ), NULL, this );
 	m_buttonAddLineBuyParts->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::onButtobClickAddLineBuyParts ), NULL, this );
@@ -2080,8 +2119,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_buttonViewBuyParts->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::onButtonClickViewBuyParts ), NULL, this );
 	m_gridMaintenanceBuyParts->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( LogbookDialog::onGridCellChangeBuyParts ), NULL, this );
 	m_gridMaintenanceBuyParts->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellRightClickBuyParts ), NULL, this );
-	m_gridMaintenanceBuyParts->Connect( wxEVT_GRID_SELECT_CELL, wxGridEventHandler( LogbookDialog::onGridCellSelectedBuyParts ), NULL, this );
-	m_gridMaintenanceBuyParts->Connect( wxEVT_GRID_SELECT_CELL, wxGridEventHandler( LogbookDialog::onGridCellSelectedBuyParts ), NULL, this );
+	m_gridMaintenanceBuyParts->Connect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellSelectedBuyParts ), NULL, this );
 	m_gridMaintenanceBuyParts->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( LogbookDialog::OnKeyDownBuyParts ), NULL, this );
 	m_gridMaintenanceBuyParts->Connect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellLeftClickBuyParts ), NULL, this );
 	m_buttonSaveBuyParts->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::onButtobClickSaveBuyParts ), NULL, this );
@@ -2092,11 +2130,11 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	this->Connect( m_menuItem1311->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::onMenuSelectionBuyPartsDelete ) );
 	this->Connect( m_menuItem13->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::onMenuSelectionServiceDelete ) );
 	this->Connect( m_menuItem132->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::OnMenuSelectionShowHiddenCols ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::OnMenuSelectionSearch ) );
+
 	this->Connect( m_menuItem14->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::OnMenuSelectionShowHiddenColsOverview ) );
 	m_gridMaintanenceRepairs->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( LogbookDialog::onGridCellRepairsChange ), NULL, this );
 	m_gridMaintanenceRepairs->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellRightClickRepairs ), NULL, this );
-	m_gridMaintanenceRepairs->Connect( wxEVT_GRID_SELECT_CELL, wxGridEventHandler( LogbookDialog::onGridCellRepairsSelected ), NULL, this );
+	m_gridMaintanenceRepairs->Connect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellRepairsSelected ), NULL, this );
 	m_gridMaintanenceRepairs->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( LogbookDialog::OnKeyDownRepairs ), NULL, this );
 	m_buttonSaveRepairs->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::onButtobClickSaveRepairs ), NULL, this );
 	m_buttonReloadLayoutsRepairsHTML->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::onButtonClickReloadLayoutsRepairsHTML ), NULL, this );
@@ -2168,14 +2206,14 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_textCtrlStatusCourseMin->Connect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( LogbookDialog::OnTextEnterStatusMinutes ), NULL, this );
 
 	this->Connect( wxEVT_IDLE, wxIdleEventHandler( LogbookDialog::OnIdleMainDialog ) );
+
 }
 
 
 
 LogbookDialog::~LogbookDialog()
 {
-
-//	setIniValues();
+	setIniValues();
 
 	if(GPSTimer->IsRunning())
 		GPSTimer->Stop();
@@ -2192,6 +2230,7 @@ LogbookDialog::~LogbookDialog()
 	logbookTimer = NULL;
 
 	// Disconnect Events
+    this->Disconnect( wxEVT_IDLE, wxIdleEventHandler( LogbookDialog::OnIdleMainDialog ) );
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( LogbookDialog::LogbookDialogOnClose ) );
 	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( LogbookDialog::LogbookDialogOnInitDialog ) );
 	m_logbook->Disconnect( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED, wxNotebookEventHandler( LogbookDialog::OnNoteBookPageChangedLogbook ), NULL, this );
@@ -2264,6 +2303,7 @@ LogbookDialog::~LogbookDialog()
 	m_gridOverview->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( LogbookDialog::OnGridCellRightClickOverview ), NULL, this );
 	m_gridOverview->Disconnect( wxEVT_GRID_LABEL_LEFT_CLICK, wxGridEventHandler( LogbookDialog::OnGridLabelLeftClickOverview ), NULL, this );
 	m_gridOverview->Disconnect( wxEVT_KEY_DOWN, wxKeyEventHandler( LogbookDialog::OnKeyDownOverview ), NULL, this );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::OnMenuSelectionSearch ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( LogbookDialog::OnMenuSelectionGotoRoute ) );
 	logSaveOverview->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickOverviewSave ), NULL, this );
 	m_buttonReloadLayoutOview->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::onButtonReloadLayoutOverView ), NULL, this );
@@ -2303,11 +2343,11 @@ LogbookDialog::~LogbookDialog()
 	m_choiceSelectLayoutService->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookDialog::OnChoiceService ), NULL, this );
 	m_choiceSelectLayoutRepairs->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookDialog::OnChoiceRepairs ), NULL, this );
 	m_choiceSelectLayoutBuyParts->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookDialog::OnChoiceBuyParts ), NULL, this );
-	m_bpButtonShowHideLayout->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtomClickShowHideLayout ), NULL, this );
-	m_toggleBtnEngine1->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine1 ), NULL, this );
-	m_toggleBtnEngine2->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine2 ), NULL, this );
-	m_buttonSailsReset->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickResetSails ), NULL, this );
-
+    m_bpButtonShowHideLayout->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtomClickShowHideLayout ), NULL, this );
+    m_toggleBtnEngine1->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine1 ), NULL, this );
+    m_toggleBtnEngine2->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnToggleButtonEngine2 ), NULL, this );
+    m_buttonSailsReset->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickResetSails ), NULL, this );
+	m_gridMaintanence->Disconnect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( LogbookDialog::onGridCellLeftClickService ), NULL, this );
 	m_gridCrewWake->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( LogbookDialog::OnGridCellRightClickWake ), NULL, this );
 	m_buttonClear->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickWakeClear ), NULL, this );
 
@@ -2409,10 +2449,8 @@ LogbookDialog::~LogbookDialog()
 	m_textCtrlStatusCourseMin->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( LogbookDialog::OnTextEnterStatusMinutes ), NULL, this );
 
 	for(int i = 0; i < 14; i++)
-		checkboxSails[i]->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookDialog::OnCheckboxSails ), NULL, this );
+        checkboxSails[i]->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookDialog::OnCheckboxSails ), NULL, this );
 
-
-	this->Disconnect( wxEVT_IDLE, wxIdleEventHandler( LogbookDialog::OnIdleMainDialog ) );
 
 	delete m_menu1; 
 	delete m_menu2; 
@@ -2513,110 +2551,108 @@ void LogbookDialog::OnIdleMainDialog( wxIdleEvent& event )
 
 void LogbookDialog::OnToggleButtonEngine1( wxCommandEvent& event )
 {
-	if(event.IsChecked())
-	{
-		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON1"), _T("ON"));
-		if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
-			resetSails();
-		logbook->bRPM1 = true;
-		logbookPlugIn->opt->toggleEngine1 = true;
-		logbookPlugIn->opt->dtEngine1On = wxDateTime::Now();
+    if(event.IsChecked())
+    {
+        SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON1"), _T("ON"));
+        if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
+            resetSails();
+        logbook->bRPM1 = true;
+        logbookPlugIn->opt->toggleEngine1 = true;
+        logbookPlugIn->opt->dtEngine1On = wxDateTime::Now();
 
-		logbook->appendRow(false);
+        logbook->appendRow(false);
 
-		logbookPlugIn->opt->engine1Running = true;
-		m_toggleBtnEngine1->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR)+onOff[1]);
-	}
-	else
-	{
-		//if(logbookPlugIn->opt->engineMessageSails)
-			//stateSails();
-		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON1"), _T("OFF"));
-		logbookPlugIn->opt->toggleEngine1 = false;
-		logbook->bRPM1 = false;
-		logbook->dtEngine1Off = wxDateTime::Now().Subtract(logbookPlugIn->opt->dtEngine1On);
+        logbookPlugIn->opt->engine1Running = true;
+        m_toggleBtnEngine1->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR)+onOff[1]);
+    }
+    else
+    {
+        SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON1"), _T("OFF"));
+        logbookPlugIn->opt->toggleEngine1 = false;
+        logbook->bRPM1 = false;
+        logbook->dtEngine1Off = wxDateTime::Now().Subtract(logbookPlugIn->opt->dtEngine1On);
 
-		logbook->appendRow(false);
+        logbook->appendRow(false);
 
-		logbookPlugIn->opt->dtEngine1On = -1;
-		logbookPlugIn->opt->engine1Running = false;
-		m_toggleBtnEngine1->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR)+onOff[0]);
-	}
+        logbookPlugIn->opt->dtEngine1On = -1;
+        logbookPlugIn->opt->engine1Running = false;
+        m_toggleBtnEngine1->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR)+onOff[0]);
+    }
 }
 
 void LogbookDialog::OnToggleButtonEngine2( wxCommandEvent& event )
 {
-	if(event.IsChecked())
-	{
-		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON2"), _T("ON"));
-		if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
-			resetSails();
-		logbook->bRPM2 = true;
-		logbookPlugIn->opt->toggleEngine2 = true;
-		logbookPlugIn->opt->dtEngine2On = wxDateTime::Now();
+    if(event.IsChecked())
+    {
+        SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON2"), _T("ON"));
+        if(logbookPlugIn->opt->engineMessageSails && logbookPlugIn->opt->engineAllwaysSailsDown)
+            resetSails();
+        logbook->bRPM2 = true;
+        logbookPlugIn->opt->toggleEngine2 = true;
+        logbookPlugIn->opt->dtEngine2On = wxDateTime::Now();
 
-		logbook->appendRow(false);
+        logbook->appendRow(false);
 
-		logbookPlugIn->opt->engine2Running = true;
-		m_toggleBtnEngine2->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR1)+onOff[1]);
-	}
-	else
-	{
-		SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON2"), _T("OFF"));
-		logbookPlugIn->opt->toggleEngine2 = false;
-		logbook->bRPM2 = false;
-		logbook->dtEngine2Off = wxDateTime::Now().Subtract(logbookPlugIn->opt->dtEngine2On);
-		logbook->appendRow(false);
+        logbookPlugIn->opt->engine2Running = true;
+        m_toggleBtnEngine2->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR1)+onOff[1]);
+    }
+    else
+    {
+        SendPluginMessage(_T("LOGBOOK_ENGINEBUTTON2"), _T("OFF"));
+        logbookPlugIn->opt->toggleEngine2 = false;
+        logbook->bRPM2 = false;
+        logbook->dtEngine2Off = wxDateTime::Now().Subtract(logbookPlugIn->opt->dtEngine2On);
+        logbook->appendRow(false);
 
-		logbookPlugIn->opt->dtEngine2On = -1;
-		logbookPlugIn->opt->engine2Running = false;
-		m_toggleBtnEngine2->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR1)+onOff[0]);
-	}
+        logbookPlugIn->opt->dtEngine2On = -1;
+        logbookPlugIn->opt->engine2Running = false;
+        m_toggleBtnEngine2->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR1)+onOff[0]);
+    }
 }
 
 void LogbookDialog::setAbbreviations()
 {
-	m_gridMotorSails->SetLabelValue(wxHORIZONTAL,_T("#1 ")+logbookPlugIn->opt->rpm,LogbookHTML::RPM1);
-	m_gridMotorSails->SetLabelValue(wxHORIZONTAL,_T("#2 ")+logbookPlugIn->opt->rpm,LogbookHTML::RPM2);
+    m_gridMotorSails->SetLabelValue(wxHORIZONTAL,_T("#1 ")+logbookPlugIn->opt->rpm,LogbookHTML::RPM1);
+    m_gridMotorSails->SetLabelValue(wxHORIZONTAL,_T("#2 ")+logbookPlugIn->opt->rpm,LogbookHTML::RPM2);
 }
 
 void LogbookDialog::OnButtonClickResetSails( wxCommandEvent& event )
 {
-	resetSails();
+    resetSails();
 }
 
 void LogbookDialog::resetSails()
 {
-	for(int i = 0; i < 14; i++)
-	{
-		checkboxSails[i]->SetValue(false);
-		logbookPlugIn->opt->bSailIsChecked[i] = false;
-	}
+    for(int i = 0; i < 14; i++)
+    {
+        checkboxSails[i]->SetValue(false);
+        logbookPlugIn->opt->bSailIsChecked[i] = false;
+    }
 
-	stateSails();
-	SailsTimer->Start(4000,true);
+    stateSails();
+    SailsTimer->Start(4000,true);
 }
 
 void LogbookDialog::OnButtomClickShowHideLayout(wxCommandEvent& event)
 {
-	if(!logbookPlugIn->opt->layoutShow)
-	{
-		m_panelLayout->Show();
-		m_panelEngine->Hide();
-		logbookPlugIn->opt->layoutShow = true;
-		m_bpButtonShowHideLayout->SetBitmapLabel(wxArtProvider::GetBitmap( wxART_GO_BACK, wxART_TOOLBAR ));
-	}
-	else
-	{
-		m_panelEngine->Show();
-		m_panelLayout->Hide();
-		logbookPlugIn->opt->layoutShow = false;
-		m_bpButtonShowHideLayout->SetBitmapLabel(wxArtProvider::GetBitmap( wxART_GO_FORWARD, wxART_TOOLBAR ));
-	}
-	m_bpButtonShowHideLayout->SetToolTip(panelOnOff[!logbookPlugIn->opt->layoutShow]);
-	m_panel2->Layout();
-	bSizer6->Layout();
-	m_panel2->Refresh();
+    if(!logbookPlugIn->opt->layoutShow)
+    {
+        m_panelLayout->Show();
+        m_panelEngine->Hide();
+        logbookPlugIn->opt->layoutShow = true;
+        m_bpButtonShowHideLayout->SetBitmapLabel(back_xpm);
+    }
+    else
+    {
+        m_panelEngine->Show();
+        m_panelLayout->Hide();
+        logbookPlugIn->opt->layoutShow = false;
+        m_bpButtonShowHideLayout->SetBitmapLabel(forward_xpm);
+    }
+    m_bpButtonShowHideLayout->SetToolTip(panelOnOff[!logbookPlugIn->opt->layoutShow]);
+    m_panel2->Layout();
+    bSizer6->Layout();
+    m_panel2->Refresh();
 }
 
 void LogbookDialog::OnButtomClickStatusbarGlobal( wxCommandEvent& event )
@@ -2625,13 +2661,13 @@ void LogbookDialog::OnButtomClickStatusbarGlobal( wxCommandEvent& event )
 	{
 		Statusbar->Hide();
 		logbookPlugIn->opt->statusbarGlobal = false;
-		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(wxArtProvider::GetBitmap( wxART_GO_DOWN, wxART_TOOLBAR ));
+		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(down_xpm);
 	}
 	else
 	{
 		Statusbar->Show();
 		logbookPlugIn->opt->statusbarGlobal = true;
-		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(wxArtProvider::GetBitmap( wxART_GO_UP, wxART_TOOLBAR ));
+		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(up_xpm);
 	}
 	m_panel2->Layout();
 }
@@ -2839,28 +2875,28 @@ void LogbookDialog::OnStatusBulletWatch( wxCommandEvent& event )
 {
 	static int on = 0;
 
-	on = setBulletColor(m_bpButtonWatch,&logbookPlugIn->opt->guardChange,on); 
+	on = setBulletColor(m_bpButtonWatch,&logbookPlugIn->opt->guardChange,on);
 }
 
 void LogbookDialog::OnStatusBulletWaypoint( wxCommandEvent& event )
 {
 	static int on = 0;
 
-	on = setBulletColor(m_bpButton8Waypoint,&logbookPlugIn->opt->waypointArrived,on); 
+	on = setBulletColor(m_bpButton8Waypoint,&logbookPlugIn->opt->waypointArrived,on);
 }
 
 void LogbookDialog::OnStatusBulletDistance( wxCommandEvent& event )
 {
 	static int on = 0;
 
-	on = setBulletColor(m_bpButtonDistance,&logbookPlugIn->opt->everySM,on); 
+	on = setBulletColor(m_bpButtonDistance,&logbookPlugIn->opt->everySM,on);
 }
 
 void LogbookDialog::OnStatusBulletCourse( wxCommandEvent& event )
 {
 	static int on = 0;
 
-	on = setBulletColor(m_bpButtonCourse,&logbookPlugIn->opt->courseChange,on); 
+	on = setBulletColor(m_bpButtonCourse,&logbookPlugIn->opt->courseChange,on);
 }
 
 void LogbookDialog::OnButtonClickStatusStartStop( wxCommandEvent& event )
@@ -2877,7 +2913,7 @@ void LogbookDialog::OnButtonClickStatusStartStop( wxCommandEvent& event )
 		m_buttonStartStop->SetLabel(_("Stop"));
 		logbookPlugIn->eventsEnabled = false;
 		m_staticTextStatusText->SetLabel(statusText[RUN]);
- #ifdef WXMAC
+#ifdef __WXMAC__
 
     // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
     wxClientDC aDC(this);
@@ -2891,7 +2927,7 @@ void LogbookDialog::OnButtonClickStatusStartStop( wxCommandEvent& event )
 		m_buttonStartStop->SetLabel(_("Start"));
 		logbookPlugIn->eventsEnabled = true;
 		m_staticTextStatusText->SetLabel(statusText[SUSPEND]);
- #ifdef WXMAC
+#ifdef __WXMAC__
 
     // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
     wxClientDC aDC(this);
@@ -2912,29 +2948,29 @@ void LogbookDialog::refreshBullets()
 
 	if(!logbookPlugIn->eventsEnabled)
 	{
-		if(opt->timer)				{ m_bpButtonTimer->SetBitmapLabel(*_img_Bullet_green); m_bpButtonTimer->state = 2; }
-		if(opt->guardChange)		{ m_bpButtonWatch->SetBitmapLabel(*_img_Bullet_green); m_bpButtonWatch->state = 2; }
-		if(opt->waypointArrived)	{ m_bpButton8Waypoint->SetBitmapLabel(*_img_Bullet_green); m_bpButton8Waypoint->state = 2; }
-		if(opt->everySM)			{ m_bpButtonDistance->SetBitmapLabel(*_img_Bullet_green); m_bpButtonDistance->state = 2; }
-		if(opt->courseChange)		{ m_bpButtonCourse->SetBitmapLabel(*_img_Bullet_green); m_bpButtonCourse->state = 2; }
+		if(opt->timer)				{ setBulletColorAllStates(m_bpButtonTimer,*_img_Bullet_green); m_bpButtonTimer->state = 2; }
+		if(opt->guardChange)		{ setBulletColorAllStates(m_bpButtonWatch,*_img_Bullet_green); m_bpButtonWatch->state = 2; }
+		if(opt->waypointArrived)	{ setBulletColorAllStates(m_bpButton8Waypoint,*_img_Bullet_green); m_bpButton8Waypoint->state = 2; }
+		if(opt->everySM)			{ setBulletColorAllStates(m_bpButtonDistance,*_img_Bullet_green); m_bpButtonDistance->state = 2; }
+		if(opt->courseChange)		{ setBulletColorAllStates(m_bpButtonCourse,*_img_Bullet_green); m_bpButtonCourse->state = 2; }
 	}
 	else
 	{
-		if(opt->timer)				{ m_bpButtonTimer->SetBitmapLabel(*_img_Bullet_yellow); m_bpButtonTimer->state = 1; }
-		if(opt->guardChange)		{ m_bpButtonWatch->SetBitmapLabel(*_img_Bullet_yellow); m_bpButtonWatch->state = 1; }
-		if(opt->waypointArrived)	{ m_bpButton8Waypoint->SetBitmapLabel(*_img_Bullet_yellow); m_bpButton8Waypoint->state = 1; }
-		if(opt->everySM)			{ m_bpButtonDistance->SetBitmapLabel(*_img_Bullet_yellow); m_bpButtonDistance->state = 1; }
-		if(opt->courseChange)		{ m_bpButtonCourse->SetBitmapLabel(*_img_Bullet_yellow); m_bpButtonCourse->state = 1; }
+		if(opt->timer)				{ setBulletColorAllStates(m_bpButtonTimer,*_img_Bullet_yellow); m_bpButtonTimer->state = 1; }
+		if(opt->guardChange)		{ setBulletColorAllStates(m_bpButtonWatch,*_img_Bullet_yellow); m_bpButtonWatch->state = 1; }
+		if(opt->waypointArrived)	{ setBulletColorAllStates(m_bpButton8Waypoint,*_img_Bullet_yellow); m_bpButton8Waypoint->state = 1; }
+		if(opt->everySM)			{ setBulletColorAllStates(m_bpButtonDistance,*_img_Bullet_yellow); m_bpButtonDistance->state = 1; }
+		if(opt->courseChange)		{ setBulletColorAllStates(m_bpButtonCourse,*_img_Bullet_yellow); m_bpButtonCourse->state = 1; }
 	}
 }
 
 void LogbookDialog::resetBullets()
 {
-	m_bpButtonTimer->SetBitmapLabel(*_img_Bullet_red); m_bpButtonTimer->state = 0;
-	m_bpButtonWatch->SetBitmapLabel(*_img_Bullet_red); m_bpButtonWatch->state = 0; 
-	m_bpButton8Waypoint->SetBitmapLabel(*_img_Bullet_red); m_bpButton8Waypoint->state = 0; 
-	m_bpButtonDistance->SetBitmapLabel(*_img_Bullet_red); m_bpButtonDistance->state = 0; 
-	m_bpButtonCourse->SetBitmapLabel(*_img_Bullet_red); m_bpButtonCourse->state = 0;
+	setBulletColorAllStates(m_bpButtonTimer,*_img_Bullet_red); m_bpButtonTimer->state = 0;
+	setBulletColorAllStates(m_bpButtonWatch,*_img_Bullet_red); m_bpButtonTimer->state = 0;
+	setBulletColorAllStates(m_bpButton8Waypoint,*_img_Bullet_red); m_bpButtonTimer->state = 0;
+	setBulletColorAllStates(m_bpButtonDistance,*_img_Bullet_red); m_bpButtonTimer->state = 0;
+	setBulletColorAllStates(m_bpButtonCourse,*_img_Bullet_red); m_bpButtonTimer->state = 0;
 }
 
 int LogbookDialog::setBulletColor(myBitmapButton* button, bool* option, int on)
@@ -2942,21 +2978,21 @@ int LogbookDialog::setBulletColor(myBitmapButton* button, bool* option, int on)
 
 	if(!logbookPlugIn->eventsEnabled && !*option)
 	{
-		button->SetBitmapLabel(*_img_Bullet_green);
+		setBulletColorAllStates(button, *_img_Bullet_green);
 		button->state = 2;
 		*option = true;
 		on = 2;
 	}
 	else if(logbookPlugIn->eventsEnabled && !*option)
 	{
-		button->SetBitmapLabel(*_img_Bullet_yellow);
+		setBulletColorAllStates(button, *_img_Bullet_yellow);
 		button->state = 1;
 		*option = true;
 		on = 1;
 	}
 	else
 	{
-		button->SetBitmapLabel(*_img_Bullet_red);
+		setBulletColorAllStates(button, *_img_Bullet_red);
 		button->state = 0;
 		*option = false;
 		on = 0;
@@ -2967,20 +3003,30 @@ int LogbookDialog::setBulletColor(myBitmapButton* button, bool* option, int on)
 	return on;
 }
 
+void LogbookDialog::setBulletColorAllStates(myBitmapButton* button, wxBitmap bmp)
+{
+		button->SetBitmapLabel(bmp);
+		button->SetBitmapHover(bmp);
+		button->SetBitmapSelected(bmp);
+#if wxCHECK_VERSION(2, 9, 0)
+		button->SetBitmapCurrent(bmp);
+#endif
+		button->SetBitmapFocus(bmp);
+}
+
 int LogbookDialog::checkBitmaps()
 {
-
 	if(m_bpButtonTimer->state == 1 ||
 		m_bpButtonWatch->state == 1 ||
 		m_bpButton8Waypoint->state == 1 ||
 		m_bpButtonDistance->state == 1 ||
-		m_bpButtonCourse->state == 1) 
+		m_bpButtonCourse->state == 1)
 	{
 		m_buttonStartStop->SetLabel(_("Start"));
 		m_buttonStartStop->Enable(true);
 		logbookPlugIn->eventsEnabled = true;
 		m_staticTextStatusText->SetLabel(statusText[SUSPEND]);
- #ifdef WXMAC
+#ifdef __WXMAC__
 
     // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
     wxClientDC aDC(this);
@@ -3001,7 +3047,7 @@ int LogbookDialog::checkBitmaps()
 		m_buttonStartStop->Enable(true);
 		logbookPlugIn->eventsEnabled = false;
 		m_staticTextStatusText->SetLabel(statusText[RUN]);
- #ifdef WXMAC
+#ifdef __WXMAC__
 
     // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
     wxClientDC aDC(this);
@@ -3016,7 +3062,7 @@ int LogbookDialog::checkBitmaps()
 		logbookPlugIn->eventsEnabled = false;
 		m_buttonStartStop->Enable(false);
 		m_staticTextStatusText->SetLabel(statusText[STOP]);
- #ifdef WXMAC
+#ifdef __WXMAC__
 
     // on Mac, if a string contains "\n" then the size is not computed correctly in SetLabel(). This fixes it.
     wxClientDC aDC(this);
@@ -3267,9 +3313,6 @@ void LogbookDialog::gridGlobalScrolled( wxScrollWinEvent& ev )
 	ev.Skip();
 	m_gridWeather->HandleOnScroll(ev);
 	m_gridMotorSails->HandleOnScroll(ev);
-#ifdef __WXOSX__
-	m_gridGlobal->Refresh();
-#endif
 }
 
 void LogbookDialog::gridWeatherScrolled( wxScrollWinEvent& ev )
@@ -3277,9 +3320,6 @@ void LogbookDialog::gridWeatherScrolled( wxScrollWinEvent& ev )
 	ev.Skip();
 	m_gridGlobal->HandleOnScroll(ev);
 	m_gridMotorSails->HandleOnScroll(ev);
-#ifdef __WXOSX__
-	m_gridWeather->Refresh();
-#endif
 }
 
 void LogbookDialog::gridMotorSailsScrolled( wxScrollWinEvent& ev )
@@ -3287,9 +3327,6 @@ void LogbookDialog::gridMotorSailsScrolled( wxScrollWinEvent& ev )
 	ev.Skip();
 	m_gridWeather->HandleOnScroll(ev);
 	m_gridGlobal->HandleOnScroll(ev);
-#ifdef __WXOSX__
-	m_gridMotorSails->Refresh();
-#endif
 }
 
 void LogbookDialog::m_gridMotorSailsOnKeyDown( wxKeyEvent& ev )
@@ -3335,7 +3372,7 @@ int LogbookDialog::showLayoutDialog(int grid, wxChoice *choice, wxString locatio
 {
 	wxString layout = choice->GetString(choice->GetSelection());
 	int sel = choice->GetSelection();
-	int filterSel = 0;
+    int filterSel = 0;
 	wxString fmt;
 
 	if(format)
@@ -3349,16 +3386,15 @@ int LogbookDialog::showLayoutDialog(int grid, wxChoice *choice, wxString locatio
 	wxArrayString ar;
 	ar.Add(_("none"));
 
-	wxArrayString files;
-	wxDir::GetAllFiles(location,&files);
-
+    wxArrayString files;
+    wxDir::GetAllFiles(location,&files);
 	for(unsigned int r = 0; r < files.GetCount(); r++)
 	{
-		wxFileName fn(files[r]);
-		wxString g = fn.GetName();
-		if(!g.Contains(_T("_"))) continue;
-		if(m_logbook->GetSelection() == 0)
-			g.Remove(0,1);
+        wxFileName fn(files[r]);
+        wxString g = fn.GetName();
+        if(!g.Contains(_T("_"))) continue;
+        if(m_logbook->GetSelection() == 0)
+            g.Remove(0,1);
 		g = g.substr(0,g.find_first_of('_')+1);
 
 		if(!isInArrayString(ar,g))
@@ -3367,39 +3403,39 @@ int LogbookDialog::showLayoutDialog(int grid, wxChoice *choice, wxString locatio
 
 	dlg->m_choice15->Clear();
 	dlg->m_choice15->Append(ar);
-	for(unsigned int i = 0; i < dlg->m_choice15->GetCount(); i++)
-		if(dlg->m_choice15->GetString(i) == logbookPlugIn->opt->layoutPrefix[grid])
-		{
-			filterSel = i;
-			break;
-		}
+    for(unsigned int i = 0; i < dlg->m_choice15->GetCount(); i++)
+        if(dlg->m_choice15->GetString(i) == logbookPlugIn->opt->layoutPrefix[grid])
+        {
+            filterSel = i;
+            break;
+        }
 
 /*	if(filterSel == 0)
-	{
-		logbookPlugIn->opt->filterLayout[grid] = false;
-		dlg->m_choice15->SetSelection(0);
-	}
-	else
-	{
-		dlg->m_choice15->SetSelection(filterSel);
-		logbookPlugIn->opt->filterLayout[grid] = true;
-	}
+{
+    logbookPlugIn->opt->filterLayout[grid] = false;
+    dlg->m_choice15->SetSelection(0);
+}
+else
+{
+    dlg->m_choice15->SetSelection(filterSel);
+    logbookPlugIn->opt->filterLayout[grid] = true;
+}
 */
-	dlg->m_choice15->SetSelection(filterSel);
+    dlg->m_choice15->SetSelection(filterSel);
 
-	if(filterSel != 0 && logbookPlugIn->opt->filterLayout)
-		layout.Prepend(logbookPlugIn->opt->layoutPrefix[grid]);
+    if(filterSel != 0 && logbookPlugIn->opt->filterLayout)
+        layout.Prepend(logbookPlugIn->opt->layoutPrefix[grid]);
 
-	dlg->m_textCtrlRename->SetValue(layout);
-	dlg->m_radioBtnEdit->SetValue(true);
+    dlg->m_textCtrlRename->SetValue(layout);
+    dlg->m_radioBtnEdit->SetValue(true);
 
-	if(m_logbook->GetSelection() == 0 && filterSel != 0)
-		layout.Prepend(logbookPlugIn->opt->engineStr[logbookPlugIn->opt->engines]);
+    if(m_logbook->GetSelection() == 0 && filterSel != 0)
+        layout.Prepend(logbookPlugIn->opt->engineStr[logbookPlugIn->opt->engines]);
 
 
-	layout = location + layout + fmt;
+    layout = location + layout + fmt;
 
-	loadLayoutChoice(grid,location,choice,logbookPlugIn->opt->layoutPrefix[grid]);
+    loadLayoutChoice(grid,location,choice,logbookPlugIn->opt->layoutPrefix[grid]);
 	choice->SetSelection(sel);
 
 	if (dlg->ShowModal() == wxID_CANCEL)
@@ -3417,24 +3453,24 @@ int LogbookDialog::showLayoutDialog(int grid, wxChoice *choice, wxString locatio
 		if((filterSel = dlg->m_choice15->GetSelection()) != 0)
 		{
 			logbookPlugIn->opt->filterLayout[grid] = true;
-			logbookPlugIn->opt->layoutPrefix[grid] = dlg->m_choice15->GetString(filterSel);
+            logbookPlugIn->opt->layoutPrefix[grid] = dlg->m_choice15->GetString(filterSel);
 		}
 		else
-		{
-			logbookPlugIn->opt->filterLayout[grid] = false;
-			logbookPlugIn->opt->layoutPrefix[grid] = dlg->m_choice15->GetString(0);
-		}
+        {
+            logbookPlugIn->opt->filterLayout[grid] = false;
+            logbookPlugIn->opt->layoutPrefix[grid] = dlg->m_choice15->GetString(0);
+        }
 
 		loadLayoutChoice(grid,location,choice,logbookPlugIn->opt->layoutPrefix[grid]);
-		return 1;
+        return 1;
 	}
 	else if(dlg->m_radioBtnRename->GetValue())
 	{
 		wxString t = dlg->m_textCtrlRename->GetValue();
-		if(m_logbook->GetSelection() == 0 && (t.GetChar(0) !=  '1' && t.GetChar(0) != '2'))
-			t.Prepend(logbookPlugIn->opt->engineStr[logbookPlugIn->opt->engines]);
-		wxRenameFile(layout,location+t+fmt);
-		loadLayoutChoice(grid,location,choice,logbookPlugIn->opt->layoutPrefix[grid]);
+        if(m_logbook->GetSelection() == 0 && (t.GetChar(0) !=  '1' && t.GetChar(0) != '2'))
+            t.Prepend(logbookPlugIn->opt->engineStr[logbookPlugIn->opt->engines]);
+        wxRenameFile(layout,location+t+fmt);
+        loadLayoutChoice(grid,location,choice,logbookPlugIn->opt->layoutPrefix[grid]);
 		return 2;
 	}
 	else if(dlg->m_radioBtnDelete->GetValue())
@@ -3486,7 +3522,7 @@ bool LogbookDialog::isInArrayString(wxArrayString ar, wxString s)
 
 void LogbookDialog::m_gridGlobalOnGridSelectCell( wxGridEvent& ev )
 {
-
+	if(!this->IsShown()) return;
 	for(int i = 0; i < LOGGRIDS; i++)
 		logGrids[i]->ClearSelection();
 
@@ -3520,7 +3556,7 @@ void LogbookDialog::m_gridGlobalOnGridSelectCell( wxGridEvent& ev )
 		if( i == wxID_OK)
 		{
 			m_gridGlobal->SetCellValue(dlg->retstr,selGridRow,LogbookHTML::POSITION);
-			logbook->getModifiedCellValue(0,selGridRow,0,LogbookHTML::POSITION);
+            logbook->getModifiedCellValue(0,selGridRow,0,LogbookHTML::POSITION);
 			setEqualRowHeight(selGridRow);
 		}
 		delete dlg;
@@ -3531,6 +3567,7 @@ void LogbookDialog::m_gridGlobalOnGridSelectCell( wxGridEvent& ev )
 
 void LogbookDialog::m_gridMotorSailsOnGridSelectCell( wxGridEvent& ev )
 {
+	if(!this->IsShown()) return;
 	for(int i = 0; i < LOGGRIDS; i++)
 		logGrids[i]->ClearSelection();
 
@@ -3558,6 +3595,7 @@ void LogbookDialog::m_gridMotorSailsOnGridSelectCell( wxGridEvent& ev )
 
 void LogbookDialog::m_gridWeatherOnGridSelectCell( wxGridEvent& ev )
 {
+	if(!this->IsShown()) return;
 	for(int i = 0; i < LOGGRIDS; i++)
 		logGrids[i]->ClearSelection();
 
@@ -3617,7 +3655,7 @@ void LogbookDialog::init()
 #endif
 
 //	wxInitAllImageHandlers();
-	
+
 	clouds[0] = wxT("Cirrus");
 	clouds[1] = wxT("Cirrocumulus");
 	clouds[2] = wxT("Cirrostratus");
@@ -3682,8 +3720,8 @@ Backup Logbook(*.txt)|*.txt");
 	wxString stdPath  = std_path.GetUserConfigDir();   // should be ~/Library/Preferences	
 #endif
 
-	basePath = stdPath;
-	appendOSDirSlash(&basePath);
+    basePath = stdPath;
+    appendOSDirSlash(&basePath);
 	pHome_Locn = new wxString();
 	pHome_Locn->Append(stdPath);
 	appendOSDirSlash(pHome_Locn) ;
@@ -3721,14 +3759,14 @@ Backup Logbook(*.txt)|*.txt");
 
 	logbook     = new Logbook    (this,data,layoutHTML,layoutODT);
 
-	m_gridGlobal->SetColMinimalAcceptableWidth(0);
-	m_gridWeather->SetColMinimalAcceptableWidth(0);
-	m_gridMotorSails->SetColMinimalAcceptableWidth(0);
-	m_gridOverview->SetColMinimalAcceptableWidth(0);
-	m_gridCrew->SetColMinimalAcceptableWidth(0);
-	m_gridCrew->SetRowMinimalAcceptableHeight(0);
-	m_gridOverview->SetColMinimalWidth(OverView::FPATH,0);
-	m_gridOverview->SetColSize(OverView::FPATH,0);
+    m_gridGlobal->SetColMinimalAcceptableWidth(0);
+    m_gridWeather->SetColMinimalAcceptableWidth(0);
+    m_gridMotorSails->SetColMinimalAcceptableWidth(0);
+    m_gridOverview->SetColMinimalAcceptableWidth(0);
+    m_gridCrew->SetColMinimalAcceptableWidth(0);
+    m_gridCrew->SetRowMinimalAcceptableHeight(0);
+    m_gridOverview->SetColMinimalWidth(OverView::FPATH,0);
+    m_gridOverview->SetColSize(OverView::FPATH,0);
 
 	getIniValues();
 
@@ -3747,15 +3785,14 @@ Backup Logbook(*.txt)|*.txt");
 	maintenance->loadData();
 	logbook->setPlaceholders();
 
-	if(logGrids[0]->GetNumberRows() > 0)
-	{
-		m_logbook->SetSelection(0);
-		m_notebook8->SetSelection(0);
-
-		m_gridGlobal->SetGridCursor(0,0);
-		m_gridWeather->SetGridCursor(0,0);
-		m_gridMotorSails->SetGridCursor(0,0);
-	}
+    if(logGrids[0]->GetNumberRows() > 0)
+    {
+        m_logbook->SetSelection(0);
+        m_notebook8->SetSelection(0);
+        m_gridGlobal->SetGridCursor(0,0);
+        m_gridWeather->SetGridCursor(0,0);
+        m_gridMotorSails->SetGridCursor(0,0);
+    }
 
 	loadTimerEx();
 
@@ -3778,64 +3815,64 @@ Backup Logbook(*.txt)|*.txt");
 	this->Connect( ID_LOGTIMER,wxEVT_TIMER, wxTimerEventHandler( LogbookDialog::OnLogTimer ), NULL, this);
 	logbookTimer->Start(LOGSAVETIME);
 
-	SailsTimer = new wxTimer(this,ID_SAILSTIMER);
-	this->Connect( ID_SAILSTIMER,wxEVT_TIMER, wxTimerEventHandler(LogbookDialog::OnTimerSails), NULL, this );
+    SailsTimer = new wxTimer(this,ID_SAILSTIMER);
+    this->Connect( ID_SAILSTIMER,wxEVT_TIMER, wxTimerEventHandler(LogbookDialog::OnTimerSails), NULL, this );
 
-	logbookPlugIn->GetOriginalColors();
+    logbookPlugIn->GetOriginalColors();
 
 	coldfinger = new ColdFinger(this);
 	coldfinger->Show(false);
 
 	crewList->filterCrewMembers();
 
-	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
-	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
+    m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
+    m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
 
-	setCheckboxSails();
-	setSailsGap();
-	stateSails();
-	setAbbreviations();
-	logbook->sailsMessage = false;
-	logbook->oldSailsState = logbook->sailsState;
+    setCheckboxSails();
+    setSailsGap();
+    stateSails();
+    setAbbreviations();
+    logbook->sailsMessage = false;
+    logbook->oldSailsState = logbook->sailsState;
 
-	panelOnOff[0] = _("Show Engines/Sails Mode");
-	panelOnOff[1] = _("Show Layout Selection Mode");
-	if(logbookPlugIn->opt->layoutShow)
-	{
-		m_panelLayout->Show();
-		m_panelEngine->Hide();
-	}
-	else
-	{
-		m_panelLayout->Hide();
-		m_panelEngine->Show();
-	}
-	m_bpButtonShowHideLayout->SetToolTip(panelOnOff[!logbookPlugIn->opt->layoutShow]);
+    panelOnOff[0] = _("Show Engines/Sails Mode");
+    panelOnOff[1] = _("Show Layout Selection Mode");
+    if(logbookPlugIn->opt->layoutShow)
+    {
+        m_panelLayout->Show();
+        m_panelEngine->Hide();
+    }
+    else
+    {
+        m_panelLayout->Hide();
+        m_panelEngine->Show();
+    }
+    m_bpButtonShowHideLayout->SetToolTip(panelOnOff[!logbookPlugIn->opt->layoutShow]);
 
-	onOff[0] = _(" off");
-	onOff[1] = _(" on");
-	m_toggleBtnEngine1->SetValue(logbookPlugIn->opt->toggleEngine1);
-	m_toggleBtnEngine2->SetValue(logbookPlugIn->opt->toggleEngine2);
-	m_toggleBtnEngine1->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR)+onOff[(int) m_toggleBtnEngine1->GetValue()]);
-	m_toggleBtnEngine2->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR1)+onOff[(int) m_toggleBtnEngine2->GetValue()]);
+    onOff[0] = _(" off");
+    onOff[1] = _(" on");
+    m_toggleBtnEngine1->SetValue(logbookPlugIn->opt->toggleEngine1);
+    m_toggleBtnEngine2->SetValue(logbookPlugIn->opt->toggleEngine2);
+    m_toggleBtnEngine1->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR)+onOff[(int) m_toggleBtnEngine1->GetValue()]);
+    m_toggleBtnEngine2->SetLabel(m_gridMotorSails->GetColLabelValue(LogbookHTML::MOTOR1)+onOff[(int) m_toggleBtnEngine2->GetValue()]);
 
-	logbook->bRPM1 = logbookPlugIn->opt->engine1Running;
-	logbook->bRPM2 = logbookPlugIn->opt->engine2Running;
+    logbook->bRPM1 = logbookPlugIn->opt->engine1Running;
+    logbook->bRPM2 = logbookPlugIn->opt->engine2Running;
 
-	setToNumberEngine();
+    setToNumberEngine();
 
-	m_toggleBtnEngine1->Enable(!logbookPlugIn->opt->bRPMIsChecked);
-	if(logbookPlugIn->opt->engines == 1)
-		m_toggleBtnEngine2->Enable(!logbookPlugIn->opt->bRPMIsChecked);
-	else
-		m_toggleBtnEngine2->Enable(false);
+    m_toggleBtnEngine1->Enable(!logbookPlugIn->opt->bRPMIsChecked);
+    if(logbookPlugIn->opt->engines == 1)
+        m_toggleBtnEngine2->Enable(!logbookPlugIn->opt->bRPMIsChecked);
+    else
+        m_toggleBtnEngine2->Enable(false);
 
-	if((!logbookPlugIn->opt->toggleEngine1 && logbookPlugIn->opt->engine1Running) || 
-		(!logbookPlugIn->opt->toggleEngine2 && logbookPlugIn->opt->engine2Running))
-	{
-		logbook->rpmSentence = true;
-		logbook->dtRPM = wxDateTime::Now();
-	}
+    if((!logbookPlugIn->opt->toggleEngine1 && logbookPlugIn->opt->engine1Running) ||
+            (!logbookPlugIn->opt->toggleEngine2 && logbookPlugIn->opt->engine2Running))
+    {
+        logbook->rpmSentence = true;
+        logbook->dtRPM = wxDateTime::Now();
+    }
 
 #ifdef PBVE_DEBUG
 	if(PBVE_DEBUG)
@@ -3869,122 +3906,121 @@ Backup Logbook(*.txt)|*.txt");
 
 void LogbookDialog::setCheckboxSails()
 {
-	for(unsigned int i = 0; i < 14; i++)
-	{
-		checkboxSails[i] = new wxCheckBox( m_panelEngine, wxID_ANY,logbookPlugIn->opt->abrSails.Item(i) , wxDefaultPosition, wxDefaultSize, 0 );
-		checkboxSails[i]->SetValue( logbookPlugIn->opt->bSailIsChecked[i] );
-		checkboxSails[i]->SetToolTip( logbookPlugIn->opt->sailsName.Item(i) );
-		fgSizerSails->Add( checkboxSails[i] , 0, 0, 5 );
-		checkboxSails[i]->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookDialog::OnCheckboxSails ), NULL, this );
-	}
-	m_buttonSailsReset = new wxButton( m_panelEngine, wxID_ANY, _("none"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_buttonSailsReset->SetToolTip(_("Reset"));
-	m_buttonSailsReset->SetMinSize( wxSize( 40,15 ) );
-	m_buttonSailsReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickResetSails ), NULL, this );
-	fgSizerSails->Add( m_buttonSailsReset, 0, 0, 5 );
+    for(unsigned int i = 0; i < 14; i++)
+    {
+        checkboxSails[i] = new wxCheckBox( m_panelEngine, wxID_ANY,logbookPlugIn->opt->abrSails.Item(i) , wxDefaultPosition, wxDefaultSize, 0 );
+        checkboxSails[i]->SetValue( logbookPlugIn->opt->bSailIsChecked[i] );
+        checkboxSails[i]->SetToolTip( logbookPlugIn->opt->sailsName.Item(i) );
+        fgSizerSails->Add( checkboxSails[i] , 0, 0, 5 );
+        checkboxSails[i]->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookDialog::OnCheckboxSails ), NULL, this );
+    }
+    m_buttonSailsReset = new wxButton( m_panelEngine, wxID_ANY, _("none"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_buttonSailsReset->SetToolTip(_("Reset"));
+    m_buttonSailsReset->SetMinSize( wxSize( 40,15 ) );
+    m_buttonSailsReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookDialog::OnButtonClickResetSails ), NULL, this );
+    fgSizerSails->Add( m_buttonSailsReset, 0, 0, 5 );
 }
 
 void LogbookDialog::setSailsGap()
 {
-	fgSizerSails->SetVGap(logbookPlugIn->opt->rowGap);
-	fgSizerSails->SetHGap(logbookPlugIn->opt->colGap);
-	fgSizerSails->Layout();
+    fgSizerSails->SetVGap(logbookPlugIn->opt->rowGap);
+    fgSizerSails->SetHGap(logbookPlugIn->opt->colGap);
+    fgSizerSails->Layout();
 }
 
 void LogbookDialog::OnCheckboxSails( wxCommandEvent& event )
 {
-	if(SailsTimer->IsRunning())
-		SailsTimer->Stop();
+    if(SailsTimer->IsRunning())
+        SailsTimer->Stop();
 
-	unsigned int i = 0;
-	for(; i < 14; i++)
-		if(checkboxSails[i] == ((wxCheckBox*)event.GetEventObject()))
-			break;
+    unsigned int i = 0;
+    for(; i < 14; i++)
+        if(checkboxSails[i] == ((wxCheckBox*)event.GetEventObject()))
+            break;
 
-	SailsTimer->Start(3000,true);
-	logbookPlugIn->opt->bSailIsChecked[i] = event.IsChecked();
-	stateSails();
+    SailsTimer->Start(3000,true);
+    logbookPlugIn->opt->bSailIsChecked[i] = event.IsChecked();
+    stateSails();
 }
 
 void LogbookDialog::OnTimerSails(wxTimerEvent &event)
 {
-	if(logbook->sailsMessage)
-		logbook->appendRow(false);
+    if(logbook->sailsMessage)
+        logbook->appendRow(false);
 }
 
 void LogbookDialog::stateSails()
 {
-	int i = 0; bool change = false;
+    int i = 0; bool change = false;
 
-	for(; i < 14; i++)
-	{
-		if(logbookPlugIn->opt->bSailIsChecked[i] && checkboxSails[i]->IsChecked())
-		{
-			change = true;
-			break;
-		}
-	}
+    for(; i < 14; i++)
+    {
+        if(logbookPlugIn->opt->bSailIsChecked[i] && checkboxSails[i]->IsChecked())
+        {
+            change = true;
+            break;
+        }
+    }
 
-	if(!change) 
-	{
-		logbook->sailsMessage = true;
-		logbook->oldSailsState = logbook->sailsState;
-		logbook->sailsState = 0;
-		return;
-	}
+    if(!change)
+    {
+        logbook->sailsMessage = true;
+        logbook->oldSailsState = logbook->sailsState;
+        logbook->sailsState = 0;
+        return;
+    }
 
-	for(i = 0; i < 14; i++)
-	{
-		if((!logbookPlugIn->opt->bSailIsChecked[i] && checkboxSails[i]->IsChecked())
-			|| (logbookPlugIn->opt->bSailIsChecked[i] && !checkboxSails[i]->IsChecked()))
-		{
-			change = true;
-			break;
-		}
-	}
+    for(i = 0; i < 14; i++)
+    {
+        if((!logbookPlugIn->opt->bSailIsChecked[i] && checkboxSails[i]->IsChecked())
+            || (logbookPlugIn->opt->bSailIsChecked[i] && !checkboxSails[i]->IsChecked()))
+        {
+            change = true;
+            break;
+        }
+    }
 
-	if(change) 
-	{
-		logbook->sailsMessage = true;
-		if(logbook->oldSailsState != 1)
-			logbook->oldSailsState = 0;
-		logbook->sailsState = 1;
-		return;
-	}
+    if(change)
+    {
+        logbook->sailsMessage = true;
+        if(logbook->oldSailsState != 1)
+            logbook->oldSailsState = 0;
+        logbook->sailsState = 1;
+        return;
+    }
 
-	logbook->oldSailsState = logbook->sailsState = -1;
+    logbook->oldSailsState = logbook->sailsState = -1;
 }
 
 void LogbookDialog::setCheckboxLabels()
 {
-	for(unsigned int i = 0; i < 14 ; i++)
-	{
-		checkboxSails[i]->SetLabel( logbookPlugIn->opt->abrSails.Item(i) );
-		checkboxSails[i]->SetToolTip( logbookPlugIn->opt->sailsName.Item(i) );
-	}
+    for(unsigned int i = 0; i < 14 ; i++)
+    {
+        checkboxSails[i]->SetLabel( logbookPlugIn->opt->abrSails.Item(i) );
+        checkboxSails[i]->SetToolTip( logbookPlugIn->opt->sailsName.Item(i) );
+    }
 }
 
 void LogbookDialog::setToNumberEngine()
 {
-	if(logbookPlugIn->opt->engines == 0)
-	{
-		m_gridMotorSails->SetColumnWidth(LogbookHTML::MOTOR1,0);
-		m_gridMotorSails->SetColumnWidth(LogbookHTML::MOTOR1T,0);
-		m_gridMotorSails->SetColumnWidth(LogbookHTML::RPM2,0);
-		m_toggleBtnEngine2->Enable(false);
-	}
-	else
-	{
-		m_gridMotorSails->AutoSizeColumn(LogbookHTML::MOTOR1,false);
-		m_gridMotorSails->AutoSizeColumn(LogbookHTML::MOTOR1T,false);
-		m_gridMotorSails->AutoSizeColumn(LogbookHTML::RPM2,false);
-		m_toggleBtnEngine1->Enable(true);
-		m_toggleBtnEngine2->Enable(true);
-	}
-	m_panel2->Layout();
-	Refresh();
+    if(logbookPlugIn->opt->engines == 0)
+    {
+        m_gridMotorSails->SetColumnWidth(LogbookHTML::MOTOR1,0);
+        m_gridMotorSails->SetColumnWidth(LogbookHTML::MOTOR1T,0);
+        m_gridMotorSails->SetColumnWidth(LogbookHTML::RPM2,0);
+        m_toggleBtnEngine2->Enable(false);
+    }
+    else
+    {
+        m_gridMotorSails->AutoSizeColumn(LogbookHTML::MOTOR1,false);
+        m_gridMotorSails->AutoSizeColumn(LogbookHTML::MOTOR1T,false);
+        m_gridMotorSails->AutoSizeColumn(LogbookHTML::RPM2,false);
+        m_toggleBtnEngine1->Enable(true);
+        m_toggleBtnEngine2->Enable(true);
+    }
+    m_panel2->Layout();
+    Refresh();
 }
-
 
 void LogbookDialog::loadTimerEx()
 {
@@ -4060,8 +4096,8 @@ void LogbookDialog::m_menuItem1OnMenuSelection( wxCommandEvent& ev )
 		logbook->deleteRow(selGridRow);
 		logbook->modified = true;
 		selGridRow--;
-		//if(selGridRow < 0) selGridRow = 0;
-		//logbook->recalculateLogbook(selGridRow);
+//		if(selGridRow < 0) selGridRow = 0;
+//		logbook->recalculateLogbook(selGridRow);
 	}
 	else if(ev.GetId() == COLDFINGER)
 	{
@@ -4082,29 +4118,28 @@ void LogbookDialog::m_menuItem1OnMenuSelection( wxCommandEvent& ev )
 	}
 	else if(ev.GetId() == SELECT_ROUTE || ev.GetId() == SELECT_TRACK)
 	{
-		wxString search;
+        wxString search;
 		wxListItem itemCol;
 
 		if(ev.GetId() == SELECT_ROUTE)
-		{
-
-			wxJSONWriter w;
-			wxString out;
-			wxJSONValue v;
-			v[_T("mode")] =  _T("Route");
-			w.Write(v, out);
-			SendPluginMessage(wxString(_T("OCPN_ROUTELIST_REQUEST")),out);
+        {
+            wxJSONWriter w;
+        	wxString out;
+            wxJSONValue v;
+        	v[_T("mode")] =  _T("Route");
+        	w.Write(v, out);
+        	SendPluginMessage(wxString(_T("OCPN_ROUTELIST_REQUEST")),out);
 		}
-		else
+        else
 		{
 			wxJSONWriter w;
-			wxString out;
-			wxJSONValue v;
-			v[_T("mode")] =  _T("Track");
-			w.Write(v, out);
-			SendPluginMessage(wxString(_T("OCPN_ROUTELIST_REQUEST")),out);
-			search = _T("<rte>");
-			itemCol.SetText(_("Track"));
+            wxString out;
+            wxJSONValue v;
+            v[_T("mode")] =  _T("Track");
+            w.Write(v, out);
+            SendPluginMessage(wxString(_T("OCPN_ROUTELIST_REQUEST")),out);
+            search = _T("<rte>");
+            itemCol.SetText(_("Track"));
 		}
 	}
 	else if(selGridCol == LogbookHTML::WAKE && this->m_notebook8->GetSelection() == 0)
@@ -4120,15 +4155,15 @@ void LogbookDialog::m_menuItem1OnMenuSelection( wxCommandEvent& ev )
 		logGrids[m_notebook8->GetSelection()]->Refresh();
 	}
 	else if((selGridCol == LogbookHTML::REMARKS     && m_notebook8->GetSelection() == 0) ||
-			(selGridCol == LogbookHTML::WEATHER		&& m_notebook8->GetSelection() == 1) ||
-			(selGridCol == LogbookHTML::VISIBILITY	&& m_notebook8->GetSelection() == 1) ||
-			(selGridCol == LogbookHTML::SAILS		&& m_notebook8->GetSelection() == 2) ||
-			(selGridCol == LogbookHTML::REEF		&& m_notebook8->GetSelection() == 2) ||
-			(selGridCol == LogbookHTML::MREMARKS	&& m_notebook8->GetSelection() == 2) )
+            (selGridCol == LogbookHTML::WEATHER		&& m_notebook8->GetSelection() == 1) ||
+            (selGridCol == LogbookHTML::VISIBILITY	&& m_notebook8->GetSelection() == 1) ||
+            (selGridCol == LogbookHTML::SAILS		&& m_notebook8->GetSelection() == 2) ||
+            (selGridCol == LogbookHTML::REEF		&& m_notebook8->GetSelection() == 2) ||
+            (selGridCol == LogbookHTML::MREMARKS	&& m_notebook8->GetSelection() == 2) )
 	{
 		wxString s = logGrids[m_notebook8->GetSelection()]->GetCellValue(selGridRow,selGridCol);
-		if(s.Length() == 1 && s.GetChar(0) == ' ')
-			s = wxEmptyString;
+        if(s.Length() == 1 && s.GetChar(0) == ' ')
+            s = wxEmptyString;
 		wxTreeItemId id = FindMenuItem(m_notebook8->GetSelection(), selGridCol, m_menu1->GetLabelText(ev.GetId()));
 		wxString text = ((myTreeItem*)coldfinger->m_treeCtrl3->GetItemData(id))->text;
 		int grid = ((myTreeItem*)coldfinger->m_treeCtrl3->GetItemData(id))->grid;
@@ -4144,81 +4179,81 @@ void LogbookDialog::m_menuItem1OnMenuSelection( wxCommandEvent& ev )
 
 void LogbookDialog::writeToRouteDlg(wxJSONValue data)
 {
-	wxListItem itemCol;
-	int n = 1;
-	bool isTrack = false;
+    wxListItem itemCol;
+    int n = 1;
+    bool isTrack = false;
 
-	if(data[0].HasMember(_T("isTrack")))
-		isTrack = data[0][_T("isTrack")].AsBool();
+    if(data[0].HasMember(_T("isTrack")))
+        isTrack = data[0][_T("isTrack")].AsBool();
 
-	RouteDialog *dlg = new RouteDialog(this);
-	if(isTrack)
-	{
-		dlg->SetTitle(_("Select Track"));
-		itemCol.SetText(_("Track"));
-	}
-	else
-	{
-		dlg->SetTitle(_("Select Route"));
-		itemCol.SetText(_("Route"));
-	}
-	itemCol.SetImage(-1);
-	itemCol.SetWidth(225);
-	wxListItem itemCol1;
-	itemCol1.SetText(_("GUID"));
-	itemCol1.SetImage(-1);
-	itemCol1.SetWidth(225);
+    RouteDialog *dlg = new RouteDialog(this);
+    if(isTrack)
+    {
+        dlg->SetTitle(_("Select Track"));
+        itemCol.SetText(_("Track"));
+    }
+    else
+    {
+        dlg->SetTitle(_("Select Route"));
+        itemCol.SetText(_("Route"));
+    }
+    itemCol.SetImage(-1);
+    itemCol.SetWidth(225);
+    wxListItem itemCol1;
+    itemCol1.SetText(_("GUID"));
+    itemCol1.SetImage(-1);
+    itemCol1.SetWidth(225);
 
-	dlg->m_listCtrlRoute->InsertColumn(0, itemCol);
-	dlg->m_listCtrlRoute->InsertColumn(1, itemCol1);
+    dlg->m_listCtrlRoute->InsertColumn(0, itemCol);
+    dlg->m_listCtrlRoute->InsertColumn(1, itemCol1);
 
-	while(data[n].HasMember(_T("error")) && !data[n][_T("error")].AsBool())
-	{
-		int ind = dlg->m_listCtrlRoute->InsertItem(n,data[n][_T("name")].AsString());
-		dlg->m_listCtrlRoute->SetItem(ind,1,data[n][_T("GUID")].AsString());
-		if(data[n][_T("active")].AsBool())
-		{
-			wxFont font = dlg->m_listCtrlRoute->GetItemFont(ind);
-			font.SetWeight(wxBOLD);
-			dlg->m_listCtrlRoute->SetItemFont(ind, font );
-		}
-		n++;
-	}
+    while(data[n].HasMember(_T("error")) && !data[n][_T("error")].AsBool())
+    {
+        int ind = dlg->m_listCtrlRoute->InsertItem(n,data[n][_T("name")].AsString());
+        dlg->m_listCtrlRoute->SetItem(ind,1,data[n][_T("GUID")].AsString());
+        if(data[n][_T("active")].AsBool())
+        {
+            wxFont font = dlg->m_listCtrlRoute->GetItemFont(ind);
+            font.SetWeight(wxBOLD);
+            dlg->m_listCtrlRoute->SetItemFont(ind, font );
+        }
+        n++;
+    }
 
-	if(dlg->ShowModal() == wxID_OK)
-	{
-		int selIndex = -1;
-		for(;;)
-		{
-			selIndex = dlg->m_listCtrlRoute->GetNextItem(selIndex,wxLIST_NEXT_ALL,wxLIST_STATE_SELECTED);
-			if(selIndex != -1) break;
-			else
-			{
-				delete dlg;
-				return;
-			}
-		}
+    if(dlg->ShowModal() == wxID_OK)
+    {
+        int selIndex = -1;
+        for(;;)
+        {
+            selIndex = dlg->m_listCtrlRoute->GetNextItem(selIndex,wxLIST_NEXT_ALL,wxLIST_STATE_SELECTED);
+            if(selIndex != -1) break;
+            else
+            {
+                delete dlg;
+                return;
+            }
+        }
 
-		wxListItem     row_info;  
-		wxString       s, guid;
+        wxListItem     row_info;
+        wxString       s, guid;
 
-		row_info.m_itemId = selIndex;
-		row_info.m_col = 0;
-		row_info.m_mask = wxLIST_MASK_TEXT;
-		dlg->m_listCtrlRoute->GetItem( row_info );
-		s = row_info.m_text; 
-		row_info.m_col = 1;
-		dlg->m_listCtrlRoute->GetItem( row_info );
-		guid = row_info.m_text;
+        row_info.m_itemId = selIndex;
+        row_info.m_col = 0;
+        row_info.m_mask = wxLIST_MASK_TEXT;
+        dlg->m_listCtrlRoute->GetItem( row_info );
+        s = row_info.m_text;
+        row_info.m_col = 1;
+        dlg->m_listCtrlRoute->GetItem( row_info );
+        guid = row_info.m_text;
 
-		m_gridGlobal->SetCellValue(selGridRow,0,s);
-		if(!isTrack)
-			m_gridMotorSails->SetCellValue(selGridRow,LogbookHTML::ROUTEID,guid);
-		else
-			m_gridMotorSails->SetCellValue(selGridRow,LogbookHTML::TRACKID,guid);
-		logbook->modified = true;
-	}
-	delete dlg;
+        m_gridGlobal->SetCellValue(selGridRow,0,s);
+        if(!isTrack)
+            m_gridMotorSails->SetCellValue(selGridRow,LogbookHTML::ROUTEID,guid);
+        else
+            m_gridMotorSails->SetCellValue(selGridRow,LogbookHTML::TRACKID,guid);
+        logbook->modified = true;
+    }
+    delete dlg;
 }
 
 void LogbookDialog::OnMenuSelectionShowHiddenCols(wxCommandEvent &ev)
@@ -4227,18 +4262,24 @@ void LogbookDialog::OnMenuSelectionShowHiddenCols(wxCommandEvent &ev)
 
 	for(int i = 0; i < logGrids[selGrid]->GetNumberCols(); i++)
 		if(logGrids[selGrid]->GetColumnWidth(i) == 0)
-		{
+        {
 			if((selGrid == 2 && logbookPlugIn->opt->engines == 0) && ((i == LogbookHTML::MOTOR1 || i == LogbookHTML::MOTOR1T) || i == LogbookHTML::RPM2) )
-				continue;
-			else
-				logGrids[selGrid]->AutoSizeColumn(i);
-		}
-
-	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
-	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
-
-	if(logbookPlugIn->opt->engines == 0)
-		setToNumberEngine();
+                continue;
+            else
+#ifdef __WXOSX__
+            {
+                logGrids[selGrid]->AutoSizeColumn(i);
+            }
+#else
+                logGrids[selGrid]->AutoSizeColumn(i);
+#endif
+        }
+    
+    m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
+    m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
+    
+    if(logbookPlugIn->opt->engines == 0)
+        setToNumberEngine();
 
 	logGrids[selGrid]->Refresh();
 }
@@ -4298,11 +4339,11 @@ void LogbookDialog::m_gridGlobalOnGridCellRightClick( wxGridEvent& ev )
 	{
 		m_menu1->PrependSeparator();
 
-		wxMenuItem *item1 = new wxMenuItem( m_menu1, SELECT_TRACK, 
-				_("Select Track"), wxEmptyString, wxITEM_NORMAL );
-		m_menu1->Prepend( item1 );
-		this->Connect( item1->GetId(), wxEVT_COMMAND_MENU_SELECTED, 
-				wxCommandEventHandler( LogbookDialog::m_menuItem1OnMenuSelection ) );
+        wxMenuItem *item1 = new wxMenuItem( m_menu1, SELECT_TRACK,
+                _("Select Track"), wxEmptyString, wxITEM_NORMAL );
+        m_menu1->Prepend( item1 );
+        this->Connect( item1->GetId(), wxEVT_COMMAND_MENU_SELECTED,
+                wxCommandEventHandler( LogbookDialog::m_menuItem1OnMenuSelection ) );
 
 		wxMenuItem *item = new wxMenuItem( m_menu1, SELECT_ROUTE, 
 				_("Select Route"), wxEmptyString, wxITEM_NORMAL );
@@ -4312,11 +4353,11 @@ void LogbookDialog::m_gridGlobalOnGridCellRightClick( wxGridEvent& ev )
 	}
 
 	if((selGridCol == LogbookHTML::REMARKS      && m_notebook8->GetSelection() == 0) ||
-		(selGridCol == LogbookHTML::WEATHER		&& m_notebook8->GetSelection() == 1) ||
-		(selGridCol == LogbookHTML::VISIBILITY	&& m_notebook8->GetSelection() == 1) ||
-		(selGridCol == LogbookHTML::SAILS		&& m_notebook8->GetSelection() == 2) ||
-		(selGridCol == LogbookHTML::REEF		&& m_notebook8->GetSelection() == 2) ||
-		(selGridCol == LogbookHTML::MREMARKS	&& m_notebook8->GetSelection() == 2)
+        (selGridCol == LogbookHTML::WEATHER		&& m_notebook8->GetSelection() == 1) ||
+        (selGridCol == LogbookHTML::VISIBILITY	&& m_notebook8->GetSelection() == 1) ||
+        (selGridCol == LogbookHTML::SAILS		&& m_notebook8->GetSelection() == 2) ||
+        (selGridCol == LogbookHTML::REEF		&& m_notebook8->GetSelection() == 2) ||
+        (selGridCol == LogbookHTML::MREMARKS	&& m_notebook8->GetSelection() == 2)
 	   )
 	{
 		addColdFingerDialog(m_menu1);
@@ -4476,7 +4517,7 @@ void LogbookDialog::m_gridMotorSailsOnGridCmdCellChange( wxGridEvent& ev )
 void LogbookDialog::logSaveOnButtonClick( wxCommandEvent& ev )
 {
 	wxString filter = saveDialogFilter;
-	filter.Prepend(_T("Google-Format(*.kml)|*.kml|"));
+    filter.Prepend(_T("Google-Format(*.kml)|*.kml|"));
 	if(m_radioBtnHTML->GetValue())
 		filter.Prepend(_T("HTML Format(*.html)|*.html|"));
 	else
@@ -4505,11 +4546,11 @@ void LogbookDialog::logSaveOnButtonClick( wxCommandEvent& ev )
 				logbook->toODT(path,
 				logbookChoice->GetString(logbookChoice->GetSelection()),true); 
 			break;
-	case 1: logbook->toKML(path); break;
-	case 2:	logbook->toODS(path); break;
-	case 3: logbook->toXML(path); break;
-	case 4: logbook->toCSV(path); break;
-	case 5: logbook->backup(path); break;
+    case 1: logbook->toKML(path); break;
+    case 2:	logbook->toODS(path); break;
+    case 3: logbook->toXML(path); break;
+    case 4: logbook->toCSV(path); break;
+    case 5: logbook->backup(path); break;
 #ifdef __WXOSX__
     default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
 #else
@@ -4574,7 +4615,7 @@ void LogbookDialog::startNormalTimer()
 
 void LogbookDialog::OnTimerGPS(wxTimerEvent& ev)
 {
-	logbook->checkNMEADeviceIsOn();
+    logbook->checkNMEADeviceIsOn();
 //	logbook->SetGPSStatus(false);
 	logbook->checkGPS(true);
 }
@@ -4602,13 +4643,13 @@ void LogbookDialog::LogbookDialogOnClose( wxCloseEvent& ev )
 void LogbookDialog::loadLayoutChoice(int grid, wxString path, wxChoice* choice, wxString filter)
 {
 	wxArrayString files;
-//	wxString filter = logbookPlugIn->opt->layoutPrefix;
-	wxFileName fn(path);
+    //	wxString filter = logbookPlugIn->opt->layoutPrefix;
+    wxFileName fn(path);
 
-	wxString e;
-	e = path.SubString(path.Len()-8,path.Len());
-	if(e.Contains(_T("logbook")))
-		filter.Prepend(logbookPlugIn->opt->engineStr[logbookPlugIn->opt->engines]);
+    wxString e;
+    e = path.SubString(path.Len()-8,path.Len());
+    if(e.Contains(_T("logbook")))
+        filter.Prepend(logbookPlugIn->opt->engineStr[logbookPlugIn->opt->engines]);
 
 	int i = wxDir::GetAllFiles(path,&files);
 	choice->Clear();
@@ -4620,7 +4661,7 @@ void LogbookDialog::loadLayoutChoice(int grid, wxString path, wxChoice* choice, 
 		if(logbookPlugIn->opt->filterLayout[grid])
 		{
 			if(wxFileName(files[n]).GetName().Contains(filter))
-				choice->Append(wxFileName(files[n]).GetName().Remove(0,filter.Len()));
+                choice->Append(wxFileName(files[n]).GetName().Remove(0,filter.Len()));
 		}
 		else
 			choice->Append(wxFileName(files[n]).GetName());
@@ -4675,21 +4716,20 @@ wxString LogbookDialog::restoreDangerChar(wxString s)
 
 void LogbookDialog::startBrowser(wxString filename)
 {
-	if(!wxLaunchDefaultBrowser(wxString(_T("file://"))+filename))
-	{
-		if(wxGetOsVersion() & wxOS_WINDOWS) // maybe old XP-Versions needs it
-		{
-			filename.Replace(wxT("/"),wxT("\\"));
+    if(!wxLaunchDefaultBrowser(wxString(_T("file://"))+filename))
+    {
+        if(wxGetOsVersion() & wxOS_WINDOWS) // maybe old XP-Versions needs it
+        {
+            filename.Replace(wxT("/"),wxT("\\"));
+            wxFileType *filetype = wxTheMimeTypesManager->GetFileTypeFromExtension(_T("html"));
+            wxString cmd = filetype->GetOpenCommand(wxT("file:///")+filename);
 
-			wxFileType *filetype = wxTheMimeTypesManager->GetFileTypeFromExtension(_T("html"));
-			wxString cmd = filetype->GetOpenCommand(wxT("file:///")+filename);
-
-			if(cmd.Contains(wxT("IEXPLORE")))
-				wxExecute(wxString::Format(wxT("explorer.exe ")+filename));
-			else
-				wxExecute(cmd);
-		}
-	}
+            if(cmd.Contains(wxT("IEXPLORE")))
+                wxExecute(wxString::Format(wxT("explorer.exe ")+filename));
+            else
+                wxExecute(cmd);
+        }
+    }
 }
 
 void LogbookDialog::startApplication(wxString filename, wxString ext)
@@ -4791,11 +4831,11 @@ void LogbookDialog::getIniValues()
 
 			switch(i)
 			{
-			case 0:	
-				logGrids[i]->SetColumnWidth(n,opt->NavColWidth[n]); 
+			case 0:
+                logGrids[i]->SetColumnWidth(n,opt->NavColWidth[n]);
 				break;
-			case 1: 
-				logGrids[i]->SetColumnWidth(n,opt->WeatherColWidth[n]); 
+			case 1:
+                logGrids[i]->SetColumnWidth(n,opt->WeatherColWidth[n]);
 				break;
 			case 2: 
 				logGrids[i]->SetColumnWidth(n,opt->MotorColWidth[n]); 
@@ -4877,22 +4917,22 @@ void LogbookDialog::getIniValues()
 	  this->m_radioBtnODTBuyParts->SetValue(true);
 
 	switch(opt->overviewAll)
-	{
-	case 0:
-		this->m_radioBtnActuellLogbook->SetValue(true);
-		break;
-	case 1:
-		this->m_radioBtnAllLogbooks->SetValue(true);
-		break;
-	case 2:
-		this->m_radioBtnActuellLogbook->SetValue(true); // at startup theres no seleted logbook = crash, set to actuell logbook
-		break;
-	}
+    {
+        case 0:
+            this->m_radioBtnActuellLogbook->SetValue(true);
+            break;
+        case 1:
+            this->m_radioBtnAllLogbooks->SetValue(true);
+            break;
+        case 2:
+            this->m_radioBtnActuellLogbook->SetValue(true); // at startup theres no seleted logbook = crash, set to actuell logbook
+            break;
+    }
 
 	if(logbookPlugIn->opt->statusbarGlobal)
-		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(wxArtProvider::GetBitmap( wxART_GO_UP, wxART_TOOLBAR ));
+		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(up_xpm);
 	else
-		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(wxArtProvider::GetBitmap( wxART_GO_DOWN, wxART_TOOLBAR ));
+		m_bpButtonShowHideStatusGlobal->SetBitmapLabel(down_xpm);
 
 }
 
@@ -4952,6 +4992,7 @@ void LogbookDialog::sortGrid(wxGrid* grid, int col, bool ascending)
 //////////////////////////////////////////////////////////
 void LogbookDialog::m_gridCrewOnGridCellLeftClick( wxGridEvent& event )
 {
+	if(!this->IsShown()) return;
 	crewList->selRow = event.GetRow();
 	crewList->selCol = event.GetCol();
 	m_gridCrew->SetGridCursor(crewList->selRow,crewList->selCol);
@@ -4961,6 +5002,7 @@ void LogbookDialog::m_gridCrewOnGridCellLeftClick( wxGridEvent& event )
 
 void LogbookDialog::OnGridCellLeftClickWatch( wxGridEvent& event )
 {
+	if(!this->IsShown()) return;
 	crewList->selRowWake = event.GetRow();
 	crewList->selColWake = event.GetCol();
 
@@ -5582,6 +5624,7 @@ wxDateTime LogbookDialog::getDateTo(wxString filename)
 void LogbookDialog::onButtobClickAddLineService(wxCommandEvent &ev)
 {
 	maintenance->addLine();
+	maintenance->modified=true;
 }
 
 void LogbookDialog::OnChoiceService( wxCommandEvent& event )
@@ -5625,14 +5668,13 @@ void LogbookDialog::onButtobClickSaveService(wxCommandEvent & ev)
 
 	if (saveFileDialog->ShowModal() == wxID_CANCEL)
             return;
-
 	wxString path = saveFileDialog->GetPath();
 	int sel = saveFileDialog->GetFilterIndex();
 
 	switch(sel)
 	{
 	case 0: if(m_radioBtnHTMLService->GetValue())
-				maintenance->toHTML(0,path, 
+				maintenance->toHTML(0,path,
 				m_choiceSelectLayoutService->GetString(m_choiceSelectLayoutService->GetSelection()),2);
 			else
 				maintenance->toODT(0,path,
@@ -5654,16 +5696,37 @@ void LogbookDialog::onButtonClickReloadLayoutsServiceHTML(wxCommandEvent &ev)
 
 void LogbookDialog::onGridCellLeftClickService(wxGridEvent &ev)
 {
-	m_gridMaintanence->SetGridCursor(ev.GetRow(),ev.GetCol());
-	if((ev.GetCol() == maintenance->WARN || ev.GetCol() == maintenance->URGENT) && 
-		m_gridMaintanence->GetCellValue(ev.GetRow(), maintenance->IF) == maintenance->m_choices[8])
+	if(!this->IsShown()) return;
+	maintenance->selectedRow = ev.GetRow();
+	maintenance->selectedCol = ev.GetCol();
+
+	if((maintenance->selectedCol == maintenance->WARN || maintenance->selectedCol == maintenance->URGENT) && 
+		m_gridMaintanence->GetCellValue(maintenance->selectedRow, maintenance->IF) == maintenance->m_choices[8])
 	{
-		 maintenance->showDateDialog(ev.GetRow(),ev.GetCol(),m_gridMaintanence);
-		 maintenance->cellCollChanged(ev.GetCol(),ev.GetRow());
+		 maintenance->showDateDialog(maintenance->selectedRow,maintenance->selectedCol,m_gridMaintanence);
+		 maintenance->cellCollChanged(maintenance->selectedCol,maintenance->selectedRow);
 		 maintenance->checkService(m_gridGlobal->GetNumberRows()-1);
 	}
 	ev.Skip();
-	m_gridMaintanence->ShowCellEditControl();
+
+	if(ev.GetCol() == maintenance->IF)
+		this->Connect(wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( LogbookDialog::OnComboUpService ));
+
+	m_gridMaintanence->SetGridCursor(maintenance->selectedRow,maintenance->selectedCol);
+}
+
+void LogbookDialog::OnComboUpService(wxCommandEvent& event)
+{
+	this->Disconnect(wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( LogbookDialog::OnComboUpService ));
+#ifdef __WXOSX__
+	m_gridMaintanence->SetCellValue(event.GetString(),maintenance->selectedRow,maintenance->selectedCol);
+	maintenance->cellCollChanged(maintenance->selectedCol,maintenance->selectedRow);
+#if wxCHECK_VERSION(2,9,0)
+	wxUIActionSimulator sim;
+	sim.MouseClick();
+#endif
+#endif
+	m_gridMaintanence->SetGridCursor(maintenance->selectedRow,maintenance->selectedCol+1);
 }
 
 void LogbookDialog::onButtonClickEditLayoutODTService(wxCommandEvent &ev)
@@ -5756,6 +5819,7 @@ void LogbookDialog::onMenuSelectionServiceBuyParts(wxCommandEvent &ev)
 void LogbookDialog::onButtobClickAddLineRepairs(wxCommandEvent &ev)
 {
 	maintenance->addLineRepairs();
+	maintenance->modifiedR = true;
 }
 
 void LogbookDialog::OnChoiceRepairs( wxCommandEvent& event )
@@ -5786,22 +5850,42 @@ void LogbookDialog::OnGridLabelLeftClickRepairs( wxGridEvent& event )
 
 void LogbookDialog::onGridCellRepairsSelected( wxGridEvent& ev )
 {
+	if(!this->IsShown()) return;
 	maintenance->selectedRowRepairs = ev.GetRow();
 	maintenance->selectedColRepairs = ev.GetCol();
-	m_gridMaintanenceRepairs->AutoSizeRow(lastRowSelectedRepairs,false);
+	if(m_gridMaintanenceRepairs->GetRowHeight(lastRowSelectedRepairs) == 170)
+		m_gridMaintanenceRepairs->AutoSizeRow(lastRowSelectedRepairs,false);
 
 	if(ev.GetCol() == maintenance->RTEXT)
 		m_gridMaintanenceRepairs->SetRowHeight(ev.GetRow(),170);
 
-	m_gridMaintanenceRepairs->Refresh();
-	lastRowSelectedRepairs = ev.GetRow();
-
 	ev.Skip();
+	lastRowSelectedRepairs = maintenance->selectedRowRepairs;
+
+	if(maintenance->selectedColRepairs == maintenance->RPRIORITY)
+		this->Connect(wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( LogbookDialog::OnComboUpRepairs ));
+
+	m_gridMaintanenceRepairs->SetGridCursor(maintenance->selectedRowRepairs,maintenance->selectedColRepairs);
+}
+
+void LogbookDialog::OnComboUpRepairs(wxCommandEvent& event)
+{
+	this->Disconnect(wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( LogbookDialog::OnComboUpRepairs ));
+#ifdef __WXOSX__
+	m_gridMaintanenceRepairs->SetCellValue(event.GetString(),maintenance->selectedRowRepairs,maintenance->selectedColRepairs);
+	maintenance->checkRepairs();
+#if wxCHECK_VERSION(2,9,0)
+	wxUIActionSimulator sim;
+	sim.MouseClick();
+#endif
+#endif
+	m_gridMaintanenceRepairs->SetGridCursor(maintenance->selectedRowRepairs,maintenance->selectedColRepairs+1);
 }
 
 void LogbookDialog::onGridCellRepairsChange( wxGridEvent& ev )
 {
 	maintenance->checkRepairs();
+	maintenance->modifiedR = true;
 	ev.Skip();
 }
 
@@ -5813,6 +5897,7 @@ void LogbookDialog::onMenuSelectionRepairsOK(wxCommandEvent &ev)
 void LogbookDialog::onMenuSelectionRepairsDelete(wxCommandEvent &ev)
 {
 	m_gridMaintanenceRepairs->DeleteRows(maintenance->selectedRowRepairs);
+	maintenance->modifiedR = true;
 }
 
 void LogbookDialog::onMenuSelectionRepairsBuyParts(wxCommandEvent &ev)
@@ -5991,24 +6076,51 @@ void LogbookDialog::OnGridLabelLeftClickBuyParts( wxGridEvent& event )
 
 void LogbookDialog::onGridCellLeftClickBuyParts(wxGridEvent& ev)
 {
+	if(!this->IsShown()) return;
+	maintenance->selectedColBuyParts = ev.GetCol();
+	maintenance->selectedRowBuyParts = ev.GetRow();
+
 	if(ev.GetCol() == maintenance->DATE)
 		 maintenance->showDateDialog(ev.GetRow(),ev.GetCol(),m_gridMaintenanceBuyParts);
+
 	ev.Skip();
+
+	if(ev.GetCol() == maintenance->PRIORITY)
+		this->Connect(wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( LogbookDialog::OnComboUpBuyParts ));
+
+	m_gridMaintenanceBuyParts->SetGridCursor(maintenance->selectedRowBuyParts,maintenance->selectedColBuyParts);
+}
+
+void LogbookDialog::OnComboUpBuyParts(wxCommandEvent& event)
+{
+	this->Disconnect(wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( LogbookDialog::OnComboUpBuyParts ));
+#ifdef __WXOSX__
+	m_gridMaintenanceBuyParts->SetCellValue(event.GetString(),maintenance->selectedRowBuyParts,maintenance->selectedColBuyParts);
+	maintenance->checkBuyParts();
+#if wxCHECK_VERSION(2,9,0)
+	wxUIActionSimulator sim;
+	sim.MouseClick();
+#endif
+#endif
+	m_gridMaintenanceBuyParts->SetGridCursor(maintenance->selectedRowBuyParts,maintenance->selectedColBuyParts);
 }
 
 void LogbookDialog::onMenuSelectionBuyPartsDelete(wxCommandEvent &ev)
 {
-	m_gridMaintenanceBuyParts->DeleteRows(maintenance->selectedRowBuyParts);	
+    m_gridMaintenanceBuyParts->DeleteRows(maintenance->selectedRowBuyParts);
+	maintenance->modifiedB = true;
 }
 
 void LogbookDialog::onButtobClickAddLineBuyParts(wxCommandEvent &ev)
 {
 	maintenance->addLineBuyParts();
+	maintenance->modifiedB = true;
 }
 
 void LogbookDialog::onGridCellChangeBuyParts(wxGridEvent &ev)
 {
 	maintenance->checkBuyParts();
+	maintenance->modifiedB = true;
 	ev.Skip();
 }
 void LogbookDialog::onButtobClickSaveBuyParts( wxCommandEvent& event )
@@ -6119,7 +6231,7 @@ void LogbookDialog::OnKeyDownBuyParts( wxKeyEvent& ev )
 	if (ev.GetKeyCode() == WXK_RETURN)
 	{	
 		ev.Skip();
-		m_gridMaintenanceBuyParts->AutoSizeRow(maintenance->selectedRow,false);
+		m_gridMaintenanceBuyParts->AutoSizeRow(maintenance->selectedRowBuyParts,false);
 		lastRowSelectedBuyParts = maintenance->selectedRow;
 		m_gridMaintanence->Refresh();
 		return;
@@ -6344,18 +6456,26 @@ bool LogbookDialog::myParseDate(wxString s, wxDateTime &dt)
 	long year;
 	unsigned int i;
 
+	if(s.IsEmpty()) return false;
+//	wxMessageBox(s+LogbookDialog::datePattern);
 	for(i = 0; i < s.Length(); i++)
 	{
 		if(s.at(i) < '0' || s.at(i) > '9')
 		{
-			dateSeparator = s.at(i);
+			dateSeparator = (wxChar)s.at(i);
 			break;
 		}
 	}
 
 	i = 0;
+#if wxCHECK_VERSION(2,9,0)
+	wxString temp = s.substr(0,s.find_first_of((char*)&dateSeparator));
+#else
 	wxString temp = s.substr(0,s.find_first_of(dateSeparator));
-	switch(LogbookDialog::datePattern.GetChar(i))
+#endif
+	wxChar c;
+	c = (wxChar) LogbookDialog::datePattern.GetChar(i);
+	switch(c)
 		{
 		case 'd': temp.ToLong(&day); i += 3;
 			break;
@@ -6364,8 +6484,13 @@ bool LogbookDialog::myParseDate(wxString s, wxDateTime &dt)
 		case 'y': temp.ToLong(&year); i += 5;
 			break;
 		}
+#if wxCHECK_VERSION(2,9,0)
+	temp = s.substr(s.find_first_of((char*)&dateSeparator)+1,s.find_last_of((char*)&dateSeparator)-2);
+#else
 	temp = s.substr(s.find_first_of(dateSeparator)+1,s.find_last_of(dateSeparator)-2);
-	switch(LogbookDialog::datePattern.GetChar(i))
+#endif
+	c = LogbookDialog::datePattern.GetChar(i);
+	switch(c)
 		{
 		case 'd': temp.ToLong(&day); i += 3;
 			break;
@@ -6374,8 +6499,13 @@ bool LogbookDialog::myParseDate(wxString s, wxDateTime &dt)
 		case 'y': temp.ToLong(&year); i += 5;
 			break;
 		}
+#if wxCHECK_VERSION(2,9,0)
+	temp = s.substr(s.find_last_of((char*)&dateSeparator)+1);
+#else
 	temp = s.substr(s.find_last_of(dateSeparator)+1);
-	switch(LogbookDialog::datePattern.GetChar(i))
+#endif
+	c = LogbookDialog::datePattern.GetChar(i);
+	switch(c)
 		{
 		case 'd': temp.ToLong(&day); i += 3;
 			break;
@@ -6384,20 +6514,36 @@ bool LogbookDialog::myParseDate(wxString s, wxDateTime &dt)
 		case 'y': temp.ToLong(&year); i += 5;
 			break;
 		}
-
+#ifdef __WXOSX__
+    s = wxString::Format(_T("%i/%i/%i"),(wchar_t)month,(wchar_t)day,(wchar_t)year);
+#else
+	s = wxString::Format(_T("%i/%i/%i"),(int)month,(int)day,(int)year);
+#endif
+#if wxCHECK_VERSION(2, 9, 0)
+    wxString::const_iterator end;
+    if(!dt.ParseFormat(s, "%m/%d/%Y", &end))
+		return false;
+    else if ( end == s.end() )
+        return true;
+	else
+		wxMessageBox(_T("Parse Error myParseDate ")+wxString(end, s.end()));// left over ...	
+    return false;
+#else
 	s = wxString::Format(_T("%i/%i/%i"),month,day,year);
 	if(dt.ParseDate(s))
 		return true;
 	else
 		return false;
+#endif
 }
 
-const wxChar* LogbookDialog::myParseTime(wxString s, wxDateTime& dt)
+bool LogbookDialog::myParseTime(wxString s, wxDateTime& dt)
 {
-	const wxChar* c;
-	bool correction = false;
+	//bool correction = false;
+	
+	if(!s.Contains(_T(":"))) return false;
 
-	if((int) s.GetChar(0) == 19979 || (int) s.GetChar(0) == 19978 )  // chinese time starts with this two chars
+/*	if((int) s.GetChar(0) == 19979 || (int) s.GetChar(0) == 19978 )  // chinese time starts with this two chars
 	{																 // ParseTime will not handle this correct
 		if((int) s.GetChar(0) == 19979)  // is it like 'F with a broken arm' ?
 			correction = true;           // It's a PM-Time, needs correction
@@ -6408,15 +6554,42 @@ const wxChar* LogbookDialog::myParseTime(wxString s, wxDateTime& dt)
 		if(i > 0)
 			s = s.Remove(0,i);
 	}
+*/	
+	wxString am = wxEmptyString,pm = wxEmptyString;
+	wxDateTime::GetAmPmStrings(&am,&pm);
+	
+	wxStringTokenizer tkz(s,_T(":"));
+	wxDateTime::wxDateTime_t hour = wxAtoi(tkz.GetNextToken());
+	wxDateTime::wxDateTime_t minute = wxAtoi(tkz.GetNextToken());
+	wxDateTime::wxDateTime_t sec = 0;
+	if(tkz.HasMoreTokens())
+	  sec = wxAtoi(tkz.GetNextToken());
+	
+	if(s.Contains(pm) && hour != 12)
+	  hour += 12;
+	else if((s.Contains(am) && hour == 12))
+	  hour -= 12;	
+	
+	dt.Set(hour,minute,sec);
+/*	  
 
 	s = s.Upper();
-	c = dt.ParseTime(s);
-	if(correction) // make correction for PM (chinese only)
+wxString::const_iterator end;
+if ( !dt.ParseTime(s, &end) )
+c = false;
+else if ( end == s.end() )
+c = true;	
+*/
+/*	c = dt.ParseTime(s);
+	if(correction) // make correction for PM 
 	{
-		wxTimeSpan diff(12); 
-		dt.Add(diff);
-	}
-    return c;
+	        if(hour != 12)
+		{
+		  wxTimeSpan diff(12); 
+		  dt.Add(diff);
+		}
+	}*/
+    return true;
 }
 
 
@@ -6691,60 +6864,60 @@ xmlEnd =_T(
 
 kmlHead =_T("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\
 <kml xmlns=\"http://www.opengis.net/kml/2.2\">\n\
-  <Document>\n\
-  <name>#TITLE#</name>\n");
+    <Document>\n\
+    <name>#TITLE#</name>\n");
 
 kmlFolder = _T("	<Folder>\n\
-      <name>#NAME#</name>\n\
-	  <description></description>\n");
+        <name>#NAME#</name>\n\
+        <description></description>\n");
 
 kmlEndFolder = _T("		</Folder>\n");
 
 kmlBody =_T("        <Placemark>\n\
-		 <name>#NAME#</name>\n\
-		 <description>#DESCRIPTION#</description>\n\
-          <Style>\n\
-            <IconStyle>\n\
-              <Icon>\n\
-			  <href>#icon#</href>\n\
-              </Icon>\n\
-            </IconStyle>\n\
-          </Style>\n\
-          <Point>\n\
-		  <coordinates>#POSITION#</coordinates>\n\
-          </Point>\n\
-        </Placemark>\n");
+            <name>#NAME#</name>\n\
+            <description>#DESCRIPTION#</description>\n\
+                <Style>\n\
+                    <IconStyle>\n\
+                        <Icon>\n\
+                        <href>#icon#</href>\n\
+                        </Icon>\n\
+                    </IconStyle>\n\
+                </Style>\n\
+                <Point>\n\
+                    <coordinates>#POSITION#</coordinates>\n\
+                </Point>\n\
+            </Placemark>\n");
 kmlEnd =_T("    </Folder>\n\
-  </Document>\n\
+    </Document>\n\
 </kml>");
 
 kmlLine =  _T("\
-        <Style id=\"LineRoute\">\n\
-          <LineStyle>\n\
-		  <color>#LTRANS##LCOLORR#</color>\n\
-		  <width>#LWIDTH#</width>\n\
-          </LineStyle>\n\
-		  </Style>\n\
+    <Style id=\"LineRoute\">\n\
+        <LineStyle>\n\
+              <color>#LTRANS##LCOLORR#</color>\n\
+                <width>#LWIDTH#</width>\n\
+            </LineStyle>\n\
+        </Style>\n\
         <Style id=\"LineTrack\">\n\
-          <LineStyle>\n\
-		  <color>#LTRANS##LCOLORT#</color>\n\
-            <width>#LWIDTH#</width>\n\
-          </LineStyle>\n\
-		  </Style>\n");
+            <LineStyle>\n\
+              <color>#LTRANS##LCOLORT#</color>\n\
+                <width>#LWIDTH#</width>\n\
+        </LineStyle>\n\
+    </Style>\n");
 
 kmlPathHeader = _T("\
-        <Placemark>\n\
-		<name>#NAME#</name>\n\
-		<styleUrl>#LINE#</styleUrl>\n\
-          <LineString>\n\
-            <extrude>0</extrude>\n\
-            <tessellate>0</tessellate>\n\
-            <altitudeMode>relativeToGround</altitudeMode>\n\
-            <coordinates>");
+    <Placemark>\n\
+        <name>#NAME#</name>\n\
+        <styleUrl>#LINE#</styleUrl>\n\
+        <LineString>\n\
+        <extrude>0</extrude>\n\
+        <tessellate>0</tessellate>\n\
+        <altitudeMode>relativeToGround</altitudeMode>\n\
+        <coordinates>");
 
 kmlPathFooter=_T("            </coordinates>\n\
-          </LineString>\n\
-        </Placemark>\n");
+    </LineString>\n\
+    </Placemark>\n");
 }
 
 /////////////////////////////////////////////////////////
@@ -6868,8 +7041,8 @@ LayoutDialog::LayoutDialog( wxWindow* parent, wxString location, wxChoice* choic
 	this->Centre( wxBOTH );
 	
 	// Connect Events
-	m_choice15->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LayoutDialog::OnChoice ), NULL, this );
-	m_textCtrlRename->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( LayoutDialog::OnText ), NULL, this );
+    m_choice15->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LayoutDialog::OnChoice ), NULL, this );
+    m_textCtrlRename->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( LayoutDialog::OnText ), NULL, this );
 	m_bpButtonLoadLayout->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LayoutDialog::OnButtonClickLoadLayout ), NULL, this );
 
 	layoutFileName= _T("");
@@ -6881,8 +7054,8 @@ LayoutDialog::~LayoutDialog()
 {
 	// Disconnect Events
 	m_choice15->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LayoutDialog::OnChoice ), NULL, this );
-	m_textCtrlRename->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( LayoutDialog::OnText ), NULL, this );
-	m_bpButtonLoadLayout->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LayoutDialog::OnButtonClickLoadLayout ), NULL, this );
+    m_textCtrlRename->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( LayoutDialog::OnText ), NULL, this );
+    m_bpButtonLoadLayout->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LayoutDialog::OnButtonClickLoadLayout ), NULL, this );
 	
 }
 
@@ -6898,12 +7071,12 @@ void LayoutDialog::OnButtonClickLoadLayout( wxCommandEvent& event )
 
 void LayoutDialog::OnChoice( wxCommandEvent& event )
 {
-	m_radioBtnFilter->SetValue(true);
+    m_radioBtnFilter->SetValue(true);
 }
 
 void LayoutDialog::OnText( wxCommandEvent& event )
 {
-	m_radioBtnRename->SetValue(true);
+    m_radioBtnRename->SetValue(true);
 }
 
 ////////////////////////////////////////////////////
@@ -6918,41 +7091,41 @@ SelectLogbook::SelectLogbook( wxWindow* parent, wxString path, wxWindowID id, co
 	
 	wxBoxSizer* bSizer23;
 	bSizer23 = new wxBoxSizer( wxVERTICAL );
-	
+
 	m_grid13 = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
-	
-	// Grid
-	m_grid13->CreateGrid( 0, 4 );
-	m_grid13->EnableEditing( true );
-	m_grid13->EnableGridLines( true );
-	m_grid13->EnableDragGridSize( false );
-	m_grid13->SetMargins( 0, 0 );
-	
-	// Columns
-	m_grid13->SetColSize( 0, 193 );
-	m_grid13->SetColSize( 1, 67 );
-	m_grid13->SetColSize( 2, 217 );
-	m_grid13->SetColSize( 3, 380 );
-	m_grid13->EnableDragColMove( false );
-	m_grid13->EnableDragColSize( true );
-	m_grid13->SetColLabelSize( 30 );
-	m_grid13->SetColLabelValue( 0, _("Logbook") );
-	m_grid13->SetColLabelValue( 1, _("First/Last Entry") );
-	m_grid13->SetColLabelValue( 2, _("Description") );
-	m_grid13->SetColLabelValue( 3, _("File") );
-	m_grid13->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Rows
-	m_grid13->EnableDragRowSize( true );
-	m_grid13->SetRowLabelSize( 0 );
-	m_grid13->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Label Appearance
-	
-	// Cell Defaults
-	m_grid13->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer23->Add( m_grid13, 1, wxALL|wxEXPAND, 5 );
-	
+
+    // Grid
+    m_grid13->CreateGrid( 0, 4 );
+    m_grid13->EnableEditing( true );
+    m_grid13->EnableGridLines( true );
+    m_grid13->EnableDragGridSize( false );
+    m_grid13->SetMargins( 0, 0 );
+
+    // Columns
+    m_grid13->SetColSize( 0, 193 );
+    m_grid13->SetColSize( 1, 67 );
+    m_grid13->SetColSize( 2, 217 );
+    m_grid13->SetColSize( 3, 380 );
+    m_grid13->EnableDragColMove( false );
+    m_grid13->EnableDragColSize( true );
+    m_grid13->SetColLabelSize( 30 );
+    m_grid13->SetColLabelValue( 0, _("Logbook") );
+    m_grid13->SetColLabelValue( 1, _("First/Last Entry") );
+    m_grid13->SetColLabelValue( 2, _("Description") );
+    m_grid13->SetColLabelValue( 3, _("File") );
+    m_grid13->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+
+    // Rows
+    m_grid13->EnableDragRowSize( true );
+    m_grid13->SetRowLabelSize( 0 );
+    m_grid13->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+
+    // Label Appearance
+
+    // Cell Defaults
+    m_grid13->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
+    bSizer23->Add( m_grid13, 1, wxALL|wxEXPAND, 5 );
+
 	m_sdbSizer4 = new wxStdDialogButtonSizer();
 	m_sdbSizer4OK = new wxButton( this, wxID_OK );
 	m_sdbSizer4->AddButton( m_sdbSizer4OK );
@@ -6967,86 +7140,86 @@ SelectLogbook::SelectLogbook( wxWindow* parent, wxString path, wxWindowID id, co
 	this->Centre( wxBOTH );
 
 	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( SelectLogbook::OnInit ) );
-	m_grid13->Connect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( SelectLogbook::OnCellSelecttion ), NULL, this );
-	m_grid13->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( SelectLogbook::OnGridCellChange ), NULL, this );
-	m_grid13->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( SelectLogbook::OnKeyDown ), NULL, this );
+    m_grid13->Connect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( SelectLogbook::OnCellSelecttion ), NULL, this );
+    m_grid13->Connect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( SelectLogbook::OnGridCellChange ), NULL, this );
+    m_grid13->Connect( wxEVT_KEY_DOWN, wxKeyEventHandler( SelectLogbook::OnKeyDown ), NULL, this );
 }
 
 SelectLogbook::~SelectLogbook()
 {
-	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( SelectLogbook::OnInit ) );
-	m_grid13->Disconnect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( SelectLogbook::OnCellSelecttion ), NULL, this );
-	m_grid13->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( SelectLogbook::OnGridCellChange ), NULL, this );
-	m_grid13->Disconnect( wxEVT_KEY_DOWN, wxKeyEventHandler( SelectLogbook::OnKeyDown ), NULL, this );
+    this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( SelectLogbook::OnInit ) );
+    m_grid13->Disconnect( wxEVT_GRID_CELL_LEFT_CLICK, wxGridEventHandler( SelectLogbook::OnCellSelecttion ), NULL, this );
+    m_grid13->Disconnect( wxEVT_GRID_CELL_CHANGE, wxGridEventHandler( SelectLogbook::OnGridCellChange ), NULL, this );
+    m_grid13->Disconnect( wxEVT_KEY_DOWN, wxKeyEventHandler( SelectLogbook::OnKeyDown ), NULL, this );
 }
 
 void SelectLogbook::OnKeyDown( wxKeyEvent& event )
 {
-	wxTextCtrl *ctrl = (wxTextCtrl*)event.GetEventObject();
-	if (event.ShiftDown() && event.GetKeyCode() == WXK_RETURN)
-	{	
-		if(event.GetEventObject()->IsKindOf(CLASSINFO(wxTextCtrl)))	
-			ctrl->WriteText( wxT("\n") );
-		return;
-	}
+    wxTextCtrl *ctrl = (wxTextCtrl*)event.GetEventObject();
+    if (event.ShiftDown() && event.GetKeyCode() == WXK_RETURN)
+    {
+        if(event.GetEventObject()->IsKindOf(CLASSINFO(wxTextCtrl)))
+                ctrl->WriteText( wxT("\n") );
+        return;
+    }
 
-	if (event.GetKeyCode() == WXK_RETURN)
-	{	
-		m_grid13->AutoSize();
-		this->Layout();
-	}
-	event.Skip();
+    if (event.GetKeyCode() == WXK_RETURN)
+    {
+        m_grid13->AutoSize();
+        this->Layout();
+    }
+    event.Skip();
 }
 
 void SelectLogbook::OnCellSelecttion( wxGridEvent& event )
 {
-	static int lastrow = -1;
-	selRow = event.GetRow();
+    static int lastrow = -1;
+    selRow = event.GetRow();
 
-	if(lastrow != -1)
-		m_grid13->AutoSize();
+    if(lastrow != -1)
+        m_grid13->AutoSize();
 
-	if(event.GetCol() == 2 && 
-		(m_grid13->GetRowHeight(selRow) < 120 && !m_grid13->GetCellValue(selRow,event.GetCol()).Contains(_("Active Logbook"))))
-	{
-		m_grid13->SetRowHeight(selRow,100);
-		m_grid13->SetColSize(2,250);
-		m_grid13->ForceRefresh();
-		m_grid13->MakeCellVisible(selRow,event.GetCol());
-		this->Layout();
-		lastrow = selRow;
-	}
-	else
-	{
-		this->Layout();
-		lastrow = -1;
-	}
-	event.Skip();
+    if(event.GetCol() == 2 &&
+        (m_grid13->GetRowHeight(selRow) < 120 && !m_grid13->GetCellValue(selRow,event.GetCol()).Contains(_("Active Logbook"))))
+    {
+        m_grid13->SetRowHeight(selRow,100);
+        m_grid13->SetColSize(2,250);
+        m_grid13->ForceRefresh();
+        m_grid13->MakeCellVisible(selRow,event.GetCol());
+        this->Layout();
+        lastrow = selRow;
+    }
+    else
+    {
+        this->Layout();
+        lastrow = -1;
+    }
+    event.Skip();
 }
 
 void SelectLogbook::OnGridCellChange( wxGridEvent& event )
 {
-	static bool autosize = false;
+    static bool autosize = false;
 
-	if(!autosize && (event.GetRow() == selRow && event.GetCol() == 2))
-	{	
-		autosize = true;
-		wxString f = m_grid13->GetCellValue(selRow,3);
-		wxTextFile text(f);
-		text.Open();
+    if(!autosize && (event.GetRow() == selRow && event.GetCol() == 2))
+    {
+        autosize = true;
+        wxString f = m_grid13->GetCellValue(selRow,3);
+        wxTextFile text(f);
+        text.Open();
 
-		wxString str = _T("#1.2#\t")+m_grid13->GetCellValue(selRow,2);
-		str = parent->replaceDangerChar(str);
-		text.RemoveLine(0);
-		text.InsertLine(str,0);
-		text.Write();
+        wxString str = _T("#1.2#\t")+m_grid13->GetCellValue(selRow,2);
+        str = parent->replaceDangerChar(str);
+        text.RemoveLine(0);
+        text.InsertLine(str,0);
+        text.Write();
 //		wxMessageBox(wxString::Format(_T("%i %s %s %i"),u,f,str,h));
-		text.Close();
+        text.Close();
 
-		m_grid13->AutoSize();
-		autosize = false;
-	}
-	event.Skip();
+        m_grid13->AutoSize();
+        autosize = false;
+    }
+    event.Skip();
 }
 
 void SelectLogbook::OnInit(wxInitDialogEvent& ev)
@@ -7055,10 +7228,10 @@ void SelectLogbook::OnInit(wxInitDialogEvent& ev)
 	wxDateTime dtfrom, dtto;
 	wxListItem itemCol;
 	wxString routeFrom, routeTo, description;
-	selRow = -1;
-	bool back = false;
+    selRow = -1;
+    bool back = false;
 
-	m_grid13->SetSelectionMode(wxGrid::wxGridSelectRows);
+    m_grid13->SetSelectionMode(wxGrid::wxGridSelectRows);
 
 	wxDir::GetAllFiles(path,&files,_T("*logbook.txt"),wxDIR_FILES);
 
@@ -7067,71 +7240,71 @@ void SelectLogbook::OnInit(wxInitDialogEvent& ev)
 		wxFileName fn(files[i]);
 		filename = fn.GetName();
 
-		description = routeFrom = routeTo = wxEmptyString;
+        description = routeFrom = routeTo = wxEmptyString;
 
 
 		if(filename == _T("logbook"))
 			back = true;
 		else
-			back = false;
+            back = false;
 
-		wxTextFile text(files[i]);
-		text.Open();
-		if(text.GetLineCount() > 1)
+        wxTextFile text(files[i]);
+        text.Open();
+        if(text.GetLineCount() > 1)
 		{
-			wxString z = text.GetFirstLine();
-			if(!z.IsEmpty())
-			{
-				wxStringTokenizer header(z,_T("\t"));
-				header.GetNextToken();
-				description = header.GetNextToken();
-				description = parent->restoreDangerChar(description);
-				wxString t = text.GetNextLine();
-				wxStringTokenizer tk(t,_T("\t"));
-				routeFrom = tk.GetNextToken();
-				int month = wxAtoi(tk.GetNextToken());
-				int day = wxAtoi(tk.GetNextToken());
-				int year = wxAtoi(tk.GetNextToken());
-				dtfrom.Set(day,(wxDateTime::Month) month, year);
-			}
+            wxString z = text.GetFirstLine();
+            if(!z.IsEmpty())
+            {
+                wxStringTokenizer header(z,_T("\t"));
+                header.GetNextToken();
+                description = header.GetNextToken();
+                description = parent->restoreDangerChar(description);
+                wxString t = text.GetNextLine();
+                wxStringTokenizer tk(t,_T("\t"));
+                routeFrom = tk.GetNextToken();
+                int month = wxAtoi(tk.GetNextToken());
+                int day = wxAtoi(tk.GetNextToken());
+                int year = wxAtoi(tk.GetNextToken());
+                dtfrom.Set(day,(wxDateTime::Month) month, year);
+            }
 
-			wxString last = text.GetLastLine();
-			if(!last.IsEmpty())
-			{
-				wxStringTokenizer ll(last,_T("\t"));
-				routeTo = ll.GetNextToken();
-				int monthTo = wxAtoi(ll.GetNextToken());
-				int dayTo = wxAtoi(ll.GetNextToken());
-				int yearTo = wxAtoi(ll.GetNextToken());
-				dtto.Set(dayTo,(wxDateTime::Month) monthTo, yearTo);
-			}
+            wxString last = text.GetLastLine();
+            if(!last.IsEmpty())
+            {
+                wxStringTokenizer ll(last,_T("\t"));
+                routeTo = ll.GetNextToken();
+                int monthTo = wxAtoi(ll.GetNextToken());
+                int dayTo = wxAtoi(ll.GetNextToken());
+                int yearTo = wxAtoi(ll.GetNextToken());
+                dtto.Set(dayTo,(wxDateTime::Month) monthTo, yearTo);
+            }
 		}
-		
-		m_grid13->AppendRows();
-		if(back)
-		{
-			for(int col = 0; col < m_grid13->GetNumberCols(); col++)
-				m_grid13->SetCellBackgroundColour(wxColour(_T("Green")),i,col);
-			description = _("Active Logbook");
-			m_grid13->SetReadOnly(i,2);
-		}
-	    m_grid13->SetReadOnly(i,0);
-		m_grid13->SetReadOnly(i,1);
-		m_grid13->SetReadOnly(i,3);
-		if(text.GetLineCount() > 1)
-		{
-			m_grid13->SetCellValue(i,0,routeFrom+_T(" -> ")+routeTo);
-			if(dtfrom.IsValid() && dtto.IsValid())
-				m_grid13->SetCellValue(i,1,
-					wxString::Format(_T("%s - %s"),dtfrom.Format(parent->logbookPlugIn->opt->sdateformat).c_str(),dtto.Format(parent->logbookPlugIn->opt->sdateformat).c_str()));
-		}
-		m_grid13->SetCellValue(i,2,description);
-		m_grid13->SetCellEditor(i,2,new wxGridCellAutoWrapStringEditor);
-		m_grid13->SetCellValue(i,3,files[i]);
 
-		text.Close();
+        m_grid13->AppendRows();
+        if(back)
+        {
+            for(int col = 0; col < m_grid13->GetNumberCols(); col++)
+                    m_grid13->SetCellBackgroundColour(wxColour(_T("Green")),i,col);
+                description = _("Active Logbook");
+                m_grid13->SetReadOnly(i,2);
+        }
+        m_grid13->SetReadOnly(i,0);
+        m_grid13->SetReadOnly(i,1);
+        m_grid13->SetReadOnly(i,3);
+        if(text.GetLineCount() > 1)
+        {
+            m_grid13->SetCellValue(i,0,routeFrom+_T(" -> ")+routeTo);
+            if(dtfrom.IsValid() && dtto.IsValid())
+                m_grid13->SetCellValue(i,1,
+            wxString::Format(_T("%s - %s"),dtfrom.Format(parent->logbookPlugIn->opt->sdateformat).c_str(),dtto.Format(parent->logbookPlugIn->opt->sdateformat).c_str()));
+        }
+        m_grid13->SetCellValue(i,2,description);
+        m_grid13->SetCellEditor(i,2,new wxGridCellAutoWrapStringEditor);
+        m_grid13->SetCellValue(i,3,files[i]);
+
+        text.Close();
 	}
-	m_grid13->AutoSize();
+    m_grid13->AutoSize();
 }
 
 //////////////////////////// myGridStringTable /////////
@@ -7701,40 +7874,40 @@ void ColdFinger::init()
 		m_textCtrl73->SetValue(item->text);
 
 		item = new myTreeItem(NODE,_T(""),_("The itemname is shown in the rightcklick-menu of the following Columns\nBy clicking on it the text is inserted\n\n")+
-			dialog->m_gridGlobal->GetColLabelValue(LogbookHTML::REMARKS)+_T("\n")+
-			dialog->m_gridWeather->GetColLabelValue(LogbookHTML::WEATHER)+_T("\n")+
-			dialog->m_gridWeather->GetColLabelValue(LogbookHTML::VISIBILITY)+_T("\n")+
-			dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::SAILS)+_T("\n")+
-			dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::REEF)+_T("\n")+
-			dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::MREMARKS)
+            dialog->m_gridGlobal->GetColLabelValue(LogbookHTML::REMARKS)+_T("\n")+
+            dialog->m_gridWeather->GetColLabelValue(LogbookHTML::WEATHER)+_T("\n")+
+            dialog->m_gridWeather->GetColLabelValue(LogbookHTML::VISIBILITY)+_T("\n")+
+            dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::SAILS)+_T("\n")+
+            dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::REEF)+_T("\n")+
+            dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::MREMARKS)
 			,_T(""),_T(""),_T(""),_T(""),-1,0,false,false,true);
 		wxTreeItemId menu = this->m_treeCtrl3->AppendItem(selectedItem,_("Texts for Rightclick-Menu"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),0,LogbookHTML::REMARKS,false,false,true);
-		wxTreeItemId test = this->m_treeCtrl3->AppendItem(menu,dialog->m_gridGlobal->GetColLabelValue(LogbookHTML::REMARKS)+_T(" (")+
+        wxTreeItemId test = this->m_treeCtrl3->AppendItem(menu,dialog->m_gridGlobal->GetColLabelValue(LogbookHTML::REMARKS)+_T(" (")+
 			dialog->m_notebook8->GetPageText(0)+_T(")"),-fo,-1,item);
 
 		item = new myTreeItem(ITEM,_T(""),_("Sails up\nEngine stopped\n\nDemo - Rightclick-Menu \'use Testextblocks\' for help"),_T(""),_T(""),_T(""),_T(""),0,LogbookHTML::REMARKS,true,false,true);
 		this->m_treeCtrl3->AppendItem(test,_("Demo Sails up"),it,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),1,LogbookHTML::WEATHER,false,false,true);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::WEATHER)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::WEATHER)+_T(" (")+
 			dialog->m_notebook8->GetPageText(1)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),1,LogbookHTML::VISIBILITY,false,false,true);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::VISIBILITY)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::VISIBILITY)+_T(" (")+
 			dialog->m_notebook8->GetPageText(1)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),2,LogbookHTML::SAILS,false,false,true);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::SAILS)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::SAILS)+_T(" (")+
 			dialog->m_notebook8->GetPageText(2)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),2,LogbookHTML::REEF,false,false,true);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::REEF)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::REEF)+_T(" (")+
 			dialog->m_notebook8->GetPageText(2)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),2,LogbookHTML::MREMARKS,false,false,true);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::MREMARKS)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::MREMARKS)+_T(" (")+
 			dialog->m_notebook8->GetPageText(2)+_T(")"),fo,-1,item);
 
 /////////////////// in dialog only ////////////
@@ -7742,30 +7915,30 @@ void ColdFinger::init()
 		menu = this->m_treeCtrl3->AppendItem(selectedItem,_("Texts when using this Dialog only"),fo,0,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),0,LogbookHTML::REMARKS,false,true,false);
-		test = this->m_treeCtrl3->AppendItem(menu,dialog->m_gridGlobal->GetColLabelValue(LogbookHTML::REMARKS)+_T(" (")+
+        test = this->m_treeCtrl3->AppendItem(menu,dialog->m_gridGlobal->GetColLabelValue(LogbookHTML::REMARKS)+_T(" (")+
 			dialog->m_notebook8->GetPageText(0)+_T(")"),-fo,-1,item);
 
 		item = new myTreeItem(ITEM,_T(""),_("Engine stopped\n\nDemo - Rightclick-Menu \'use Testextblocks\' for help"),_T(""),_T(""),_T(""),_T(""),0,LogbookHTML::REMARKS,true,true,false);
 		this->m_treeCtrl3->AppendItem(test,_("Demo Engine stopped"),it,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),1,LogbookHTML::WEATHER,false,true,false);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::WEATHER)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::WEATHER)+_T(" (")+
 			dialog->m_notebook8->GetPageText(1)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),1,LogbookHTML::VISIBILITY,false,true,false);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::VISIBILITY)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridWeather->GetColLabelValue(LogbookHTML::VISIBILITY)+_T(" (")+
 			dialog->m_notebook8->GetPageText(1)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),2,LogbookHTML::SAILS,false,true,false);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::SAILS)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::SAILS)+_T(" (")+
 			dialog->m_notebook8->GetPageText(2)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),2,LogbookHTML::REEF,false,true,false);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::REEF)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::REEF)+_T(" (")+
 			dialog->m_notebook8->GetPageText(2)+_T(")"),fo,-1,item);
 
 		item = new myTreeItem(NODE,_T(""),_T(""),_T(""),_T(""),_T(""),_T(""),2,LogbookHTML::MREMARKS,false,true,false);
-		this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::MREMARKS)+_T(" (")+
+        this->m_treeCtrl3->AppendItem(menu,dialog->m_gridMotorSails->GetColLabelValue(LogbookHTML::MREMARKS)+_T(" (")+
 			dialog->m_notebook8->GetPageText(2)+_T(")"),fo,-1,item);
 		
 		modified = true;

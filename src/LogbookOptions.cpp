@@ -29,6 +29,8 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	this->opt = opt;
 	this->log_pi = log_pi;
 
+//	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
 	wxBoxSizer* bSizer21;
 	bSizer21 = new wxBoxSizer( wxVERTICAL );
 	
@@ -41,18 +43,21 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_notebook4->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_ACTIVEBORDER ) );
 	
 	m_panel15 = new wxPanel( m_notebook4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer51;
+	bSizer51 = new wxBoxSizer( wxVERTICAL );
+	
 	wxFlexGridSizer* fgSizer10;
 	fgSizer10 = new wxFlexGridSizer( 12, 1, 0, 0 );
 	fgSizer10->SetFlexibleDirection( wxBOTH );
 	fgSizer10->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	wxFlexGridSizer* fgSizer51;
-	fgSizer51 = new wxFlexGridSizer( 0, 5, 0, 0 );
+	fgSizer51 = new wxFlexGridSizer( 2, 6, 0, 0 );
 	fgSizer51->SetFlexibleDirection( wxBOTH );
 	fgSizer51->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	
-//	fgSizer51->Add( 10, 0, 1, wxEXPAND, 0 );
+	fgSizer51->Add( 10, 0, 1, wxEXPAND, 0 );
 	
 	m_staticText132 = new wxStaticText( m_panel15, wxID_ANY, _("Date-Format:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText132->Wrap( -1 );
@@ -65,7 +70,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer51->Add( m_choiceDateFormat, 0, wxALIGN_CENTER_VERTICAL|wxTOP, 0 );
 	
 	wxFlexGridSizer* fgSizer52;
-	fgSizer52 = new wxFlexGridSizer( 0, 3, 0, 0 );
+	fgSizer52 = new wxFlexGridSizer( 1, 3, 0, 0 );
 	fgSizer52->SetFlexibleDirection( wxBOTH );
 	fgSizer52->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -87,6 +92,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_choiceDate3->SetSelection( 0 );
 	fgSizer52->Add( m_choiceDate3, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
 	
+	
 	fgSizer51->Add( fgSizer52, 1, wxEXPAND, 0 );
 	
 	wxFlexGridSizer* fgSizer53;
@@ -98,9 +104,10 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_staticText128->Wrap( -1 );
 	fgSizer53->Add( m_staticText128, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT|wxLEFT, 5 );
 	
-	m_textCtrlDateSeparator = new wxTextCtrl( m_panel15, wxID_ANY, _T("."), wxDefaultPosition, wxSize( 20,-1 ), 0 );
+	m_textCtrlDateSeparator = new wxTextCtrl( m_panel15, wxID_ANY, _("."), wxDefaultPosition, wxSize( 20,-1 ), 0 );
 	m_textCtrlDateSeparator->SetMaxLength( 1 ); 
 	fgSizer53->Add( m_textCtrlDateSeparator, 0, wxALIGN_CENTER_VERTICAL, 0 );
+	
 	
 	fgSizer51->Add( fgSizer53, 0, wxALIGN_CENTER_VERTICAL, 5 );
 	
@@ -109,7 +116,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer51->Add( m_staticTextDate, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 	
 	
-//	fgSizer51->Add( 0, 0, 1, wxEXPAND, 5 );
+	fgSizer51->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText133 = new wxStaticText( m_panel15, wxID_ANY, _("Time-Format:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText133->Wrap( -1 );
@@ -131,10 +138,11 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_staticTextTime->Wrap( -1 );
 	fgSizer51->Add( m_staticTextTime, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
 	
+	
 	fgSizer10->Add( fgSizer51, 0, wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL|wxTOP, 5 );
 	
 	wxFlexGridSizer* fgSizer18;
-	fgSizer18 = new wxFlexGridSizer( 2, 8, 0, 0 );
+	fgSizer18 = new wxFlexGridSizer( 1, 7, 0, 0 );
 	fgSizer18->SetFlexibleDirection( wxBOTH );
 	fgSizer18->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -165,9 +173,8 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 #else
 	m_choiceTzHours = new wxChoice( m_panel15, wxID_ANY, wxDefaultPosition, wxSize( 40,-1 ), m_choiceTzHoursNChoices, m_choiceTzHoursChoices, 0 );
 #endif
-	m_choiceTzHours->SetSelection( 0 );
 	fgSizer18->Add( m_choiceTzHours, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
-	
+
 	m_staticText71 = new wxStaticText( m_panel15, wxID_ANY, _("h"), wxDefaultPosition, wxSize( 35,-1 ), 0 );
 	m_staticText71->Wrap( -1 );
 	fgSizer18->Add( m_staticText71, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
@@ -177,13 +184,14 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	fgSizer18->Add( m_radioBtnGPSAuto, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
 	
+	
 	fgSizer10->Add( fgSizer18, 1, wxEXPAND, 5 );
 	
 	m_staticline44 = new wxStaticLine( m_panel15, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
 	fgSizer10->Add( m_staticline44, 0, wxEXPAND|wxBOTTOM, 5 );
 	
 	wxFlexGridSizer* fgSizer29;
-	fgSizer29 = new wxFlexGridSizer( 1, 4, 0, 0 );
+	fgSizer29 = new wxFlexGridSizer( 8, 4, 0, 0 );
 	fgSizer29->SetFlexibleDirection( wxBOTH );
 	fgSizer29->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -210,7 +218,8 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_staticText76->Wrap( -1 );
 	fgSizer29->Add( m_staticText76, 0, wxALL|wxALIGN_CENTER_VERTICAL|wxALIGN_RIGHT, 0 );
 	
-	wxString m_choicePositionFormatChoices[] = { _T("054\xB0 12.1234'"), _T("054\xB0 12' 12.34\"") };
+	wxString m_choicePositionFormatChoices[] = { wxString::Format(_T("054%s 12.1234%s"),opt->Deg.c_str(),opt->Min.c_str()),
+												 wxString::Format(_T("054%s 12%s.12,34%s"),opt->Deg.c_str(),opt->Min.c_str(),opt->Sec.c_str()) };//_T("054° 12.1234'"), _T("054° 12' 12.34\"") };
 	int m_choicePositionFormatNChoices = sizeof( m_choicePositionFormatChoices ) / sizeof( wxString );
 	m_choicePositionFormat = new wxChoice( m_panel15, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choicePositionFormatNChoices, m_choicePositionFormatChoices, 0 );
 	m_choicePositionFormat->SetSelection( 0 );
@@ -222,49 +231,67 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_checkBoxToolTips = new wxCheckBox( m_panel15, wxID_ANY, _("Show ToolTips"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxToolTips->SetValue(true); 
 	fgSizer29->Add( m_checkBoxToolTips, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
-
-	m_staticText1361 = new wxStaticText( m_panel15, wxID_ANY, _("No. of Inboard Engines"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
-	m_staticText1361->Wrap( -1 );
-	fgSizer29->Add( m_staticText1361, 0, wxALIGN_CENTER_VERTICAL|wxALIGN_RIGHT|wxTOP|wxBOTTOM|wxRIGHT, 5 );
+	
+	wxStaticText* m_staticText1391 = new wxStaticText( m_panel15, wxID_ANY, _("No. of Inboard Engines"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1391->Wrap( -1 );
+	fgSizer29->Add( m_staticText1391, 0, wxALIGN_CENTER_VERTICAL|wxALIGN_RIGHT|wxLEFT, 5 );
 	
 	wxString m_choiceNoEnginesChoices[] = { _("1"), _("2") };
 	int m_choiceNoEnginesNChoices = sizeof( m_choiceNoEnginesChoices ) / sizeof( wxString );
-	m_choiceNoEngines = new wxChoice( m_panel15, wxID_ANY, wxDefaultPosition, wxSize( 50,-1 ), m_choiceNoEnginesNChoices, m_choiceNoEnginesChoices, 0 );
+	m_choiceNoEngines = new wxChoice( m_panel15, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceNoEnginesNChoices, m_choiceNoEnginesChoices, 0 );
 	m_choiceNoEngines->SetSelection( 0 );
-	fgSizer29->Add( m_choiceNoEngines, 0, 0, 5 );	
+	fgSizer29->Add( m_choiceNoEngines, 0, wxRIGHT, 5 );
+	
+	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_checkBoxEngine = new wxCheckBox( m_panel15, wxID_ANY, _("Sails Messages"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxEngine->SetValue(true); 
-	m_checkBoxEngine->SetToolTip( _("Uncheck for Motorboats\nSets \"Sails hoisted\" or \"Sails changed\" or \"Sails down\" messages\n\nSet/unset checkmarks in the sail-checkboxes BEFORE you start/stop the engine !") );
-	
-	fgSizer29->Add( m_checkBoxEngine, 0, wxALIGN_CENTER_VERTICAL, 0 );
+	fgSizer29->Add( m_checkBoxEngine, 0, wxTOP, 5 );
 	
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
-	m_checkBoxEngineRunning = new wxCheckBox( m_panel15, wxID_ANY, _("Write message \"Engine runnung\""), wxDefaultPosition, wxDefaultSize, 0 );
+	m_checkBoxEngineRunning = new wxCheckBox( m_panel15, wxID_ANY, _("Write message \"Engine running"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxEngineRunning->SetValue(true); 
-	m_checkBoxEngineRunning->SetToolTip( _("Uncheck for Motorboats.") );
+	fgSizer29->Add( m_checkBoxEngineRunning, 0, wxALIGN_CENTER_VERTICAL|wxTOP, 5 );
 	
-	fgSizer29->Add( m_checkBoxEngineRunning, 0, wxALL|wxALIGN_CENTER_VERTICAL, 0 );
-
+	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_checkBoxNoGPS = new wxCheckBox( m_panel15, wxID_ANY, _("Write warning \"No GPS\""), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxNoGPS->SetValue(true); 
 	m_checkBoxNoGPS->SetToolTip( _("Uncheck if You have no GPS\nIf GPS is out of order, uncheck to\nprevent that the message repeats.") );
 	
-	fgSizer29->Add( m_checkBoxNoGPS, 0, wxALL, 0 );
+	fgSizer29->Add( m_checkBoxNoGPS, 0, wxTOP|wxALIGN_CENTER_VERTICAL, 0 );
 	
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_checkBoxSailsDown = new wxCheckBox( m_panel15, wxID_ANY, _("On engine start set always all sails down"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxSailsDown->SetToolTip(_("Uncheck if you are motorsailing"));
 	fgSizer29->Add( m_checkBoxSailsDown, 0, 0, 5 );
-
+	
+	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
@@ -286,6 +313,7 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	fgSizer29->Add( 0, 0, 1, wxEXPAND, 5 );
 	
+	
 	fgSizer10->Add( fgSizer29, 1, 0, 0 );
 	
 	m_staticline25 = new wxStaticLine( m_panel15, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
@@ -302,26 +330,25 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	m_staticText123 = new wxStaticText( m_panel15, wxID_ANY, _("Writes this text to the logbook when the event occurs, alter texts as desired"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
 	m_staticText123->Wrap( -1 );
-	fgSizer10->Add( m_staticText123, 0, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );	
+	fgSizer10->Add( m_staticText123, 0, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	wxFlexGridSizer* fgSizer14;
-	fgSizer14 = new wxFlexGridSizer( 2, 2, 0, 0 );
+	fgSizer14 = new wxFlexGridSizer( 6, 3, 0, 0 );
 	fgSizer14->SetFlexibleDirection( wxBOTH );
 	fgSizer14->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-		
-//	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
+	
+	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText56 = new wxStaticText( m_panel15, wxID_ANY, _("Timer"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText56->Wrap( -1 );
 	fgSizer14->Add( m_staticText56, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
 	m_timerText = new wxTextCtrl( m_panel15, wxID_ANY, _("automatic line by timer\nYou can set/unset a timer\n by clicking the bullet\nChange this text in options"), wxDefaultPosition, wxSize( 250,40 ), wxTE_MULTILINE );
-	fgSizer14->Add( m_timerText, 0, wxALL|wxEXPAND, 0 );
+	fgSizer14->Add( m_timerText, 0, 0, 5 );
 	
 	
-//	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
-
-
+	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
+	
 	m_staticText121 = new wxStaticText( m_panel15, wxID_ANY, _("Waypoint"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText121->Wrap( -1 );
 	fgSizer14->Add( m_staticText121, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
@@ -330,48 +357,56 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	fgSizer14->Add( m_textCtrlWayPoint, 0, wxALL|wxEXPAND, 0 );
 	
 	
-//	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText122 = new wxStaticText( m_panel15, wxID_ANY, _("Watch"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText122->Wrap( -1 );
 	fgSizer14->Add( m_staticText122, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_textCtrlGuradChanged = new wxTextCtrl( m_panel15, wxID_ANY, _("automatic line\nchange of guards"), wxDefaultPosition, wxSize( 250,40 ), wxTE_MULTILINE );
+//	m_textCtrlGuradChanged->SetMaxLength( 0 ); 
 	fgSizer14->Add( m_textCtrlGuradChanged, 0, wxALL|wxEXPAND, 0 );
 	
 	
-//	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText1231 = new wxStaticText( m_panel15, wxID_ANY, _("Distance"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText1231->Wrap( -1 );
 	fgSizer14->Add( m_staticText1231, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_textCtrlEverySMText = new wxTextCtrl( m_panel15, wxID_ANY, _("automatic line\nDistance > "), wxDefaultPosition, wxSize( 250,40 ), wxTE_MULTILINE );
+//	m_textCtrlEverySMText->SetMaxLength( 0 ); 
 	fgSizer14->Add( m_textCtrlEverySMText, 0, wxALL|wxEXPAND, 0 );
 	
 	
-//	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
+	fgSizer14->Add( 10, 0, 1, wxEXPAND, 5 );
 	
 	m_staticText124 = new wxStaticText( m_panel15, wxID_ANY, _("Course changes"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText124->Wrap( -1 );
 	fgSizer14->Add( m_staticText124, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_textCtrlChancedCourse = new wxTextCtrl( m_panel15, wxID_ANY, _("automatic line\nchange of course >"), wxDefaultPosition, wxSize( 250,40 ), wxTE_MULTILINE );
+//	m_textCtrlChancedCourse->SetMaxLength( 0 ); 
 	fgSizer14->Add( m_textCtrlChancedCourse, 0, wxALL|wxEXPAND, 0 );
 	
-	fgSizer10->Add( fgSizer14, 0, wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 5 );
-
-//	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	m_checkBoxPopUp = new wxCheckBox( m_panel15, wxID_ANY, _("Popup logbook on event"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_checkBoxPopUp->SetValue(true); 
 	fgSizer14->Add( m_checkBoxPopUp, 0, wxALL, 5 );
+	
+	
+	fgSizer10->Add( fgSizer14, 0, wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	m_staticline10 = new wxStaticLine( m_panel15, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
 	fgSizer10->Add( m_staticline10, 0, wxEXPAND|wxTOP, 5 );
 	
 	wxFlexGridSizer* fgSizer28;
-	fgSizer28 = new wxFlexGridSizer( 4, 3, 0, 0 );
+	fgSizer28 = new wxFlexGridSizer( 3, 3, 0, 0 );
 	fgSizer28->SetFlexibleDirection( wxBOTH );
 	fgSizer28->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -402,12 +437,17 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	fgSizer28->Add( m_buttonUninstall, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
+	
 	fgSizer10->Add( fgSizer28, 0, wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	m_staticline261 = new wxStaticLine( m_panel15, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
 	fgSizer10->Add( m_staticline261, 0, wxEXPAND, 5 );
 	
-	m_panel15->SetSizer( fgSizer10 );
+	
+	bSizer51->Add( fgSizer10, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	
+	m_panel15->SetSizer( bSizer51 );
 	m_panel15->Layout();
 	fgSizer10->Fit( m_panel15 );
 	m_notebook4->AddPage( m_panel15, _("Behavior"), true );
@@ -434,7 +474,8 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	bSizer31->Add( m_staticline34, 0, wxEXPAND | wxALL, 5 );
 	
 	wxFlexGridSizer* fgSizer44;
-	fgSizer44 = new wxFlexGridSizer( 0, 3, 0, 0 );
+
+	fgSizer44 = new wxFlexGridSizer( 3, 3, 0, 0 );
 	fgSizer44->SetFlexibleDirection( wxBOTH );
 	fgSizer44->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -477,7 +518,8 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	bSizer31->Add( m_staticline33, 0, wxEXPAND | wxALL, 5 );
 	
 	wxFlexGridSizer* fgSizer43;
-	fgSizer43 = new wxFlexGridSizer( 0, 3, 0, 0 );
+
+	fgSizer43 = new wxFlexGridSizer( 2, 3, 0, 0 );
 	fgSizer43->SetFlexibleDirection( wxBOTH );
 	fgSizer43->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -506,7 +548,8 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	bSizer31->Add( m_staticline32, 0, wxALL|wxEXPAND, 5 );
 	
 	wxFlexGridSizer* fgSizer45;
-	fgSizer45 = new wxFlexGridSizer( 0, 3, 0, 0 );
+
+	fgSizer45 = new wxFlexGridSizer( 3, 3, 0, 0 );
 	fgSizer45->SetFlexibleDirection( wxBOTH );
 	fgSizer45->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -550,12 +593,14 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_notebook4->AddPage( m_panel20, _("Capacity"), false );
 	m_panel16 = new wxPanel( m_notebook4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer30;
-	fgSizer30 = new wxFlexGridSizer( 2, 1, 5, 0 );
+
+	fgSizer30 = new wxFlexGridSizer( 6, 1, 5, 0 );
 	fgSizer30->SetFlexibleDirection( wxBOTH );
 	fgSizer30->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	wxFlexGridSizer* fgSizer91;
-	fgSizer91 = new wxFlexGridSizer( 3, 7, 5, 0 );
+
+	fgSizer91 = new wxFlexGridSizer( 13, 7, 5, 0 );
 	fgSizer91->SetFlexibleDirection( wxBOTH );
 	fgSizer91->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	fgSizer91->Add( 140, 30, 1, wxEXPAND, 5 );
@@ -754,30 +799,28 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	
 	m_textCtrlAmpere = new wxTextCtrl( m_panel16, wxID_ANY, _T("A"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	fgSizer91->Add( m_textCtrlAmpere, 0, wxALL, 0 );
-
 	fgSizer91->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText135 = new wxStaticText( m_panel16, wxID_ANY, _("Engine"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText135->Wrap( -1 );
-	fgSizer91->Add( m_staticText135, 0, wxLEFT|wxALIGN_CENTER_VERTICAL, 0 );
-	
-	m_textCtrlEngine = new wxTextCtrl( m_panel16, wxID_ANY, _("E"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
-	fgSizer91->Add( m_textCtrlEngine, 0, 0, 5 );
-	
-	m_staticText137 = new wxStaticText( m_panel16, wxID_ANY, _("PropShaft"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText137->Wrap( -1 );
-	fgSizer91->Add( m_staticText137, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
-	
-	m_textCtrlPropShaft = new wxTextCtrl( m_panel16, wxID_ANY, _("S"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
-	fgSizer91->Add( m_textCtrlPropShaft, 0, 0, 5 );
-	
-	m_staticText136 = new wxStaticText( m_panel16, wxID_ANY, _("Revolutions"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText136->Wrap( -1 );
-	fgSizer91->Add( m_staticText136, 0, wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_textCtrRPM = new wxTextCtrl( m_panel16, wxID_ANY, _("RPM"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
-	fgSizer91->Add( m_textCtrRPM, 0, 0, 5 );
-	
+
+    m_staticText135 = new wxStaticText( m_panel16, wxID_ANY, _("Engine"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText135->Wrap( -1 );
+    fgSizer91->Add( m_staticText135, 0, wxLEFT|wxALIGN_CENTER_VERTICAL, 0 );
+
+    m_textCtrlEngine = new wxTextCtrl( m_panel16, wxID_ANY, _("E"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
+    fgSizer91->Add( m_textCtrlEngine, 0, 0, 5 );
+
+    m_staticText137 = new wxStaticText( m_panel16, wxID_ANY, _("PropShaft"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText137->Wrap( -1 );
+    fgSizer91->Add( m_staticText137, 0, wxALIGN_CENTER_VERTICAL|wxLEFT, 5 );
+
+    m_textCtrlPropShaft = new wxTextCtrl( m_panel16, wxID_ANY, _("S"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
+    fgSizer91->Add( m_textCtrlPropShaft, 0, 0, 5 );
+
+    m_staticText136 = new wxStaticText( m_panel16, wxID_ANY, _("Revolutions"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText136->Wrap( -1 );
+    fgSizer91->Add( m_staticText136, 0, wxALIGN_CENTER_VERTICAL, 5 );
+
+    m_textCtrRPM = new wxTextCtrl( m_panel16, wxID_ANY, _("RPM"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
+    fgSizer91->Add( m_textCtrRPM, 0, 0, 5 );
 	m_staticText70 = new wxStaticText( m_panel16, wxID_ANY, _("Maintenance"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText70->Wrap( -1 );
 	m_staticText70->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString ) );
@@ -858,12 +901,17 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_notebook4->AddPage( m_panel16, _("Abbreviations"), false );
 	m_panel17 = new wxPanel( m_notebook4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer322;
+#ifdef __WXOSX__
+    fgSizer322 = new wxFlexGridSizer( 5, 1, 0, 0 );
+#else
 	fgSizer322 = new wxFlexGridSizer( 2, 1, 0, 0 );
+#endif
 	fgSizer322->SetFlexibleDirection( wxBOTH );
 	fgSizer322->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
+
 	wxFlexGridSizer* fgSizer321;
-	fgSizer321 = new wxFlexGridSizer( 2, 3, 0, 0 );
+
+	fgSizer321 = new wxFlexGridSizer( 5, 3, 0, 0 );
 	fgSizer321->SetFlexibleDirection( wxBOTH );
 	fgSizer321->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	fgSizer321->Add( 0, 40, 1, wxEXPAND, 5 );
@@ -929,308 +977,306 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_panel17->Layout();
 	fgSizer322->Fit( m_panel17 );
 	m_notebook4->AddPage( m_panel17, _("Paths"), false );
-	m_panel24 = new wxPanel( m_notebook4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxBoxSizer* bSizer42;
-	bSizer42 = new wxBoxSizer( wxVERTICAL );
-	
-	m_notebook7 = new wxNotebook( m_panel24, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
-	m_notebook7->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_ACTIVEBORDER ) );
-	
-	m_panel27 = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxBoxSizer* bSizer431;
-	bSizer431 = new wxBoxSizer( wxVERTICAL );
-	
-	wxFlexGridSizer* fgSizer431;
-	fgSizer431 = new wxFlexGridSizer( 0, 3, 0, 0 );
-	fgSizer431->SetFlexibleDirection( wxBOTH );
-	fgSizer431->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	
-	fgSizer431->Add( 150, 50, 1, wxEXPAND, 5 );
-	
-	
-	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	
-	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	
-	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText1381 = new wxStaticText( m_panel27, wxID_ANY, _("Show"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1381->Wrap( -1 );
-	fgSizer431->Add( m_staticText1381, 0, wxALL, 5 );
-	
-	wxFlexGridSizer* fgSizer47;
-	fgSizer47 = new wxFlexGridSizer( 0, 3, 0, 0 );
-	fgSizer47->SetFlexibleDirection( wxBOTH );
-	fgSizer47->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	m_checkBoxKMLRoute = new wxCheckBox( m_panel27, wxID_ANY, _("Route"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxKMLRoute->SetValue(true); 
-	fgSizer47->Add( m_checkBoxKMLRoute, 0, wxALL, 5 );
-	
-	m_checkBoxKMLTrack = new wxCheckBox( m_panel27, wxID_ANY, _("Track"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxKMLTrack->SetValue(true); 
-	fgSizer47->Add( m_checkBoxKMLTrack, 0, wxALL, 5 );
-	
-	fgSizer431->Add( fgSizer47, 1, wxEXPAND, 5 );
-	
-	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText1281 = new wxStaticText( m_panel27, wxID_ANY, _("Set Linewidth to"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1281->Wrap( -1 );
-	fgSizer431->Add( m_staticText1281, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_textCtrlKMLLineWidt = new wxTextCtrl( m_panel27, wxID_ANY, _("4"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
-	fgSizer431->Add( m_textCtrlKMLLineWidt, 0, wxALL, 5 );
-	
-	
-	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText131 = new wxStaticText( m_panel27, wxID_ANY, _("Set Transparency to"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText131->Wrap( -1 );
-	fgSizer431->Add( m_staticText131, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	wxString m_choiceKMLLineTranparencyChoices[] = { _("transparent"), _("solid") };
-	int m_choiceKMLLineTranparencyNChoices = sizeof( m_choiceKMLLineTranparencyChoices ) / sizeof( wxString );
-	m_choiceKMLLineTranparency = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLLineTranparencyNChoices, m_choiceKMLLineTranparencyChoices, 0 );
-	m_choiceKMLLineTranparency->SetSelection( 0 );
-	fgSizer431->Add( m_choiceKMLLineTranparency, 0, wxALL, 5 );
-	
-	
-	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText129 = new wxStaticText( m_panel27, wxID_ANY, _("Set Route-Linecolor to"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText129->Wrap( -1 );
-	fgSizer431->Add( m_staticText129, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	wxString m_choiceKMLRouteLineColoChoices[] = { _("white"), _("black"), _("red"), _("yellow") };
-	int m_choiceKMLRouteLineColoNChoices = sizeof( m_choiceKMLRouteLineColoChoices ) / sizeof( wxString );
-	m_choiceKMLRouteLineColo = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLRouteLineColoNChoices, m_choiceKMLRouteLineColoChoices, 0 );
-	m_choiceKMLRouteLineColo->SetSelection( 0 );
-	fgSizer431->Add( m_choiceKMLRouteLineColo, 0, wxALL, 5 );
-	
-	
-	fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText1291 = new wxStaticText( m_panel27, wxID_ANY, _("Set Track-Linecolor to"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1291->Wrap( -1 );
-	fgSizer431->Add( m_staticText1291, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	wxString m_choiceKMLTrackLineColorChoices[] = { _("white"), _("black"), _("red"), _("yellow") };
-	int m_choiceKMLTrackLineColorNChoices = sizeof( m_choiceKMLTrackLineColorChoices ) / sizeof( wxString );
-	m_choiceKMLTrackLineColor = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLTrackLineColorNChoices, m_choiceKMLTrackLineColorChoices, 0 );
-	m_choiceKMLTrackLineColor->SetSelection( 3 );
-	fgSizer431->Add( m_choiceKMLTrackLineColor, 0, wxALL, 5 );
-	
-	bSizer431->Add( fgSizer431, 1, wxEXPAND, 5 );
-	
-	m_panel27->SetSizer( bSizer431 );
-	m_panel27->Layout();
-	bSizer431->Fit( m_panel27 );
-	m_notebook7->AddPage( m_panel27, _("KML"), true );
-	m_panel28 = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxFlexGridSizer* fgSizer48;
-	fgSizer48 = new wxFlexGridSizer( 0, 2, 0, 0 );
-	fgSizer48->SetFlexibleDirection( wxBOTH );
-	fgSizer48->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	
-	fgSizer48->Add( 100, 50, 1, wxEXPAND, 5 );
-	
-	m_checkBoxUseRPMOnOff = new wxCheckBox( m_panel28, wxID_ANY, _("Use ERRPM-Sentence (see help)"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer48->Add( m_checkBoxUseRPMOnOff, 0, wxALL|wxALIGN_BOTTOM, 5 );
-	
-	
-	fgSizer48->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	wxFlexGridSizer* fgSizer511;
-	fgSizer511 = new wxFlexGridSizer( 0, 3, 0, 0 );
-	fgSizer511->SetFlexibleDirection( wxBOTH );
-	fgSizer511->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	
-	fgSizer511->Add( 20, 0, 0, 0, 5 );
-	
-	m_staticTextRPMSentence = new wxStaticText( m_panel28, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticTextRPMSentence->Wrap( -1 );
-	m_staticTextRPMSentence->Enable( false );
-	
-	fgSizer511->Add( m_staticTextRPMSentence, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_toggleBtnRPMCheck = new wxToggleButton( m_panel28, wxID_ANY, _("Check"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_toggleBtnRPMCheck->Enable( false );
-	m_toggleBtnRPMCheck->SetToolTip( _("Start your engine(s) and hit the button.\nYou should see the ERRPM-Sentence\nleft to the button") );
-	
-	fgSizer511->Add( m_toggleBtnRPMCheck, 0, wxALL, 5 );
-	
-	
-	fgSizer511->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText138 = new wxStaticText( m_panel28, wxID_ANY, _("Engine-No. corresponds with column Engine #1"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText138->Wrap( -1 );
-	m_staticText138->Enable( false );
-	
-	fgSizer511->Add( m_staticText138, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_textCtrlEngine1 = new wxTextCtrl( m_panel28, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
-	m_textCtrlEngine1->Enable( false );
-	
-	fgSizer511->Add( m_textCtrlEngine1, 0, wxALL, 5 );
-	
-	
-	fgSizer511->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_staticText139 = new wxStaticText( m_panel28, wxID_ANY, _("Engine-No. corresponds with column Engine #2"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText139->Wrap( -1 );
-	m_staticText139->Enable( false );
-	
-	fgSizer511->Add( m_staticText139, 0, wxALL, 5 );
-	
-	m_textCtrlEngine2 = new wxTextCtrl( m_panel28, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
-	m_textCtrlEngine2->Enable( false );
-	
-	fgSizer511->Add( m_textCtrlEngine2, 0, wxALL, 5 );
-	
-	
-	fgSizer511->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_checkBoxNMEAUseRPM = new wxCheckBox( m_panel28, wxID_ANY, _("Use ERRPM-Sentence to calculate the engine-hours"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxNMEAUseRPM->Enable( false );
-	
-	fgSizer511->Add( m_checkBoxNMEAUseRPM, 0, wxALL, 5 );
-	
-	fgSizer48->Add( fgSizer511, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	
-	fgSizer48->Add( 0, 0, 1, wxEXPAND, 5 );
-	
-	m_checkBoxNMEAUseWIMDA = new wxCheckBox( m_panel28, wxID_ANY, _("Use WIMDA-Sentence from the weatherstation"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_checkBoxNMEAUseWIMDA->SetToolTip( _("For Barometer, Air Temerature and rel. Humidity") );
-	
-	fgSizer48->Add( m_checkBoxNMEAUseWIMDA, 0, wxALL, 5 );
-	
-	m_panel28->SetSizer( fgSizer48 );
-	m_panel28->Layout();
-	fgSizer48->Fit( m_panel28 );
-	m_notebook7->AddPage( m_panel28, _("NMEA"), true );
-	
-	m_panelSails = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxBoxSizer* bSizer46;
-	bSizer46 = new wxBoxSizer( wxVERTICAL );
 
-	m_panelSailNames = new wxPanel( m_panelSails, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	
-	wxBoxSizer* bSizer461;
-	bSizer461 = new wxBoxSizer( wxVERTICAL );
-	
-	bSizer461->Add( 0, 20, 0, wxEXPAND|wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	m_buttonToSailsSpace = new wxButton( m_panelSailNames, wxID_ANY, _("Checkbox Space  >>"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_buttonToSailsSpace->SetToolTip( _("Usefull for Tablet-PC's") );
-	
-	bSizer461->Add( m_buttonToSailsSpace, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	m_staticText1351 = new wxStaticText( m_panelSailNames, wxID_ANY, _("Abbreviations are shown in the Sails-Checkboxes\nThe Name is used for the column \"Sails\" when added a new entry"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
-	m_staticText1351->Wrap( -1 );
-	bSizer461->Add( m_staticText1351, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	m_gridSailNames = new wxGrid( m_panelSailNames, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
-	
-	// Grid
-	m_gridSailNames->CreateGrid( 14, 2 );
-	m_gridSailNames->EnableEditing( true );
-	m_gridSailNames->EnableGridLines( true );
-	m_gridSailNames->EnableDragGridSize( false );
-	m_gridSailNames->SetMargins( 0, 0 );
-	
-	// Columns
-	m_gridSailNames->SetColSize( 0, 80 );
-	m_gridSailNames->SetColSize( 1, 175 );
-	m_gridSailNames->EnableDragColMove( false );
-	m_gridSailNames->EnableDragColSize( true );
-	m_gridSailNames->SetColLabelSize( 30 );
-	m_gridSailNames->SetColLabelValue( 0, _("Abbreviations") );
-	m_gridSailNames->SetColLabelValue( 1, _("Name") );
-	m_gridSailNames->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Rows
-	m_gridSailNames->EnableDragRowSize( true );
-	m_gridSailNames->SetRowLabelSize( 0 );
-	m_gridSailNames->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
-	// Label Appearance
-	
-	// Cell Defaults
-	m_gridSailNames->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
-	bSizer461->Add( m_gridSailNames, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	m_panelSailNames->SetSizer( bSizer461 );
-	m_panelSailNames->Layout();
-	bSizer461->Fit( m_panelSailNames );
-	bSizer46->Add( m_panelSailNames, 1, wxEXPAND | wxALL, 5 );
-	
-	m_panelSailsCheckbox = new wxPanel( m_panelSails, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	m_panelSailsCheckbox->Hide();
-	wxBoxSizer* bSizer47;
-	bSizer47 = new wxBoxSizer( wxVERTICAL );
-	
-	
-	bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	m_buttonBackToSails = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("<<  Back"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_buttonBackToSails->SetToolTip( _("Back to Sailnames") );
-	
-	bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	bSizer47->Add( m_buttonBackToSails, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	fgSizerSailsCheckboxes = new wxFlexGridSizer( 0, 5, 0, 0 );
-	fgSizerSailsCheckboxes->SetFlexibleDirection( wxBOTH );
-	fgSizerSailsCheckboxes->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	bSizer47->Add( fgSizerSailsCheckboxes, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	wxFlexGridSizer* fgSizer49;
-	fgSizer49 = new wxFlexGridSizer( 0, 5, 0, 0 );
-	fgSizer49->SetFlexibleDirection( wxBOTH );
-	fgSizer49->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	m_buttonSpaceRPlus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Row +"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer49->Add( m_buttonSpaceRPlus, 0, wxALL, 5 );
-	
-	m_buttonSpaceRMinus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Row -"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer49->Add( m_buttonSpaceRMinus, 0, wxALL, 5 );
-	
-	m_buttonSpaceCPlus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Column +"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer49->Add( m_buttonSpaceCPlus, 0, wxALL, 5 );
-	
-	m_buttonSpaceCMinus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Column -"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer49->Add( m_buttonSpaceCMinus, 0, wxALL, 5 );
-	
-	m_buttonSpaceReset = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Reset"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer49->Add( m_buttonSpaceReset, 0, wxALL, 5 );
-	
-	bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	bSizer47->Add( fgSizer49, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
-	
-	m_panelSailsCheckbox->SetSizer( bSizer47 );
-	m_panelSailsCheckbox->Layout();
-	bSizer47->Fit( m_panelSailsCheckbox );
-	bSizer46->Add( m_panelSailsCheckbox, 1, wxEXPAND | wxALL, 5 );
-	
-	m_panelSails->SetSizer( bSizer46 );
-	m_panelSails->Layout();
-	bSizer46->Fit( m_panelSails );
-	m_notebook7->AddPage( m_panelSails, _("Sails"), false );
+    m_panel24 = new wxPanel( m_notebook4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    wxBoxSizer* bSizer42;
+    bSizer42 = new wxBoxSizer( wxVERTICAL );
+
+    m_notebook7 = new wxNotebook( m_panel24, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+    m_notebook7->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_ACTIVEBORDER ) );
+
+    m_panel27 = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    wxBoxSizer* bSizer431;
+    bSizer431 = new wxBoxSizer( wxVERTICAL );
+
+    wxFlexGridSizer* fgSizer431;
+    fgSizer431 = new wxFlexGridSizer( 0, 3, 0, 0 );
+    fgSizer431->SetFlexibleDirection( wxBOTH );
+    fgSizer431->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 
 
-	bSizer42->Add( m_notebook7, 1, wxEXPAND | wxALL, 5 );
-	
-	m_panel24->SetSizer( bSizer42 );
-	m_panel24->Layout();
-	bSizer42->Fit( m_panel24 );
-	m_notebook4->AddPage( m_panel24, _("Miscellaneous"), false );
+    fgSizer431->Add( 150, 50, 1, wxEXPAND, 5 );
+
+
+    fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+
+
+    fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+
+
+    fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+    
+    m_staticText1381 = new wxStaticText( m_panel27, wxID_ANY, _("Show"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText1381->Wrap( -1 );
+    fgSizer431->Add( m_staticText1381, 0, wxALL, 5 );
+
+    wxFlexGridSizer* fgSizer47;
+    fgSizer47 = new wxFlexGridSizer( 0, 3, 0, 0 );
+    fgSizer47->SetFlexibleDirection( wxBOTH );
+    fgSizer47->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+    m_checkBoxKMLRoute = new wxCheckBox( m_panel27, wxID_ANY, _("Route"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_checkBoxKMLRoute->SetValue(true);
+    fgSizer47->Add( m_checkBoxKMLRoute, 0, wxALL, 5 );
+
+    m_checkBoxKMLTrack = new wxCheckBox( m_panel27, wxID_ANY, _("Track"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_checkBoxKMLTrack->SetValue(true);
+    fgSizer47->Add( m_checkBoxKMLTrack, 0, wxALL, 5 );
+
+    fgSizer431->Add( fgSizer47, 1, wxEXPAND, 5 );
+
+    fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    m_staticText1281 = new wxStaticText( m_panel27, wxID_ANY, _("Set Linewidth to"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText1281->Wrap( -1 );
+    fgSizer431->Add( m_staticText1281, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+
+    m_textCtrlKMLLineWidt = new wxTextCtrl( m_panel27, wxID_ANY, _("4"), wxDefaultPosition, wxSize( 40,-1 ), 0 );
+    fgSizer431->Add( m_textCtrlKMLLineWidt, 0, wxALL, 5 );
+
+
+    fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    m_staticText131 = new wxStaticText( m_panel27, wxID_ANY, _("Set Transparency to"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText131->Wrap( -1 );
+    fgSizer431->Add( m_staticText131, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+
+    wxString m_choiceKMLLineTranparencyChoices[] = { _("transparent"), _("solid") };
+    int m_choiceKMLLineTranparencyNChoices = sizeof( m_choiceKMLLineTranparencyChoices ) / sizeof( wxString );
+    m_choiceKMLLineTranparency = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLLineTranparencyNChoices, m_choiceKMLLineTranparencyChoices, 0 );
+    m_choiceKMLLineTranparency->SetSelection( 0 );
+    fgSizer431->Add( m_choiceKMLLineTranparency, 0, wxALL, 5 );
+
+
+    fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    m_staticText129 = new wxStaticText( m_panel27, wxID_ANY, _("Set Route-Linecolor to"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText129->Wrap( -1 );
+    fgSizer431->Add( m_staticText129, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+
+    wxString m_choiceKMLRouteLineColoChoices[] = { _("white"), _("black"), _("red"), _("yellow") };
+    int m_choiceKMLRouteLineColoNChoices = sizeof( m_choiceKMLRouteLineColoChoices ) / sizeof( wxString );
+    m_choiceKMLRouteLineColo = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLRouteLineColoNChoices, m_choiceKMLRouteLineColoChoices, 0 );
+    m_choiceKMLRouteLineColo->SetSelection( 0 );
+    fgSizer431->Add( m_choiceKMLRouteLineColo, 0, wxALL, 5 );
+
+
+    fgSizer431->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    m_staticText1291 = new wxStaticText( m_panel27, wxID_ANY, _("Set Track-Linecolor to"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText1291->Wrap( -1 );
+    fgSizer431->Add( m_staticText1291, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+
+    wxString m_choiceKMLTrackLineColorChoices[] = { _("white"), _("black"), _("red"), _("yellow") };
+    int m_choiceKMLTrackLineColorNChoices = sizeof( m_choiceKMLTrackLineColorChoices ) / sizeof( wxString );
+    m_choiceKMLTrackLineColor = new wxChoice( m_panel27, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceKMLTrackLineColorNChoices, m_choiceKMLTrackLineColorChoices, 0 );
+    m_choiceKMLTrackLineColor->SetSelection( 3 );
+    fgSizer431->Add( m_choiceKMLTrackLineColor, 0, wxALL, 5 );
+
+    bSizer431->Add( fgSizer431, 1, wxEXPAND, 5 );
+
+    m_panel27->SetSizer( bSizer431 );
+    m_panel27->Layout();
+    bSizer431->Fit( m_panel27 );
+    m_notebook7->AddPage( m_panel27, _("KML"), true );
+    m_panel28 = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    wxFlexGridSizer* fgSizer48;
+    fgSizer48 = new wxFlexGridSizer( 0, 2, 0, 0 );
+    fgSizer48->SetFlexibleDirection( wxBOTH );
+    fgSizer48->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+
+    fgSizer48->Add( 100, 50, 1, wxEXPAND, 5 );
+
+    m_checkBoxUseRPMOnOff = new wxCheckBox( m_panel28, wxID_ANY, _("Use ERRPM-Sentence (see help)"), wxDefaultPosition, wxDefaultSize, 0 );
+    fgSizer48->Add( m_checkBoxUseRPMOnOff, 0, wxALL|wxALIGN_BOTTOM, 5 );
+
+
+    fgSizer48->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    wxFlexGridSizer* fgSizer511;
+    fgSizer511 = new wxFlexGridSizer( 0, 3, 0, 0 );
+    fgSizer511->SetFlexibleDirection( wxBOTH );
+    fgSizer511->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+
+    fgSizer511->Add( 20, 0, 0, 0, 5 );
+
+    m_staticTextRPMSentence = new wxStaticText( m_panel28, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticTextRPMSentence->Wrap( -1 );
+    m_staticTextRPMSentence->Enable( false );
+    fgSizer511->Add( m_staticTextRPMSentence, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+ 	
+    m_toggleBtnRPMCheck = new wxToggleButton( m_panel28, wxID_ANY, _("Check"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_toggleBtnRPMCheck->Enable( false );
+    m_toggleBtnRPMCheck->SetToolTip( _("Start your engine(s) and hit the button.\nYou should see the ERRPM-Sentence\nleft to the button") );
+
+    fgSizer511->Add( m_toggleBtnRPMCheck, 0, wxALL, 5 );
+
+    fgSizer511->Add( 0, 0, 1, wxEXPAND, 5 );
+ 	
+    m_staticText138 = new wxStaticText( m_panel28, wxID_ANY, _("Engine-No. corresponds with column Engine #1"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText138->Wrap( -1 );
+    m_staticText138->Enable( false );
+
+    fgSizer511->Add( m_staticText138, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+
+    m_textCtrlEngine1 = new wxTextCtrl( m_panel28, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+    m_textCtrlEngine1->Enable( false );
+
+    fgSizer511->Add( m_textCtrlEngine1, 0, wxALL, 5 );
+
+
+    fgSizer511->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    m_staticText139 = new wxStaticText( m_panel28, wxID_ANY, _("Engine-No. corresponds with column Engine #2"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_staticText139->Wrap( -1 );
+    m_staticText139->Enable( false );
+
+    fgSizer511->Add( m_staticText139, 0, wxALL, 5 );
+
+    m_textCtrlEngine2 = new wxTextCtrl( m_panel28, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+    m_textCtrlEngine2->Enable( false );
+
+    fgSizer511->Add( m_textCtrlEngine2, 0, wxALL, 5 );
+
+
+    fgSizer511->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    m_checkBoxNMEAUseRPM = new wxCheckBox( m_panel28, wxID_ANY, _("Use ERRPM-Sentence to calculate the engine-hours"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_checkBoxNMEAUseRPM->Enable( false );
+
+    fgSizer511->Add( m_checkBoxNMEAUseRPM, 0, wxALL, 5 );
+
+    fgSizer48->Add( fgSizer511, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5 );
+
+    fgSizer48->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    m_checkBoxNMEAUseWIMDA = new wxCheckBox( m_panel28, wxID_ANY, _("Use WIMDA-Sentence from the weatherstation"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_checkBoxNMEAUseWIMDA->SetToolTip( _("For Barometer, Air Temperature and rel. Humidity") );
+
+    fgSizer48->Add( m_checkBoxNMEAUseWIMDA, 0, wxALL, 5 );
+
+    m_panel28->SetSizer( fgSizer48 );
+    m_panel28->Layout();
+    fgSizer48->Fit( m_panel28 );
+    m_notebook7->AddPage( m_panel28, _("NMEA"), true );
+
+    m_panelSails = new wxPanel( m_notebook7, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    wxBoxSizer* bSizer46;
+    bSizer46 = new wxBoxSizer( wxVERTICAL );
+
+    m_panelSailNames = new wxPanel( m_panelSails, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+
+    wxBoxSizer* bSizer461;
+    bSizer461 = new wxBoxSizer( wxVERTICAL );
+
+    bSizer461->Add( 0, 20, 0, wxEXPAND|wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    m_buttonToSailsSpace = new wxButton( m_panelSailNames, wxID_ANY, _("Checkbox Space  >>"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_buttonToSailsSpace->SetToolTip( _("Usefull for Tablet-PC's") );
+
+    bSizer461->Add( m_buttonToSailsSpace, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    m_staticText1351 = new wxStaticText( m_panelSailNames, wxID_ANY, _("Abbreviations are shown in the Sails-Checkboxes\nThe Name is used for the column \"Sails\" when added a new entry"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE );
+    m_staticText1351->Wrap( -1 );
+    bSizer461->Add( m_staticText1351, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    m_gridSailNames = new wxGrid( m_panelSailNames, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
+
+    // Grid
+    m_gridSailNames->CreateGrid( 14, 2 );
+    m_gridSailNames->EnableEditing( true );
+    m_gridSailNames->EnableGridLines( true );
+    m_gridSailNames->EnableDragGridSize( false );
+    m_gridSailNames->SetMargins( 0, 0 );
+
+    // Columns
+    m_gridSailNames->SetColSize( 0, 80 );
+    m_gridSailNames->SetColSize( 1, 175 );
+    m_gridSailNames->EnableDragColMove( false );
+    m_gridSailNames->EnableDragColSize( true );
+    m_gridSailNames->SetColLabelSize( 30 );
+    m_gridSailNames->SetColLabelValue( 0, _("Abbreviations") );
+    m_gridSailNames->SetColLabelValue( 1, _("Name") );
+    m_gridSailNames->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+
+    // Rows
+    m_gridSailNames->EnableDragRowSize( true );
+    m_gridSailNames->SetRowLabelSize( 0 );
+    m_gridSailNames->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+
+    // Label Appearance
+
+    // Cell Defaults
+    m_gridSailNames->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
+    bSizer461->Add( m_gridSailNames, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    m_panelSailNames->SetSizer( bSizer461 );
+    m_panelSailNames->Layout();
+    bSizer461->Fit( m_panelSailNames );
+    bSizer46->Add( m_panelSailNames, 1, wxEXPAND | wxALL, 5 );
+
+    m_panelSailsCheckbox = new wxPanel( m_panelSails, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+    m_panelSailsCheckbox->Hide();
+    wxBoxSizer* bSizer47;
+    bSizer47 = new wxBoxSizer( wxVERTICAL );
+
+
+    bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    m_buttonBackToSails = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("<<  Back"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_buttonBackToSails->SetToolTip( _("Back to Sailnames") );
+
+    bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+    bSizer47->Add( m_buttonBackToSails, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    fgSizerSailsCheckboxes = new wxFlexGridSizer( 0, 5, 0, 0 );
+    fgSizerSailsCheckboxes->SetFlexibleDirection( wxBOTH );
+    fgSizerSailsCheckboxes->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+    bSizer47->Add( fgSizerSailsCheckboxes, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    wxFlexGridSizer* fgSizer49;
+    fgSizer49 = new wxFlexGridSizer( 0, 5, 0, 0 );
+    fgSizer49->SetFlexibleDirection( wxBOTH );
+    fgSizer49->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+    m_buttonSpaceRPlus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Row +"), wxDefaultPosition, wxDefaultSize, 0 );
+    fgSizer49->Add( m_buttonSpaceRPlus, 0, wxALL, 5 );
+
+    m_buttonSpaceRMinus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Row -"), wxDefaultPosition, wxDefaultSize, 0 );
+    fgSizer49->Add( m_buttonSpaceRMinus, 0, wxALL, 5 );
+
+    m_buttonSpaceCPlus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Column +"), wxDefaultPosition, wxDefaultSize, 0 );
+    fgSizer49->Add( m_buttonSpaceCPlus, 0, wxALL, 5 );
+
+    m_buttonSpaceCMinus = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Column -"), wxDefaultPosition, wxDefaultSize, 0 );
+    fgSizer49->Add( m_buttonSpaceCMinus, 0, wxALL, 5 );
+
+    m_buttonSpaceReset = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("Reset"), wxDefaultPosition, wxDefaultSize, 0 );
+    fgSizer49->Add( m_buttonSpaceReset, 0, wxALL, 5 );
+
+    bSizer47->Add( 0, 20, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+    bSizer47->Add( fgSizer49, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+
+    m_panelSailsCheckbox->SetSizer( bSizer47 );
+    m_panelSailsCheckbox->Layout();
+    bSizer47->Fit( m_panelSailsCheckbox );
+    bSizer46->Add( m_panelSailsCheckbox, 1, wxEXPAND | wxALL, 5 );
+
+    m_panelSails->SetSizer( bSizer46 );
+    m_panelSails->Layout();
+    bSizer46->Fit( m_panelSails );
+    m_notebook7->AddPage( m_panelSails, _("Sails"), false );
+
+
+    bSizer42->Add( m_notebook7, 1, wxEXPAND | wxALL, 5 );
+
+    m_panel24->SetSizer( bSizer42 );
+    m_panel24->Layout();
+    bSizer42->Fit( m_panel24 );
+    m_notebook4->AddPage( m_panel24, _("Miscellaneous"), false );
 
 	bSizer29->Add( m_notebook4, 1, wxEXPAND | wxALL, 5 );
 	
@@ -1285,22 +1331,22 @@ LogbookOptions::LogbookOptions( wxWindow* parent, Options* opt, logbookkonni_pi*
 	m_choiceDateFormat->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceDateFormat ), NULL, this );
 	m_textCtrlDateSeparator->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( LogbookOptions::OnTextDateSeparator ), NULL, this );
 	m_sdbSizer1Cancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnCancel ), NULL, this );
-	m_choiceNoEngines->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceNoEngines ), NULL, this );
-	m_toggleBtnRPMCheck->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnToggleButtonRPMCheck ), NULL, this );
-	m_checkBoxUseRPMOnOff->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxUseRPM ), NULL, this );
-	m_buttonToSailsSpace->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonToSailsSpace ), NULL, this );
-	m_buttonBackToSails->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::onButtonBackToSails ), NULL, this );
-	m_buttonSpaceRPlus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRPlus ), NULL, this );
-	m_buttonSpaceRMinus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRMinus ), NULL, this );
-	m_buttonSpaceCPlus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCPlus ), NULL, this );
-	m_buttonSpaceCMinus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCMinus ), NULL, this );
-	m_buttonSpaceReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceReset ), NULL, this );
-	m_checkBoxEngine->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineMessage ), NULL, this );
-	m_checkBoxEngineRunning->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineRunning ), NULL, this );
+    m_choiceNoEngines->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceNoEngines ), NULL, this );
+    m_toggleBtnRPMCheck->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnToggleButtonRPMCheck ), NULL, this );
+    m_checkBoxUseRPMOnOff->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxUseRPM ), NULL, this );
+    m_buttonToSailsSpace->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonToSailsSpace ), NULL, this );
+    m_buttonBackToSails->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::onButtonBackToSails ), NULL, this );
+    m_buttonSpaceRPlus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRPlus ), NULL, this );
+    m_buttonSpaceRMinus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRMinus ), NULL, this );
+    m_buttonSpaceCPlus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCPlus ), NULL, this );
+    m_buttonSpaceCMinus->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCMinus ), NULL, this );
+    m_buttonSpaceReset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceReset ), NULL, this );
+    m_checkBoxEngine->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineMessage ), NULL, this );
+    m_checkBoxEngineRunning->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineRunning ), NULL, this );
 
 
 
-	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( LogbookOptions::OnClose ) );
+    this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( LogbookOptions::OnClose ) );
 
 	init();
 }
@@ -1345,18 +1391,18 @@ LogbookOptions::~LogbookOptions()
 	m_choiceDateFormat->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceDateFormat ), NULL, this );
 	m_textCtrlDateSeparator->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( LogbookOptions::OnTextDateSeparator ), NULL, this );
 	m_sdbSizer1Cancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnCancel ), NULL, this );
-	m_choiceNoEngines->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceNoEngines ), NULL, this );
-	m_toggleBtnRPMCheck->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnToggleButtonRPMCheck ), NULL, this );
-	m_checkBoxUseRPMOnOff->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxUseRPM ), NULL, this );
-	m_buttonToSailsSpace->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonToSailsSpace ), NULL, this );
-	m_buttonBackToSails->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::onButtonBackToSails ), NULL, this );
-	m_buttonSpaceRPlus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRPlus ), NULL, this );
-	m_buttonSpaceRMinus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRMinus ), NULL, this );
-	m_buttonSpaceCPlus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCPlus ), NULL, this );
-	m_buttonSpaceCMinus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCMinus ), NULL, this );
-	m_buttonSpaceReset->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceReset ), NULL, this );
-	m_checkBoxEngine->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineMessage ), NULL, this );
-	m_checkBoxEngineRunning->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineRunning ), NULL, this );
+    m_choiceNoEngines->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( LogbookOptions::OnChoiceNoEngines ), NULL, this );
+    m_toggleBtnRPMCheck->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnToggleButtonRPMCheck ), NULL, this );
+    m_checkBoxUseRPMOnOff->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxUseRPM ), NULL, this );
+    m_buttonToSailsSpace->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonToSailsSpace ), NULL, this );
+    m_buttonBackToSails->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::onButtonBackToSails ), NULL, this );
+    m_buttonSpaceRPlus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRPlus ), NULL, this );
+    m_buttonSpaceRMinus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceRMinus ), NULL, this );
+    m_buttonSpaceCPlus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCPlus ), NULL, this );
+    m_buttonSpaceCMinus->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceCMinus ), NULL, this );
+    m_buttonSpaceReset->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( LogbookOptions::OnButtonSpaceReset ), NULL, this );
+    m_checkBoxEngine->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineMessage ), NULL, this );
+    m_checkBoxEngineRunning->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( LogbookOptions::OnCheckBoxEngineRunning ), NULL, this );
 
 
 
@@ -1436,8 +1482,7 @@ void LogbookOptions::init()
 		}
 			
 	}
-
-	setUseRPM(opt->bRPMIsChecked);
+    setUseRPM(opt->bRPMIsChecked);
 }
 
 void LogbookOptions::resetToOldDateTimeFormat()
@@ -1468,181 +1513,181 @@ void LogbookOptions::OnCheckBoxEngineMessage( wxCommandEvent& event )
 
 void LogbookOptions::OnButtonToSailsSpace( wxCommandEvent& event )
 {
-	m_panelSailNames->Hide();
-	wxCheckBox* checkboxSails[14];
-	fgSizerSailsCheckboxes->Clear(true);
-	m_panelSails->Layout();
-	m_panelSailsCheckbox->Show();
-	for(unsigned int i = 0; i < 14; i++)
-	{
-		checkboxSails[i] = new wxCheckBox( m_panelSailsCheckbox, wxID_ANY,opt->abrSails.Item(i) , wxDefaultPosition, wxDefaultSize, 0 );
-		checkboxSails[i]->SetValue( opt->bSailIsChecked[i] );
-		checkboxSails[i]->SetToolTip( opt->sailsName.Item(i) );
+    m_panelSailNames->Hide();
+    wxCheckBox* checkboxSails[14];
+    fgSizerSailsCheckboxes->Clear(true);
+    m_panelSails->Layout();
+    m_panelSailsCheckbox->Show();
+    for(unsigned int i = 0; i < 14; i++)
+    {
+        checkboxSails[i] = new wxCheckBox( m_panelSailsCheckbox, wxID_ANY,opt->abrSails.Item(i) , wxDefaultPosition, wxDefaultSize, 0 );
+        checkboxSails[i]->SetValue( opt->bSailIsChecked[i] );
+        checkboxSails[i]->SetToolTip( opt->sailsName.Item(i) );
 
-		fgSizerSailsCheckboxes->Add( checkboxSails[i] , 0, 0, 5 );
-	}
-	wxButton* m_buttonSailsReset = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("none"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_buttonSailsReset->SetToolTip(_("Reset"));
-	m_buttonSailsReset->SetMinSize( wxSize( 40,15 ) );
+        fgSizerSailsCheckboxes->Add( checkboxSails[i] , 0, 0, 5 );
+    }
+    wxButton* m_buttonSailsReset = new wxButton( m_panelSailsCheckbox, wxID_ANY, _("none"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_buttonSailsReset->SetToolTip(_("Reset"));
+    m_buttonSailsReset->SetMinSize( wxSize( 40,15 ) );
 
-	fgSizerSailsCheckboxes->Add( m_buttonSailsReset, 0, 0, 5 );
+    fgSizerSailsCheckboxes->Add( m_buttonSailsReset, 0, 0, 5 );
 
-	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
-	fgSizerSailsCheckboxes->SetHGap(opt->colGap);
-	m_panelSailsCheckbox->Fit();
-	m_panelSails->Layout();
+    fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+    fgSizerSailsCheckboxes->SetHGap(opt->colGap);
+    m_panelSailsCheckbox->Fit();
+    m_panelSails->Layout();
 }
 
 void LogbookOptions::onButtonBackToSails( wxCommandEvent& event )
 {
-	this->m_panelSailsCheckbox->Hide();
-	this->m_panelSailNames->Show();
+    this->m_panelSailsCheckbox->Hide();
+    this->m_panelSailNames->Show();
 }
 
 void LogbookOptions::OnButtonSpaceRPlus( wxCommandEvent& event )
 {
-	opt->rowGap +=5;
-	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
-	m_panelSailsCheckbox->Fit();
-	m_panelSails->Layout();
+    opt->rowGap +=5;
+    fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+    m_panelSailsCheckbox->Fit();
+    m_panelSails->Layout();
 }
 
 void LogbookOptions::OnButtonSpaceRMinus( wxCommandEvent& event )
 {
-	opt->rowGap -=5;
-	if(opt->rowGap <= 0) opt->rowGap = 0;
-	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
-	m_panelSailsCheckbox->Fit();
-	m_panelSails->Layout();
+    opt->rowGap -=5;
+    if(opt->rowGap <= 0) opt->rowGap = 0;
+    fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+    m_panelSailsCheckbox->Fit();
+    m_panelSails->Layout();
 }
 
 void LogbookOptions::OnButtonSpaceCPlus( wxCommandEvent& event )
 {
-	opt->colGap +=5;
-	fgSizerSailsCheckboxes->SetHGap(opt->colGap);
-	m_panelSailsCheckbox->Fit();
-	m_panelSails->Layout();
+    opt->colGap +=5;
+    fgSizerSailsCheckboxes->SetHGap(opt->colGap);
+    m_panelSailsCheckbox->Fit();
+    m_panelSails->Layout();
 }
 
 void LogbookOptions::OnButtonSpaceCMinus( wxCommandEvent& event )
 {
-	opt->colGap -=5;
-	if(opt->colGap <= 0) opt->colGap = 0;
-	fgSizerSailsCheckboxes->SetHGap(opt->colGap);
-	m_panelSailsCheckbox->Fit();
-	m_panelSails->Layout();
+    opt->colGap -=5;
+    if(opt->colGap <= 0) opt->colGap = 0;
+    fgSizerSailsCheckboxes->SetHGap(opt->colGap);
+    m_panelSailsCheckbox->Fit();
+    m_panelSails->Layout();
 }
 
 void LogbookOptions::OnButtonSpaceReset( wxCommandEvent& event )
 {
-	opt->rowGap = 0;
-	opt->colGap = 0;
-	fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
-	fgSizerSailsCheckboxes->SetHGap(opt->rowGap);
-	m_panelSailsCheckbox->Fit();
-	m_panelSails->Layout();
+    opt->rowGap = 0;
+    opt->colGap = 0;
+    fgSizerSailsCheckboxes->SetVGap(opt->rowGap);
+    fgSizerSailsCheckboxes->SetHGap(opt->rowGap);
+    m_panelSailsCheckbox->Fit();
+    m_panelSails->Layout();
 
 }
 
 void LogbookOptions::OnCheckBoxUseRPM( wxCommandEvent& event )
 {
-	if(log_pi->m_plogbook_window)
-		if((log_pi->m_plogbook_window->logbook->engine1Manual && opt->engine1Running) || 
-			(log_pi->m_plogbook_window->logbook->engine1Manual && opt->engine2Running))
-		{
-			log_pi->m_plogbook_window->logbook->resetEngineManuallMode();
-			wxMessageBox(_("Your Engine(s) running in manually mode.\n\nEngine(s) stopped now."),_("Information"));
-		}
-	opt->bRPMIsChecked = event.IsChecked();
-	setUseRPM(opt->bRPMIsChecked);
+    if(log_pi->m_plogbook_window)
+        if((log_pi->m_plogbook_window->logbook->engine1Manual && opt->engine1Running) ||
+            (log_pi->m_plogbook_window->logbook->engine1Manual && opt->engine2Running))
+        {
+            log_pi->m_plogbook_window->logbook->resetEngineManuallMode();
+            wxMessageBox(_("Your Engine(s) running in manually mode.\n\nEngine(s) stopped now."),_("Information"));
+        }
+    opt->bRPMIsChecked = event.IsChecked();
+    setUseRPM(opt->bRPMIsChecked);
 }
 
 void LogbookOptions::setUseRPM(bool bIsChecked)
 {
-	opt->toggleEngine1 = false;
-	opt->toggleEngine2 = false;
+    opt->toggleEngine1 = false;
+    opt->toggleEngine2 = false;
 
-	if(opt->engines == 0 && bIsChecked)
-	{
-		m_staticText138->Enable(true);
-		m_textCtrlEngine1->Enable(true);
-		m_staticText139->Enable(false);
-		m_textCtrlEngine2->Enable(false);
-		m_checkBoxNMEAUseRPM->Enable(true);
-		m_toggleBtnRPMCheck->Enable(true);
+    if(opt->engines == 0 && bIsChecked)
+    {
+        m_staticText138->Enable(true);
+        m_textCtrlEngine1->Enable(true);
+        m_staticText139->Enable(false);
+        m_textCtrlEngine2->Enable(false);
+        m_checkBoxNMEAUseRPM->Enable(true);
+        m_toggleBtnRPMCheck->Enable(true);
 
-		if(log_pi->m_plogbook_window)
-		{
-			log_pi->m_plogbook_window->m_toggleBtnEngine1->Enable(false);
-			log_pi->m_plogbook_window->m_toggleBtnEngine2->Enable(false);
-			log_pi->m_plogbook_window->logbook->engine1Manual = false;
-			log_pi->m_plogbook_window->logbook->bRPM1 = false;
-		}
-	}
-	else if(opt->engines ==  1 && bIsChecked)
-	{
-		m_staticText138->Enable(true);
-		m_textCtrlEngine1->Enable(true);
-		m_staticText139->Enable(true);
-		m_textCtrlEngine2->Enable(true);
-		m_checkBoxNMEAUseRPM->Enable(true);
-		m_toggleBtnRPMCheck->Enable(true);
-		if(log_pi->m_plogbook_window)
-		{
-			log_pi->m_plogbook_window->m_toggleBtnEngine1->Enable(false);
-			log_pi->m_plogbook_window->m_toggleBtnEngine2->Enable(false);
-			log_pi->m_plogbook_window->logbook->engine2Manual = false;
-			log_pi->m_plogbook_window->logbook->bRPM2 = false;
-		}
-	}
-	else
-	{
-		m_staticText138->Enable(false);
-		this->m_textCtrlEngine1->Enable(false);
-		m_staticText139->Enable(false);
-		this->m_textCtrlEngine2->Enable(false);
-		m_checkBoxNMEAUseRPM->Enable(false);
-		m_toggleBtnRPMCheck->Enable(false);
-	
-		if(log_pi->m_plogbook_window)
-		{
-			log_pi->m_plogbook_window->m_toggleBtnEngine1->Enable(true);
-			if(opt->engines == 1)
-				log_pi->m_plogbook_window->m_toggleBtnEngine2->Enable(true);
-			log_pi->m_plogbook_window->logbook->engine1Manual = true;
-			log_pi->m_plogbook_window->logbook->engine2Manual = true;
-			log_pi->m_plogbook_window->logbook->bRPM1 = false;
-			log_pi->m_plogbook_window->logbook->bRPM2 = false;
-		}
-	}
+        if(log_pi->m_plogbook_window)
+        {
+            log_pi->m_plogbook_window->m_toggleBtnEngine1->Enable(false);
+            log_pi->m_plogbook_window->m_toggleBtnEngine2->Enable(false);
+            log_pi->m_plogbook_window->logbook->engine1Manual = false;
+            log_pi->m_plogbook_window->logbook->bRPM1 = false;
+        }
+    }
+    else if(opt->engines ==  1 && bIsChecked)
+    {
+        m_staticText138->Enable(true);
+        m_textCtrlEngine1->Enable(true);
+        m_staticText139->Enable(true);
+        m_textCtrlEngine2->Enable(true);
+        m_checkBoxNMEAUseRPM->Enable(true);
+        m_toggleBtnRPMCheck->Enable(true);
+        if(log_pi->m_plogbook_window)
+        {
+            log_pi->m_plogbook_window->m_toggleBtnEngine1->Enable(false);
+            log_pi->m_plogbook_window->m_toggleBtnEngine2->Enable(false);
+            log_pi->m_plogbook_window->logbook->engine2Manual = false;
+            log_pi->m_plogbook_window->logbook->bRPM2 = false;
+        }
+    }
+    else
+    {
+        m_staticText138->Enable(false);
+        this->m_textCtrlEngine1->Enable(false);
+        m_staticText139->Enable(false);
+        this->m_textCtrlEngine2->Enable(false);
+        m_checkBoxNMEAUseRPM->Enable(false);
+        m_toggleBtnRPMCheck->Enable(false);
+
+        if(log_pi->m_plogbook_window)
+        {
+            log_pi->m_plogbook_window->m_toggleBtnEngine1->Enable(true);
+            if(opt->engines == 1)
+                log_pi->m_plogbook_window->m_toggleBtnEngine2->Enable(true);
+                log_pi->m_plogbook_window->logbook->engine1Manual = true;
+                log_pi->m_plogbook_window->logbook->engine2Manual = true;
+                log_pi->m_plogbook_window->logbook->bRPM1 = false;
+                log_pi->m_plogbook_window->logbook->bRPM2 = false;
+        }
+    }
 }
 
 void LogbookOptions::OnToggleButtonRPMCheck( wxCommandEvent& event )
 {
-	log_pi->startLogbook();
-	opt->bRPMCheck = event.IsChecked();
-	m_staticTextRPMSentence->Enable(event.IsChecked());
+    log_pi->startLogbook();
+    opt->bRPMCheck = event.IsChecked();
+    m_staticTextRPMSentence->Enable(event.IsChecked());
 }
 
 void LogbookOptions::setRPMSentence(wxString sentence)
 {
-	static wxString e1 = wxEmptyString, e2 = wxEmptyString;
-	m_staticTextRPMSentence->SetLabel(sentence);
+    static wxString e1 = wxEmptyString, e2 = wxEmptyString;
+    m_staticTextRPMSentence->SetLabel(sentence);
 
-	wxStringTokenizer tkz(sentence,_T(","));
-	tkz.GetNextToken();
-	wxString source = tkz.GetNextToken();
-	wxString t = tkz.GetNextToken();
+    wxStringTokenizer tkz(sentence,_T(","));
+    tkz.GetNextToken();
+    wxString source = tkz.GetNextToken();
+    wxString t = tkz.GetNextToken();
 
-	if(e1.IsEmpty())
-		e1 = t;
-	if(e2.IsEmpty() && t != e1)
-		e2 = t;
+    if(e1.IsEmpty())
+        e1 = t;
+    if(e2.IsEmpty() && t != e1)
+        e2 = t;
 
-	m_textCtrlEngine1->SetValue(e1);
-	m_textCtrlEngine2->SetValue(e2);
-	if(source == _T("E"))
-		m_checkBoxNMEAUseRPM->SetValue(true);
+    m_textCtrlEngine1->SetValue(e1);
+    m_textCtrlEngine2->SetValue(e2);
+    if(source == _T("E"))
+        m_checkBoxNMEAUseRPM->SetValue(true);
 }
 
 void LogbookOptions::OnCancel( wxCommandEvent& event )
@@ -1654,7 +1699,7 @@ void LogbookOptions::OnCancel( wxCommandEvent& event )
 void LogbookOptions::OnClose( wxCloseEvent& event )
 {
 	resetToOldDateTimeFormat();
-	opt->bRPMCheck = false;
+    opt->bRPMCheck = false;
 	event.Skip();
 }
 
@@ -1693,6 +1738,7 @@ void LogbookOptions::OnChoiceDate1( wxCommandEvent& event )
 	 opt->date1 = sel;
 	 opt->setDateFormat();
 	 m_staticTextDate->SetLabel(sample.Format(opt->sdateformat));
+     //m_staticTextTime->SetLabel(sample.Format(opt->sdateformat));
 	 modified = true;
 }
 
@@ -1703,6 +1749,7 @@ void LogbookOptions::OnChoiceDate2( wxCommandEvent& event )
 	 opt->date2 = sel;
 	 opt->setDateFormat();
 	 m_staticTextDate->SetLabel(sample.Format(opt->sdateformat));
+    // m_staticTextTime->SetLabel(sample.Format(opt->sdateformat));
 	 modified = true;
 }
 
@@ -1713,6 +1760,7 @@ void LogbookOptions::OnChoiceDate3( wxCommandEvent& event )
 	 opt->date3 = sel;
 	 opt->setDateFormat();
 	 m_staticTextDate->SetLabel(sample.Format(opt->sdateformat));
+    // m_staticTextTime->SetLabel(sample.Format(opt->sdateformat));
 	 modified = true;
 }
 
@@ -1721,6 +1769,7 @@ void LogbookOptions::OnTextDateSeparator( wxCommandEvent& event )
 	 opt->dateseparatorindiv = event.GetString();
 	 opt->setDateFormat();
 	 m_staticTextDate->SetLabel(sample.Format(opt->sdateformat));
+    // m_staticTextTime->SetLabel(sample.Format(opt->sdateformat));
 	 modified = true;
 }
 
@@ -1805,16 +1854,16 @@ void LogbookOptions::OnButtonOKClick(wxCommandEvent &ev)
 	LogbookDialog* dlg = log_pi->m_plogbook_window;
 
 	if(dlg)
-	{
-		dlg->setSailsGap();
-		dlg->setToNumberEngine();
-		dlg->setCheckboxLabels();
-		dlg->setAbbreviations();
-	}
+    {
+        dlg->setSailsGap();
+        dlg->setToNumberEngine();
+        dlg->setCheckboxLabels();
+        dlg->setAbbreviations();
+    }
 
-	setUseRPM(opt->bRPMIsChecked);
+    setUseRPM(opt->bRPMIsChecked);
 
-	wxString newPattern = LogbookDialog::datePattern;
+    wxString newPattern = LogbookDialog::datePattern;
 	wxString newDateFormat = opt->sdateformat;
 	LogbookDialog::datePattern = oldPattern;
 	opt->sdateformat = oldDateFormat;
@@ -1853,7 +1902,13 @@ void LogbookOptions::OnButtonOKClick(wxCommandEvent &ev)
 		dlg->logbook->clearAllGrids();
 		dlg->logbook->loadData();
 
-		dlg->m_textCtrlWatchStartDate->SetValue(textCtrlDate.Format(opt->sdateformat));
+		LogbookDialog::datePattern = oldPattern;
+		wxDateTime dt;
+		dlg->myParseTime(dlg->m_textCtrlWatchStartTime->GetValue(),dt);
+		dlg->m_textCtrlWatchStartTime->SetValue(dt.Format(opt->stimeformat));
+		dlg->myParseDate(dlg->m_textCtrlWatchStartDate->GetValue(),dt);
+		dlg->m_textCtrlWatchStartDate->SetValue(dt.Format(opt->sdateformat));
+		LogbookDialog::datePattern = newPattern;
 
 		if(dlg->crewList->getDayOne(1) != -1)
 			dlg->crewList->dayNow(false);
@@ -1910,7 +1965,7 @@ void LogbookOptions::setValues()
 
 	m_choiceTimeFormat->Select(opt->timeformat);
 	m_checkBoxNoSeconds->SetValue(opt->noseconds);
-	m_choiceNoEngines->SetSelection(opt->engines);
+    m_choiceNoEngines->SetSelection(opt->engines);
 
 	m_textCtrlTankFuel->SetValue(opt->fuelTank+_T(" ")+opt->vol);
 	m_textCtrlTankWater->SetValue(opt->waterTank+_T(" ")+opt->vol);
@@ -1943,10 +1998,9 @@ void LogbookOptions::setValues()
 
 	m_sLiter->SetValue(opt->vol);
 	m_sMotorh->SetValue(opt->motorh);
-	m_textCtrlEngine->SetValue(opt->engine);
-	m_textCtrlPropShaft->SetValue(opt->shaft);
-	m_textCtrRPM->SetValue(opt->rpm);
-	m_checkBoxSailsDown->SetValue(opt->engineAllwaysSailsDown);
+    m_textCtrlEngine->SetValue(opt->engine);
+    m_textCtrlPropShaft->SetValue(opt->shaft);
+    m_textCtrRPM->SetValue(opt->rpm);
 
 	m_textCtrlAmpere->SetValue(opt->ampere);
 
@@ -1989,34 +2043,35 @@ void LogbookOptions::setValues()
 	m_choiceTzHours->SetSelection(opt->tzHour);
 
 	m_checkBoxNoGPS->SetValue(opt->noGPS);
-	m_checkBoxEngine->SetValue(opt->engineMessageSails);
-	m_checkBoxEngineRunning->SetValue(opt->engineMessageRunning);
+    m_checkBoxEngine->SetValue(opt->engineMessageSails);
+    m_checkBoxEngineRunning->SetValue(opt->engineMessageRunning);
+	m_checkBoxSailsDown->SetValue(opt->engineAllwaysSailsDown);
 
-	m_checkBoxKMLRoute->SetValue((opt->kmlRoute)?true:false);
-	m_checkBoxKMLTrack->SetValue((opt->kmlTrack)?true:false);
-	m_textCtrlKMLLineWidt->SetValue(opt->kmlLineWidth);
-	m_choiceKMLLineTranparency->SetSelection(opt->kmlLineTransparancy);
-	m_choiceKMLRouteLineColo->SetSelection(opt->kmlRouteColor);
-	m_choiceKMLTrackLineColor->SetSelection(opt->kmlTrackColor);
+    m_checkBoxKMLRoute->SetValue((opt->kmlRoute)?true:false);
+    m_checkBoxKMLTrack->SetValue((opt->kmlTrack)?true:false);
+    m_textCtrlKMLLineWidt->SetValue(opt->kmlLineWidth);
+    m_choiceKMLLineTranparency->SetSelection(opt->kmlLineTransparancy);
+    m_choiceKMLRouteLineColo->SetSelection(opt->kmlRouteColor);
+    m_choiceKMLTrackLineColor->SetSelection(opt->kmlTrackColor);
 
-	m_checkBoxUseRPMOnOff->SetValue(opt->bRPMIsChecked);
-	m_textCtrlEngine1->SetValue(opt->engine1);
-	m_textCtrlEngine2->SetValue(opt->engine2);
-	m_checkBoxNMEAUseRPM->SetValue(opt->NMEAUseERRPM);
-	m_checkBoxNMEAUseWIMDA->SetValue(opt->NMEAUseWIMDA);
+    m_checkBoxUseRPMOnOff->SetValue(opt->bRPMIsChecked);
+    m_textCtrlEngine1->SetValue(opt->engine1);
+    m_textCtrlEngine2->SetValue(opt->engine2);
+    m_checkBoxNMEAUseRPM->SetValue(opt->NMEAUseERRPM);
+    m_checkBoxNMEAUseWIMDA->SetValue(opt->NMEAUseWIMDA);
 
 	int row = 0;
-	for(unsigned int col = 0; col < opt->abrSails.Count(); col++)
-	{
-		m_gridSailNames->SetCellValue(row,0,opt->abrSails.Item(col));
-		m_gridSailNames->SetCellValue(row++,1,opt->sailsName.Item(col));
-	}
+    for(unsigned int col = 0; col < opt->abrSails.Count(); col++)
+    {
+        m_gridSailNames->SetCellValue(row,0,opt->abrSails.Item(col));
+        m_gridSailNames->SetCellValue(row++,1,opt->sailsName.Item(col));
+    }
 }
 
 void LogbookOptions::OnChoiceNoEngines( wxCommandEvent& event )
 {
-	opt->engines = m_choiceNoEngines->GetSelection();
-	setUseRPM(opt->bRPMIsChecked);
+    opt->engines = m_choiceNoEngines->GetSelection();
+    setUseRPM(opt->bRPMIsChecked);
 }
 
 void LogbookOptions::getValues()
@@ -2029,7 +2084,7 @@ void LogbookOptions::getValues()
 	opt->date1 = m_choiceDate1->GetSelection();
 	opt->date2 = m_choiceDate2->GetSelection();
 	opt->date3 = m_choiceDate3->GetSelection();
-	opt->engines = m_choiceNoEngines->GetSelection();
+    opt->engines = m_choiceNoEngines->GetSelection();
 
 	opt->timeformat = m_choiceTimeFormat->GetSelection();
 	opt->noseconds = m_checkBoxNoSeconds->GetValue();
@@ -2074,9 +2129,9 @@ void LogbookOptions::getValues()
 
 	opt->vol    = m_sLiter->GetValue();
 	opt->motorh = m_sMotorh->GetValue();
-	opt->engine = m_textCtrlEngine->GetValue();
-	opt->shaft = m_textCtrlPropShaft->GetValue();
-	opt->rpm = m_textCtrRPM->GetValue();
+    opt->engine = m_textCtrlEngine->GetValue();
+    opt->shaft = m_textCtrlPropShaft->GetValue();
+    opt->rpm = m_textCtrRPM->GetValue();
 	opt->ampere = m_textCtrlAmpere->GetValue();
 
 	opt->days = m_Days->GetValue();
@@ -2115,31 +2170,31 @@ void LogbookOptions::getValues()
 	opt->tzIndicator = m_choiceTzIndicator->GetSelection();
 	opt->tzHour = m_choiceTzHours->GetSelection();
 	opt->noGPS = m_checkBoxNoGPS->GetValue();
-	opt->engineMessageSails = m_checkBoxEngine->GetValue();
-	opt->engineMessageRunning = m_checkBoxEngineRunning->GetValue();
-	opt->engineAllwaysSailsDown = m_checkBoxSailsDown->GetValue();
+    opt->engineMessageSails = m_checkBoxEngine->GetValue();
+    opt->engineMessageRunning = m_checkBoxEngineRunning->GetValue();
+    opt->engineAllwaysSailsDown = m_checkBoxSailsDown->GetValue();
 
-	opt->kmlRoute = m_checkBoxKMLRoute->GetValue();
-	opt->kmlTrack = m_checkBoxKMLTrack->GetValue();
-	opt->kmlLineWidth = m_textCtrlKMLLineWidt->GetValue();
-	opt->kmlLineTransparancy = m_choiceKMLLineTranparency->GetSelection();
-	opt->kmlRouteColor = m_choiceKMLRouteLineColo->GetSelection();
-	opt->kmlTrackColor = m_choiceKMLTrackLineColor->GetSelection();
+    opt->kmlRoute = m_checkBoxKMLRoute->GetValue();
+    opt->kmlTrack = m_checkBoxKMLTrack->GetValue();
+    opt->kmlLineWidth = m_textCtrlKMLLineWidt->GetValue();
+    opt->kmlLineTransparancy = m_choiceKMLLineTranparency->GetSelection();
+    opt->kmlRouteColor = m_choiceKMLRouteLineColo->GetSelection();
+    opt->kmlTrackColor = m_choiceKMLTrackLineColor->GetSelection();
 
-	opt->engine1 = m_textCtrlEngine1->GetValue();
-	opt->engine2 = m_textCtrlEngine2->GetValue();
-	opt->bRPMIsChecked= m_checkBoxUseRPMOnOff->GetValue();
-	opt->NMEAUseERRPM = m_checkBoxNMEAUseRPM->GetValue();
-	opt->NMEAUseWIMDA = m_checkBoxNMEAUseWIMDA->GetValue();
+    opt->engine1 = m_textCtrlEngine1->GetValue();
+    opt->engine2 = m_textCtrlEngine2->GetValue();
+    opt->bRPMIsChecked= m_checkBoxUseRPMOnOff->GetValue();
+    opt->NMEAUseERRPM = m_checkBoxNMEAUseRPM->GetValue();
+    opt->NMEAUseWIMDA = m_checkBoxNMEAUseWIMDA->GetValue();
 
-	int row = 0;
-	opt->abrSails.Clear();
-	opt->sailsName.Clear();
-	for(int row = 0; row < m_gridSailNames->GetNumberRows(); row++)
-	{
-			opt->abrSails.Add(m_gridSailNames->GetCellValue(row,0));
-			opt->sailsName.Add(m_gridSailNames->GetCellValue(row,1));
-	}
+    //int row = 0;
+    opt->abrSails.Clear();
+    opt->sailsName.Clear();
+    for(int row = 0; row < m_gridSailNames->GetNumberRows(); row++)
+    {
+        opt->abrSails.Add(m_gridSailNames->GetCellValue(row,0));
+        opt->sailsName.Add(m_gridSailNames->GetCellValue(row,1));
+    }
 }
 
 void LogbookOptions::onRadioBtnUTC( wxCommandEvent& ev )
@@ -2351,7 +2406,6 @@ void LogbookOptions::onCheckBoNoGPS( wxCommandEvent& event )
 	opt->noGPS = m_checkBoxNoGPS->GetValue();
 }
 
-
 void LogbookOptions::updateChoiceBoxes()
 {
 	LogbookDialog *dialog = log_pi->m_plogbook_window;
@@ -2359,12 +2413,12 @@ void LogbookOptions::updateChoiceBoxes()
 	if(dialog != NULL)
 	{
 		dialog->loadLayoutChoice(LogbookDialog::LOGBOOK,dialog->logbook->layout_locn, dialog->logbookChoice,opt->layoutPrefix[LogbookDialog::LOGBOOK]);
-		dialog->loadLayoutChoice(LogbookDialog::OVERVIEW,dialog->overview->layout_locn, dialog->overviewChoice,opt->layoutPrefix[LogbookDialog::OVERVIEW]);
-		dialog->loadLayoutChoice(LogbookDialog::CREW,dialog->crewList->layout_locn, dialog->crewChoice,opt->layoutPrefix[LogbookDialog::CREW]);
-		dialog->loadLayoutChoice(LogbookDialog::BOAT,dialog->boat->layout_locn, dialog->boatChoice,opt->layoutPrefix[LogbookDialog::BOAT]);
-		dialog->loadLayoutChoice(LogbookDialog::GSERVICE,dialog->maintenance->layout_locnService, dialog->m_choiceSelectLayoutService,opt->layoutPrefix[LogbookDialog::GSERVICE]);
-		dialog->loadLayoutChoice(LogbookDialog::GREPAIRS,dialog->maintenance->layout_locnRepairs, dialog->m_choiceSelectLayoutRepairs,opt->layoutPrefix[LogbookDialog::GREPAIRS]);
-		dialog->loadLayoutChoice(LogbookDialog::GBUYPARTS,dialog->maintenance->layout_locnBuyParts, dialog->m_choiceSelectLayoutBuyParts,opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
+        dialog->loadLayoutChoice(LogbookDialog::OVERVIEW,dialog->overview->layout_locn, dialog->overviewChoice,opt->layoutPrefix[LogbookDialog::OVERVIEW]);
+        dialog->loadLayoutChoice(LogbookDialog::CREW,dialog->crewList->layout_locn, dialog->crewChoice,opt->layoutPrefix[LogbookDialog::CREW]);
+        dialog->loadLayoutChoice(LogbookDialog::BOAT,dialog->boat->layout_locn, dialog->boatChoice,opt->layoutPrefix[LogbookDialog::BOAT]);
+        dialog->loadLayoutChoice(LogbookDialog::GSERVICE,dialog->maintenance->layout_locnService, dialog->m_choiceSelectLayoutService,opt->layoutPrefix[LogbookDialog::GSERVICE]);
+        dialog->loadLayoutChoice(LogbookDialog::GREPAIRS,dialog->maintenance->layout_locnRepairs, dialog->m_choiceSelectLayoutRepairs,opt->layoutPrefix[LogbookDialog::GREPAIRS]);
+        dialog->loadLayoutChoice(LogbookDialog::GBUYPARTS,dialog->maintenance->layout_locnBuyParts, dialog->m_choiceSelectLayoutBuyParts,opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 	}
 }
 

@@ -3,13 +3,12 @@
 #endif
 
 #include "Maintenance.h"
-#include "FastComboEditor.h"
-#include "GridCellChoiceRenderer.h"
 #include "LogbookDialog.h"
 #include "logbook_pi.h"
 #include "Logbook.h"
 #include "Options.h"
 #include "Export.h"
+#include "CrewList.h"
 
 #include <wx/tokenzr.h>
 #include <wx/filename.h> 
@@ -20,9 +19,6 @@
 #include <wx/generic/gridctrl.h>
 #include <wx/datetime.h>
 
-
-//#include <memory>
-//using namespace std;
 
 Maintenance::Maintenance(LogbookDialog* d, wxString data, wxString layout, wxString layoutODT)
 	: Export(d)
@@ -37,6 +33,8 @@ Maintenance::Maintenance(LogbookDialog* d, wxString data, wxString layout, wxStr
 	selectedCol = 0;
 	selectedRow = 0;
 	modified = false;
+	modifiedR = false;
+	modifiedB = false;
 
 	green = wxColour(0,255,0);
 	red = wxColour(255,0,0);
@@ -197,16 +195,13 @@ void Maintenance::addLine()
 	selectedRow = lastRow;
 	setAlignmentService();
 
-#ifdef __WXMSW__
-	grid->SetCellRenderer(lastRow, IF, new wxGridCellChoiceRenderer);
-	grid->SetCellEditor(lastRow,IF,new wxFastComboEditor(12,m_choices,false));
 
-	grid->SetCellRenderer(lastRow, ACTIVE, new wxGridCellChoiceRenderer);
-	grid->SetCellEditor(lastRow,ACTIVE,new wxFastComboEditor(2,m_YesNo,false));
-#else
-	grid->SetCellEditor(lastRow,IF,new wxFastComboEditor(12,m_choices));
-	grid->SetCellEditor(lastRow,ACTIVE,new wxFastComboEditor(2,m_YesNo));
-#endif
+	grid->SetCellEditor(lastRow,IF,(new myGridCellChoiceEditor(12,m_choices,false)));
+
+	myGridCellBoolEditor* boolEditor = new myGridCellBoolEditor();
+	boolEditor->UseStringValues(_("Yes"),_("No"));
+	grid->SetCellEditor(lastRow,ACTIVE,boolEditor);
+
 	grid->SetCellValue(lastRow,PRIORITY,_T("5"));
 	grid->SetCellValue(lastRow,IF,m_choices[0]);
 	grid->SetCellValue(lastRow,WARN,_T("1"));
@@ -249,24 +244,15 @@ void Maintenance::setAlignmentRepairs()
 {
 	repairs->SetCellAlignment(lastRowRepairs,RPRIORITY,wxALIGN_CENTER, wxALIGN_TOP);
 	repairs->SetCellAlignment(lastRowRepairs,RTEXT,wxALIGN_LEFT, wxALIGN_TOP);
-
-#ifdef __WXMSW__
-	repairs->SetCellRenderer(lastRowRepairs, RPRIORITY, new wxGridCellChoiceRenderer);
-	repairs->SetCellEditor(lastRowRepairs,RPRIORITY,new wxFastComboEditor(6,m_Priority));
-#else
-	repairs->SetCellEditor(lastRowRepairs,RPRIORITY,new wxGridCellChoiceEditor(6,m_Priority));
-#endif
 	repairs->SetCellEditor(lastRowRepairs,RTEXT,new wxGridCellAutoWrapStringEditor);
+
+	repairs->SetCellEditor(lastRowRepairs,RPRIORITY,new myGridCellChoiceEditor(6,m_Priority,false));
 }
 
 void Maintenance::setAlignmentBuyParts()
 {
-#ifdef __WXMWSW__
-	buyparts->SetCellRenderer(lastRowBuyParts, PPRIORITY, new wxGridCellChoiceRenderer);
-	buyparts->SetCellEditor(lastRowBuyParts,PPRIORITY,new wxFastComboEditor(6,m_Priority));
-#else
-	buyparts->SetCellEditor(lastRowBuyParts,PPRIORITY,new wxGridCellChoiceEditor(6,m_Priority));
-#endif
+	buyparts->SetCellEditor(lastRowBuyParts,PPRIORITY,new myGridCellChoiceEditor(6,m_Priority,false));
+
 	buyparts->SetCellEditor(lastRowBuyParts,PARTS,new wxGridCellAutoWrapStringEditor);
 	buyparts->SetCellAlignment(lastRowBuyParts,PPRIORITY,wxALIGN_CENTER, wxALIGN_TOP);
 	buyparts->SetCellAlignment(lastRowBuyParts,PCATEGORY,wxALIGN_CENTER, wxALIGN_TOP);
@@ -281,17 +267,18 @@ void Maintenance::loadData()
 	wxString t, s;
 
 	wxFileInputStream input( data_locn );
-	wxTextInputStream* stream = new wxTextInputStream (input);
+	wxTextInputStream* stream = new wxTextInputStream (input,_T("\n"),wxConvUTF8);
 
 	int row = 0;
 	int sel = -1;
 
-	wxString z = stream->ReadLine(); // for #1.2#
-//	if(z.IsEmpty()) return;
 	dialog->m_gridMaintanence->BeginBatch();
-	while( (t = stream->ReadLine()))
-	{
+	while(!input.Eof())
+   {
+		t = stream->ReadLine();
 		if(input.Eof()) break;
+        if(t.Contains(_T("#1.2#"))){
+			continue;}
 		addLine();
 
 		wxStringTokenizer tkz(t, _T("\t"),wxTOKEN_RET_EMPTY );
@@ -303,7 +290,7 @@ void Maintenance::loadData()
 
 			switch(c)
 			{
-			case TEXT:		grid->SetCellValue(row,TEXT,s); 
+			case TEXT:      grid->SetCellValue(row,TEXT,s);
 							break;
 			case IF:		sel = getSelection(s); 
 							grid->SetCellValue(row,IF,s); 
@@ -329,13 +316,15 @@ void Maintenance::loadData()
 	}
 	dialog->m_gridMaintanence->EndBatch();
 	wxFileInputStream input1( data_locnBuyParts );
-	wxTextInputStream* stream1 = new wxTextInputStream (input1);
-
-	z = stream->ReadLine(); // for #1.2#
+	wxTextInputStream* stream1 = new wxTextInputStream (input1,_T("\n"),wxConvUTF8);
 
 	row = 0;
-	while( (t = stream1->ReadLine()))
+
+	while( true )
 	{
+		t = stream1->ReadLine();
+        if(t.Contains(_T("#1.2#"))){
+			continue;}
 		if(input1.Eof()) break;
 		addLineBuyParts();
 
@@ -352,9 +341,17 @@ void Maintenance::loadData()
 							break;
 			case PCATEGORY:	buyparts->SetCellValue(row,PCATEGORY,s);
 							break;
-			case TITLE:		buyparts->SetCellValue(row,TITLE,s);
+			case TITLE:
+#ifdef __WXOSX__
+                            s = wxString(s.To8BitData(), wxConvUTF8);
+#endif
+                            buyparts->SetCellValue(row,TITLE,s);
 							break;
-			case PARTS   :	buyparts->SetCellValue(row,PARTS,s);
+			case PARTS   :
+#ifdef __WXOSX__
+                            s = wxString(s.To8BitData(), wxConvUTF8);
+#endif
+                            buyparts->SetCellValue(row,PARTS,s);
 							break;
 			case DATE    :	buyparts->SetCellValue(row,DATE,getDateString(s));
 							break;
@@ -368,12 +365,16 @@ void Maintenance::loadData()
 	}
 
 	wxFileInputStream input2( data_locnRepairs );
-	wxTextInputStream* stream2 = new wxTextInputStream (input2);
+	wxTextInputStream* stream2 = new wxTextInputStream (input2,_T("\n"),wxConvUTF8);
 
 	row = 0;
-	while( (t = stream2->ReadLine()))
+	while( true )
 	{
+		t = stream2->ReadLine();
 		if(input2.Eof()) break;
+        if(t.Contains(_T("#1.2#"))){
+			continue;}
+
 		addLineRepairs();
 
 		wxStringTokenizer tkz(t, _T("\t"),wxTOKEN_RET_EMPTY );
@@ -387,7 +388,11 @@ void Maintenance::loadData()
 			{
 			case RPRIORITY:	repairs->SetCellValue(row,RPRIORITY,s);
 							break;
-			case RTEXT:		repairs->SetCellValue(row,RTEXT,s);
+			case RTEXT:
+#ifdef __WXOSX__
+                    s = wxString(s.To8BitData(), wxConvUTF8);
+#endif
+                    repairs->SetCellValue(row,RTEXT,s);
 							break;
 			}
 			c++;
@@ -570,7 +575,7 @@ void Maintenance::checkService(int row)
 		else if (g == m_choices[11])
 			choice = 11;
 
-		if(yesno != m_YesNo[1]) // Active set to 'yes'
+		if(yesno == _("Yes")) // Active set to 'yes'
 		{
 			switch(choice)
 			{
@@ -1130,13 +1135,13 @@ void Maintenance::cellCollChanged(int col, int row)
 		}
 		else if (g == m_choices[4]) //Bank #1
 		{
-						grid->SetCellValue(selectedRow,START,opt->bank1+_T(" ")+opt->ampereh.c_str());
+						grid->SetCellValue(selectedRow,START,wxString::Format(_T("%s %s"),opt->bank1.c_str(),opt->ampereh.c_str()));
 						grid->SetCellValue(selectedRow,WARN,wxString::Format(_T("%i"),(int)(wxAtoi(opt->bank1)/100*25)));
 						grid->SetCellValue(selectedRow,URGENT,wxString::Format(_T("%i"),(int)(wxAtoi(opt->bank1)/100*15)));
 		}
 		else if (g == m_choices[5]) //Bank #2
 		{
-						grid->SetCellValue(selectedRow,START,opt->bank2+_T(" ")+opt->ampereh.c_str());
+						grid->SetCellValue(selectedRow,START,wxString::Format(_T("%s %s"),opt->bank2.c_str(),opt->ampereh.c_str()));
 						grid->SetCellValue(selectedRow,WARN,wxString::Format(_T("%i"),(int)(wxAtoi(opt->bank2)/100*25)));
 						grid->SetCellValue(selectedRow,URGENT,wxString::Format(_T("%i"),(int)(wxAtoi(opt->bank2)/100*15)));
 		}
@@ -1241,8 +1246,10 @@ void Maintenance::update()
 	wxRename(data_locn,newLocn);
 
 	wxFileOutputStream output( data_locn );
-	wxTextOutputStream* stream = new wxTextOutputStream (output);
+	wxTextOutputStream* stream = new wxTextOutputStream (output,wxEOL_NATIVE,wxConvUTF8);
 
+	stream->WriteString(s);
+	s = wxEmptyString;
 	int count = grid->GetNumberRows();
 	for(int r = 0; r < count; r++)
 	{
@@ -1300,12 +1307,12 @@ void Maintenance::update()
 		s = _T("");
 	}
 	output.Close();
-	modified = false;
+//	modified = false;
 }
 
 void Maintenance::updateRepairs()
 {
-	if(!modified) return;
+	if(!modifiedR) return;
 	wxString s = _T(""), temp;
 
 	wxString newLocn = data_locnRepairs;
@@ -1313,7 +1320,7 @@ void Maintenance::updateRepairs()
 	wxRename(data_locnRepairs,newLocn);
 
 	wxFileOutputStream output( data_locnRepairs );
-	wxTextOutputStream* stream = new wxTextOutputStream (output);
+	wxTextOutputStream* stream = new wxTextOutputStream (output,wxEOL_NATIVE,wxConvUTF8);
 
 	int count = dialog->m_gridMaintanenceRepairs->GetNumberRows();
 	for(int r = 0; r < count; r++)
@@ -1329,12 +1336,12 @@ void Maintenance::updateRepairs()
 		s = _T("");
 	}
 	output.Close();
-	modified = false;
+//	modified = false;
 }
 
 void Maintenance::updateBuyParts()
 {
-	if(!modified) return;
+	if(!modifiedB) return;
 	wxString s = _T(""), temp;
 
 	wxString newLocn = data_locnBuyParts;
@@ -1342,7 +1349,7 @@ void Maintenance::updateBuyParts()
 	wxRename(data_locnBuyParts,newLocn);
 
 	wxFileOutputStream output( data_locnBuyParts );
-	wxTextOutputStream* stream = new wxTextOutputStream (output);
+	wxTextOutputStream* stream = new wxTextOutputStream (output,wxEOL_NATIVE,wxConvUTF8);
 
 	int count = dialog->m_gridMaintenanceBuyParts->GetNumberRows();
 	for(int r = 0; r < count; r++)
@@ -1351,7 +1358,7 @@ void Maintenance::updateBuyParts()
 			{
 				temp = dialog->m_gridMaintenanceBuyParts->GetCellValue(r,c);
 				s += dialog->replaceDangerChar(temp);
-				if(c == DATE && (temp.GetChar(0) != ' ' && !temp.IsEmpty()))
+				if(c == DATE && (!temp.IsEmpty() && temp.GetChar(0) != ' '))
 				{
 					wxDateTime dt;
 					dialog->myParseDate(temp.RemoveLast(),dt);
@@ -1376,22 +1383,22 @@ void Maintenance::viewODT(int tab,wxString path,wxString layout,int mode)
 	  {
 	    locn = layout_locnService;
 	    fn = data_locn;
-		if(opt->filterLayout)
-			layout.Prepend(opt->layoutPrefix[LogbookDialog::GSERVICE]);
+        if(opt->filterLayout)
+            layout.Prepend(opt->layoutPrefix[LogbookDialog::GSERVICE]);
 	  }
 	else if(tab == dialog->REPAIRS)
 	{
 	    locn = layout_locnRepairs;
 	    fn = data_locnRepairs;
-		if(opt->filterLayout)
-			layout.Prepend(opt->layoutPrefix[LogbookDialog::GREPAIRS]);
+        if(opt->filterLayout)
+            layout.Prepend(opt->layoutPrefix[LogbookDialog::GREPAIRS]);
 	}
 	else if(tab == dialog->BUYPARTS)
 	{
 	    locn = this->layout_locnBuyParts;
 	    fn = data_locnBuyParts;
-		if(opt->filterLayout)
-			layout.Prepend(opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
+        if(opt->filterLayout)
+            layout.Prepend(opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 	}
 
 	toODT(tab,locn, layout, mode);
@@ -1411,22 +1418,22 @@ void Maintenance::viewHTML(int tab,wxString path,wxString layout,int mode)
 	  {
 	    locn = layout_locnService;
 	    fn = data_locn;
-		if(opt->filterLayout)
-			layout.Prepend(opt->layoutPrefix[LogbookDialog::GSERVICE]);
+          if(opt->filterLayout)
+              layout.Prepend(opt->layoutPrefix[LogbookDialog::GSERVICE]);
 	  }
 	else if(tab == dialog->REPAIRS)
 	{
 	    locn = layout_locnRepairs;
 	    fn = data_locnRepairs;
-		if(opt->filterLayout)
-			layout.Prepend(opt->layoutPrefix[LogbookDialog::GREPAIRS]);
+        if(opt->filterLayout)
+            layout.Prepend(opt->layoutPrefix[LogbookDialog::GREPAIRS]);
 	}
 	else if(tab == dialog->BUYPARTS)
 	{
 	    locn = this->layout_locnBuyParts;
 	    fn = data_locnBuyParts;
-		if(opt->filterLayout)
-			layout.Prepend(opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
+        if(opt->filterLayout)
+            layout.Prepend(opt->layoutPrefix[LogbookDialog::GBUYPARTS]);
 	}
 
 	toHTML(tab,locn, layout, mode);
