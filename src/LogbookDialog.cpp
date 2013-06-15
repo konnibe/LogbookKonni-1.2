@@ -3728,11 +3728,14 @@ Backup Logbook(*.txt)|*.txt");
 
 	pHome_Locn->append(_T("plugins"));
 	appendOSDirSlash(pHome_Locn);
+	if(!wxDir::Exists(*pHome_Locn))
+		wxMkdir(*pHome_Locn);
 
 	pHome_Locn->Append(_T("logbook"));
 	appendOSDirSlash(pHome_Locn);
+	bool u = false;
 	if(!wxDir::Exists(*pHome_Locn))
-		wxMkdir(*pHome_Locn);
+		u = wxMkdir(*pHome_Locn);
 
 	data  = *pHome_Locn;
 	data.Append(_T("data"));

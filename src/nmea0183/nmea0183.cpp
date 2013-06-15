@@ -228,15 +228,12 @@ bool NMEA0183::IsGood( void ) const
    ** Next to last character must be a CR
    */
 
-   if ( sentence.Sentence.Mid( sentence.Sentence.Len() - 2, 1 ) != _T("\r") )
+   if ( sentence.Sentence.Mid( sentence.Sentence.Len() - 2, 1 ) != CARRIAGE_RETURN )
    {
       return( FALSE );
    }
-#ifdef __WXOSX__
-   if ( sentence.Sentence.Right( 1 ) != _T("\n") )
-#else
-   if ( sentence.Sentence.Right( 1 ) != _T("\0xA"))
-#endif
+
+   if ( sentence.Sentence.Right( 1 ) != LINE_FEED)
    {
       return( FALSE );
    }

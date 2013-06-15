@@ -271,7 +271,7 @@ void SENTENCE::Finish( void )
 
    wxString temp_string;
 
-   temp_string.Printf(_T("*%02X%c%c"), (int) checksum, CARRIAGE_RETURN, LINE_FEED );
+   temp_string.Printf(_T("*%02X%s%s"), (int) checksum, CARRIAGE_RETURN.c_str(), LINE_FEED.c_str() );
    Sentence += temp_string;
 }
 

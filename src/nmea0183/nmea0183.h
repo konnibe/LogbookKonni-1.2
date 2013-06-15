@@ -59,8 +59,8 @@
 #pragma warning( disable : 4699 )
 #endif
 
-#define CARRIAGE_RETURN 0x0D
-#define LINE_FEED       0x0A
+#define CARRIAGE_RETURN wxString(wxChar(0x0D))
+#define LINE_FEED       wxString(wxChar(0x0A))
 
 
 typedef enum _NMEA0183_BOOLEAN
