@@ -6565,9 +6565,9 @@ bool LogbookDialog::myParseTime(wxString s, wxDateTime& dt)
 	if(tkz.HasMoreTokens())
 	  sec = wxAtoi(tkz.GetNextToken());
 	
-	if(s.Contains(pm) && hour != 12)
+	if(!pm.IsEmpty() && (s.Contains(pm) && hour != 12))
 	  hour += 12;
-	else if((s.Contains(am) && hour == 12))
+	else if(!am.IsEmpty() && (s.Contains(am) && hour == 12))
 	  hour -= 12;	
 	
 	dt.Set(hour,minute,sec);
