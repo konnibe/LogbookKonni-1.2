@@ -1527,7 +1527,7 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 
 	wxString sep = wxFileName::GetPathSeparator(); 
 	wxString languagePath;
-	wxStandardPaths sp;
+	wxStandardPaths& sp = wxStandardPaths::Get();
 	bool restart = false;
 
 	if(NULL != m_plogbook_window)

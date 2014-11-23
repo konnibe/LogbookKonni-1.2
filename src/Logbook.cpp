@@ -1568,6 +1568,7 @@ void Logbook::appendRow(bool mode)
 		dialog->m_gridWeather->MakeCellVisible(lastRow,0);
 		dialog->m_gridMotorSails->MakeCellVisible(lastRow,0);
 	}
+	update();
 }
 
 void Logbook::resetEngineManuallMode()
