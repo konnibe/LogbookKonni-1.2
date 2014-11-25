@@ -8,7 +8,7 @@ You have to be able to compile OpenCPN itself - Get the info at http://opencpn.o
 
 * This plugin now builds out of the OpenCPN source tree
 ```
-git clone git://github.com/konnibe/LogbookKonni-1.2_pi.git logbook_pi
+git clone git://github.com/konnibe/LogbookKonni-1.2.git logbook_pi
 ```
 
 ###Build:
