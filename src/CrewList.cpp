@@ -3,7 +3,6 @@
 #include "logbook_pi.h"
 #include "Logbook.h"
 #include "Options.h"
-#include "MessageBoxOSX.h"
 #include "Export.h"
 
 #ifndef WX_PRECOMP
@@ -1698,11 +1697,7 @@ bool CrewList::checkHourFormat(wxString s, int row, int col, wxDateTime *dt)
 						if(!m.IsNumber()) m = _T("60");
 						if(wxAtoi(h) > 23 || wxAtoi(m) > 59 || wxAtoi(h) < 0 || wxAtoi(m) < 0)
 							{
-/*#ifdef __WXOSX__
-                                MessageBoxOSX(NULL,_("Hours < 0 or > 23\nMinutes < 0 or > 59"),_T(""),wxID_OK);
-#else
-								wxMessageBox(_("Hours < 0 or > 23\nMinutes < 0 or > 59"),_T(""));
-#endif*/
+							  //wxMessageBox(_("Hours < 0 or > 23\nMinutes < 0 or > 59"),_T(""));
 								if(row != -1)
 									gridWake->SetCellValue(row,col,_T("00:00"));
 								return false;
@@ -1760,11 +1755,7 @@ void CrewList::saveHTML(wxString savePath, wxString layout, bool mode)
 
 	if(layout == _T(""))
 	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, no Layout installed"),_("Information"),wxID_OK);
-#else        
 		wxMessageBox(_("Sorry, no Layout installed"),_("Information"),wxOK);
-#endif
 		return;
 	}
 
@@ -2150,11 +2141,7 @@ void CrewList::saveODT(wxString savePath,wxString layout, bool mode)
 
 	if(layout == _T(""))
 	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, no Layout installed"),_("Information"),wxID_OK);
-#else
 		wxMessageBox(_("Sorry, no Layout installed"),_("Information"),wxOK);
-#endif
 		return;
 	}
 
@@ -2468,15 +2455,9 @@ wxString CrewList::readLayoutODT(wxString layout)
 
 void CrewList::deleteRow(int row)
 {
-#ifndef __WXOSX__
 	int answer = wxMessageBox(wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
                               wxYES_NO | wxCANCEL, dialog);
 	if (answer == wxYES)
-#else
-	int answer = MessageBoxOSX(dialog,wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
-                              wxID_OK | wxID_CANCEL);
-	if (answer == wxID_OK)
-#endif
 	{
 		gridCrew->DeleteRows(row);
 		modified = true;
@@ -2501,11 +2482,7 @@ void CrewList::saveXML(wxString path)
 
 	if(crewListFile->GetLineCount() <= 0)
 	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, Logbook has no lines"),_("Information"),wxID_OK); 
-#else
 		wxMessageBox(_("Sorry, Logbook has no lines"),_("Information"),wxOK);
-#endif
 		return;
 	}
 

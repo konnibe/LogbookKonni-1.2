@@ -5,7 +5,7 @@
   #include "wx/wx.h"
 #endif //precompiled headers
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 #include "LogbookHTML.h"
 #include "nmea0183/nmea0183.h"
 
