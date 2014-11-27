@@ -7793,15 +7793,15 @@ ColdFinger::~ColdFinger()
 
 void ColdFinger::OnCloseCold( wxCloseEvent& event )
 {
-	if(modified)
-	{
-		((myTreeItem*)m_treeCtrl3->GetItemData(m_treeCtrl3->GetSelection()))->text = m_textCtrl73->GetValue();
-		writeTextblocks();
-	}
+//	if(modified)
+//	{
+//		((myTreeItem*)m_treeCtrl3->GetItemData(m_treeCtrl3->GetSelection()))->text = m_textCtrl73->GetValue();
+//		writeTextblocks();
+//	}
 
 	retItem = NULL;
-	m_treeCtrl3->SetFocus();
 	Hide();
+	EndModal(wxID_CANCEL);
 }
 
 void ColdFinger::OnOKButtonClickCold( wxCommandEvent& event )
@@ -7817,8 +7817,8 @@ void ColdFinger::OnOKButtonClickCold( wxCommandEvent& event )
 	if(retItem->type == NODE)
 		retItem = NULL;
 
-	m_treeCtrl3->SetFocus();
 	Hide();
+	EndModal(wxID_OK);
 }
 
 void ColdFinger::OnCancelButtonClickCold( wxCommandEvent& ev )
