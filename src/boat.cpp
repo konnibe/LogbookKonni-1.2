@@ -6,7 +6,6 @@
 #include "boat.h"
 #include "LogbookDialog.h"
 #include "logbook_pi.h"
-#include "MessageBoxOSX.h"
 #include "Export.h"
 #include "Options.h"
 
@@ -284,11 +283,7 @@ wxString Boat::toODT(wxString path,wxString layout,bool mode)
 
 	if(layout == _T(""))
 	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, no Layout installed"),_("Information"),wxID_OK);
-#else
 		wxMessageBox(_("Sorry, no Layout installed"),_("Information"),wxOK);
-#endif
 		return _T("");
 	}
 
@@ -548,11 +543,7 @@ void Boat::toHTML(wxString path, wxString layout, bool mode)
 
 	if(layout == _T(""))
 	{
-#ifdef __WXOSX__
-        MessageBoxOSX(NULL,_("Sorry, no Layout installed"),_("Information"),wxID_OK);
-#else
 		wxMessageBox(_("Sorry, no Layout installed"),_("Information"),wxOK);
-#endif
 		return;
 	}
 
@@ -829,16 +820,13 @@ void Boat::cellChanged(int row, int col)
 
 void Boat::deleteRow(int row)
 {
-#ifndef __WXOSX__
 	int answer = wxMessageBox(wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
                               wxYES_NO | wxCANCEL, parent);
+
 	if (answer == wxYES)
-#else
-	int answer = MessageBoxOSX(parent,wxString::Format(_("Delete Row Nr. %i ?"),row+1), _("Confirm"),
-                              wxID_OK | wxID_CANCEL);
-	if (answer == wxYES)
-#endif
+	  {
 		parent->m_gridEquipment->DeleteRows(row);
+	  }
 }
 
 void Boat::toCSV(wxString savePath)

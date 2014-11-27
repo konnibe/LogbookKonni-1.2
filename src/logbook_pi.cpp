@@ -49,7 +49,7 @@
 #include <wx/msgdlg.h>
 #include <memory>
 
-#include "../../../include/wx/jsonreader.h"
+#include "jsonreader.h"
 
 using namespace std;
 
@@ -182,13 +182,8 @@ void logbookkonni_pi::shutdown(bool menu)
 		if((opt->engine1Running && opt->toggleEngine1)
             || (opt->engine2Running && opt->toggleEngine2))
         {
-#ifndef __WXOSX__
             int a = wxMessageBox(_("Your engine(s) are still running\n\nStop engine(s) ?"),_T(""),wxYES_NO | wxICON_QUESTION, NULL);
             if( a == wxYES)
-#else
-            int a = MessageBoxOSX(NULL,_("Your engine(s) are still running\n\nStop engine(s) ?"),_T(""),wxID_OK | wxID_NO);
-            if( a == wxID_OK)
-#endif
                 m_plogbook_window->logbook->resetEngineManuallMode();
         }
         SaveConfig();
@@ -1507,11 +1502,7 @@ void logbookkonni_pi::loadLayouts(wxWindow *parent)
 		}
 	wxString ok = wxString::Format(_("Layouts %sinstalled at\n\n%s\n%s\n%s\n%s"),
 				       (!ret)?n.c_str():wxEmptyString,data.c_str(),data1.c_str(),data2.c_str(),data3.c_str());
-#ifdef __WXOSX__
-        MessageBoxOSX(this->m_plogbook_window,ok,_T("Information"),wxID_OK);
-#else
 		wxMessageBox(ok);
-#endif
 	}
 	if(opt->firstTime)
 		loadLanguages(parent);
@@ -1527,7 +1518,13 @@ void logbookkonni_pi::loadLanguages(wxWindow *parent)
 
 	wxString sep = wxFileName::GetPathSeparator(); 
 	wxString languagePath;
+
+#ifdef __WXOSX__
+	wxStandardPathsBase& sp = wxStandardPaths::Get();
+#else
 	wxStandardPaths sp;
+#endif
+	
 	bool restart = false;
 
 	if(NULL != m_plogbook_window)

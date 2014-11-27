@@ -36,13 +36,13 @@
 #endif //precompiled headers
 
 #define     PLUGIN_VERSION_MAJOR    1
-#define     PLUGIN_VERSION_MINOR    1957
+#define     PLUGIN_VERSION_MINOR    2
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    7
 
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 #include "Options.h"
 #include "nmea0183/nmea0183.h"
 #include "MessageBoxOSX.h"

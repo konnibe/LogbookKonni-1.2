@@ -13,10 +13,6 @@
 #include "Options.h"
 #include "tinyxml/tinyxml.h"
 #include "icons.h"
-//#ifdef __WXOSX__
-	#include "MessageBoxOSX.h"
-//#endif
-
 #include <wx/string.h>
 #include <wx/button.h>
 #include <wx/gdicmn.h>
@@ -233,9 +229,9 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	// Columns
 	m_gridGlobal->SetColSize( 0, 144 );
-	m_gridGlobal->SetColSize( 1, 68 );
+	m_gridGlobal->SetColSize( 1, 89 );
 	m_gridGlobal->SetColSize( 2, 63 );
-	m_gridGlobal->SetColSize( 3, 34 );
+	m_gridGlobal->SetColSize( 3, 35 );
 	m_gridGlobal->SetColSize( 4, 157 );
 	m_gridGlobal->SetColSize( 5, 58 );
 	m_gridGlobal->SetColSize( 6, 86 );
@@ -264,7 +260,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridGlobal->SetColLabelValue( 12, _("Depth") );
 	m_gridGlobal->SetColLabelValue( 13, _("Remarks") );
 	m_gridGlobal->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	
+
 	// Rows
 	m_gridGlobal->AutoSizeRows();
 	m_gridGlobal->EnableDragRowSize( true );
@@ -547,7 +543,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	
 	bSizer39->Add( m_textCtrlStatusCourseDeg, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT, 5 );
 	
-	m_textCtrlStatusCourseMin = new wxTextCtrl( Statusbar, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 30,-1 ), wxTE_PROCESS_ENTER  );
+	m_textCtrlStatusCourseMin = new wxTextCtrl( Statusbar, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 35,-1 ), wxTE_PROCESS_ENTER  );
 	m_textCtrlStatusCourseMin->SetToolTip( _("Set desired delay in minutes\nIt's a good idea to set here a value > 0\nto find the right wind.") );
 	
 	bSizer39->Add( m_textCtrlStatusCourseMin, 0, wxALIGN_CENTER_VERTICAL, 5 );
@@ -658,7 +654,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_staticline71 = new wxStaticLine( m_panel142, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_VERTICAL );
 	bSizer61->Add( m_staticline71, 0, wxEXPAND | wxALL, 5 );
 
-	m_radioBtnActuellLogbook = new wxRadioButton( m_panel142, wxID_ANY, _("Actuell Logbook"), wxDefaultPosition, wxDefaultSize, wxRB_GROUP );
+	m_radioBtnActuellLogbook = new wxRadioButton( m_panel142, wxID_ANY, _("Actual Logbook"), wxDefaultPosition, wxDefaultSize, wxRB_GROUP );
 	m_radioBtnActuellLogbook->SetValue( true ); 
 	bSizer61->Add( m_radioBtnActuellLogbook, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
@@ -974,7 +970,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_staticText1141->Wrap( -1 );
 	sbSizer61->Add( m_staticText1141, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_textCtrlWatchStartDate = new wxTextCtrl( m_panel22, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 75,-1 ), wxTE_CENTRE|wxTE_READONLY );
+	m_textCtrlWatchStartDate = new wxTextCtrl( m_panel22, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 95,-1 ), wxTE_CENTRE|wxTE_READONLY );
 	m_textCtrlWatchStartDate->SetToolTip( _("Set the startdate of the sailing trip") );
 	
 	sbSizer61->Add( m_textCtrlWatchStartDate, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
@@ -1931,7 +1927,7 @@ LogbookDialog::LogbookDialog(logbookkonni_pi * d, wxTimer* t, LogbookTimer* lt, 
 	m_gridMaintenanceBuyParts->SetColLabelValue( 3, _("Buy Parts") );
 	m_gridMaintenanceBuyParts->SetColLabelValue( 4, _("Date") );
 	m_gridMaintenanceBuyParts->SetColLabelValue( 5, _("At") );
-	m_gridMaintenanceBuyParts->SetColLabelValue( 6, _("Active") );
+	//	m_gridMaintenanceBuyParts->SetColLabelValue( 6, _("Active") ); // No column set for 6 ??
 	m_gridMaintenanceBuyParts->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
@@ -2797,11 +2793,7 @@ void LogbookDialog::OnMenuSelectionFlip( wxCommandEvent& event )
 
 		if(a > 11) 
 		{
-#ifdef __WXOSX__
-			MessageBoxOSX(NULL,_T("Cannot flip, month would be > 12"),_("Information"),wxID_OK);
-#else
 			wxMessageBox(_T("Cannot flip, month would be > 12"));
-#endif
 			return;
 		}
 
@@ -3134,11 +3126,7 @@ void LogbookDialog::OnGridLabelLeftDClickMotorSails( wxGridEvent& ev )
 
 void LogbookDialog::m_menu1Highlighted(wxMenuEvent& ev)
 {
-#ifdef __WXOSX__
-    MessageBoxOSX(NULL,m_menu1->GetLabel(ev.GetMenuId()));
-#else
 	wxMessageBox(m_menu1->GetLabel(ev.GetMenuId()));
-#endif
 }
 
 void LogbookDialog::OnMenuSelectionSearch( wxCommandEvent& event )
@@ -4015,8 +4003,11 @@ void LogbookDialog::setToNumberEngine()
     }
     else
     {
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::MOTOR1,1);
         m_gridMotorSails->AutoSizeColumn(LogbookHTML::MOTOR1,false);
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::MOTOR1T,1);
         m_gridMotorSails->AutoSizeColumn(LogbookHTML::MOTOR1T,false);
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::RPM2,1);
         m_gridMotorSails->AutoSizeColumn(LogbookHTML::RPM2,false);
         m_toggleBtnEngine1->Enable(true);
         m_toggleBtnEngine2->Enable(true);
@@ -4262,27 +4253,27 @@ void LogbookDialog::writeToRouteDlg(wxJSONValue data)
 void LogbookDialog::OnMenuSelectionShowHiddenCols(wxCommandEvent &ev)
 {
 	int selGrid = this->m_notebook8->GetSelection();
-
 	for(int i = 0; i < logGrids[selGrid]->GetNumberCols(); i++)
 		if(logGrids[selGrid]->GetColumnWidth(i) == 0)
-        {
+        	{
 			if((selGrid == 2 && logbookPlugIn->opt->engines == 0) && ((i == LogbookHTML::MOTOR1 || i == LogbookHTML::MOTOR1T) || i == LogbookHTML::RPM2) )
-                continue;
-            else
+				continue;
+            		else
 #ifdef __WXOSX__
-            {
-                logGrids[selGrid]->AutoSizeColumn(i);
-            }
+            			{
+				logGrids[selGrid]->SetColumnWidth(i,1);
+                		logGrids[selGrid]->AutoSizeColumn(i,false);
+            			}
 #else
-                logGrids[selGrid]->AutoSizeColumn(i);
+                		logGrids[selGrid]->AutoSizeColumn(i,false);
 #endif
-        }
+        	}	
+ 
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
+	m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
     
-    m_gridMotorSails->SetColumnWidth(LogbookHTML::ROUTEID,0);
-    m_gridMotorSails->SetColumnWidth(LogbookHTML::TRACKID,0);
-    
-    if(logbookPlugIn->opt->engines == 0)
-        setToNumberEngine();
+	if(logbookPlugIn->opt->engines == 0)
+        	setToNumberEngine();
 
 	logGrids[selGrid]->Refresh();
 }
@@ -4291,7 +4282,10 @@ void LogbookDialog::OnMenuSelectionShowHiddenColsOverview(wxCommandEvent &ev)
 {
 	for(int i = 0; i < m_gridOverview->GetNumberCols()-1; i++)
 		if(m_gridOverview->GetColumnWidth(i) == 0)
+		{
+			m_gridOverview->SetColumnWidth(i,1);
 			m_gridOverview->AutoSizeColumn(i,false);
+		}
 
 	m_gridOverview->Refresh();
 }
@@ -4389,7 +4383,12 @@ void LogbookDialog::m_gridGlobalOnGridCellRightClick( wxGridEvent& ev )
 		}
 	}
 
-	m_gridGlobal->PopupMenu( m_menu1, ev.GetPosition() );
+	switch(m_notebook8->GetSelection() )
+	  {
+      	  case 0: m_gridGlobal->PopupMenu( m_menu1, ev.GetPosition() ); break;
+	  case 1: m_gridWeather->PopupMenu( m_menu1, ev.GetPosition() );break;
+	  case 2: m_gridMotorSails->PopupMenu( m_menu1, ev.GetPosition() );break;
+	  }
 
 	wxMenuItemList  list = m_menu1->GetMenuItems();
 
@@ -4484,21 +4483,25 @@ wxTreeItemId LogbookDialog::FindMenuItem(int grid, int col, wxString name)
 
 void LogbookDialog::m_gridWeatherOnGridCellRightClick( wxGridEvent& ev )
 {
+/*
 	for(int i = 0; i < LOGGRIDS; i++)
 		logGrids[i]->ClearSelection();
 
 	selGridCol = ev.GetCol();
 	selGridRow = ev.GetRow();
+ */
 	m_gridGlobalOnGridCellRightClick( ev );
 }
 
 void LogbookDialog::m_gridMotorSailsOnGridCellRightClick( wxGridEvent& ev )
 {
+/*
 	for(int i = 0; i < LOGGRIDS; i++)
 		logGrids[i]->ClearSelection();
 
 	selGridCol = ev.GetCol();
 	selGridRow = ev.GetRow();
+*/
 	m_gridGlobalOnGridCellRightClick( ev );
 }
 
@@ -4549,16 +4552,13 @@ void LogbookDialog::logSaveOnButtonClick( wxCommandEvent& ev )
 				logbook->toODT(path,
 				logbookChoice->GetString(logbookChoice->GetSelection()),true); 
 			break;
-    case 1: logbook->toKML(path); break;
-    case 2:	logbook->toODS(path); break;
-    case 3: logbook->toXML(path); break;
-    case 4: logbook->toCSV(path); break;
-    case 5: logbook->backup(path); break;
-#ifdef __WXOSX__
-    default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
-#else
-	default: ::wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
-#endif
+	case 1: logbook->toKML(path); break;
+	case 2:	logbook->toODS(path); break;
+	case 3: logbook->toXML(path); break;
+	case 4: logbook->toCSV(path); break;
+	case 5: logbook->backup(path); break;
+	default: wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
+
 	}
 	logGrids[m_logbook->GetSelection()]->SetFocus();
 }
@@ -4586,11 +4586,7 @@ void LogbookDialog::startNormalTimer()
 	while(logbookPlugIn->opt->timerSec <= 0)
 	{
 		TimerInterval* ti = new TimerInterval(this,logbookPlugIn->opt);
-#ifdef __WXOSX__
-        ::MessageBoxOSX(NULL,_("Normal Timer has 0 h 0 Min.\n\nPlease change settings (Timer-Interval)"),_T("Information"),wxID_OK);
-#else
-		::wxMessageBox(_("Normal Timer has 0 h 0 Min.\n\nPlease change settings (Timer-Interval)"),_T(""));
-#endif
+		wxMessageBox(_("Normal Timer has 0 h 0 Min.\n\nPlease change settings (Timer-Interval)"),_T(""));
 		ti->ShowModal();
 		sec = logbookPlugIn->opt->timerSec;
 		delete ti;
@@ -4752,11 +4748,7 @@ void LogbookDialog::startApplication(wxString filename, wxString ext)
 		if(!logbookPlugIn->opt->htmlEditor.IsEmpty())
 			wxExecute(wxString::Format(wxT("%s \"%s\" "),logbookPlugIn->opt->htmlEditor.c_str(),filename.c_str()));
 		else
-#ifdef __WXOSX__
-            MessageBoxOSX(NULL,_("No Path set to HTML-Editor\nin Toolbox/Plugins/LogbookKonni/Preferences"),_T("Information"),wxID_OK);
-#else
 			wxMessageBox(_("No Path set to HTML-Editor\nin ToolBox/Plugins/LogbookKonni/Preferences"));
-#endif
 	}
 }
 
@@ -4928,7 +4920,7 @@ void LogbookDialog::getIniValues()
             this->m_radioBtnAllLogbooks->SetValue(true);
             break;
         case 2:
-            this->m_radioBtnActuellLogbook->SetValue(true); // at startup theres no seleted logbook = crash, set to actuell logbook
+            this->m_radioBtnActuellLogbook->SetValue(true); // at startup theres no seleted logbook = crash, set to actual logbook
             break;
     }
 
@@ -5104,7 +5096,10 @@ void LogbookDialog::OnMenuSelectionHiddenCrew( wxCommandEvent& event )
 {
 	for(int i = 0; i < m_gridCrew->GetNumberCols(); i++)
 		if(m_gridCrew->GetColumnWidth(i) == 0)
+		{
+			m_gridCrew->SetColumnWidth(i,1);
 			m_gridCrew->AutoSizeColumn(i,false);
+		}
 
 	m_gridCrew->Refresh();
 }
@@ -5181,11 +5176,7 @@ void LogbookDialog::crewSaveOnButtonClick( wxCommandEvent& ev )
 	case 2:	crewList->saveXML(path); break;
 	case 3: crewList->saveCSV(path); break;
 	case 4: crewList->backup(path); break;
-#ifdef __WXOSX__
-    default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
-#else
-	default: ::wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
-#endif
+	default: wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
 	}
 }
 
@@ -5525,11 +5516,7 @@ void LogbookDialog::boatSaveOnButtonClick( wxCommandEvent& ev )
 	case 2:	boat->toXML(path); break;
 	case 3: boat->toCSV(path); break;
 	case 4: boat->backup(path); break;
-#ifdef __WXOSX__
-    default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
-#else
-	default: ::wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
-#endif
+	default: wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
 	}
 }
 
@@ -5683,11 +5670,7 @@ void LogbookDialog::onButtobClickSaveService(wxCommandEvent & ev)
 				maintenance->toODT(0,path,
 				m_choiceSelectLayoutService->GetString(m_choiceSelectLayoutService->GetSelection()),2); 
 			break;
-#ifdef __WXOSX__
-    default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
-#else
-	default: ::wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
-#endif
+	default: wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
 	}
 	delete saveFileDialog;
 }
@@ -5937,11 +5920,7 @@ void LogbookDialog::onButtobClickSaveRepairs( wxCommandEvent& event )
 				m_choiceSelectLayoutRepairs->GetString(m_choiceSelectLayoutRepairs->GetSelection()),2); 
 			break;
 
-#ifdef __WXOSX__
-    default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
-#else
-	default: ::wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
-#endif
+	default: wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
 	}
 	delete saveFileDialog;
 }
@@ -6048,7 +6027,7 @@ void LogbookDialog::onGridCellRightClickBuyParts( wxGridEvent& ev )
 {
 	maintenance->selectedRowBuyParts = ev.GetRow();
 	maintenance->selectedColBuyParts = ev.GetCol();
-	m_gridMaintanence->PopupMenu( m_menu711, ev.GetPosition() );
+	m_gridMaintenanceBuyParts->PopupMenu( m_menu711, ev.GetPosition() );
 }
 
 void LogbookDialog::OnChoiceBuyParts( wxCommandEvent& event )
@@ -6155,11 +6134,7 @@ void LogbookDialog::onButtobClickSaveBuyParts( wxCommandEvent& event )
 				m_choiceSelectLayoutBuyParts->GetString(m_choiceSelectLayoutBuyParts->GetSelection()),2); 
 			break;
 
-#ifdef __WXOSX__
-    default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
-#else
-	default: ::wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
-#endif
+	default: wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
 	}
 	delete saveFileDialog;
 }
@@ -6378,11 +6353,7 @@ void LogbookDialog::OnButtonClickOverviewSave( wxCommandEvent& ev )
 				overviewChoice->GetString(overviewChoice->GetSelection()),2); 
 			break;
 
-#ifdef __WXOSX__
-    default: ::MessageBoxOSX(NULL,_T("Not implemented yet"),_T("Information"),wxID_OK); break;        
-#else
-	default: ::wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
-#endif
+	default: wxMessageBox(_T("Not implemented yet"),_T("Information")); break;
 	}
 	delete saveFileDialog;
 }
@@ -7822,18 +7793,20 @@ ColdFinger::~ColdFinger()
 
 void ColdFinger::OnCloseCold( wxCloseEvent& event )
 {
-	if(modified)
-	{
-		((myTreeItem*)m_treeCtrl3->GetItemData(m_treeCtrl3->GetSelection()))->text = m_textCtrl73->GetValue();
-		writeTextblocks();
-	}
+//	if(modified)
+//	{
+//		((myTreeItem*)m_treeCtrl3->GetItemData(m_treeCtrl3->GetSelection()))->text = m_textCtrl73->GetValue();
+//		writeTextblocks();
+//	}
 
 	retItem = NULL;
 	Hide();
+	EndModal(wxID_CANCEL);
 }
 
 void ColdFinger::OnOKButtonClickCold( wxCommandEvent& event )
 {
+
 	if(modified)
 	{
 		((myTreeItem*)m_treeCtrl3->GetItemData(m_treeCtrl3->GetSelection()))->text = m_textCtrl73->GetValue();
@@ -7845,6 +7818,7 @@ void ColdFinger::OnOKButtonClickCold( wxCommandEvent& event )
 		retItem = NULL;
 
 	Hide();
+	EndModal(wxID_OK);
 }
 
 void ColdFinger::OnCancelButtonClickCold( wxCommandEvent& ev )
